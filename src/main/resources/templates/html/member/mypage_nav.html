@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/mypagemaster_nav.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="mypagemaster-nav-wrapper">
+			<div class="mypagemaster-nav-title-box">
+				<img src="/img/profile.png" alt="프로필사진">
+				<p>안녕하세요 홍길동님!</p>
+			</div>
+			<div class="mypagemaster-nav-btn-box">
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/memberinfo}">
+						<p>회원 정보 수정</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/myboxlist}">
+						<p>나의 상자 리스트</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/mycapsulelist}">
+						<p>나의 캡슐 리스트</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/memberinfo}">
+						<p>나의 구독 현황</p>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+
+	<body>
+
+</html>

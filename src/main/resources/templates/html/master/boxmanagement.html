@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		
+		<div class="managerpagetoolex-modal-container">
+			<div class="managerpagetoolex-tab-nav">
+				<ul>
+					<li class="tabs"><a th:href="@{/momentlock/membermanagement}">회원관리</a></li>
+			        <li class="tabs active"><a th:href="@{/momentlock/boxmanagement}">상자관리</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/capsulemanagement}">타임캡슐 관리</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/subscriptionmanagement}">구독관리</a></li>
+				</ul>
+			</div>
+			
+			<!-- 모달창 -->
+			<div class="modal_3">
+			    <h1>상자 페이지</h1>
+				<div>이 div안에서 코드 구현</div>
+			 </div>
+			 
+		</div>	
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<body>
+
+</html>

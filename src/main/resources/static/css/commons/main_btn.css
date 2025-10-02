@@ -1,0 +1,13 @@
+.main-btn {
+  padding: 12px 24px;
+  background: #ac9898;
+  color: #ffffff;
+  border: 1px solid #666;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.main-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}

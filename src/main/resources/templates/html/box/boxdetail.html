@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/main_btn.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		  <div class="my_boxdetail_list">
+		     <button class="close-btn"></button>
+		    
+		    <!-- 상단 제목 -->
+		    <div class="list-header">
+		      <h3>나의 상자 리스트</h3>
+		      <h1>우리의 프랑스 파리 여행</h1>
+		    </div>
+		    <div class="top-row">
+		      <div class="participants">
+		        <button class="main-btn">참여인원</button>
+		        <span>참여 인원 : 0</span>
+		      </div>
+		      <div class="action-div">
+		        <button class="main-btn">캡슐 추가</button>
+		        <button class="main-btn">초대 하기</button>
+		      </div>
+		    </div>
+
+		<!-- 준비하기 버튼 -->
+		<div class="footer-div">
+		  <button class="main-btn">준비 하기</button>
+		</div>
+
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+
+	<body>
+
+</html>

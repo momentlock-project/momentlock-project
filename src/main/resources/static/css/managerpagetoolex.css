@@ -1,0 +1,39 @@
+.managerpagetoolex-modal-container {
+	position: relative;
+	margin: 30px auto;
+	height: 110vh;
+}
+
+.managerpagetoolex-tab-nav {
+  position: absolute;
+  left: 11%;
+}
+
+.managerpagetoolex-tab-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.managerpagetoolex-tab-nav li {
+  background-color: rgba(166, 125, 85, 0.6);
+  border-bottom: none; /* 아래쪽 테두리는 제거하여 바닥과 연결된 느낌 */
+  border-radius: 25px 0 0 0;
+  padding: 12px 25px;
+  cursor: pointer;
+}
+
+.managerpagetoolex-tab-nav li.active {
+  background: #a67d55;  /* 활성 탭 색 */
+  color: #fff;
+  font-weight: bold;
+}
+
+.managerpagetoolex-tab-nav li a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+

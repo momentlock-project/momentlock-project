@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/store.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+
+		<div id="storeContainer">
+			<div id="storeTitle">
+				<img class="storeIcon" src="/img/store/store.png" alt="코인이미지" />
+				<p>타임캡슐 상점</p>
+				<img class="storeIcon" src="/img/store/store.png" alt="코인이미지" />
+			</div>
+			<div class="subTitle">
+				<img class="storeIcon" src="/img/store/store_star.png" alt="코인이미지" />
+				<p>구독 서비스</p>
+				<img class="storeIcon" src="/img/store/store_star.png" alt="코인이미지" />
+			</div>
+			<div id="subWrapper">
+				<div class="subImg">
+					<img src="/img/store/store_sub_1month.png" alt="한달구독서비스사진" />
+					<div class="subRight">
+						<p class="serviceTitle">베이직 한달</p>
+						<p class="serviceContent">타임캡슐 3개</p>
+						<p class="serviceContent">+ 이모지 5종 무료</p>
+						<div class="storePrice">
+							<img src="/img/store/store_coin.png" alt="코인이미지" />
+							<p class="servicePrice">₩2800</p>
+						</div>
+					</div>
+				</div>
+				<div class="subImg">
+					<img src="/img/store/store_sub_1month.png" alt="한달구독서비스사진" />
+					<div class="subRight">
+						<p class="serviceTitle">프리미엄 한달</p>
+						<p class="serviceContent">타임캡슐 5개</p>
+						<p class="serviceContent">+ 이모지 전체 무료</p>
+						<div class="storePrice">
+							<img src="/img/store/store_coin.png" alt="코인이미지" />
+							<p class="servicePrice">₩5000</p>
+						</div>
+					</div>
+				</div>
+				<div class="subImg">
+					<img src="/img/store/store_sub_1year.png" alt="1년구독서비스사진" />
+					<div class="subRight">
+						<p class="serviceTitle">베이직 1년</p>
+						<p class="serviceContent">타임캡슐 3개</p>
+						<p class="serviceContent">+ 이모지 5종 무료</p>
+						<div class="storePrice">
+							<img src="/img/store/store_coin.png" alt="코인이미지" />
+							<p class="servicePrice">₩33000</p>
+						</div>
+					</div>
+				</div>
+				<div class="subImg">
+					<img src="/img/store/store_sub_1year.png" alt="1년구독서비스사진" />
+					<div class="subRight">
+						<p class="serviceTitle">프리미엄 1년</p>
+						<p class="serviceContent">타임캡슐 5개</p>
+						<p class="serviceContent">+ 이모지 전체 무료</p>
+						<div class="storePrice">
+							<img src="/img/store/store_coin.png" alt="코인이미지" />
+							<p class="servicePrice">₩55000</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="subTitle">
+				<img class="storeIcon" src="/img/store/store_pill.png" alt="약이미지" />
+				<p>캡슐 구매</p>
+				<img class="storeIcon" src="/img/store/store_pill.png" alt="약이미지" />
+			</div>
+			<div id="timecapsuleWapper">
+				<img src="/img/store/store_timecapsule.png" alt="카트이미지" />
+				<div>
+					<p id="timecapsuleEachTitle">타임캡슐 1개</p>
+					<div id="timecapsulePriceBox">
+						<img src="/img/store/store_coin.png" alt="코인이미지" />
+						<p>₩1000</p>
+					</div>
+					<div id="payButton">
+						<img id="storeCartImg" src="/img/store/store_cart.png" alt="코인이미지" />
+						<button>구매하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+
+	<body>
+
+</html>

@@ -1,0 +1,79 @@
+package momentlockdemo.service.impl;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
+import momentlockdemo.entity.Box;
+import momentlockdemo.repository.BoxRepository;
+import momentlockdemo.service.BoxService;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class BoxServiceImpl implements BoxService {
+    
+    private final BoxRepository boxRepository;
+    
+    @Override
+    @Transactional
+    public Box createBox(Box box) {
+        return boxRepository.save(box);
+    }
+    
+    @Override
+    public Optional<Box> getBoxById(Long boxid) {
+        return boxRepository.findById(boxid);
+    }
+    
+    @Override
+    public List<Box> getAllBoxes() {
+        return boxRepository.findAll();
+    }
+    
+    @Override
+    @Transactional
+    public Box updateBox(Box box) {
+        return boxRepository.save(box);
+    }
+    
+    @Override
+    @Transactional
+    public void deleteBox(Long boxid) {
+        boxRepository.deleteById(boxid);
+    }
+    
+    @Override
+    public List<Box> searchBoxByName(String boxname) {
+        return boxRepository.findByBoxnameContaining(boxname);
+    }
+    
+    @Override
+    public Optional<Box> getBoxByInviteCode(String boxinvitecode) {
+        return boxRepository.findByBoxinvitecode(boxinvitecode);
+    }
+    
+    @Override
+    public List<Box> searchBoxByLocation(String boxlocation) {
+        return boxRepository.findByBoxlocationContaining(boxlocation);
+    }
+    
+    @Override
+    public List<Box> getBoxesOpenBefore(LocalDateTime date) {
+        return boxRepository.findByBoxopendateBefore(date);
+    }
+    
+    @Override
+    public List<Box> getBoxesOpenAfter(LocalDateTime date) {
+        return boxRepository.findByBoxopendateAfter(date);
+    }
+    
+    @Override
+    public Optional<Box> getBoxByBuryCode(String boxburycode) {
+        return boxRepository.findByBoxburycode(boxburycode);
+    }
+}

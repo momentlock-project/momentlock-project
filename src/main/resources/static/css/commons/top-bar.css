@@ -1,0 +1,45 @@
+/* 1. 새로운 부모 컨테이너 스타일 */
+.content-wrapper {
+  /* 기존 .modal_2의 위치 지정 속성을 이곳으로 이동 */
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 780px; 
+  border-radius: 4px; /* 모서리 둥글게 */
+}
+
+/* 2. 메뉴바(top-bar) 스타일 수정 */
+.top-bar {
+  position: relative; /* z-index 적용을 위해 position 속성 필요 */
+  z-index: 2; 
+}
+
+/* 네비게이션 메뉴(ul) 기본 스타일 */
+.tab-nav ul {
+    margin-left: 0%;
+    padding: 0;
+    list-style: none; 
+    display: flex; /* li들을 가로로 나열하기 위해 flex 사용 */
+}
+
+/* 각 메뉴 아이템(a 태그) 공통 스타일 */
+.tab-nav a {
+    display: block; /* 클릭 영역을 전체로 확장 */
+    padding: 12px 25px; /* 내부 여백 (상하, 좌우) */
+    
+    /* 탭 모양 만들기 */
+    background-color: rgba(166, 125, 85, 0.5); /* 비활성 탭 배경색 (회색) */
+    border: 1px solid #c0c0c0;
+    border-bottom: none; /* 아래쪽 테두리는 제거하여 바닥과 연결된 느낌 */
+    border-radius: 25px 0 0 0; /* 위쪽 모서리만 둥글게 */
+
+    /* 텍스트 스타일 */
+    color: #000000; 
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none; /* 밑줄 제거 */
+
+    transition: background-color 0.2s; /* 부드러운 색상 전환 효과 */
+}

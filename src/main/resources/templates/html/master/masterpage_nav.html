@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/mypagemaster_nav.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="mypagemaster-nav-wrapper">
+			<div class="mypagemaster-nav-title-box">
+				<img src="/img/profile.png" alt="프로필사진">
+				<p>안녕하세요 관리자님!</p>
+			</div>
+			<div class="mypagemaster-nav-btn-box">
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/membermanagement}">
+						<p>회원관리</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/boxmanagement}">
+						<p>상자관리</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/capsulemanagement}">
+						<p>캡슐관리</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/subscriptionmanagement}">
+						<p>구독관리</p>
+					</a>
+				</div>
+				<div class="mypagemaster-nav-btn">
+					<a th:href="@{/momentlock/masterinquirylist}">
+						<p>문의관리</p>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+
+	<body>
+
+</html>

@@ -1,0 +1,66 @@
+.opencapsulelist-modal-inner {
+  background: #f9f9f9;  /* 흰색 계열 */
+  margin-top: 70px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  height: 600px;       /* 원하는 높이 (12개 정도 들어갈 수 있는 값) */
+  overflow-y: auto;  
+}
+
+.opencapsulelist-capsule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+
+.opencapsulelist-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.opencapsulelist-modal-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 20px 0 30px;
+}
+
+.opencapsulelist-capsule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개씩 한 줄 */
+  gap: 30px;
+  justify-items: center;
+}
+
+.opencapsulelist-capsule-item {
+  text-align: center;
+  position: relative;
+}
+
+.opencapsulelist-like {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  font-size: 14px;
+  color: red;
+  font-weight: bold;
+}
+
+.opencapsulelist-capsule-img {
+  width: 100px; /* 캡슐 크기 */
+  image-rendering: pixelated; /* 픽셀 느낌 살리기 */
+}
+
+.opencapsulelist-nickname {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}

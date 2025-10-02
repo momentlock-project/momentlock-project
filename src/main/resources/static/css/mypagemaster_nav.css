@@ -1,0 +1,66 @@
+.mypagemaster-nav-wrapper {
+    width: 35vw;
+    height: 110vh;
+    background-color: rgba(188, 138, 89, 0.7);
+    margin: 30px auto;
+    padding: 90px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.mypagemaster-nav-title-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mypagemaster-nav-title-box > img {
+    width: 150px;
+    height: 150px;
+}
+
+.mypagemaster-nav-title-box > p {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.mypagemaster-nav-btn-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 60px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.mypagemaster-nav-btn {
+    min-width: 30vw;
+    height: 90px;
+    background-color: #d9d9d9;
+    border-top-right-radius: 50px;
+    padding-right: 100px;
+}
+
+.mypagemaster-nav-btn a {
+    list-style: none;
+    text-decoration: none;
+    line-height: 3;
+}
+
+.mypagemaster-nav-btn p {
+    font-size: 30px;
+    color: #8c8c8c;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.mypagemaster-nav-btn:hover{
+	background-color:rgba(199, 125, 65, 0.8);
+}
+
+
+.mypagemaster-nav-btn p:hover{
+	color : #ffffff;
+}

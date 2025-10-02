@@ -1,0 +1,13 @@
+.form-btn {
+	white-space: nowrap;
+	/* 버튼 글자 줄바꿈 방지 */
+	padding: 8px 15px;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	background: #f2f2f2;
+	cursor: pointer;
+}
+
+.form-btn:hover {
+	background: #e0e0e0;
+}

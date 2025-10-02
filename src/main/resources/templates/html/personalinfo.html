@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="modal">
+			<h1>한국 거주자를 위한 개인정보 관련 추가 정보</h1><br><br>
+
+			<h2>마지막 업데이트 날짜: 2025년 4월 변경 기록</h2><br><br>
+
+			<h3>Microsoft 의 개인정보처리방침 개인정보처리방침 은 Microsoft 서비스를 이용하는 경우 적용됩니다. 본 방침은 한국에 거주하는 Microsoft 서비스 사용자를 위한 추가
+				정보를 담고 있습니다. Microsoft 가 엔터프라이즈 제품 및 서비스의 데이터 프로세서 (data processor) 로 데이터를 사용하는 방법에 대한 추가 정보는 개인정보처리방침의
+				엔터프라이즈 및 개발자 제품 섹션과 Microsoft 제품 약관 (Product Terms) 및 데이터 보호 부록 (Data Protection Addendum,
+				https://aka.ms/dpa) 을 참조하십시오.</h3>
+			<h3>Microsoft가 사용자의 개인정보를 처리할 때, 당사는 사용자의 동의에 기반하고 (또는) 당사의 제품과 서비스 제공, 당사의 업무 수행, 당사의 계약 및 법적의무 준수, 당사와
+				사용자의 시스템 보안, 당사의 적법한 이익 보호 등을 위한 필요에 기반합니다.</h3><br>
+			 
+			<h3>수집하는 개인정보 항목개인정보 수집·이용 목적 및 수집방법</h3>
+			<h3>이름 및 연락처 데이터. 사용자의 성과 이름, 메일 주소, 우편번호, 주소, 전화 번호 및 기타 유사한 연락처 데이터.</h3>
+			<h3>자격 증명. 비밀번호, 비밀번호 힌트 및 인증과 계정 액세스에 사용되는 유사한 보안 정보.</h3>
+			<h3> 인구 통계학적 데이터. 나이, 성별, 국가, 선호하는 언어 등 사용자에 대한 데이터 (Microsoft 계정을 통해 Azure를 구독하는 경우 나이, 국가 정보 수집).</h3>
+			<h3>Microsoft 는 계정의 생성 및 관리, 제품 및 서비스의 제공 및 개선, 고객의 계정 또는 서비스 관련 의사소통, 고객요청 대응, 지원, 보안, 문제해결 및(또는) 마케팅을 위해
+				이러한 데이터를 수집합니다.</h3>
+			<br>
+
+			<h3>사용되는 제품 및 서비스에 따라 아래의 정보가 수집될 수 있습니다.</h3>
+
+		</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+
+	<body>
+
+</html>
