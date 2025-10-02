@@ -1,0 +1,86 @@
+.blurContainer {
+    background-image: url("/img/backgroundimg_blur.png") !important;
+}
+
+#mainContainer {
+    background-image: url("/img/pixelbackground_2.png");
+    width: 70%;
+    height: 150vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+
+.modal {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 720px;
+	max-width: 900px;
+	height: auto;
+	min-height: 700px;
+	max-height: 100vh;
+	background: rgba(199, 125, 65, 0.8);
+	border: 2px solid rgba(199, 125, 65, 0.8);
+	border-radius: 4px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	/* 내부 입력창들 세로 배치 */
+	gap: 15px;
+	/* 요소 간격 */
+	position: absolute;
+	/* #mainContainer 기준으로 겹치게 */
+	top: 120px;
+	/* navbar 밑에서 조금 내려오게 */
+	left: 50%;
+	/* 가로 가운데 */
+	transform: translateX(-50%);
+	z-index: 10;
+	overflow-y: auto;
+	/* 세로 스크롤 자동 생성 */
+	overflow-x: hidden;
+	/* 가로 스크롤은 숨김 */
+}
+
+#gif_action {
+    margin-top: 8px;
+}
+
+#boxImg {
+    margin: 0 auto;
+}
+
+/* 닫힌 상자 이미지 */
+.closed {
+	width: 228px;
+    height: 189px;
+}
+
+.closed:hover {
+	transform: scale(1.2);
+	transition: transform 0.3s ease-in-out;
+}
+
+/* 열린 상자 이미지 */
+.opened {
+	width: 291px;
+	height: 289px;
+}
+
+.opened:hover {
+	transform: scale(1.2);
+	transition: transform 0.3s ease-in-out;
+}
+
+
+h3 {
+    color: aliceblue;
+    margin-top: 28px;
+    font-weight: 400;
+}
+
+

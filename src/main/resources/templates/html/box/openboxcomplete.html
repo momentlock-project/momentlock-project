@@ -8,6 +8,7 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/gif.css}" />
 </head>
 
 <body>
@@ -15,10 +16,19 @@
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 		<div class="box-modal">
-			<a th:href="@{/momentlock/opengallery}" >
+			<a th:href="@{/momentlock/opengallery}">
 				<img src="/img/x.png" alt="창닫기" />
 			</a>
-			여기안에서 코드 구현 오픈 상자 클릭 시 나오는 gif 페이지
+
+			<div class="modal">
+				<video autoplay muted loop id="gif_action">
+					<source src="/img/boxOpen.gif" type="video/mp4">
+				</video>
+				<h3>묻어져있던 상자가 오픈되었습니다!!</h3>
+				<h3>상자를 클릭하세요</h3>
+				<img id="boxImg" class="opened" src="/img/openedBox.png"></img>
+			</div>
+
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
