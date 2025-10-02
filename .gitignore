@@ -12,6 +12,7 @@
 .apt_generated/
 .sts4-cache/
 .springBeans
+bin/    
 
 ### IntelliJ IDEA ###
 .idea/
