@@ -25,6 +25,11 @@ form {
 	position: relative;
 }
 
+#input-box span {
+	color: whitesmoke;
+	font-weight: bold;
+}
+
 .input-box-name {
 	display: flex;
 	align-items: center;
