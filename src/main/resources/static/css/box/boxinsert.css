@@ -1,0 +1,248 @@
+/* 박스 컨텐츠 영역 */
+.box-content {
+	padding: 80px 60px 40px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* 제목 */
+.box-title {
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 40px;
+	text-align: center;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 폼 */
+.box-form {
+	width: 100%;
+	max-width: 500px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+/* 상자명 입력 */
+.box-name-input {
+	width: 100%;
+	padding: 15px 20px;
+	border: none;
+	border-radius: 8px;
+	margin-bottom: 25px;
+	font-size: 16px;
+	background: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.box-name-input::placeholder {
+	color: #999;
+}
+
+.box-name-input:focus {
+	outline: none;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 폼 행 */
+.form-row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.form-label {
+	min-width: 100px;
+	color: white;
+	font-size: 22px;
+	font-weight: 500;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 숫자 입력 */
+.number-input {
+	width: 100px;
+	padding: 10px;
+	border: none;
+	border-radius: 8px;
+	font-size: 18px;
+	text-align: center;
+	background: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}
+
+.number-input:focus {
+	outline: none;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 토글 스위치 */
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 70px;
+	height: 34px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+.toggle-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.toggle-slider {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	border-radius: 34px;
+	transition: 0.4s;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	border-radius: 50%;
+	transition: 0.4s;
+}
+
+.toggle-switch input:checked+.toggle-slider {
+	background-color: #4CAF50;
+}
+
+.toggle-switch input:checked+.toggle-slider:before {
+	transform: translateX(36px);
+}
+
+/* 아이콘 포함 입력 래퍼 */
+.input-icon-wrapper {
+	flex: 1;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+/* 날짜/위치 입력 */
+.date-input,
+.location-input {
+	flex: 1;
+	padding: 12px 50px 12px 15px;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	background: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.date-input:focus,
+.location-input:focus {
+	outline: none;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.location-input::placeholder {
+	color: #999;
+}
+
+/* 아이콘 */
+.icon {
+	position: absolute;
+	right: 12px;
+	font-size: 22px;
+}
+
+/* 아이콘 */
+.calendar-icon {
+	pointer-events: auto;
+	cursor: pointer;
+	transition: all 0.3s;
+	border-radius: 25%;
+}
+
+.calendar-icon:hover {
+	background: #f0f0f0;
+	transform: scale(1.05);
+}
+
+.icon-btn {
+	position: absolute;
+	right: 8px;
+	background: white;
+	border: none;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 20px;
+	transition: all 0.3s;
+}
+
+.icon-btn:hover {
+	background: #f0f0f0;
+	transform: scale(1.05);
+}
+
+/* 제출 버튼 */
+.submit-btn {
+	margin-top: 35px;
+	padding: 15px 40px;
+	background: rgba(255, 255, 255, 0.9);
+	color: #BC8A59;
+	border: 2px solid white;
+	border-radius: 4px;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover {
+	background: #e0e0e0;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+	.box-content {
+		padding: 60px 30px 30px;
+	}
+
+	.box-title {
+		font-size: 24px;
+		margin-bottom: 30px;
+	}
+
+	.form-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
+
+	.form-label {
+		min-width: auto;
+	}
+
+	.input-icon-wrapper {
+		width: 100%;
+	}
+}
