@@ -88,8 +88,6 @@ public class Box implements Serializable {
 		this.boxinvitecode = "www.localhost:8888/invite?boxid=" + this.boxid;
 		this.boxburycode = "BBN";
 		this.boxdelcode = "BDN";
-		this.boxreleasecode = "B00";
-		this.boxmemcount = 0L;
 		this.boxcapcount = 0L;
 	}
 

@@ -109,9 +109,6 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 
 		memberBoxRepository.save(memberBox);
 
-		// 3. Box의 멤버 카운트 증가
-		savedBox.setBoxmemcount(1L);
-
 		return savedBox;
 	}
 
@@ -134,9 +131,6 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 
 		memberBoxRepository.save(memberBox);
 
-		// 3. Box의 멤버 카운트 증가
-		box.setBoxmemcount(box.getBoxmemcount() + 1);
-		
 		return box;
 	}
 	

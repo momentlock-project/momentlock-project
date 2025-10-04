@@ -52,8 +52,12 @@
 					<div class="form-row">
 						<label class="form-label">위치</label>
 						<div class="input-icon-wrapper">
-							<input type="text" name="location" id="locationInput" class="location-input"
+							<input type="text" name="boxlocation" id="locationInput" class="location-input"
 								placeholder="찾기" readonly required />
+							<!-- 위도, 경도 hidden input 추가 -->
+							<input type="hidden" name="latitude" id="latitudeInput" />
+							<input type="hidden" name="longitude" id="longitudeInput" />
+
 							<button type="button" class="icon-btn search-icon" id="openMapBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 									fill="none" stroke="currentColor" stroke-width="2">
