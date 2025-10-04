@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,8 @@ import momentlockdemo.service.MemberService;
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
     
-    private final MemberRepository memberRepository;
+	@Autowired
+    private MemberRepository memberRepository;
     
     @Override
     @Transactional

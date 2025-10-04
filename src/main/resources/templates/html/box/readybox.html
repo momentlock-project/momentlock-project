@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
@@ -16,14 +16,16 @@
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 
-			<div class="modal">
-				<img id="gif_action" src="/img/buryBox.gif"></img>
-				<h3>정상적으로 상자가 묻어졌습니다!</h3>
-				<h3>상자를 클릭하면 상자 목록으로 이동합니다.</h3>
-				<img src="/img/buriedBox.png" class="closed" id="boxImg">
-			</div>
-
+		<div class="modal">
+			<img id="gif_action" src="/img/buryBox.gif"></img>
+			<h3>정상적으로 상자가 묻어졌습니다!</h3>
+			<h3>상자를 클릭하면 상자 목록으로 이동합니다.</h3>
+			<a href="/momentlock/myboxlist">
+				<img src="/img/buriedBox.png" class="closed" id="boxImg">				
+			</a>
 		</div>
+
+	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 

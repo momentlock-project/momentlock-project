@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import momentlockdemo.entity.Box;
@@ -21,5 +23,7 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 	List<Box> findByBoxopendateAfter(LocalDateTime date);
 
 	Optional<Box> findByBoxburycode(String boxburycode);
+	
+	Page<Box> findAll(Pageable pageable); 
 
 }

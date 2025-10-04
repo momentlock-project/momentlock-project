@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Box;
 
 public interface BoxService {
@@ -31,5 +34,7 @@ public interface BoxService {
 	public abstract List<Box> getBoxesOpenAfter(LocalDateTime date);
 
 	public abstract Optional<Box> getBoxByBuryCode(String boxburycode);
+	
+	public abstract Page<Box> getBoxPage(Pageable pageable);
 
 }

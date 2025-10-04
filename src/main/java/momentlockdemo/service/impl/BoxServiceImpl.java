@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,4 +78,9 @@ public class BoxServiceImpl implements BoxService {
     public Optional<Box> getBoxByBuryCode(String boxburycode) {
         return boxRepository.findByBoxburycode(boxburycode);
     }
+
+	@Override
+	public Page<Box> getBoxPage(Pageable pageable) {
+		return boxRepository.findAll(pageable);
+	}
 }

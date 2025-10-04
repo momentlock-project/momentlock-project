@@ -12,7 +12,10 @@
     display: inline-block;
     position: relative;
     margin-bottom: 0;
-  }
+	margin: auto;
+	justify-content: center; /* 가로 중앙 */
+	align-items: center;     /* 세로 중앙 */
+}
 
 
 .modal {
@@ -21,7 +24,7 @@
 	max-width: 900px;
 	height: auto;
 	min-height: 700px;
-	max-height: 100vh;
+	/*max-height: 100vh;*/
 	background: rgba(199, 125, 65, 0.8);
 	border: 2px solid rgba(199, 125, 65, 0.8);
 	border-radius: 4px;
@@ -30,20 +33,16 @@
 	display: flex;
 	flex-direction: column;
 	/* 내부 입력창들 세로 배치 */
-	gap: 15px;
-	/* 요소 간격 */
+	margin: 0 40px 0 40px;
 	position: absolute;
 	/* #mainContainer 기준으로 겹치게 */
 	top: 120px;
 	/* navbar 밑에서 조금 내려오게 */
 	left: 50%;
 	/* 가로 가운데 */
-	transform: translateX(-50%);
 	z-index: 10;
-	overflow-y: auto;
-	/* 세로 스크롤 자동 생성 */
-	overflow-x: hidden;
-	/* 가로 스크롤은 숨김 */
+	right: 38px;
+
 }
 
 #gif_action {

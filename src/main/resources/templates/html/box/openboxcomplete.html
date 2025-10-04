@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
@@ -15,21 +15,16 @@
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div class="box-modal">
-			<a th:href="@{/momentlock/opengallery}">
-				<img src="/img/x.png" alt="창닫기" />
-			</a>
 
-			<div class="modal">
-				<video autoplay muted loop id="gif_action">
-					<source src="/img/boxOpen.gif" type="video/mp4">
-				</video>
-				<h3>묻어져있던 상자가 오픈되었습니다!!</h3>
-				<h3>상자를 클릭하세요</h3>
+		<div class="modal">
+			<img src="/img/boxOpen.gif" id="gif_action"></img>
+			<h3>묻어져있던 상자가 오픈되었습니다!!</h3>
+			<h3>상자를 클릭하세요</h3>
+			<a href="/momentlock/opencapsulelist">
 				<img id="boxImg" class="opened" src="/img/openedBox.png"></img>
-			</div>
-
+			</a>
 		</div>
+
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
