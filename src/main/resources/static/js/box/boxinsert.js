@@ -33,6 +33,8 @@ form.addEventListener('submit', function(e) {
 let map;
 let marker;
 let selectedAddress = '';
+let selectedLat = '';
+let selectedLng = '';
 
 // Kakao Maps API 로드 확인
 function waitForKakao(callback) {
@@ -47,7 +49,7 @@ function waitForKakao(callback) {
 function initMap() {
 	const container = document.getElementById('map');
 	const options = {
-		center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울 중심
+		center: new kakao.maps.LatLng(37.5665, 126.9780),
 		level: 8
 	};
 
@@ -57,12 +59,17 @@ function initMap() {
 	// 지도 클릭 이벤트
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		const latlng = mouseEvent.latLng;
+
+		// 위도, 경도 저장
+		selectedLat = latlng.getLat();
+		selectedLng = latlng.getLng();
+
 		addMarker(latlng);
 		getAddressFromCoords(latlng);
 	});
 }
 
-// 마커 추가 함수
+// 마커 추가
 function addMarker(position) {
 	if (marker) {
 		marker.setMap(null);
@@ -87,7 +94,7 @@ function getAddressFromCoords(latlng) {
 	});
 }
 
-// 장소 검색 함수
+// 장소 검색
 function searchPlace(keyword) {
 	if (!keyword.trim()) {
 		alert('검색어를 입력해주세요.');
@@ -98,13 +105,16 @@ function searchPlace(keyword) {
 
 	ps.keywordSearch(keyword, function(data, status) {
 		if (status === kakao.maps.services.Status.OK) {
-			// 첫 번째 검색 결과로 이동
 			const place = data[0];
 			const position = new kakao.maps.LatLng(place.y, place.x);
 
+			// 위도, 경도 저장
+			selectedLat = place.y;
+			selectedLng = place.x;
+
 			// 지도 이동
 			map.setCenter(position);
-			map.setLevel(3); // 확대
+			map.setLevel(3);
 
 			// 마커 추가
 			addMarker(position);
@@ -129,6 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const mapModal = document.getElementById('mapModal');
 	const confirmBtn = document.getElementById('confirmLocationBtn');
 	const locationInput = document.getElementById('locationInput');
+	const latitudeInput = document.getElementById('latitudeInput');
+	const longitudeInput = document.getElementById('longitudeInput');
 	const mapSearchBtn = document.getElementById('mapSearchBtn');
 	const mapSearchInput = document.getElementById('mapSearchInput');
 
@@ -147,17 +159,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-	// 검색 버튼 클릭
+	// 검색 버튼
 	mapSearchBtn.addEventListener('click', function() {
-		const keyword = mapSearchInput.value;
-		searchPlace(keyword);
+		searchPlace(mapSearchInput.value);
 	});
 
-	// 검색창 엔터키
+	// 엔터키 검색
 	mapSearchInput.addEventListener('keypress', function(e) {
 		if (e.key === 'Enter') {
-			const keyword = mapSearchInput.value;
-			searchPlace(keyword);
+			searchPlace(mapSearchInput.value);
 		}
 	});
 
@@ -167,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetModal();
 	});
 
-	// 모달 외부 클릭
+	// 외부 클릭
 	mapModal.addEventListener('click', function(e) {
 		if (e.target === mapModal) {
 			mapModal.classList.remove('active');
@@ -177,8 +187,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 위치 선택 완료
 	confirmBtn.addEventListener('click', function() {
-		if (selectedAddress) {
+		if (selectedAddress && selectedLat && selectedLng) {
+			// 주소, 위도, 경도 값을 input에 저장
 			locationInput.value = selectedAddress;
+			latitudeInput.value = selectedLat;
+			longitudeInput.value = selectedLng;
+
+			console.log('선택된 위치:', {
+				address: selectedAddress,
+				latitude: selectedLat,
+				longitude: selectedLng
+			});
+
 			mapModal.classList.remove('active');
 			resetModal();
 		}
@@ -187,6 +207,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 모달 초기화
 	function resetModal() {
 		selectedAddress = '';
+		selectedLat = '';
+		selectedLng = '';
 		mapSearchInput.value = '';
 		document.getElementById('selectedLocation').textContent = '지도를 클릭하여 위치를 선택하세요';
 		document.getElementById('confirmLocationBtn').disabled = true;
