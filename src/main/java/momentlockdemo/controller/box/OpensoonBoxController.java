@@ -37,7 +37,8 @@ public class OpensoonBoxController {
 
 		List<Box> opensoonboxlist = boxService.getAllBoxes().stream()
 //				오픈 예정일이 현재로부터 2일 이내인 박스들만 가져옴
-				.filter(box -> getOpenDDay(box.getBoxopendate()) <= 2 && getOpenDDay(box.getBoxopendate()) >= 0)
+				.filter(box -> getOpenDDay(box.getBoxopendate()) <= 2 && getOpenDDay(box.getBoxopendate()) >= 0
+						&& box.getBoxburycode().equalsIgnoreCase("BBY")) 
 //				오름차순
 				.sorted(Comparator.comparing(Box::getBoxopendate))
 				.toList();
@@ -46,6 +47,7 @@ public class OpensoonBoxController {
 
 		return "html/box/opensoonbox";
 	}
+	
 
 //	오픈 날짜까지 현재 날짜 기준 d-day를 반환하는 메서드
 	private long getOpenDDay(LocalDateTime boxOpenDateTime) {

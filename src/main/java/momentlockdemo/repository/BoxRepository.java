@@ -26,7 +26,8 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 
 	Optional<Box> findByBoxburycode(String boxburycode);
 
-//	이 쿼리는 박스들과 각각의 박스 안의 캡슐들이 받은 좋아요 수의 합을 
+//	이 쿼리는 묻히지 않은, 캡슐이 하나 이상 들어있는 박스와 
+//	각각의 박스 별 캡슐들이 받은 좋아요 수의 합을 
 //	좋아요 내림차 순으로 한꺼번에 가져오는 select문입니다. 
 	@Query("SELECT b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
 			+ "b.latitude, b.longitude, b.boxlocation, b.boxname, SUM(c.caplikecount) AS caplickcount "
