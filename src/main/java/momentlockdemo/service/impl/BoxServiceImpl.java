@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import momentlockdemo.dto.BoxLikeCountDto;
 import momentlockdemo.entity.Box;
 import momentlockdemo.repository.BoxRepository;
 import momentlockdemo.service.BoxService;
@@ -80,7 +81,7 @@ public class BoxServiceImpl implements BoxService {
     }
 
 	@Override
-	public Page<Box> getBoxPage(Pageable pageable) {
-		return boxRepository.findAll(pageable);
+	public List<BoxLikeCountDto> getPopularBoxes() {
+		return boxRepository.getPopularBoxes();
 	}
 }

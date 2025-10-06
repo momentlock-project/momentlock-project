@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import momentlockdemo.dto.BoxLikeCountDto;
 import momentlockdemo.entity.Box;
 
 public interface BoxService {
@@ -35,6 +36,6 @@ public interface BoxService {
 
 	public abstract Optional<Box> getBoxByBuryCode(String boxburycode);
 	
-	public abstract Page<Box> getBoxPage(Pageable pageable);
+	public abstract List<BoxLikeCountDto> getPopularBoxes();
 
 }

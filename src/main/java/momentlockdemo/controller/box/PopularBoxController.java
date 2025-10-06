@@ -1,16 +1,31 @@
 package momentlockdemo.controller.box;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import momentlockdemo.dto.BoxLikeCountDto;
+import momentlockdemo.service.BoxService;
 
 @Controller("popularBoxController")
 @RequestMapping("/momentlock")
 public class PopularBoxController {
 	
+	@Autowired
+	private BoxService boxService;
+	
 	// 오픈 상자 인기
-	@GetMapping("/popularbox")
-	public String popularboxPage() {
+	@GetMapping("/getpopularboxes")
+	public String getBoxHavePopularCapsule(Model model) {
+		
+		List<BoxLikeCountDto> popularboxes = boxService.getPopularBoxes();
+		
+		model.addAttribute("popularBoxes", popularboxes);
+		
 		return "html/box/popularbox";
 	}
 
