@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import momentlockdemo.dto.BoxLikeCountDto;
 import momentlockdemo.entity.Box;
 import momentlockdemo.repository.BoxRepository;
 import momentlockdemo.service.BoxService;
@@ -76,4 +79,9 @@ public class BoxServiceImpl implements BoxService {
     public Optional<Box> getBoxByBuryCode(String boxburycode) {
         return boxRepository.findByBoxburycode(boxburycode);
     }
+
+	@Override
+	public List<BoxLikeCountDto> getPopularBoxes() {
+		return boxRepository.getPopularBoxes();
+	}
 }

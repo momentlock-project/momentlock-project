@@ -36,11 +36,11 @@ public class BoxInsertController {
 	public String memberCreate() {
 		
 		Member member = Member.builder()
-				.username("leesunsin555@bububu.com")
-				.name("이순신")
+				.username("gildong@gildong.com")
+				.name("홍길동")
 				.password("1234")
-				.nickname("순신님")
-				.phonenumber("01011111111")
+				.nickname("길동")
+				.phonenumber("01044487754")
 				.memcapcount(10L)
 				.build();
 		

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
@@ -8,18 +8,23 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/gif.css}" />
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div class="box-modal">
-			<a th:href="@{/momentlock/boxdetail}" >
-				<img src="/img/x.png" alt="창닫기" />
+
+		<div class="modal">
+			<img id="gif_action" src="/img/buryBox.gif"></img>
+			<h3>정상적으로 상자가 묻어졌습니다!</h3>
+			<h3>상자를 클릭하면 상자 목록으로 이동합니다.</h3>
+			<a href="/momentlock/myboxlist">
+				<img src="/img/buriedBox.png" class="closed" id="boxImg">				
 			</a>
-			여기안에서 코드 구현 준비버튼 클릭 시 나오는 gif 페이지
 		</div>
+
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
