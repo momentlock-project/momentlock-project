@@ -1,0 +1,155 @@
+/* 모달 컨테이너 - 높이 제한 */
+.modal_3 {
+	max-height: calc(100vh - 250px);
+	/* 화면 높이에 맞춤 */
+	overflow: hidden;
+	/* 전체 overflow 숨김 */
+}
+
+/* 지도 스타일 - 고정 */
+#map {
+	border: 5px solid #8B4513;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	flex-shrink: 0;
+	/* 지도 크기 고정 */
+	position: relative;
+	/* 자식 요소 absolute 위치 기준 */
+}
+
+/* 선택된 지역명 표시 라벨 */
+.city-label {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	background: rgba(139, 69, 19, 0.9);
+	color: white;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-size: 18px;
+	font-weight: bold;
+	z-index: 1000;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* 타임캡슐 그리드 - 스크롤 영역 */
+.capsule-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+	margin-top: 30px;
+	padding: 20px;
+	overflow-y: auto;
+	/* 세로 스크롤만 */
+	overflow-x: hidden;
+	/* 가로 스크롤 숨김 */
+	flex: 1;
+	/* 남은 공간 차지 */
+	/* 스크롤바 스타일링 */
+	scrollbar-width: thin;
+	scrollbar-color: #8B4513 #f0f0f0;
+}
+
+/* 웹킷 브라우저용 스크롤바 스타일 */
+.capsule-grid::-webkit-scrollbar {
+	width: 10px;
+}
+
+.capsule-grid::-webkit-scrollbar-track {
+	background: #f0f0f0;
+	border-radius: 5px;
+}
+
+.capsule-grid::-webkit-scrollbar-thumb {
+	background: #8B4513;
+	border-radius: 5px;
+}
+
+.capsule-grid::-webkit-scrollbar-thumb:hover {
+	background: #6B3410;
+}
+
+/* 타임캡슐 아이템 */
+.capsule-item {
+	text-align: center;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+.capsule-item:hover {
+	transform: translateY(-10px);
+}
+
+.capsule-item img {
+	width: 100%;
+	max-width: 200px;
+	height: auto;
+}
+
+.capsule-item .capsule-info {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #8B4513;
+	font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+	.capsule-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.capsule-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		padding: 15px;
+	}
+
+	.modal_3 {
+		max-height: calc(100vh - 200px);
+	}
+
+	.city-label {
+		top: 15px;
+		left: 15px;
+		font-size: 16px;
+		padding: 10px 16px;
+	}
+}
+
+/* 커스텀 마커 스타일 */
+.custom-marker {
+	background: #FF6B6B;
+	width: 40px;
+	height: 40px;
+	border-radius: 50% 50% 50% 0;
+	transform: rotate(-45deg);
+	border: 3px solid #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.custom-marker:hover {
+	background: #FF4444;
+	transform: rotate(-45deg) scale(1.2);
+}
+
+.custom-marker.active {
+	background: #8B4513;
+	transform: rotate(-45deg) scale(1.3);
+}
