@@ -37,5 +37,7 @@ public interface BoxService {
 	public abstract Optional<Box> getBoxByBuryCode(String boxburycode);
 	
 	public abstract List<BoxLikeCountDto> getPopularBoxes();
+	
+	public abstract List<BoxLikeCountDto> getPagedPopularBox(int currPage, int size);
 
 }

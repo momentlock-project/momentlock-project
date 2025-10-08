@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,8 +81,23 @@ public class BoxServiceImpl implements BoxService {
         return boxRepository.findByBoxburycode(boxburycode);
     }
 
-	@Override
+//	@Override
+//	public List<BoxLikeCountDto> getPopularBoxes() {
+//		return boxRepository.getPopularBoxes();
+//	}
+
+    @Override
 	public List<BoxLikeCountDto> getPopularBoxes() {
-		return boxRepository.getPopularBoxes();
+		// TODO Auto-generated method stub
+		return null;
 	}
+    
+    @Override
+	public List<BoxLikeCountDto> getPagedPopularBox(int currPage, int size) {
+		Pageable pageable = PageRequest.of(currPage, size);
+		Page<BoxLikeCountDto> pagedPopularBox =  boxRepository.getPopularBoxPage(pageable);
+		return pagedPopularBox.getContent();
+	}
+
+	
 }
