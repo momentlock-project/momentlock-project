@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>초대 확인</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/nav.css}" />
+  <link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+  <link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+  <link rel="stylesheet" th:href="@{/css/mail/mailconfirm.css}" />
+</head>
+<body>
+  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <div id="mainContainer" class="blurContainer">
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <!-- ✅ 초대 확인/거절 창 -->
+    <div class="invite-container">
+      <div class="invite-title">MomentLock 초대 확인</div>
+      <p class="invite-msg">
+        <span th:text="${inviterNickname}">홍길동</span> 님이  
+        <strong th:text="${boxName}">추억상자</strong> 박스에 초대했습니다.<br>
+        참여하시겠습니까?
+      </p>
+
+      <div class="invite-btns">
+        <form th:action="@{/momentlock/invite/accept}" method="post">
+          <input type="hidden" name="token" th:value="${token}">
+          <button type="submit" class="btn-accept">확인</button>
+        </form>
+
+        <form th:action="@{/momentlock/invite/reject}" method="post">
+          <input type="hidden" name="token" th:value="${token}">
+          <button type="submit" class="btn-decline">거절</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{fragments/footer :: footer}"></div>
+
+  <script th:src="@{/js/nav.js}" defer></script>
+  <script th:src="@{/js/managerpagetoolex.js}" defer></script>
+</body>
+</html>
