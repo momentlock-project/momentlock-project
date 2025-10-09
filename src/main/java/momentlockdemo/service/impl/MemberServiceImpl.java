@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +21,22 @@ public class MemberServiceImpl implements MemberService {
     
 	@Autowired
     private MemberRepository memberRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
     
     @Override
     @Transactional
     public Member createMember(Member member) {
-        return memberRepository.save(member);
+    	
+    	if(memberRepository.existsByUsername(member.getUsername())) {
+    		throw new RuntimeException("이미 존재하는 사용자입니다.");
+    	}
+    	
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        
+        
+       return memberRepository.save(member);
     }
     
     @Override

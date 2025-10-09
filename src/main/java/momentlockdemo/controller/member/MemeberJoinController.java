@@ -1,6 +1,7 @@
 package momentlockdemo.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,19 +29,29 @@ public class MemeberJoinController {
 	
 	
 	@PostMapping("/join")
-	public String memberjoin(@ModelAttribute("memberDto") MemberDto memberDto) {
+	public String memberjoin(
+		@ModelAttribute("memberDto") MemberDto memberDto,
+		Model model) {
 		
-		Member member = Member.builder()
+		try {
+			
+			Member member = Member.builder()
 				.username(memberDto.getUsername())
 				.name(memberDto.getName())
 				.password(memberDto.getPassword())
 				.nickname(memberDto.getNickname())
 				.phonenumber(memberDto.getPhonenumber())
 				.build();
-		
-		memberService.createMember(member);
-		
-		return "html/main";
+			
+			memberService.createMember(member);
+			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
+			return "html/main";
+			
+		} catch(RuntimeException re) {
+			model.addAttribute("resultMsg", re.getMessage());
+			return "html/member/memberJoin";
+			
+		}
 	}
 
 }
