@@ -52,6 +52,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public Member updateMember(Member member) {
+    	member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepository.save(member);
     }
     

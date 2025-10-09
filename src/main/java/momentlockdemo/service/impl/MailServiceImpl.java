@@ -48,7 +48,7 @@ public class MailServiceImpl implements MailService {
 			Context context = new Context();
 			context.setVariable("code", code);
 			
-			String html = templateEngine.process("mail/code", context);
+			String html = templateEngine.process("mail/passwordAuthCode", context);
 			
 			MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");

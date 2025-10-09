@@ -46,13 +46,13 @@ public class EmailAuthCodeServiceImpl implements EmailAuthCodeService {
 	@Override
 	@Transactional
 	public boolean verifyAuthCode(String email, String code) {
-		return emailAuthCodeRepository.findByEmailAndCodeAndUsedIsFalse(email, code)
-                .filter(ac -> ac.getExpiresAt().isAfter(LocalDateTime.now())) // 만료 안 됐는지 체크
+		return emailAuthCodeRepository.findByEmailAndCodeAndUsedIsFalse(email, code) // 사용했는지 체크
+                .filter(ac -> ac.getExpiresAt().isAfter(LocalDateTime.now())) // 만료 안 됐는지 체크(만료시간이 현재 시간보다 이후인지)
                 .map(ac -> {
-                    ac.setUsed(true); 
-                    return true;
+                    ac.setUsed(true); // 인증 성공 시 상태 true로 변경, db에는 0에서 1로 변경됨
+                    return true; 
                 })
-                .orElse(false);
+                .orElse(false);	
 	}
 	
 	
