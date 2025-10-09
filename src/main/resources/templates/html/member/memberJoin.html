@@ -18,39 +18,56 @@
 		<div th:replace="~{fragments/nav :: nav}"></div>
 		<div id="join-container">
 			<h1>회원가입</h1>
-			<form>
+			<form  id="memberjoin" th:action="@{/momentlock/join}" th:object="${memberDto}" method="post">
 				<!-- input 필드 -->
 				<div id="input-box">
+					
 					<div class="input-box-name name">
 						<span>이름</span>
-						<input type="text" name="name" placeholder="이름을 입력하세요" />
+						<input type="text" name="name" placeholder="이름을 입력하세요" required />
 					</div>
+					
 					<div class="input-box-name nickname">
 						<span>닉네임</span>
-						<input type="text" name="nickname" placeholder="닉네임을 입력하세요" />
+						<input type="text" name="nickname" placeholder="닉네임을 입력하세요" required />
 					</div>
-					<div class="input-box-name username">
-						<span>이메일</span>
-						<input type="text" name="username" placeholder="이메일을 입력하세요" />
+					
+					<div>
+						<div class="input-box-name username">
+							<span>이메일</span>
+							<input type="text" name="username" placeholder="이메일을 입력하세요" required />
+						</div>
+						<p class="msg username"></p>
 					</div>
-					<div class="input-box-name password">
-						<span>비밀번호</span>
-						<input type="text" name="password" placeholder="비밀번호를 입력하세요" />
+					<div>
+						<div class="input-box-name password">
+							<span>비밀번호</span>
+							<input type="text" name="password" placeholder="비밀번호를 입력하세요" required />
+						</div>
+						<p class="msg password"></p>
 					</div>
-					<div class="input-box-name passwordconfirm">
-						<span>비밀번호 확인</span>
-						<input type="text" name="passwordconfirm" placeholder="비밀번호를 입력하세요" />
+					<div>
+						<div class="input-box-name passwordconfirm">
+							<span>비밀번호 확인</span>
+							<input type="text" name="passwordconfirm" placeholder="비밀번호를 입력하세요" required />
+						</div>
+						<p class="msg passwordconfirm"></p>
 					</div>
-					<div class="input-box-name phonenumber">
-						<span>전화번호</span>
-						<input type="text" name="phonenumber" placeholder="전화번호를 입력하세요" />
+					
+					<div>
+						<div class="input-box-name phonenumber">
+							<span>전화번호</span>
+							<input type="text" name="phonenumber" placeholder="전화번호를 입력하세요" required />
+						</div>
+						<p class="msg phonenumber"></p>
 					</div>
+					
 				</div>
 				
 				<!-- 약관동의 -->
 				<div id="usepolicy-container">
 					<div id="checkbox-name">
-						<input type="checkbox" name="usepolicy" />
+						<input type="checkbox" name="usepolicy" required />
 						<p>개인정보 수집 동의</p>
 					</div>
 					<div id="usepolicy-content">
@@ -114,12 +131,12 @@
 						<span>개인정보 관련 문의 사항은 아래 연락처로 연락해 주시기 바랍니다.</span><br><br>
 	
 						<span>* 이메일: [momentlock@gmail.com]</span><br>
-						<span>* 전화번호: [010-5622-9537]</span><br>
+						<span>* 전화번호: [010-1111-2222]</span><br>
 					</div>
 				</div>
 				
 				<div id="btn-box">
-					<button class="member-btn">이전</button>
+					<input type="button" class="member-btn" value="이전" onclick="history.back()">
 					<button class="member-btn">가입</button>
 				</div>
 			</form>
@@ -128,6 +145,7 @@
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/member/memberjoin.js}" defer></script>
 
 	<body>
 
