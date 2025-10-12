@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>나의 캡슐 리스트</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/capsule/mycapsulelist.css}" />
 </head>
-
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 		
 		<div class="box-modal">
-			<a th:href="@{/momentlock/mypage}" >
+			<a th:href="@{/momentlock/mypage}">
 				<img src="/img/x.png" alt="창닫기" />
 			</a>
 			
@@ -25,70 +23,29 @@
 				<h1>나의 캡슐 리스트</h1>
 				<div id="my-capsule-list-box">
 					<div id="my-capsule-list-title-box">
-						<p>나의 캡슐 보유 : 5개</p>
+						<p>나의 캡슐 보유 : 
+							<span th:text="${#lists.size(capsuleList)}"></span>개
+						</p>
 						<button class="main-btn capsule">
 							<a th:href="@{/momentlock/store}">캡슐 구매</a>
 						</button>
 					</div>
+
+					<!-- 캡슐 리스트 반복 -->
 					<div id="my-capsule-list">
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
-						<div id="capsule-box">
-							<img src="/img/timecapsule.png" alt="캡슐이미지" />
-							<span>캡슐 제목</span>
-						</div>
+						<div id="capsule-box" th:each="capsule : ${capsuleList}">
+							
+							<img th:src="${'/img/timecapsule.png'}" alt="캡슐이미지" />
+							
+							<!-- 캡슐 제목 -->
+							<span th:text="${capsule.captitle}">캡슐 제목</span>
 					</div>
 				</div>
 			</div>
-			
 		</div>
-		
 	</div>
+
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
-
-	<body>
-
+</body>
 </html>
