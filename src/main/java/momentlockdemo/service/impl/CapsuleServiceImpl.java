@@ -107,5 +107,10 @@ public class CapsuleServiceImpl implements CapsuleService {
     public List<Capsule> getCapsulesTopLike() {
        return capsuleRepository.findTop10ByOrderByCaplikecountDesc();
     }
+
+	@Override
+	public Integer capsuleLikeCountUpdate(Long capid, String action) {
+		return capsuleRepository.casuleLikeCountIncrease(capid, action);
+	}
     
 }
