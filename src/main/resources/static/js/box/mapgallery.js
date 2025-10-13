@@ -150,28 +150,30 @@ function displayCapsules(cityName) {
     const capsuleContainer = document.getElementById('capsuleContainer');
     capsuleContainer.innerHTML = ''; // 기존 내용 삭제
 
-    const capsules = cityData[cityName].capsules;
+    const box = cityData[cityName].capsules;
 
-    if (capsules.length === 0) {
+    if (box.length === 0) {
         capsuleContainer.innerHTML = '<p style="text-align:center; color: #8B4513; font-size: 18px;">이 지역에는 타임캡슐이 없습니다.</p>';
         return;
     }
 
-    capsules.forEach(capsule => {
+    box.forEach(box => {
         const capsuleItem = document.createElement('div');
         capsuleItem.className = 'capsule-item';
         capsuleItem.innerHTML = `
-            <img src="${capsule.image}" alt="${capsule.title}" onerror="this.src='/img/basic_box.png'">
+            <img src="${box.image}" alt="${box.title}" onerror="this.src='/img/basic_box.png'">
             <div class="capsule-info">
-                <div>${capsule.title}</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">${capsule.date}</div>
+                <div>${box.title}</div>
+                <div style="font-size: 12px; color: #666; margin-top: 5px;">${box.date}</div>
             </div>
         `;
 
         capsuleItem.addEventListener('click', () => {
-            // 상세 페이지로 이동 추후에 이곳을 변경
-            // window.location.href = `/momentlock/box/${capsule.id}`;
-            console.log(`${capsule.id} 상자를 클릭했습니다.`)
+			// 확인 대화상자
+			const confirmed = confirm(`${box.title} 상자 상세페이지로 이동하시겠습니까?`);
+			if (confirmed) {
+			    window.location.href = `/momentlock/boxdetail?boxid=${box.id}`;
+			}
         });
 
         capsuleContainer.appendChild(capsuleItem);
