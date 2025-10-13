@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
 </head>
 
 <body>
@@ -28,9 +29,35 @@
 			
 			<!-- 모달창 -->
 			<div class="modal_3">
-			    <h1>타임캡슐 관리</h1>
-				<div>이 div안에서 코드 구현</div>
-			 </div>
+			  <h1>타임캡슐 관리</h1>
+			  <table class="box-table">
+				<thead>
+					<tr>
+					  <th>번호</th>
+				      <th>제목</th>
+					  <th>닉네임</th>
+					  <th>생성일</th>
+					  <th>삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					   <tr th:each="capsule : ${capsules}">
+						  <td th:text="${capsule.capid}">1</td>
+						  <td th:text="${capsule.captitle}">캡슐제목</td>
+						  <td th:text="${member.username}">닉네임</td>
+						  <td th:text="${capsule.capregdate}">2025-10-02</td>
+					      <td>
+							<form th:action="@{/momentlock/capsules/delete/{id}(id=${capsule.capid})}" method="post" onsubmit="return confirm('정말로 이 상자를 삭제하시겠습니까?');">
+							  <button type="submit" class="delete-btn">삭제</button>
+							</form>
+						  </td>
+					   </tr>
+					   <tr th:if="${#lists.isEmpty(capsules)}">
+						 <td colspan="5">표시할 캡슐 데이터가 없습니다.</td>
+					   </tr>
+			     </tbody>
+				 </table>
+			  </div>
 			 
 		</div>	
 	</div>
