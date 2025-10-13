@@ -63,9 +63,6 @@ public class Capsule implements Serializable {
 	
 	@Column(name = "CAPAFILECOUNT")
 	private Long capafilecount;
-	
-	@Column(name = "CAP_IMAGE", length = 500)
-	private String capImage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BOXID")
