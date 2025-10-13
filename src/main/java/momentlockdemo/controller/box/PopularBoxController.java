@@ -47,12 +47,13 @@ public class PopularBoxController {
 	// 오픈 상자 인기
 	@GetMapping("/popularbox")
 	public String getBoxHavePopularCapsule(Model model, @RequestParam(defaultValue = "0") int currPage,
-			@RequestParam(defaultValue = "9") int size) {
+			@RequestParam(defaultValue = "6") int size) {
+		
+		System.out.println("currPage= "+currPage);
 		
 		Page<BoxLikeCountDto> pagedPopularBox = boxService.getPagedPopularBox(currPage, size);
+		model.addAttribute("page", pagedPopularBox);
 		
-		model.addAttribute(pagedPopularBox.);
-
 //		조건을 준 이유는 0번째 (Page는 0부터 시작)
 //		페이지에만 순위(1,2,3등) 표시를 해야 되는데
 //		Page 객체가 페이지마다 객체 리스트를 새로 만들기 때문에
@@ -67,8 +68,8 @@ public class PopularBoxController {
 			while (iterator.hasNext()) {
 				otherList.add(iterator.next());
 			}
-			
 			model.addAttribute("popularBoxes", otherList);
+			
 		} else {
 			model.addAttribute("popularBoxes", pagedPopularBox.getContent());
 		}
@@ -78,9 +79,9 @@ public class PopularBoxController {
 
 	@GetMapping("/createcapsule")
 	public String capsule() {
-		Capsule cap = Capsule.builder().capid(null).captitle("연습 캡슐").capcontent("연습 캡슐 내용")
-				.capregdate(LocalDateTime.now()).capdelcode(null).caplikecount(109L).capafilecount(null)
-				.box(boxService.getBoxById(23L).get()).member(memberService.getMemberByNickname("쏘니").get())
+		Capsule cap = Capsule.builder().capid(null).captitle("하이").capcontent("하이")
+				.capregdate(LocalDateTime.now()).capdelcode(null).caplikecount(57L).capafilecount(null)
+				.box(boxService.getBoxById(28L).get()).member(memberService.getMemberByNickname("nickname3").get())
 				.emojis(null).afiles(null).declarations(null).build();
 
 		capsuleService.createCapsule(cap);

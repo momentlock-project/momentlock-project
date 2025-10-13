@@ -74,7 +74,7 @@ public class BoxInsertController {
 	                 .boxmemcount(memberCount)
 	                 .build();
 	    
-	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("희원굿").get());
+	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("nickname3").get());
 	    
 	    return "redirect:/momentlock/myboxlist";
 	}

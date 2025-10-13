@@ -1,13 +1,17 @@
 
+/* 모달 컨테이너 - 높이 제한 */
+
+
+
 .grid_container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 자동으로 3열 맞추되, 화면 줄면 줄어듦 */
-	gap: 30px; /* 카드 간격 */
 	justify-items: center; /* 수평 중앙 정렬 */
 	align-items: end; /* 행 기준으로 하단 정렬 */
 	padding: 30px;
 	width: 100%;
 	box-sizing: border-box;
+	overflow-y: auto;
 }
 
 
