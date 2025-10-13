@@ -1,0 +1,52 @@
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+.pagination-custom {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 6px;
+}
+
+.pagination-custom .page-item a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  background-color: #d9d9d9;
+  padding: 8px 14px;
+  border-radius: 3px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: 1px solid #aaa;
+}
+
+.pagination-custom .page-item.active a {
+  background-color: #6b3f1f; /* 갈색 배경 */
+  color: #fff;
+  border-color: #6b3f1f;
+}
+
+.pagination-custom .page-item.disabled a {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.pagination-custom .page-item a:hover {
+  background-color: #bdbdbd;
+}
+
+.pagination-custom .page-item:first-child a,
+.pagination-custom .page-item:last-child a {
+  background-color: #555;
+  color: #fff;
+  border-color: #333;
+}
+
+.pagination-custom .page-item:first-child a:hover,
+.pagination-custom .page-item:last-child a:hover {
+  background-color: #333;
+}

@@ -1,10 +1,14 @@
 package momentlockdemo.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,8 +84,23 @@ public class BoxServiceImpl implements BoxService {
         return boxRepository.findByBoxburycode(boxburycode);
     }
 
-	@Override
-	public List<BoxLikeCountDto> getPopularBoxes() {
-		return boxRepository.getPopularBoxes();
+    
+    @Override
+	public Page<BoxLikeCountDto> getPagedPopularBox(int currPage, int size) {
+		Pageable pageable = PageRequest.of(currPage, size);
+		return boxRepository.getPopularBoxPage(pageable);
+
 	}
+    
+    
+	@Override
+	public Page<Box> getPagedBoxList(int currPage, int size) {
+		
+		Pageable pageable = PageRequest.of(currPage, size);
+//		findAll<Object>: Object 타입 Page 객체를 리턴하는 JpaRepository 기본 메서드
+		return boxRepository.findAll(pageable);
+		
+		
+	}
+
 }

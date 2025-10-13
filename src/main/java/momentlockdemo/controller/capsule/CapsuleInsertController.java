@@ -1,14 +1,24 @@
 package momentlockdemo.controller.capsule;
 
+<<<<<<< HEAD
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+=======
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+>>>>>>> bd5115383f8308082eb55e20065a55904891dc66
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.PathVariable;
+=======
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+>>>>>>> bd5115383f8308082eb55e20065a55904891dc66
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,9 +29,51 @@ import momentlockdemo.service.AfileService;
 import momentlockdemo.service.CapsuleService;
 import momentlockdemo.service.MemberService;
 
+import momentlockdemo.entity.Afile;
+import momentlockdemo.entity.Capsule;
+import momentlockdemo.service.AfileService;
+import momentlockdemo.service.CapsuleService;
+
 @Controller("capsuleInsertController")
 @RequestMapping("/momentlock")
 public class CapsuleInsertController {
+<<<<<<< HEAD
+	
+	@Autowired
+	CapsuleService capService;
+	
+	@Autowired
+	AfileService afileService;
+	
+	// 캡슐 작성 폼
+	@GetMapping("/capsuleinsert")
+	public String capsuleinsertPage() {
+		return "html/capsule/capsuleinsert";
+	}
+	
+//	파일 insert test
+	@GetMapping("/afileinserttest/{capid}")
+	public String capinsert(@PathVariable(name = "capid") Long capid) {
+		
+		Capsule cap = capService.getCapsuleById(capid).get();
+		
+		afileService.createAfile(Afile.builder()
+				.afid(null)
+				.afsname("/img/cute.jpg")
+				.afcname("cute.jpg")
+				.afcontenttype("image/jpg")
+				.afregdate(LocalDateTime.now())
+				.afdelyn("N")
+				.capsule(cap)
+				.build()
+				);
+		
+		
+		
+		return "/momentlock/";
+	}
+=======
+>>>>>>> bd5115383f8308082eb55e20065a55904891dc66
 
     @Autowired
     private CapsuleService capsuleService;
