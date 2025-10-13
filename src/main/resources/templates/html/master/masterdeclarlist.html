@@ -27,10 +27,29 @@
 			
 			<!-- 모달창 -->
 			<div class="modal_3">
-			    <h1>관리자 신고게시판페이지</h1>
-				<div>이 div안에서 코드 구현</div>
-			 </div>
-			 
+				<h1>신고 게시판 페이지</h1>
+					<table class="data-table">
+						<thead>
+						   <tr>
+							 <th class="col-num">번호</th>
+							 <th class="col-title">신고항목</th>
+							 <th class="col-date">작성일</th>
+						   </tr>
+						 </thead>
+						 <tbody>
+							<tr th:each="declaration : ${declarationPage.content}">
+							  <td th:text="${declarationPage.totalElements - (declarationPage.number * declarationPage.size) - declarationStat.index}"></td>
+							  <td class="col-title">
+								<a th:href="@{/momentlock/declarationlist/{id}(id=${declaration.decid})}" th:text="${declaration.deccategory}"></a>
+							  </td>
+							  <td th:text="${#temporals.format(declaration.decregdate, 'yyyy-MM-dd')}"></td>
+							</tr>
+							<tr th:if="${declarationPage.empty}">
+							  <td colspan="3" style="text-align: center;">작성된 신고글이 없습니다.</td>
+							</tr>
+						  </tbody>
+					</table>	
+				</div>
 		</div>	
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>

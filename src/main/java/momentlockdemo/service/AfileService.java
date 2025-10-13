@@ -34,8 +34,8 @@ public interface AfileService {
 
 	public abstract long countAfilesByCapsule(Capsule capsule);
 
-	public String uploadToS3(MultipartFile file) throws IOException;
+	public abstract String uploadToS3(MultipartFile file) throws IOException;
 	
-    public Afile saveFileToCapsule(MultipartFile file, Capsule capsule) throws IOException;
-    
+    public abstract Afile saveFileToCapsule(MultipartFile file, Capsule capsule) throws IOException;
+	
 }

@@ -29,12 +29,12 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Member createMember(Member member) {
     	
-    	if(memberRepository.existsByUsername(member.getUsername())) {
-    		throw new RuntimeException("이미 존재하는 사용자입니다.");
+    	if(memberRepository.existsByUsername(member.getUsername())
+    		|| memberRepository.existsByNickname(member.getNickname())) {
+    		throw new RuntimeException("이미 존재하는 아이디 또는 닉네임입니다.");
     	}
     	
         member.setPassword(passwordEncoder.encode(member.getPassword()));
-        
         
        return memberRepository.save(member);
     }
@@ -52,6 +52,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public Member updateMember(Member member) {
+    	
+//    	if(memberRepository.existsByNickname(member.getNickname())) {
+//    		throw new RuntimeException("이미 존재하는 닉네임입니다.");
+//    	}
+    	
     	member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepository.save(member);
     }
