@@ -60,9 +60,12 @@ public class Capsule implements Serializable {
 
 	@Column(name = "CAPAFILECOUNT")
 	private Long capafilecount;
+	
+	@Column(name = "CAP_IMAGE", length = 500)
+	private String capImage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BOXID", nullable = false)
+	@JoinColumn(name = "BOXID")
 	private Box box;
 
 	@ManyToOne(fetch = FetchType.LAZY)
