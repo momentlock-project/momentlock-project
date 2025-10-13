@@ -1,0 +1,32 @@
+#join-container > h1 {
+	padding-top: 80px !important;
+}
+
+.input-box-name.phonenumber.mysub {
+	margin-left: 0 !important;
+	margin-top: 30px;
+}
+
+.mysub-name,
+#enddate {
+	margin-left: 0 !important;
+	position: absolute;
+	left: 35%;
+}
+
+#substatus {
+	margin-left: 0 !important;
+	position: absolute;
+	left: 33%;
+}
+
+.member-btn.sub,
+.member-btn.store {
+	padding: 4px 8px !important;
+	font-size: 15px;
+	margin-left: 190px;
+}
+
+#btn-box {
+	margin-top: 50px;
+}

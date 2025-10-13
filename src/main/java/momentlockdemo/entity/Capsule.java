@@ -58,6 +58,9 @@ public class Capsule implements Serializable {
 	@Column(name = "CAPLIKECOUNT")
 	private Long caplikecount;
 
+	@Column(name = "CAP_IMAGE", length = 500)
+	private String capImage;
+	
 	@Column(name = "CAPAFILECOUNT")
 	private Long capafilecount;
 
@@ -85,7 +88,7 @@ public class Capsule implements Serializable {
 	protected void capsuleCreate() {
 		this.capregdate = LocalDateTime.now();
 		this.capdelcode = "TDN";
-//		this.caplikecount = 0L;
+		this.caplikecount = 0L;
 		this.capafilecount = 0L;
 	}
 

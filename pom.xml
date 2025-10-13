@@ -11,7 +11,7 @@
 	<artifactId>momentlockdemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>momentlockdemo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Boot</description>s
 	<url/>
 	<licenses>
 		<license/>
@@ -79,6 +79,11 @@
 		      <groupId>org.springframework.boot</groupId>
 		      <artifactId>spring-boot-starter-mail</artifactId>
 		    </dependency>
+		    <dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.12.781</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

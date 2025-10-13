@@ -1,7 +1,10 @@
 package momentlockdemo.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import momentlockdemo.entity.Afile;
 import momentlockdemo.entity.Capsule;
@@ -30,4 +33,8 @@ public interface AfileService {
 
 	public abstract long countAfilesByCapsule(Capsule capsule);
 
+	public abstract String uploadToS3(MultipartFile file) throws IOException;
+	
+    public abstract Afile saveFileToCapsule(MultipartFile file, Capsule capsule) throws IOException;
+	
 }

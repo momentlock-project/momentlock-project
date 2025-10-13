@@ -1,101 +1,119 @@
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .blurContainer {
-    background-image: url("/img/backgroundimg_blur.png") !important;
+	background-image: url("/img/backgroundimg_blur.png");
 }
 
 #mainContainer {
-    background-image: url("/img/pixelbackground_2.png");
-    width: 70%;
-    height: 150vh;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center top;
-    display: inline-block;
-    position: relative;
-    margin-bottom: 0;
+	background-image: url("/img/pixelbackground_2.png");
+	width: 70%;
+	height: 150vh;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center top;
+	display: inline-block;
+	position: relative;
+	margin-bottom: 0;
 }
-  
+
+
 .sidebar-header .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 28px;
-    height: 28px;
-    background-color: #f0f0f0;
-    border: 2px solid #555;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 0;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 28px;
+	height: 28px;
+	background-color: #f0f0f0;
+	border: 2px solid #555;
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 0;
 }
-  
+
 .close-btn::before,
 .close-btn::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 2px;         /* X 선의 두께 */
-    height: 24px;       /* ✅ 선 길이를 원 크기에 맞게 늘림 */
-    background-color: #555;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-  
-.close-btn::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 2px;
+	/* X 선의 두께 */
+	height: 24px;
+	/* ✅ 선 길이를 원 크기에 맞게 늘림 */
+	background-color: #555;
+	transform: translate(-50%, -50%) rotate(45deg);
 }
 
-/* 캡슐 상세 화면 */
-.my_capsule_detail {
-    width: auto;
-    height: auto;
-    max-width: 1220px;
-    max-height: 130vh;                 /* 내용에 따라 늘어나게 */
-    background-color: rgba(199, 125, 65, 0.8);
-    border-radius: 8px;
-    margin:10px 40px 0 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;       /* 세로 정렬 */
-    align-items: center;
-    justify-content: center;
-    gap: 20px;                    /* 이미지와 텍스트 간격 */
-    padding: 20px;                /* 안쪽 여백 */
-    overflow-x: hidden;
+.close-btn::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
 }
+
+
+
+.my_capsule_detail {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* 중앙 정렬 */
+
+	/* 반응형 크기 설정 */
+	width: auto;
+	height: auto;
+	max-width: 2000px;
+	max-height: 130vh;
+
+	/* 시각적 스타일 */
+	background-color: rgba(199, 125, 65, 0.8);
+	border-radius: 8px;
+	margin: 10px 40px 0 40px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+	padding: 50px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px;
+}
+
 
 .uploaded_image_or_video {
-    width: 100%;
-    max-width: 1071px;  
-    max-height: 788px;
-    padding: 10px;
-    background-color: #f4f3f3;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	max-width: 1071px;
+	max-height: 788px;
+	padding: 10px;
+	background-color: #f4f3f3;
+	align-items: center;
+	justify-content: center;
 }
-  
+
 .uploaded_image_or_video img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;  /* 작은 이미지는 비율 유지하며 중앙 정렬 */
-    object-position: center center; /* 중앙에 배치 */
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	/* 작은 이미지는 비율 유지하며 중앙 정렬 */
+	object-position: center center;
+	/* 중앙에 배치 */
 }
 
 .uploaded_text {
-    width: 100%;
-    max-width: 1071px;
-    max-height: 332px;            /* 텍스트 영역 최소 높이 */
-    background-color: #f4f3f3;
-    /* text-align: start; */
-    padding: 10px;
-    overflow: scroll;
+	width: 100%;
+	max-width: 1071px;
+	max-height: 332px;
+	background-color: #f4f3f3;
+	padding: 10px;
+	overflow-y: auto;   /* 세로 스크롤만 자동 표시 */
+	overflow-x: hidden; /* 가로 스크롤 제거 */
 }
 
-.actions {
-    margin-top: 28px;
+
+.movepage {
+	margin-top: 28px;
 	display: flex;
 	justify-content: center;
 	gap: 20px;
@@ -104,16 +122,32 @@
 
 .form-btn {
 	white-space: nowrap;
-	/* 버튼 글자 줄바꿈 방지 */
-	padding: 8px 15px;
-	border: 1px solid #aaa;
-	border-radius: 4px;
-	background: #f2f2f2;
+	padding: 14px 28px;
+	/* ⬆️ 패딩 확대 (세로, 가로 여백 늘림) */
+	font-size: 1.1rem;
+	/* ⬆️ 글자 크기 증가 */
+	font-weight: 600;
+	/* 글자 두껍게 */
+	border: 2px solid #888;
+	/* 테두리 살짝 두껍게 */
+	border-radius: 8px;
+	/* 모서리 부드럽게 */
+	background: linear-gradient(180deg, #f8f8f8, #e6e6e6);
+	/* 은은한 입체감 */
 	cursor: pointer;
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .form-btn:hover {
 	background: #e0e0e0;
 }
-  
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	/* 요소를 오른쪽으로 정렬 */
+}
+
+#likeBtn:hover {
+	transform: scale(1.05);
+}

@@ -17,7 +17,7 @@
 		<div class="mypagemaster-nav-wrapper">
 			<div class="mypagemaster-nav-title-box">
 				<img src="/img/profile.png" alt="프로필사진">
-				<p>안녕하세요 홍길동님!</p>
+				<p>안녕하세요 <span th:text="${nickname}">홍길동</span>님!</p>
 			</div>
 			<div class="mypagemaster-nav-btn-box">
 				<div class="mypagemaster-nav-btn">
@@ -41,11 +41,15 @@
 					</a>
 				</div>
 			</div>
+			
+			<div id="member-remove-button-box">
+				<button class="main-btn memberremove">회원 탈퇴</button>
+			</div>
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
-
+	<script th:src="@{/js/member/mypage_nav.js}" defer></script>
 	<body>
 
 </html>
