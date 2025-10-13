@@ -1,6 +1,11 @@
 
 /* 모달 컨테이너 - 높이 제한 */
-
+.modal_3 {
+   max-height: calc(100vh - 250px);
+   /* 화면 높이에 맞춤 */
+   overflow: hidden;
+   /* 전체 overflow 숨김 */
+}
 
 
 .grid_container {

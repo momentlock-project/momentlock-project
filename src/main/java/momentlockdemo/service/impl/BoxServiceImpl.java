@@ -97,7 +97,7 @@ public class BoxServiceImpl implements BoxService {
 	public Page<Box> getPagedBoxList(int currPage, int size) {
 		
 		Pageable pageable = PageRequest.of(currPage, size);
-//		findAll: 박스타입 Page 객체를 리턴하는 JpaRepository 기본 메서드
+//		findAll<Object>: Object 타입 Page 객체를 리턴하는 JpaRepository 기본 메서드
 		return boxRepository.findAll(pageable);
 		
 		
