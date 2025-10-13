@@ -1,5 +1,3 @@
-
-
 let isClicked = false; // 좋아요 버튼 누름 여부 전역 변수(기본값 false)
 
 
@@ -14,6 +12,7 @@ $(function() {
 
 	reportBtn.on('click', () => {
 		if (confirm('신고 하시겠습니까?')) {
+			
 			alert('신고가 접수되었습니다.');
 		} else {
 			return;
