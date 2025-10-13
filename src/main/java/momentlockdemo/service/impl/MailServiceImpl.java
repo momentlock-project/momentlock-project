@@ -40,4 +40,25 @@ public class MailServiceImpl implements MailService {
             throw new IllegalStateException("초대 메일 발송 실패", e);
         }
     }
+
+	@Override
+	@Async
+	public void sendPasswordResetMail(String to, String code) {
+		try {
+			Context context = new Context();
+			context.setVariable("code", code);
+			
+			String html = templateEngine.process("mail/passwordAuthCode", context);
+			
+			MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+            helper.setTo(to);
+            helper.setSubject("[MomentLock] 비밀번호 재설정 인증번호가 전송되었습니다.");
+            helper.setText(html, true);
+
+            mailSender.send(message);
+		} catch (MessagingException me){
+			throw new IllegalStateException("비밀번호 재설정 인증번호 발송 실패", me);
+		}
+	}
 }
