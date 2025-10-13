@@ -14,7 +14,7 @@
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
+	<div id="mainContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 
 		<div class="managerpagetoolex-modal-container">
@@ -30,22 +30,27 @@
 			<div class="modal_3">
 				<h1>타임캡슐 갤러리</h1>
 				<div class="grid_container">
-					<div class="box_card" th:each="boxlikecountdto, stat : ${popularBoxes}">
 
-						<img class="rank" src="/img/1.png" th:if="${stat.index}==0">
-						<img class="rank" src="/img/2.png" th:if="${stat.index}==1">
-						<img class="rank" src="/img/3.png" th:if="${stat.index}==2">
-						<img class="box" src="/img/openedBox.png">
+					<div class="box_card" th:each="box, stat : ${popularBoxes}" th:if="${box!=null}"
+						th:onclick="|location.href='@{/momentlock/boxdetail(boxid=${box.boxid})}'|">
 
-						<th:block th:if="${stat.index <= 2}">
-							<h2 class="top3" th:text="${boxlikecountdto.boxname}"></h2>
+						<img class="rank" src="/img/1.png" th:if="${stat.index==0 && box!=null}">
+						<img class="rank" src="/img/2.png" th:if="${stat.index==1 && box!=null}">
+						<img class="rank" src="/img/3.png" th:if="${stat.index==2 && box!=null}">
+						<img class="box" src="/img/openedBox.png" th:if="${box!=null}">
+
+						<th:block th:if="${stat.index <= 2 && box!=null}">
+							<h2 class="top3" th:text="${box.boxname}"></h2>
 						</th:block>
 
-						<div th:if="${stat.index > 2}">
-							<h2 th:text="${boxlikecountdto.boxname}"></h2>
+						<div th:if="${stat.index > 2 && box!=null}">
+							<h2 th:text="${box.boxname}"></h2>
 						</div>
-						
-						<h3 th:text="|좋아요 수: ${boxlikecountdto.caplikecount}|"></h3>
+
+						<th:block th:if="${box!=null}">
+							<h3 th:text="|좋아요 수: ${box.caplikecount}|"></h3>
+						</th:block>
+
 					</div>
 
 				</div>
@@ -53,9 +58,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<th:block th:if="${}"></th:block>
 
-	</div>
-	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>

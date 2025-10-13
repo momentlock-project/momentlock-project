@@ -26,7 +26,6 @@ public interface CapsuleService {
 
 	public abstract List<Capsule> getCapsulesByBoxOrderByDateDesc(Box box);
 	
-
 	public abstract List<Capsule> getCapsulesByMember(Member member);
 
 	public abstract List<Capsule> searchCapsulesByTitle(String captitle);
@@ -42,5 +41,7 @@ public interface CapsuleService {
 	public abstract List<Capsule> getCapsulesOrderByLikeDesc();
 	
 	public abstract List<Capsule> getCapsulesTopLike();
+	
+	public abstract Integer capsuleLikeCountUpdate(Long capid, String action);
 	
 }

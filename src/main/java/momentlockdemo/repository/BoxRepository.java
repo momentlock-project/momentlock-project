@@ -29,22 +29,13 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 //	이 쿼리는 묻히지 않은, 캡슐이 하나 이상 들어있는 박스와 
 //	각각의 박스 별 캡슐들이 받은 좋아요 수의 합을 
 //	좋아요 내림차 순으로 한꺼번에 가져오는 select문입니다. 
-//	@Query("SELECT b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
-//			+ "b.latitude, b.longitude, b.boxlocation, b.boxname, SUM(c.caplikecount) AS caplickcount "
-//			+ "FROM Capsule c JOIN c.box b WHERE b.boxburycode = 'BBN' AND b.boxdelcode = 'BDN' "
-//			+ "AND b.boxreleasecode = 'B00' AND b.boxcapcount >= 1 "
-//			+ "GROUP BY b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
-//			+ "b.latitude, b.longitude, b.boxlocation, b.boxname ORDER BY SUM(c.caplikecount) DESC")
-//	List<BoxLikeCountDto> getPopularBoxes();
-
-//	인기 캡슐 리스트 페이징
 	@Query("SELECT b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
-			+ "b.latitude, b.longitude, b.boxlocation, b.boxname, SUM(c.caplikecount) AS caplickcount "
+			+ "b.latitude, b.longitude, b.boxlocation, b.boxname, SUM(c.caplikecount) "
 			+ "FROM Capsule c JOIN c.box b WHERE b.boxburycode = 'BBN' AND b.boxdelcode = 'BDN' "
 			+ "AND b.boxreleasecode = 'B00' AND b.boxcapcount >= 1 "
 			+ "GROUP BY b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
 			+ "b.latitude, b.longitude, b.boxlocation, b.boxname ORDER BY SUM(c.caplikecount) DESC")
-	Page<BoxLikeCountDto> getPopularBoxPage(Pageable pageable); 
+	Page<BoxLikeCountDto> getPopularBoxPage(Pageable pageable);
 	// Pageable을 인자로 주면 Page 객체를 리턴해주는 기본 JpaRepository 메소드
-
+	
 }
