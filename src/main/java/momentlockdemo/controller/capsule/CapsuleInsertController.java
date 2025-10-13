@@ -45,34 +45,38 @@ public class CapsuleInsertController {
     }
 
     /*
-    캡슐 저장 + AWS S3 다중 파일 업로드
-   */
-   @PostMapping("/capsuleinsert")
-   public String capsuleinsert(
-           @ModelAttribute("capsule") Capsule capsule,
-           @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
+    캡슐 저장 + AWS S3 다중 파일 업로드 + 랜덤 썸네일 부여
+    */
+    @PostMapping("/capsuleinsert")
+    public String capsuleinsert(
+            @ModelAttribute("capsule") Capsule capsule,
+            @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
 
-       // 로그인 사용자 연결 (필요 시 주석 해제)
-//       String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//       Member member = memberService.getMemberByUsername(username)
-//               .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
-//       capsule.setMember(member);
+        //  (선택) 로그인 사용자 연결
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Member member = memberService.getMemberByUsername(username)
+//                .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
+//        capsule.setMember(member);
 
-       // 캡슐 DB 저장
-       Capsule savedCapsule = capsuleService.insertCapsule(capsule);
+        // 캡슐 썸네일 랜덤 색상 지정
+        int randomNum = (int) (Math.random() * 6) + 1;  // 1~10
+        capsule.setCapImage("capsule" + randomNum + ".png");
 
-       // 파일이 여러 개일 경우 각각 업로드
-       if (files != null && files.length > 0) {
-           for (MultipartFile file : files) {
-               if (file != null && !file.isEmpty()) {
-                   afileService.saveFileToCapsule(file, savedCapsule);
-               }
-           }
-       }
+        //  캡슐 DB 저장
+        Capsule savedCapsule = capsuleService.insertCapsule(capsule);
 
-       // 완료 후 리다이렉트
-       return "redirect:/momentlock/opencapsulelist";
-   }
+        //  여러 파일 S3 업로드
+        if (files != null && files.length > 0) {
+            for (MultipartFile file : files) {
+                if (file != null && !file.isEmpty()) {
+                    afileService.saveFileToCapsule(file, savedCapsule);
+                }
+            }
+        }
+
+        //  등록 후 리다이렉트
+        return "redirect:/momentlock/boxdetail?boxid=" + savedCapsule.getBox().getBoxid();
+    }
 
 
 
