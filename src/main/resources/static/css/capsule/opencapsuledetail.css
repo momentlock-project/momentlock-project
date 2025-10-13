@@ -14,9 +14,9 @@
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-position: center top;
-	display: inline-block;
 	position: relative;
-	margin-bottom: 0;
+	margin: 0 auto;
+	/* 수평 중앙 정렬 */
 }
 
 
@@ -93,12 +93,15 @@
 }
 
 .uploaded_image_or_video img {
-	max-width: 100%;
+	top: 612.81px;
+	/*max-width: 100%;*/
 	max-height: 100%;
-	object-fit: contain;
 	/* 작은 이미지는 비율 유지하며 중앙 정렬 */
-	object-position: center center;
+	object-fit: contain;
 	/* 중앙에 배치 */
+	object-position: center center;
+	max-width: 100%;
+	height: 788px;
 }
 
 .uploaded_text {
@@ -107,8 +110,10 @@
 	max-height: 332px;
 	background-color: #f4f3f3;
 	padding: 10px;
-	overflow-y: auto;   /* 세로 스크롤만 자동 표시 */
-	overflow-x: hidden; /* 가로 스크롤 제거 */
+	overflow-y: auto;
+	/* 세로 스크롤만 자동 표시 */
+	overflow-x: hidden;
+	/* 가로 스크롤 제거 */
 }
 
 

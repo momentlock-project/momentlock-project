@@ -55,10 +55,11 @@
 
 			<script th:inline="javascript">
 				/*<![CDATA[*/
-				const afileList = /*[[${afileJson}]]*/[];
+				const afileList = /*[[${afiles}]]*/[];
 				let currIdx = 0;
 
 				$(function () {
+					
 					// 파일이 없으면 숨기고 종료
 					if (afileList.length === 0) {
 						$('.uploaded_image_or_video').hide();
@@ -99,6 +100,7 @@
 					
 					const file = afileList[currIdx];
 					console.log(file.afcontenttype);
+					
 					// 파일 타입에 따라 표시
 					if (file.afcontenttype.startsWith('image')) {
 						showImage(file.afcname, file.afcontenttype);
@@ -125,6 +127,7 @@
 				}
 
 				function showVideo(filePath, contentType) {
+					
 					const imgField = $('#image');
 					const videoField = $('#video');
 					const sourceField = $('#source');

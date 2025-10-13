@@ -26,6 +26,7 @@ async function likeActiveToggle(capid) {
 	isClicked = !isClicked;
 	console.log(isClicked);
 	let currLikeCount = $('#likecount');
+	console.log(currLikeCount.text());
 
 	if (isClicked) { // 좋아요를 눌렀을 때
 		let response = await fetch(`/momentlock/capsulelikeaction?capid=${capid}&action=clicked`);
