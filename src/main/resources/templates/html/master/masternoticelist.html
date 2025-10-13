@@ -27,10 +27,41 @@
 			
 			<!-- 모달창 -->
 			<div class="modal_3">
-			    <h1>관리자 공지사항, QnA페이지</h1>
-				<div>이 div안에서 코드 구현</div>
+			  <h1>관리자 공지사항, QnA페이지</h1>
+			  <table class="data-table">
+				<thead>
+				    <tr>
+				       <th class="col-num">번호</th>
+					   <th class="col-category">구분</th>
+				       <th class="col-title">제목</th>
+				       <th class="col-date">작성일</th>
+				     </tr>
+				 </thead>
+			     <tbody>
+					<tr th:each="post, stat : ${posts}">
+					  <td th:text="${stat.size - stat.index}">10</td>
+					  <td>
+					    <span th:switch="${post.category}">
+					    <span th:case="'NOTICE'" class="badge notice-badge">공지</span>
+					    <span th:case="'QNA'" class="badge qna-badge">QnA</span>
+					    <span th:case="*">기타</span> <!-- 그 외의 경우 -->
+					  </span>
+					</td>
+					<td>
+					  <a th:href="@{/momentlock/posts/{id}(id=${post.id})}" th:text="${post.title}">게시글 제목</a>
+					</td>
+					<td th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd')}">2025-10-12</td>
+				  </tr>
+				  <!-- 조회된 게시글이 없을 경우 표시될 메시지 -->
+			      <tr th:if="${#lists.isEmpty(posts)}">   
+				    <td colspan="4" style="text-align: center;">작성된 게시글이 없습니다.</td>
+				  </tr>
+				 </tbody>
+			   </table>
 			 </div>
-			 
+			 <div class="write-btn-container">
+			    <a th:href="@{/momentlock/masterinquiryinsert}" class="form-btn">새 글 작성</a>
+			 </div>
 		</div>	
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
