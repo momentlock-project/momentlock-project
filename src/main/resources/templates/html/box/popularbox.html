@@ -9,19 +9,20 @@
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
-	<link rel="stylesheet" th:href="@{/css/box/popularbox.css}">
+	<link rel="stylesheet" th:href="@{/css/box/popularbox.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/boxpagingblock.css}" />
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
+	<div id="mainContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 
 		<div class="managerpagetoolex-modal-container">
 			<div class="managerpagetoolex-tab-nav">
 				<ul>
 					<li class="tabs active"><a th:href="@{/momentlock/popularbox}">인기 캡슐</a></li>
-					<li class="tabs"><a th:href="@{/momentlock/opensoonbox}">공개예정 캡슐</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/opensoonbox}">공개 예정 캡슐</a></li>
 					<li class="tabs"><a th:href="@{/momentlock/openboxmap}">캡슐 지도</a></li>
 				</ul>
 			</div>
@@ -30,32 +31,75 @@
 			<div class="modal_3">
 				<h1>타임캡슐 갤러리</h1>
 				<div class="grid_container">
-					<div class="box_card" th:each="boxlikecountdto, stat : ${popularBoxes}">
 
-						<img class="rank" src="/img/1.png" th:if="${stat.index}==0">
-						<img class="rank" src="/img/2.png" th:if="${stat.index}==1">
-						<img class="rank" src="/img/3.png" th:if="${stat.index}==2">
-						<img class="box" src="/img/openedBox.png">
+					<div class="box_card" th:each="box, stat : ${popularBoxes}" th:if="${box!=null}"
+						th:onclick="|location.href='@{/momentlock/boxdetail(boxid=${box.boxid})}'|">
 
-						<th:block th:if="${stat.index <= 2}">
-							<h2 class="top3" th:text="${boxlikecountdto.boxname}"></h2>
+						<img class="rank" src="/img/1.png" th:if="${stat.index==0 && box!=null}">
+						<img class="rank" src="/img/2.png" th:if="${stat.index==1 && box!=null}">
+						<img class="rank" src="/img/3.png" th:if="${stat.index==2 && box!=null}">
+						<img class="box" src="/img/openedBox.png" th:if="${box!=null}">
+
+						<th:block th:if="${stat.index <= 2 && box!=null}">
+							<h2 class="top3" th:text="${box.boxname}"></h2>
 						</th:block>
 
-						<div th:if="${stat.index > 2}">
-							<h2 th:text="${boxlikecountdto.boxname}"></h2>
+						<div th:if="${stat.index > 2 && box!=null}">
+							<h2 th:text="${box.boxname}"></h2>
 						</div>
-						
-						<h3 th:text="|좋아요 수: ${boxlikecountdto.caplikecount}|"></h3>
+
+						<th:block th:if="${box!=null}">
+							<h3 th:text="|좋아요 수: ${box.caplikecount}|"></h3>
+						</th:block>
+
 					</div>
 
 				</div>
+				<!-- 페이지 블록 -->
+				<th:block th:if="${page.totalPages > 1}">
+					<nav class="pagination-nav mt-3">
+						<ul class="pagination-custom">
+							<li class="page-item" th:classappend="${page.number == 0 ? 'disabled' : ''}">
+								<a class="page-link" id="pre"
+									th:href="@{/momentlock/popularbox(currPage=${page.number-1})}">[이전]</a>
+							</li>
+
+							<li th:each="pageNum : ${#numbers.sequence(1, page.totalPages)}" class="page-item"
+								th:classappend="${pageNum == page.number + 1} ? 'active'">
+								<a class="page-link" th:href="@{/momentlock/popularbox(currPage=${pageNum-1})}"
+									th:text="${pageNum}"></a>
+							</li>
+
+							<li class="page-item"
+								th:classappend="${page.number + 1 == page.totalPages ? 'disabled' : ''}">
+								<a class="page-link" id="next"
+									th:href="@{/momentlock/popularbox(currPage=${page.number+1})}">[다음]</a>
+							</li>
+
+						</ul>
+					</nav>
+					<script th:inline="javascript">
+						
+						// 현재 페이지가 0일 때 이전 페이지 a 링크 숨김
+						if($('#pre').closest('.page-item').hasClass('disabled')) {
+							$('#pre').hide();
+							
+						} else if($('#next').closest('.page-item').hasClass('disabled')) {
+							// 현재 페이지가 마지막 페이지일 경우
+							$('#next').hide();
+						} else {
+							$('.page-item').show();
+						}
+						
+					</script>
+				</th:block>
 
 			</div>
 		</div>
 	</div>
 
-	</div>
-	</div>
+
+
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>

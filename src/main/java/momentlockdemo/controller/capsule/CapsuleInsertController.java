@@ -19,6 +19,11 @@ import momentlockdemo.service.AfileService;
 import momentlockdemo.service.CapsuleService;
 import momentlockdemo.service.MemberService;
 
+import momentlockdemo.entity.Afile;
+import momentlockdemo.entity.Capsule;
+import momentlockdemo.service.AfileService;
+import momentlockdemo.service.CapsuleService;
+
 @Controller("capsuleInsertController")
 @RequestMapping("/momentlock")
 public class CapsuleInsertController {

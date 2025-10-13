@@ -10,12 +10,13 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/box/opensoonbox.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/boxpagingblock.css}" />
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
+	<div id="mainContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
 
 		<div class="managerpagetoolex-modal-container">
@@ -50,6 +51,45 @@
 
 		</div>
 	</div>
+
+	<!-- 페이지 블록 -->
+	<th:block th:if="${page.totalPages > 1}">
+		<nav class="pagination-nav mt-3">
+			<ul class="pagination-custom">
+				<li class="page-item" th:classappend="${page.number == 0 ? 'disabled' : ''}">
+					<a class="page-link" id="pre"
+						th:href="@{/momentlock/opensoonbox(currPage=${page.number-1})}">[이전]</a>
+				</li>
+
+				<li th:each="pageNum : ${#numbers.sequence(1, page.totalPages)}" class="page-item"
+					th:classappend="${pageNum == page.number + 1} ? 'active'">
+					<a class="page-link" th:href="@{/momentlock/opensoonbox(currPage=${pageNum-1})}"
+						th:text="${pageNum}"></a>
+				</li>
+
+				<li class="page-item" th:classappend="${page.number + 1 == page.totalPages ? 'disabled' : ''}">
+					<a class="page-link" id="next"
+						th:href="@{/momentlock/opensoonbox(currPage=${page.number+1})}">[다음]</a>
+				</li>
+
+			</ul>
+		</nav>
+		<script th:inline="javascript">
+
+			// 현재 페이지가 0일 때 이전 페이지 a 링크 숨김
+			if ($('#pre').closest('.page-item').hasClass('disabled')) {
+				$('#pre').hide();
+
+			} else if ($('#next').closest('.page-item').hasClass('disabled')) {
+				// 현재 페이지가 마지막 페이지일 경우
+				$('#next').hide();
+			} else {
+				$('.page-item').show();
+			}
+
+		</script>
+	</th:block>
+
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
