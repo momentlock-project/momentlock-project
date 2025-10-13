@@ -59,7 +59,7 @@
 				let currIdx = 0;
 
 				$(function () {
-					
+
 					// 파일이 없으면 숨기고 종료
 					if (afileList.length === 0) {
 						$('.uploaded_image_or_video').hide();
@@ -97,10 +97,10 @@
 				});
 
 				function renderFile() {
-					
+
 					const file = afileList[currIdx];
 					console.log(file.afcontenttype);
-					
+
 					// 파일 타입에 따라 표시
 					if (file.afcontenttype.startsWith('image')) {
 						showImage(file.afcname, file.afcontenttype);
@@ -127,7 +127,7 @@
 				}
 
 				function showVideo(filePath, contentType) {
-					
+
 					const imgField = $('#image');
 					const videoField = $('#video');
 					const sourceField = $('#source');
@@ -160,22 +160,24 @@
 
 			<div class="uploaded_text" th:text="${capsule.capcontent}"></div>
 
-			<div class="movepage">
+			<span class="movepage">
 
 				<button class="form-btn" id="pre">이전</button>
 
 				<button class="form-btn" id="next">다음</button>
 
-			</div>
+			</span>
 
 			<input type="hidden" id="capid" th:value="${capsule.capid}">
 
-			<div class="actions">
+			<div class="btnContainer">
+				<div class="actions">
 
-				<img src="/img/declarationbtn.png" id="reportBtn">
-				<img src="/img/likebutton.png" id="likeBtn">
+					<img src="/img/declarationbtn.png" id="reportBtn">
+					<img src="/img/likebutton.png" id="likeBtn">
 
-				<span id="likecount" th:text="${capsule.caplikecount}"></span>
+					<span id="likecount" th:text="${capsule.caplikecount}"></span>
+				</div>
 			</div>
 
 		</div>

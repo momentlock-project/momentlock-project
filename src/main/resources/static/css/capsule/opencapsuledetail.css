@@ -54,12 +54,11 @@
 
 
 .my_capsule_detail {
-	position: absolute;
+	position: relative;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	/* 중앙 정렬 */
-
 	/* 반응형 크기 설정 */
 	width: auto;
 	height: auto;
@@ -147,10 +146,19 @@
 	background: #e0e0e0;
 }
 
-.actions {
+.btnContainer {
 	display: flex;
 	justify-content: flex-end;
 	/* 요소를 오른쪽으로 정렬 */
+}
+
+.actions {
+  position: absolute;
+  right: 20px;  /* 오른쪽 여백 */
+  bottom: 20px; /* 아래 여백 */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 아이콘 간격 */
 }
 
 #likeBtn:hover {
