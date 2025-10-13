@@ -53,8 +53,8 @@ public class CapsuleInsertController {
             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
         //  로그인 사용자 가져오기
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberService.getMemberByUsername(username)
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Member member = memberService.getMemberByUsername("username3")
                 .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
 
         //  캡슐에 작성자 연결

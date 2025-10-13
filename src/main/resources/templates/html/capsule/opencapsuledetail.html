@@ -96,13 +96,14 @@
 				});
 
 				function renderFile() {
+					
 					const file = afileList[currIdx];
 					console.log(file.afcontenttype);
 					// 파일 타입에 따라 표시
 					if (file.afcontenttype.startsWith('image')) {
-						showImage(file.afsname);
+						showImage(file.afcname, file.afcontenttype);
 					} else if (file.afcontenttype.startsWith('video')) {
-						showVideo(file.afsname, file.afcontenttype);
+						showVideo(file.afcname, file.afcontenttype);
 					}
 
 					// 버튼 숨김/보임 처리
