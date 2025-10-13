@@ -26,26 +26,28 @@ async function getBoxData() {
         const response = await fetch('/momentlock/api/boxdata');
         const data = await response.json();
         console.log('받아온 데이터:', data);
-        
-        // 각 Box를 지역별로 분류
+
+        const now = new Date(); // 현재 시간 기준
+
         data.forEach(box => {
-            // boxlocation에서 지역 추출
             const location = extractLocationFromAddress(box.boxlocation);
-            
-            // 해당 지역이 cityData에 있으면 capsule 추가
+
             if (cityData[location]) {
+                // boxopendate가 존재하고 현재 시각이 그보다 이후인지 검사
+                const isOpened = box.boxopendate && new Date(box.boxopendate) <= now;
+
                 cityData[location].capsules.push({
                     id: box.boxid,
                     title: box.boxname,
                     date: box.boxopendate ? box.boxopendate.split('T')[0] : '',
-                    image: '/img/basic_box.png',
+                    image: isOpened ? '/img/opendBox_map.png' : '/img/basic_box.png',
                     location: box.boxlocation
                 });
             }
         });
-        
+
         console.log('지역별로 분류된 cityData:', cityData);
-        
+
     } catch (error) {
         console.error('캡슐 데이터 로드 실패:', error);
     }
