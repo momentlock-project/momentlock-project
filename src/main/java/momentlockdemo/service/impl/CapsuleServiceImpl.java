@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class CapsuleServiceImpl implements CapsuleService {
     
     private final CapsuleRepository capsuleRepository;
     
+    
     @Override
     @Transactional
     public Capsule createCapsule(Capsule capsule) {
@@ -36,6 +38,13 @@ public class CapsuleServiceImpl implements CapsuleService {
     public List<Capsule> getAllCapsules() {
         return capsuleRepository.findAll();
     }
+    
+    @Override
+    @Transactional
+    public Capsule insertCapsule(Capsule capsule) {
+       return capsuleRepository.save(capsule);
+    }
+    
     
     @Override
     @Transactional
@@ -91,12 +100,12 @@ public class CapsuleServiceImpl implements CapsuleService {
     
     @Override
     public List<Capsule> getCapsulesOrderByLikeDesc() {
-    	return capsuleRepository.findAllByOrderByCaplikecountDesc();
+       return capsuleRepository.findAllByOrderByCaplikecountDesc();
     }
     
     @Override
     public List<Capsule> getCapsulesTopLike() {
-    	return capsuleRepository.findTop10ByOrderByCaplikecountDesc();
+       return capsuleRepository.findTop10ByOrderByCaplikecountDesc();
     }
 
 	@Override
