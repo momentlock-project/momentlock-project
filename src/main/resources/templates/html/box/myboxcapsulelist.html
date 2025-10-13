@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="@{/css/main.css}" />
+    <link rel="stylesheet" href="@{/css/nav.css}" />
+    <link rel="stylesheet" href="@{/css/box/myboxcapsulelist.css}" />
+    <link rel="stylesheet" href="@{/css/box/membercount.css}" />
+  </head>
+  <body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="box-modal">
+			<a th:href="@{/momentlock/mypage}" >
+				<img src="/img/x.png" alt="창닫기" />
+			</a>
+
+
+      <!-- ✅ 핑크색 박스 -->
+      <div class="my_boxdetail_list">
+        <button class="box_btn"></button>
+
+        <!-- 상단 제목 -->
+        <div class="list-header">
+          <h3>나의 상자 리스트</h3>
+          <h1>우리의 프랑스 파리 여행</h1>
+        </div>
+
+        <div class="top-row">
+          <!-- ✅ 참여인원 → MemberCount -->
+          <div class="memberCount">
+            <button class="box-btn">참여 인원</button>
+            <span>참여 인원 : 0</span>
+          </div>
+          <div class="action-buttons">
+            <button class="box-btn">캡슐 추가</button>
+            <button class="box-btn">초대 하기</button>
+          </div>
+        </div>
+
+        <!-- 준비하기 버튼 -->
+        <div class="footer-btn">
+          <button class="box-btn">준비 하기</button>
+        </div>
+
+        <!-- 참여인원 모달-->
+        <div id="memberCountModal" class="modal">
+          <div class="modal-content">
+            <h2>참여인원</h2>
+
+            <div class="member-list">
+              <div class="member-item">
+                <div class="left-info">
+                  <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                  <span class="nickname">홍길동1</span>
+                </div>
+                <button class="kick-btn">내보내기</button>
+              </div>
+
+              
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동2</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동3</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동4</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동5</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동6</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동7</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동8</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동9</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동10</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동11</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동12</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동13</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동14</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동15</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동16</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동17</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동18</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동19</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+
+            <div class="member-item">
+              <div class="left-info">
+                <img src="no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                <span class="nickname">홍길동20</span>
+              </div>
+              <button class="kick-btn">내보내기</button>
+            </div>
+          </div>
+
+
+
+            <button class="modal-confirm" id="memberCountConfirm">확인</button>
+          </div>
+        </div>
+        <!-- 참여인원 모달 끝 -->
+
+
+			</div>
+			</div>
+		</div>
+		<div th:replace="~{fragments/footer :: footer}"></div>
+		<script th:src="@{/js/nav.js}" defer></script>
+		<script th:src="@{/js/myboxcapsulelist.js}" defer></script>
+
+  </body>
+</html>

@@ -1,0 +1,141 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e5e5e5;
+  margin: 0;
+  padding: 0;
+}
+
+.my_boxdetail_list {
+  width: 80%;
+  min-height: 100vh;
+  background-color: #dcbaba;
+  border-radius: 8px;
+  margin: 30px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 30px;
+  position: relative;
+}
+
+/* 제목 영역 */
+.list-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.list-header h3 {
+  font-size: 18px;
+  color: #ffffff;   /* 흰색 */
+  margin: 0;
+}
+.list-header h1 {
+  font-size: 32px;
+  margin: 8px 0;
+  font-weight: bold;
+  color: #ffffff;   /* 흰색 */
+}
+
+
+/* 참여 인원 + 액션 버튼 한 줄 */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* MemberCount */
+.memberCount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.memberCount button {
+  padding: 10px 16px;
+  border: 1px solid #888;
+  background: #ac9898;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 15px;
+}
+.memberCount span {
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.memberCount button:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+
+/* 우측 버튼 */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+.action-buttons button {
+  padding: 10px 16px;
+  border: 1px solid #888;
+  background: #ac9898;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* 준비하기 버튼 */
+.footer-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.footer-btn button {
+  padding: 12px 24px;
+  background: #ac9898;
+  color: #ffffff;
+  border: 1px solid #666;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.footer-btn button:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background-color: #f0f0f0;
+  border: 2px solid #555;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+
+.close-btn::before,
+.close-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;         
+  height: 24px;       
+  background-color: #555;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  
+}
+
+
+
+/* 참여인원 모달 추가 */
+.my_boxdetail_list {
+  position: relative;
+}
