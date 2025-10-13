@@ -1,12 +1,28 @@
 package momentlockdemo.controller.member;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import momentlockdemo.entity.Capsule;
+import momentlockdemo.entity.Member;
+import momentlockdemo.repository.CapsuleRepository;
+import momentlockdemo.service.CapsuleService;
+import momentlockdemo.service.MemberService;
 
 @Controller("MemberMypageController")
 @RequestMapping("/momentlock")
 public class MemeberMypageController {
+	
+	@Autowired
+	private CapsuleService capsuleService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	// 마이페이지 메뉴
 	@GetMapping("/mypage")
@@ -16,7 +32,14 @@ public class MemeberMypageController {
 	
 	// 나의 캡슐 리스트
 	@GetMapping("/mycapsulelist")
-	public String mycapsulelistPage() {
+	public String mycapsulelistPage(Model model) {
+		
+		// 로그인 추가 시 로그인 유저찾아서 확인하는 로직 추가
+		
+		Member loginMember = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		List<Capsule> capsuleList = capsuleService.getCapsulesByMember(loginMember);
+		model.addAttribute("capsuleList", capsuleList);
+		
 		return "html/capsule/mycapsulelist";
 	}
 	

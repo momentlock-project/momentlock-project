@@ -8,19 +8,89 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/memberjoin.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/member_btn.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/memberinfo.css}" />
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div>
-			여기안에서 코드 구현 회원정보 페이지
+		<div id="join-container">
+			<h1>회원정보 수정</h1>
+			<form  id="memberjoin" th:action="@{/momentlock/join}" th:object="${memberDto}" method="post">
+				<!-- input 필드 -->
+				<div id="input-box">
+					
+					<div class="input-box-name name">
+						<span>이름</span>
+						<input type="text" name="name" placeholder="이름을 입력하세요" required />
+					</div>
+					
+					<div class="input-box-name nickname">
+						<span>닉네임</span>
+						<input type="text" name="nickname" placeholder="닉네임을 입력하세요" required />
+					</div>
+					
+					<div>
+						<div class="input-box-name username">
+							<span>이메일</span>
+							<input type="text" name="username" placeholder="이메일을 입력하세요" required />
+						</div>
+						<p class="msg username"></p>
+					</div>
+					<div>
+						<div class="input-box-name password">
+							<span>비밀번호</span>
+							<input type="password" name="password" placeholder="비밀번호를 입력하세요" required />
+						</div>
+						<p class="msg password"></p>
+					</div>
+					<div>
+						<div class="input-box-name passwordconfirm">
+							<span>비밀번호 확인</span>
+							<input type="password" name="passwordconfirm" placeholder="비밀번호를 입력하세요" required />
+						</div>
+						<p class="msg passwordconfirm"></p>
+					</div>
+					
+					<div>
+						<div class="input-box-name phonenumber">
+							<span>전화번호</span>
+							<input type="text" name="phonenumber" placeholder="전화번호를 입력하세요" required />
+						</div>
+						<p class="msg phonenumber"></p>
+					</div>
+					
+					<div>
+						<div class="input-box-name phonenumber mysub">
+							<span>구독 현황</span>
+							<p id="mysub">베이직 구독 1년</p>
+						</div>
+					</div>
+					
+					<div>
+						<div class="input-box-name phonenumber">
+							<span>구독 만료일자</span>
+							<p id="enddate">2026-09-30</p>
+							<button class="member-btn sub">구독 취소</button>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div id="btn-box">
+					<input type="button" class="member-btn" value="이전" onclick="history.back()">
+					<button type="button" class="member-btn">수정</button>
+				</div>
+			</form>
+			
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
-
+	<script th:src="@{/js/member/memberinfo.js}" defer></script>
 	<body>
 
 </html>

@@ -1,0 +1,1 @@
+const memberremove = document.querySelect(".main-btn.memberremove");
