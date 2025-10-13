@@ -36,10 +36,10 @@ public class BoxInsertController {
 	public String memberCreate() {
 		
 		Member member = Member.builder()
-				.username("alswn7653@naver.com")
-				.name("김민주")
+				.username("gmldnjs1616@gmail.com")
+				.name("이희원")
 				.password("1234")
-				.nickname("밍구")
+				.nickname("희원굿")
 				.phonenumber("01044487754")
 				.memcapcount(10L)
 				.build();
@@ -74,7 +74,7 @@ public class BoxInsertController {
 	                 .boxmemcount(memberCount)
 	                 .build();
 	    
-	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("희원굿").get());
+	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("길동이").get());
 	    
 	    return "redirect:/momentlock/myboxlist";
 	}
