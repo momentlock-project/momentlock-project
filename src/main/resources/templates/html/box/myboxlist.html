@@ -8,22 +8,154 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
+
 		<div class="box-modal">
-			<a th:href="@{/momentlock/mypage}" >
+			<a th:href="@{/momentlock/mypage}">
 				<img src="/img/x.png" alt="창닫기" />
 			</a>
-			여기안에서 코드 구현 나의 상자 리스트 페이지
+			
+			<div id="my-box-list-container">
+			  <h1>나의 상자 리스트</h1>
+			  <div id="my-box-list-box">
+			    <div id="my-box-list-title-box">
+			      <a th:href="@{/momentlock/boxinsert}" class="main-btn boxAdditional">
+			        상자 추가
+			      </a>
+			    </div>
+
+			<div class="grid_container">
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 프랑스 파리 여행</h2>
+					<h3>01일 12시 30분 14초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 일본 오사카 여행</h2>
+					<h3>03일 05시 20분 10초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 미국 뉴욕 여행</h2>
+					<h3>05일 08시 15분 40초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 스페인 바르셀로나 여행</h2>
+					<h3>02일 16시 45분 05초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 이탈리아 로마 여행</h2>
+					<h3>04일 10시 25분 50초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 독일 베를린 여행</h2>
+					<h3>06일 14시 10분 30초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 영국 런던 여행</h2>
+					<h3>07일 18시 05분 20초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 캐나다 토론토 여행</h2>
+					<h3>08일 09시 40분 15초</h3>
+				</div>
+
+				<div class="box_card">
+					<button class="menu-btn">⋮</button>
+					<div class="dropdown">
+						<a href="#">수정</a>
+						<a href="#">삭제</a>
+						<a href="#">상자 보내기</a>
+					</div>
+					<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
+					<h2>우리의 호주 시드니 여행</h2>
+					<h3>09일 11시 55분 05초</h3>
+				</div>
+			</div>
 		</div>
 	</div>
+
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
-
-	<body>
+	<script th:src="@{/js/box/myboxlist.js}" defer></script>
+	
+	<div id="send-form" class="send-form">
+	  <div class="send-form-content">
+	    <button class="send-close">×</button>
+	    <p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
+	    <div class="send-input-row">
+	      <input type="text" class="send-nickname" placeholder="닉네임 입력" />
+	      <button class="send-submit">보내기</button>
+	    </div>
+	  </div>
+	</div>
+</body>
 
 </html>

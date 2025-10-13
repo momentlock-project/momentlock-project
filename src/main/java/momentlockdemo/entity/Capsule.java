@@ -58,6 +58,9 @@ public class Capsule implements Serializable {
 	@Column(name = "CAPLIKECOUNT")
 	private Long caplikecount;
 
+	@Column(name = "CAP_IMAGE", length = 500)
+	private String capImage;
+	
 	@Column(name = "CAPAFILECOUNT")
 	private Long capafilecount;
 	
