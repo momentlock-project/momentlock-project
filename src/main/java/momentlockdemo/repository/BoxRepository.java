@@ -38,4 +38,7 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 	Page<BoxLikeCountDto> getPopularBoxPage(Pageable pageable);
 	// Pageable을 인자로 주면 Page 객체를 리턴해주는 기본 JpaRepository 메소드
 	
+//	opensoonbox.html에서 사용할 Page 객체
+	Page<Box> findAll(Pageable pageable);
+	
 }

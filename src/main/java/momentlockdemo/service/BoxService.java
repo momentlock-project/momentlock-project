@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import momentlockdemo.dto.BoxLikeCountDto;
 import momentlockdemo.entity.Box;
@@ -38,6 +37,6 @@ public interface BoxService {
 	
 	public abstract Page<BoxLikeCountDto> getPagedPopularBox(int currPage, int size);
 	
-	public abstract List<Box> getPagedBoxList(int currPage, int size);
+	public abstract Page<Box> getPagedBoxList(int currPage, int size);
 
 }
