@@ -45,32 +45,35 @@ public class CapsuleInsertController {
     }
 
     /*
-     캡슐 저장 + AWS S3 파일 업로드
-     */
-    @PostMapping("/capsuleinsert")
-    public String capsuleinsert(
-            @ModelAttribute("capsule") Capsule capsule,
-            @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+    캡슐 저장 + AWS S3 다중 파일 업로드
+   */
+   @PostMapping("/capsuleinsert")
+   public String capsuleinsert(
+           @ModelAttribute("capsule") Capsule capsule,
+           @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
 
-        //  로그인 사용자 가져오기
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberService.getMemberByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
+       // 로그인 사용자 연결 (필요 시 주석 해제)
+//       String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//       Member member = memberService.getMemberByUsername(username)
+//               .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
+//       capsule.setMember(member);
 
-        //  캡슐에 작성자 연결
-        capsule.setMember(member);
+       // 캡슐 DB 저장
+       Capsule savedCapsule = capsuleService.insertCapsule(capsule);
 
-        //  캡슐 DB 저장
-        Capsule savedCapsule = capsuleService.insertCapsule(capsule);
+       // 파일이 여러 개일 경우 각각 업로드
+       if (files != null && files.length > 0) {
+           for (MultipartFile file : files) {
+               if (file != null && !file.isEmpty()) {
+                   afileService.saveFileToCapsule(file, savedCapsule);
+               }
+           }
+       }
 
-        //  파일이 존재할 경우 S3 + DB 저장
-        if (file != null && !file.isEmpty()) {
-            afileService.saveFileToCapsule(file, savedCapsule);
-        }
+       // 완료 후 리다이렉트
+       return "redirect:/momentlock/opencapsulelist";
+   }
 
-        //  완료 후 리다이렉트 (사용자별 리스트)
-        return "redirect:/momentlock/opencapsulelist";
-    }
 
 
      // 캡슐 수정 폼 페이지

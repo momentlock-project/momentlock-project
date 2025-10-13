@@ -85,7 +85,7 @@ public class Capsule implements Serializable {
 	protected void capsuleCreate() {
 		this.capregdate = LocalDateTime.now();
 		this.capdelcode = "TDN";
-//		this.caplikecount = 0L;
+		this.caplikecount = 0L;
 		this.capafilecount = 0L;
 	}
 

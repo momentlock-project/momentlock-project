@@ -1,15 +1,19 @@
 package momentlockdemo.service.impl;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import lombok.RequiredArgsConstructor;
 import momentlockdemo.entity.Afile;
@@ -24,11 +28,11 @@ public class AfileServiceImpl implements AfileService {
     private final AfileRepository afileRepository;
     private final AmazonS3 amazonS3;
 
-    // 버킷 이름은 application.properties에서 가져와도 되고, 상수로 써도 됨
-    private final String bucketName = "your-bucket-name"; // properties와 동일하게 맞춰야 함
-
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
 
     @Override
+    @Transactional
     public Afile createAfile(Afile afile) {
         return afileRepository.save(afile);
     }
@@ -44,15 +48,22 @@ public class AfileServiceImpl implements AfileService {
     }
 
     @Override
+    @Transactional
     public Afile updateAfile(Afile afile) {
         return afileRepository.save(afile);
     }
 
     @Override
+    @Transactional
     public void deleteAfile(Long afid) {
-        afileRepository.deleteById(afid);
+        Optional<Afile> afile = afileRepository.findById(afid);
+        if (afile.isPresent()) {
+            // S3에서 파일 삭제
+            deleteFromS3(afile.get().getAfcname());
+            // DB에서 삭제
+            afileRepository.deleteById(afid);
+        }
     }
-
 
     @Override
     public List<Afile> getAfilesByCapsule(Capsule capsule) {
@@ -79,24 +90,43 @@ public class AfileServiceImpl implements AfileService {
         return afileRepository.countByCapsule(capsule);
     }
 
-    // ----------------------------- S3 업로드 ----------------------------- //
-
+    // S3 업로드
     @Override
     public String uploadToS3(MultipartFile file) throws IOException {
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        // 고유한 파일명 생성 (UUID + 원본 파일명)
+        String originalFilename = file.getOriginalFilename();
+        String extension = "";
+        if (originalFilename != null && originalFilename.contains(".")) {
+            extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
+        String fileName = UUID.randomUUID().toString() + extension;
 
+        // 메타데이터 설정
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
 
-        amazonS3.putObject(bucketName, fileName, file.getInputStream(), metadata);
+        // S3에 업로드
+        amazonS3.putObject(new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata));
 
-        return amazonS3.getUrl(bucketName, fileName).toString(); // 업로드된 S3 URL 반환
+        // 업로드된 파일의 URL 반환
+        return amazonS3.getUrl(bucketName, fileName).toString();
     }
 
-    // ----------------------------- Capsule 저장 ----------------------------- //
+    // S3에서 파일 삭제
+    public void deleteFromS3(String fileUrl) {
+        try {
+            // URL에서 파일명 추출
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+        } catch (Exception e) {
+            throw new RuntimeException("S3 파일 삭제 실패", e);
+        }
+    }
 
+    // Capsule에 파일 저장
     @Override
+    @Transactional
     public Afile saveFileToCapsule(MultipartFile file, Capsule capsule) throws IOException {
         // S3 업로드
         String s3Url = uploadToS3(file);
@@ -106,12 +136,29 @@ public class AfileServiceImpl implements AfileService {
                 .afsname(file.getOriginalFilename())
                 .afcname(s3Url)
                 .afcontenttype(file.getContentType())
-                .afregdate(LocalDateTime.now())
                 .afdelyn("ADDN")
                 .capsule(capsule)
                 .build();
 
-        // DB 저장
+        // Capsule의 파일 카운트 증가
+        capsule.setCapafilecount((capsule.getCapafilecount() == null ? 0L : capsule.getCapafilecount()) + 1);
+
         return afileRepository.save(afile);
+    }
+
+    // 파일 교체 (기존 파일 삭제 후 새 파일 업로드)
+    @Transactional
+    public Afile replaceFileToCapsule(MultipartFile newFile, Capsule capsule) throws IOException {
+        // 기존 파일 목록 조회
+        List<Afile> existingFiles = getAfilesByCapsule(capsule);
+        
+        // 기존 파일 삭제
+        for (Afile oldFile : existingFiles) {
+            deleteFromS3(oldFile.getAfcname());
+            afileRepository.delete(oldFile);
+        }
+
+        // 새 파일 업로드
+        return saveFileToCapsule(newFile, capsule);
     }
 }
