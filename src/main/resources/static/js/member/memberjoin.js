@@ -41,16 +41,6 @@ passwordconfirm.addEventListener("input", () => {
 })
 
 
-const form = document.querySelector("#memberjoin");
-
-form.addEventListener("submit", e => {
-	e.preventDefault(); // 기본 submit 막기
-	alert("회원가입이 완료되었습니다!");
-	form.submit();
-})
-
-
-
 
 
 
