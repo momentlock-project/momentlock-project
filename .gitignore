@@ -32,6 +32,7 @@ Thumbs.db
 
 ### Application properties (환경별 분리 관리용) ###
 src/main/resources/application.properties
+src/main/resources/application-mail.properties
 
 ### Help file ###
 HELP.md
