@@ -5,10 +5,10 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="@{/css/main.css}" />
-    <link rel="stylesheet" href="@{/css/nav.css}" />
-    <link rel="stylesheet" href="@{/css/box/myboxcapsulelist.css}" />
-    <link rel="stylesheet" href="@{/css/box/membercount.css}" />
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/myboxcapsulelist.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/membercount.css}" />
   </head>
   <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
@@ -228,7 +228,7 @@
 		</div>
 		<div th:replace="~{fragments/footer :: footer}"></div>
 		<script th:src="@{/js/nav.js}" defer></script>
-		<script th:src="@{/js/myboxcapsulelist.js}" defer></script>
+		<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
 
   </body>
 </html>
