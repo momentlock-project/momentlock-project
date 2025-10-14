@@ -1,0 +1,108 @@
+/* "공지사항 / QnA 작성" 제목 */
+.modal-title {
+    font-size: 28px;
+    color: #5D4037; /* 진한 갈색 텍스트 */
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* 제목 입력창 */
+.input-title {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #BCAAA4; /* 연한 갈색 테두리 */
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩을 포함하여 너비 계산 */
+    background-color: #FFF;
+}
+
+/* 내용 입력창 */
+.input-content {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #BCAAA4;
+    border-radius: 8px;
+    font-size: 16px;
+    min-height: 300px; /* 최소 높이 지정 */
+    resize: vertical; /* 사용자가 수직으로만 크기 조절 가능 */
+    box-sizing: border-box;
+    font-family: inherit; /* body의 폰트를 상속받음 */
+    background-color: #FFF;
+}
+
+/* 입력창 포커스 효과 */
+.input-title:focus,
+.input-content:focus,
+.category-select:focus {
+    outline: none;
+    border-color: #8B7864; /* 포커스 시 테두리 색상 변경 */
+    box-shadow: 0 0 5px rgba(139, 120, 100, 0.5);
+}
+
+/* 구분, 파일 등 그룹화 영역 */
+.form-group,
+.file-area {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 라벨과 선택창 사이의 간격 */
+}
+
+.form-group label,
+.file-area label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5D4037;
+}
+
+/* 카테고리 선택 드롭다운 */
+.category-select {
+    padding: 10px;
+    border: 1px solid #BCAAA4;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #FFF;
+    min-width: 250px;
+}
+
+/* 파일 업로드 input 스타일 */
+.file-area input[type="file"] {
+    font-size: 14px;
+}
+
+/* 하단 버튼 (목록, 등록) 컨테이너 */
+.actions {
+    display: flex;
+    justify-content: flex-end; /* 버튼들을 오른쪽 끝으로 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+    margin-top: 30px;
+    border-top: 1px solid #D7CCC8; /* 상단 구분선 */
+    padding-top: 20px;
+}
+
+/* 버튼 기본 스타일 (form_btn.css가 있다면 생략 가능) */
+.form-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border: none;
+    background-color: #8B7864;
+    color: #5D4037;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.form-btn:hover {
+    background-color: #7A6854;
+}
+
+.form-btn:active {
+    transform: translateY(1px); /* 클릭 시 살짝 눌리는 효과 */
+}

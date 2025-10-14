@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -31,51 +32,34 @@
 			    <h1>신고 페이지</h1>
 				
 				<div id="table-container">
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목12345</div>
-						<div class="col">2025/10/4</div>
+					<div class="row" th:each="declar : ${declarlist}">
+						<div class="col number" th:text="${declar.decid}">1</div>
+						<div class="col title" th:text="${declar.deccategory}">신고 항목12345</div>
+						<div class="col regdate" th:text="${declar.decregdate}">2025/10/4</div>
 					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목12345</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">신고 항목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					
 				</div>
 				
-				<div>
-					<a>이전</a>
-					<!-- 페이지 번호 반복 -->
-				    <span>
-				        <a>1</a>
-				    </span>
-					<a>다음</a>
+				<!-- 페이지네이션 -->
+				<div th:if="${!declarlist.isEmpty()}" id="pagination-container">
+					<ul class="pagination">
+						
+						<!-- 이전 -->
+						<li class="arrow" th:if="${declarlist.hasPrevious()}">
+							<a th:href="@{/momentlock/memberdeclarlist(page=${declarlist.number - 1}, size=${declarlist.size})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 -->
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, declarlist.totalPages - 1)}"
+							th:classappend="${i == declarlist.number} ? 'active'">
+							<a th:href="@{/momentlock/memberdeclarlist(page=${i}, size=${declarlist.size})}" th:text="${i + 1}"></a>
+						</li>
+						
+						<!-- 다음 -->
+						<li class="arrow" th:if="${declarlist.hasNext()}">
+							<a th:href="@{/momentlock/memberdeclarlist(page=${declarlist.number + 1}, size=${declarlist.size})}">&gt;</a>
+						</li>
+						
+					</ul>
 				</div>
 				
 			 </div>
@@ -85,6 +69,7 @@
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 
 </html>
