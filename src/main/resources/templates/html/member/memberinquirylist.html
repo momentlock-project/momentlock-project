@@ -50,18 +50,18 @@
 					<ul class="pagination">
 						
 						<!-- 이전 -->
-						<li th:if="${inquirylist.hasPrevious()}">
+						<li class="arrow" th:if="${inquirylist.hasPrevious()}">
 							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number - 1}, size=${inquirylist.size})}">&lt;</a>
 						</li>
 
 						<!-- 페이지 번호 -->
-						<li th:each="i : ${#numbers.sequence(0, inquirylist.totalPages - 1)}"
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, inquirylist.totalPages - 1)}"
 							th:classappend="${i == inquirylist.number} ? 'active'">
 							<a th:href="@{/momentlock/memberinquirylist(page=${i}, size=${inquirylist.size})}" th:text="${i + 1}"></a>
 						</li>
 						
 						<!-- 다음 -->
-						<li th:if="${inquirylist.hasNext()}">
+						<li class="arrow" th:if="${inquirylist.hasNext()}">
 							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number + 1}, size=${inquirylist.size})}">&gt;</a>
 						</li>
 						
