@@ -21,6 +21,8 @@ public interface MemberBoxRepository extends JpaRepository<MemberBox, MemberBoxI
 	boolean existsByMemberAndBox(Member member, Box box);
 
 	Optional<MemberBox> findByMemberAndBox(Member member, Box box);
+	
+	Optional<MemberBox> getMemberBoxByBox(Box box);
 
 	List<MemberBox> findByReadycode(String readycode);
 

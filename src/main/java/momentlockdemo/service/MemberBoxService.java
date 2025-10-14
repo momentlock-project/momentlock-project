@@ -41,5 +41,7 @@ public interface MemberBoxService {
 	
 	// 회원이 박스에 가입할때 
 	public abstract Box joinBoxWithMember(Box box, Member member);
+	
+	public abstract MemberBox getMemberBoxByBox(Box box);
 
 }

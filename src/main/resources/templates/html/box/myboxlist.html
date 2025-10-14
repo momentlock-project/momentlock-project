@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -151,8 +152,39 @@
 	    <button class="send-close">×</button>
 	    <p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
 	    <div class="send-input-row">
-	      <input type="text" class="send-nickname" placeholder="닉네임 입력" />
+	      <input type="text" id="inputNickname" 
+		  	class="send-nickname" placeholder="닉네임 입력" />
 	      <button class="send-submit">보내기</button>
+		  
+		  <script th:inline="javascript">
+			$(function() {
+				const transmitBtn = $('.send-submit');
+				let inputNickname = $('.send-nickname').val();
+				
+				transmitBtn.on('click', () => {
+					transmit(boxid, nickname);
+				});
+				
+				// function
+				async function transmit(boxid, nickname) {
+					// 해당 닉네임의 멤버 존재 여부를 컨트롤러에서 받음
+					const response = await fetch('/momentlock/boxTransmit?boxid='+ boxid + 
+						'nickname=' + nickname);
+						
+					const memberExists = response.data().json();
+					console.log(memberExists);
+					
+					
+					if(!memberExists) {
+						alert('유저가 존재하지 않습니다.');
+					} else {
+						alert('상자를 보냈습니다!');
+					}
+				}				
+				
+			});
+		  </script>
+		  
 	    </div>
 	  </div>
 	</div>

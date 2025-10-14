@@ -133,6 +133,11 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 
 		return box;
 	}
+
+	@Override
+	public MemberBox getMemberBoxByBox(Box box) {
+		return memberBoxRepository.getMemberBoxByBox(box).get();
+	}
 	
 }
 
