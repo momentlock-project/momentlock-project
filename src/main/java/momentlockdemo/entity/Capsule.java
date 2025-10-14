@@ -65,7 +65,7 @@ public class Capsule implements Serializable {
 	private Long capafilecount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BOXID", nullable = false)
+	@JoinColumn(name = "BOXID")
 	private Box box;
 
 	@ManyToOne(fetch = FetchType.LAZY)
