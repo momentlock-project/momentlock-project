@@ -1,0 +1,45 @@
+/* 페이지네이션 */
+
+#pagination-container {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination {
+	display: flex;
+	gap: 20px;
+}
+
+.pagenumber,
+.arrow {
+	list-style: none;
+	line-height: 1.8;
+	width: 30px;
+	height: 30px;
+	background-color: #D9D9D9;
+}
+
+.pagenumber.active {
+	background-color: #67411C;
+}
+
+.pagenumber.active > a {
+	color: whitesmoke;
+}
+
+.arrow {
+	background-color: #5D5D5D !important;
+	border: 3px solid whitesmoke;
+	box-sizing: border-box;
+	line-height: 1.5 !important;
+}
+
+.arrow a {
+	color: whitesmoke;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
