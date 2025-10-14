@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>관리자 문의사항</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+	<!-- [수정] CSS 경로 오타 수정 -->
+	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
 </head>
 
 <body>
@@ -25,17 +27,35 @@
 				</ul>
 			</div>
 			
-			<!-- 모달창 -->
 			<div class="modal_3">
-			    <h1>관리자 문의 사항 페이지</h1>
-				<div>이 div안에서 코드 구현</div>
-			 </div>
-			 
+				<h1>관리자 문의사항 페이지</h1>
+				<table class="box-table">
+					<thead>
+					   <tr>
+						 <th>번호</th>
+						 <th>제목</th>
+						 <th>닉네임</th>
+						 <th>생성일</th>
+						</tr>
+					</thead>
+					<!-- [수정] <tbody> 안의 불필요한 <div> 제거 -->
+					<tbody>
+						<!--
+						<tr th:each="inquiry, stat : ${inquiryPage.content}">
+							<td th:text="${inquiryPage.totalElements - (inquiryPage.number * inquiryPage.size ) - stat.index}"></td>
+							<td><a th:href="@{/momentlock/inquiries/{id}(id=${inquiry.inqid})}" th:text="${inquiry.inqtitle}"></a></td>
+							<td th:text="${inquiry.member.username}"></td>
+							<td th:text="${#temporals.format(inquiry.inqregdate, 'yyyy-MM-dd')}"></td>
+						</tr>
+						<tr th:if="${inquiryPage.empty}">
+							<td colspan="4">표시할 게시글이 없습니다.</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
 		</div>	
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
-	<body>
-
 </html>
