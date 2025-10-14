@@ -36,6 +36,10 @@ $(function() {
 			renderAccordingToAction('next');
 		});
 	}
+	
+	
+	if()
+	
 
 });
 
