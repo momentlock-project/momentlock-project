@@ -7,42 +7,70 @@
 	<title>Document</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
-	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/main_btn.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/common.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/myboxcapsulelist.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/membercount.css}" />
 </head>
-
 <body>
-	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
-		  <div class="my_boxdetail_list">
-		     <button class="close-btn"></button>
-		    
-		    <!-- 상단 제목 -->
-		    <div class="list-header">
-		      <h3>나의 상자 리스트</h3>
-		      <h1>우리의 프랑스 파리 여행</h1>
-		    </div>
-		    <div class="top-row">
-		      <div class="participants">
-		        <button class="main-btn">참여인원</button>
-		        <span>참여 인원 : 0</span>
-		      </div>
-		      <div class="action-div">
-		        <button class="main-btn">캡슐 추가</button>
-		        <button class="main-btn">초대 하기</button>
-		      </div>
-		    </div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+<div id="mainContainer" class="blurContainer">
+	<div th:replace="~{fragments/nav :: nav}"></div>
+	  <div class="my_boxdetail_list">
+	     <button class="close-btn"></button>
+	    
+	    <!-- 상단 제목 -->
+	    <div class="list-header">
+          <h3>나의 상자 리스트</h3>
+          <h1>우리의 프랑스 파리 여행</h1>
+        </div>
 
-		<!-- 준비하기 버튼 -->
-		<div class="footer-div">
-		  <button class="main-btn">준비 하기</button>
+        <div class="top-row">
+          <!-- ✅ 참여인원 → MemberCount -->
+          <div class="memberCount">
+            <button class="box-btn">참여 인원</button>
+            <span>참여 인원 : 0</span>
+          </div>
+          <div class="action-buttons">
+            <button class="box-btn">캡슐 추가</button>
+            <button class="box-btn">초대 하기</button>
+          </div>
+        </div>
+
+        <!-- 준비하기 버튼 -->
+        <div class="footer-btn">
+          <button class="box-btn">준비 하기</button>
+        </div>
+
+        <!-- 참여인원 모달-->
+        <div id="memberCountModal" class="modal_4">
+          <div class="modal-content">
+            <h2>참여인원</h2>
+
+            <div class="member-list">
+              <div class="member-item">
+                <div class="left-info">
+                  <img src="/img/no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+                  <span class="nickname">홍길동1</span>
+                </div>
+                <button class="kick-btn">내보내기</button>
+              </div>
+          </div>
+
+
+
+            <button class="modal-confirm" id="memberCountConfirm">확인</button>
+          </div>
+        </div>
+        <!-- 참여인원 모달 끝 -->
+
+
+			</div>
+			</div>
 		</div>
+		<div th:replace="~{fragments/footer :: footer}"></div>
+		<script th:src="@{/js/nav.js}" defer></script>
+		<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
 
-	</div>
-	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
-
-	<body>
-
+  </body>
 </html>
