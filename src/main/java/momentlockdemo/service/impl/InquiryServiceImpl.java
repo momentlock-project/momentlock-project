@@ -34,6 +34,11 @@ public class InquiryServiceImpl implements InquiryService {
     }
     
     @Override
+    public List<Inquiry> getAllInquiries() {
+        return inquiryRepository.findAll();
+    }
+    
+    @Override
     public Page<Inquiry> getAllInquiries(Pageable pageable) {
         return inquiryRepository.findAll(pageable);
     }

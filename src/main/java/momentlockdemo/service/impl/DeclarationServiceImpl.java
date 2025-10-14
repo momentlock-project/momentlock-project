@@ -35,6 +35,11 @@ public class DeclarationServiceImpl implements DeclarationService {
     }
     
     @Override
+    public List<Declaration> getAllDeclarations() {
+    	return declarationRepository.findAll();
+    }
+    
+    @Override
     public Page<Declaration> getAllDeclarations(Pageable pageable) {
         return declarationRepository.findAll(pageable);
     }

@@ -17,6 +17,8 @@ public interface InquiryService {
 
 	public abstract Optional<Inquiry> getInquiryById(Long inqid);
 
+	public abstract List<Inquiry> getAllInquiries();
+
 	public abstract Page<Inquiry> getAllInquiries(Pageable pageable);
 
 	public abstract Inquiry updateInquiry(Inquiry inquiry);

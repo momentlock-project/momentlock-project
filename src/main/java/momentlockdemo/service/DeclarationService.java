@@ -17,6 +17,8 @@ public interface DeclarationService {
 
 	public abstract Optional<Declaration> getDeclarationById(Long decid);
 
+	public abstract List<Declaration> getAllDeclarations();
+
 	public abstract Page<Declaration> getAllDeclarations(Pageable pageable);
 
 	public abstract Declaration updateDeclaration(Declaration declaration);
