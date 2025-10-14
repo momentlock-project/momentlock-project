@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Capsule;
 import momentlockdemo.entity.Declaration;
 import momentlockdemo.entity.Member;
@@ -15,6 +18,8 @@ public interface DeclarationService {
 	public abstract Optional<Declaration> getDeclarationById(Long decid);
 
 	public abstract List<Declaration> getAllDeclarations();
+
+	public abstract Page<Declaration> getAllDeclarations(Pageable pageable);
 
 	public abstract Declaration updateDeclaration(Declaration declaration);
 

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -34,53 +35,37 @@
 					<input type="button" class="member-btn insert" 
 						value="문의하기" onClick="location.href='/momentlock/inquiryinsert'"></input>
 				</div>
-				
+		
 				<div id="table-container">
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
+					<!-- 문의사항 반복 -->
+					<div class="row" th:each="inquiry : ${inquirylist}">
+						<div class="col number" th:text="${inquiry.inqid}">1</div>
+						<div class="col title" th:text="${inquiry.inqtitle}">문의 제목</div>
+						<div class="col regdate" th:text="${inquiry.inqregdate}">2025/10/4</div>
 					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">문의 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					
 				</div>
 				
-				<div>
-					<a>이전</a>
-					<!-- 페이지 번호 반복 -->
-				    <span>
-				        <a>1</a>
-				    </span>
-					<a>다음</a>
+				<!-- 페이지네이션 -->
+				<div th:if="${!inquirylist.isEmpty()}" id="pagination-container">
+					<ul class="pagination">
+						
+						<!-- 이전 -->
+						<li class="arrow" th:if="${inquirylist.hasPrevious()}">
+							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number - 1}, size=${inquirylist.size})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 -->
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, inquirylist.totalPages - 1)}"
+							th:classappend="${i == inquirylist.number} ? 'active'">
+							<a th:href="@{/momentlock/memberinquirylist(page=${i}, size=${inquirylist.size})}" th:text="${i + 1}"></a>
+						</li>
+						
+						<!-- 다음 -->
+						<li class="arrow" th:if="${inquirylist.hasNext()}">
+							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number + 1}, size=${inquirylist.size})}">&gt;</a>
+						</li>
+						
+					</ul>
 				</div>
 				
 			 </div>
@@ -90,6 +75,7 @@
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 
 </html>
