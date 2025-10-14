@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Inquiry;
 import momentlockdemo.entity.Member;
 
@@ -14,7 +17,7 @@ public interface InquiryService {
 
 	public abstract Optional<Inquiry> getInquiryById(Long inqid);
 
-	public abstract List<Inquiry> getAllInquiries();
+	public abstract Page<Inquiry> getAllInquiries(Pageable pageable);
 
 	public abstract Inquiry updateInquiry(Inquiry inquiry);
 

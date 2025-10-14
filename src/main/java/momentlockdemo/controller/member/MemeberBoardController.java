@@ -1,6 +1,10 @@
 package momentlockdemo.controller.member;
 
+import org.hibernate.query.SortDirection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +21,9 @@ public class MemeberBoardController {
 	
 	// 문의게시판
 	@GetMapping("/memberinquirylist")
-	public String memberinquirylistPage(Model model) {
-		model.addAttribute("inquirylist", inquiryService.getAllInquiries());
+	public String memberinquirylistPage(Model model,
+			@PageableDefault(page = 0, size = 10, sort = "inqid", direction = Sort.Direction.DESC)Pageable pageable) {
+		model.addAttribute("inquirylist", inquiryService.getAllInquiries(pageable));
 		return "html/member/memberinquirylist";
 	}
 	

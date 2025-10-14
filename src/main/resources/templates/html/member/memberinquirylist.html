@@ -45,15 +45,27 @@
 					</div>
 				</div>
 				
-				<div>
-					<a>이전</a>
-					
-					<!-- 페이지 번호 반복 -->
-				    <span>
-				        <a>1</a>
-				    </span>
-					
-					<a>다음</a>
+				<!-- 페이지네이션 -->
+				<div th:if="${!inquirylist.isEmpty()}">
+					<ul class="pagination">
+						
+						<!-- 이전 -->
+						<li th:if="${inquirylist.hasPrevious()}">
+							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number - 1}, size=${inquirylist.size})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 -->
+						<li th:each="i : ${#numbers.sequence(0, inquirylist.totalPages - 1)}"
+							th:classappend="${i == inquirylist.number} ? 'active'">
+							<a th:href="@{/momentlock/memberinquirylist(page=${i}, size=${inquirylist.size})}" th:text="${i + 1}"></a>
+						</li>
+						
+						<!-- 다음 -->
+						<li th:if="${inquirylist.hasNext()}">
+							<a th:href="@{/momentlock/memberinquirylist(page=${inquirylist.number + 1}, size=${inquirylist.size})}">&gt;</a>
+						</li>
+						
+					</ul>
 				</div>
 				
 			 </div>

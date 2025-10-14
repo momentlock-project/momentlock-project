@@ -4,3 +4,5 @@ document.querySelectorAll(".col.regdate").forEach(inquiry => {
 		= inquiry.textContent.substring(
 			0, inquiry.textContent.indexOf("T")).replaceAll("-", "/");
 })
+
+console.log(document.querySelector("#table-container"));
