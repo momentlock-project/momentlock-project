@@ -1,0 +1,16 @@
+/* 페이지네이션 */
+
+#pagination-container {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination {
+	display: flex;
+	gap: 30px;
+}
+
+li {
+	list-style: none;
+	
+}

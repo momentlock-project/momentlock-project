@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -36,7 +37,6 @@
 				</div>
 		
 				<div id="table-container">
-					
 					<!-- 문의사항 반복 -->
 					<div class="row" th:each="inquiry : ${inquirylist}">
 						<div class="col number" th:text="${inquiry.inqid}">1</div>
@@ -46,7 +46,7 @@
 				</div>
 				
 				<!-- 페이지네이션 -->
-				<div th:if="${!inquirylist.isEmpty()}">
+				<div th:if="${!inquirylist.isEmpty()}" id="pagination-container">
 					<ul class="pagination">
 						
 						<!-- 이전 -->
