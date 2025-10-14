@@ -1,5 +1,3 @@
-
-
 let isClicked = false; // 좋아요 버튼 누름 여부 전역 변수(기본값 false)
 
 
@@ -12,20 +10,12 @@ $(function() {
 		likeActiveToggle(capid);
 	})
 
-	reportBtn.on('click', () => {
-		if (confirm('신고 하시겠습니까?')) {
-			alert('신고가 접수되었습니다.');
-		} else {
-			return;
-		}
-	})
 })
 
 
 async function likeActiveToggle(capid) {
 
 	isClicked = !isClicked;
-	console.log(isClicked);
 	let currLikeCount = $('#likecount');
 
 	if (isClicked) { // 좋아요를 눌렀을 때
@@ -39,11 +29,5 @@ async function likeActiveToggle(capid) {
 		currLikeCount.text(likeCount);
 	}
 
-}
-
-function movePage(list, indexMoveToPage) {
-
-	console.log(list[indexMoveToPage]);
-			
 }
 

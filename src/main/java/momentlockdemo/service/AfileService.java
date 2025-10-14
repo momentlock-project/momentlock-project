@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import momentlockdemo.dto.AfileDto;
 import momentlockdemo.entity.Afile;
 import momentlockdemo.entity.Capsule;
 
@@ -24,7 +25,7 @@ public interface AfileService {
 
 	// 추가 비즈니스 로직
 	public abstract List<Afile> getAfilesByCapsule(Capsule capsule);
-
+	
 	public abstract List<Afile> getAfilesByCapsuleOrderByDateDesc(Capsule capsule);
 
 	public abstract List<Afile> getAfilesByDeleteYn(String afdelyn);
