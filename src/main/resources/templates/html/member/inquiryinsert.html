@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,35 +7,24 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
-	<link rel="stylesheet" th:href="@{/css/capsule/capsuleinsert.css}" /> <!-- capsuleinsert css 바꿔야함-->
 	<link rel="stylesheet" th:href="@{/css/commons/form_btn.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/memberdeclar_inquiry.css}" />
 </head>
-
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div class="modal">
-			<h2 class="modal-title">문의하기</h2>
-
-			<input type="text" class="input-title" placeholder="제목을 입력해 주세요.">
-
-			<textarea class="input-content" placeholder="내용을 입력하세요."></textarea>
-
-			<div class="file-area">
-				<span class="file-box">첨부파일은 600MB 까지 가능합니다.</span>
-				<button class="form-btn">업로드</button>
-			</div>
-
-			<div class="actions">
-				<button class="form-btn">이전</button>
-				<button class="form-btn">등록</button>
-			</div>
-		</div>
+	    <div th:replace="~{fragments/nav :: nav}"></div>
+	    <div class="modal">
+	        <h2 class="modal-title">문의 하기</h2>
+	        <input type="text" class="input-title" placeholder="제목을 입력해 주세요.">
+	        <textarea class="input-content" placeholder="내용을 입력하세요."></textarea>
+	        <div class="actions">
+				<button type="button" class="form-btn" onclick="history.back()">이전</button>
+	            <button type="submit" class="form-btn">등록</button>
+	        </div>
+	    </div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
-
 	<body>
-
 </html>
