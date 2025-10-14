@@ -18,5 +18,5 @@ public interface AfileRepository extends JpaRepository<Afile, Long> {
 	List<Afile> findByCapsuleAndAfdelyn(Capsule capsule, String afdelyn);
 
 	long countByCapsule(Capsule capsule);
-
+	
 }
