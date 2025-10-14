@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" />
-	<link rel="stylesheet" th:href="@{/css/nav.css}" />
-	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
-	<link rel="stylesheet" th:href="@{/css/commons/form_btn.css}" />
-	<link rel="stylesheet" th:href="@{/css/member/memberdeclar_inquiry.css}" />
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Document</title>
+   <link rel="stylesheet" th:href="@{/css/main.css}" />
+   <link rel="stylesheet" th:href="@{/css/nav.css}" />
+   <link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+   <link rel="stylesheet" th:href="@{/css/commons/form_btn.css}" />
+   <link rel="stylesheet" th:href="@{/css/member/memberdeclar_inquiry.css}" />
 </head>
 <body>
-	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
-	    <div th:replace="~{fragments/nav :: nav}"></div>
-	    <div class="modal">
-	        <h2 class="modal-title">신고 하기</h2>
-	        <select class="input-title" name="reason" required>
-	            <option value="">신고 사유를 선택해 주세요.</option>
-	            <option value="sexual">성적인 콘텐츠</option>
-	            <option value="copyright">저작권 침해</option>
-	            <option value="illegal">불법성 콘텐츠</option>
-	            <option value="youth">청소년 부적합 콘텐츠</option>
-	            <option value="violence">폭력적 또는 혐오스러운 콘텐츠</option>
-	            <option value="hate">증오 또는 악의적인 콘텐츠</option>
-	            <option value="terror">테러 조장</option>
-	            <option value="spam">스팸 또는 혼동을 야기하는 콘텐츠</option>
-	            <option value="other">기타</option>
-	        </select>
-	        <textarea class="input-content" name="details" placeholder="내용을 입력하세요." required></textarea>
-	        <div class="actions">
-				<button type="button" class="form-btn" onclick="history.back()">이전</button>
-	            <button type="submit" class="form-btn">등록</button>
-	        </div>
-	    </div>
-	</div>
-	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
-	<body>
+   <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+   <div id="mainContainer" class="blurContainer">
+       <div th:replace="~{fragments/nav :: nav}"></div>
+       <div class="modal">
+           <h2 class="modal-title">신고 하기</h2>
+           <select class="input-title" name="reason" required>
+               <option value="">신고 사유를 선택해 주세요.</option>
+               <option value="sexual">성적인 콘텐츠</option>
+               <option value="copyright">저작권 침해</option>
+               <option value="illegal">불법성 콘텐츠</option>
+               <option value="youth">청소년 부적합 콘텐츠</option>
+               <option value="violence">폭력적 또는 혐오스러운 콘텐츠</option>
+               <option value="hate">증오 또는 악의적인 콘텐츠</option>
+               <option value="terror">테러 조장</option>
+               <option value="spam">스팸 또는 혼동을 야기하는 콘텐츠</option>
+               <option value="other">기타</option>
+           </select>
+           <textarea class="input-content" name="details" placeholder="내용을 입력하세요." required></textarea>
+           <div class="actions">
+            <button type="button" class="form-btn" onclick="history.back()">이전</button>
+               <button type="submit" class="form-btn">등록</button>
+           </div>
+       </div>
+   </div>
+   <div th:replace="~{fragments/footer :: footer}"></div>
+   <script th:src="@{/js/nav.js}" defer></script>
+   <body>
 </html>
