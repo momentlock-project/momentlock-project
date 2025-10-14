@@ -1,9 +1,11 @@
 package momentlockdemo.controller;
 
-import momentlockdemo.repository.InquiryRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.amazonaws.services.kms.model.NotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,14 +26,27 @@ public class GlobalExceptionHandler {
         return "error/error";
     }
 
+    // 404 전용 핸들러
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public String handleNotFoundException(NoHandlerFoundException e, Model model) {
+        model.addAttribute("statusCode", 404);
+        model.addAttribute("errorMessage", "페이지를 찾을 수 없습니다.");
+        return "error/error";
+    }
+    
+    @ExceptionHandler(NotFoundException.class)
+    public String handleNotFoundException(NotFoundException e, Model model) {
+        model.addAttribute("statusCode", 404);
+        model.addAttribute("errorMessage", "페이지를 찾을 수 없습니다.");
+        return "error/error";
+    }
+    
     // 나머지 모든 예외 처리
     @ExceptionHandler(Exception.class)
     public String handleGeneralException(Exception e, Model model) {
-    	
         model.addAttribute("statusCode", 500);
         model.addAttribute("errorMessage", "예상치 못한 오류가 발생했습니다.");
-        // 개발 중에는 실제 에러 메시지를 보고 싶다면:
-        // model.addAttribute("errorMessage", e.getMessage());
         return "error/error";
     }
+   
 }
