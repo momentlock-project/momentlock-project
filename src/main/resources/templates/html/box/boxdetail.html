@@ -12,11 +12,13 @@
 	<link rel="stylesheet" th:href="@{/css/box/myboxcapsulelist.css}" />
 	<link rel="stylesheet" th:href="@{/css/box/membercount.css}" />
 </head>
+
 <body>
 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 <div id="mainContainer" class="blurContainer">
 	<div th:replace="~{fragments/nav :: nav}"></div>
 	  <div class="my_boxdetail_list">
+		<input type="hidden" id="boxId" th:value="${param.boxid}">
 	     <button class="close-btn"></button>
 	    
 	    <!-- 상단 제목 -->
@@ -31,8 +33,12 @@
             <button class="box-btn">참여 인원</button>
             <span>참여 인원 : 0</span>
           </div>
+
           <div class="action-buttons">
-            <button class="box-btn">캡슐 추가</button>
+			<button class="btn-addCapsule"
+			        th:onclick="'location.href=\'/momentlock/capsuleinsert?boxid=' + ${box.boxid} + '\';'">
+			  캡슐 추가
+			</button>
             <button class="box-btn">초대 하기</button>
           </div>
         </div>
@@ -55,22 +61,20 @@
                 </div>
                 <button class="kick-btn">내보내기</button>
               </div>
-          </div>
-
-
+            </div>
 
             <button class="modal-confirm" id="memberCountConfirm">확인</button>
           </div>
         </div>
         <!-- 참여인원 모달 끝 -->
 
+	  </div>
+	</div>
+</div>
 
-			</div>
-			</div>
-		</div>
-		<div th:replace="~{fragments/footer :: footer}"></div>
-		<script th:src="@{/js/nav.js}" defer></script>
-		<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/nav.js}" defer></script>
+<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
 
-  </body>
+</body>
 </html>
