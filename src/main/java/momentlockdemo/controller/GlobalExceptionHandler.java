@@ -4,8 +4,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.amazonaws.services.kms.model.NotFoundException;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,26 +29,19 @@ public class GlobalExceptionHandler {
         return "error/error";
     }
 
-    // 404 전용 핸들러
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public String handleNotFoundException(NoHandlerFoundException e, Model model) {
-        model.addAttribute("statusCode", 404);
-        model.addAttribute("errorMessage", "페이지를 찾을 수 없습니다.");
-        return "error/error";
-    }
-    
-    @ExceptionHandler(NotFoundException.class)
-    public String handleNotFoundException(NotFoundException e, Model model) {
-        model.addAttribute("statusCode", 404);
-        model.addAttribute("errorMessage", "페이지를 찾을 수 없습니다.");
-        return "error/error";
-    }
-    
-    // 나머지 모든 예외 처리
     @ExceptionHandler(Exception.class)
-    public String handleGeneralException(Exception e, Model model) {
-        model.addAttribute("statusCode", 500);
-        model.addAttribute("errorMessage", "예상치 못한 오류가 발생했습니다.");
+    public String handleGeneralException(Exception e, Model model, HttpServletResponse response) {
+        int statusCode = response.getStatus();
+
+        System.out.println(statusCode);
+        
+        if (statusCode == 200) {
+            model.addAttribute("statusCode", 404);
+            model.addAttribute("errorMessage", "요청하신 페이지를 찾을 수 없습니다.");
+        } else {
+            model.addAttribute("statusCode", 500);
+            model.addAttribute("errorMessage", "예상치 못한 오류가 발생했습니다.");
+        }
         return "error/error";
     }
    
