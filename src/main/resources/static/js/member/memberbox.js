@@ -5,3 +5,4 @@ document.querySelectorAll(".col.regdate").forEach(inquiry => {
 			0, inquiry.textContent.indexOf("T")).replaceAll("-", "/");
 })
 
+// row 하나 클릭 시 상세 정보 보여주기

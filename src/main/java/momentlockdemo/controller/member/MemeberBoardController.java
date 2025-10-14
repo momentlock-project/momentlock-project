@@ -49,6 +49,12 @@ public class MemeberBoardController {
 		model.addAttribute("noticelist", noticeQaService.getAllNoticeQa(pageable));
 		return "html/member/membernoticelist";
 	}	
+	
+	// 상세 페이지
+	@GetMapping("/memberboarddetail")
+	public String memberboarddetail() {
+		return "html/member/memberboarddetail";
+	}
 
 
 }
