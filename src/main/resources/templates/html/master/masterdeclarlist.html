@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+	<link rel="stylesheet" th:href="@{/css/noticebox.css}" /> 
 </head>
 
 <body>
@@ -28,7 +29,7 @@
 			<!-- 모달창 -->
 			<div class="modal_3">
 				<h1>신고 게시판 페이지</h1>
-					<table class="data-table">
+					<table class="box-table">
 						<thead>
 						   <tr>
 							 <th class="col-num">번호</th>
@@ -37,14 +38,14 @@
 						   </tr>
 						 </thead>
 						 <tbody>
-							<tr th:each="declaration : ${declarationPage.content}">
-							  <td th:text="${declarationPage.totalElements - (declarationPage.number * declarationPage.size) - declarationStat.index}"></td>
+							<tr th:each="declaration, stat : ${declarationList}">
+							  <td th:text="${stat.count}"></td>
 							  <td class="col-title">
 								<a th:href="@{/momentlock/declarationlist/{id}(id=${declaration.decid})}" th:text="${declaration.deccategory}"></a>
 							  </td>
 							  <td th:text="${#temporals.format(declaration.decregdate, 'yyyy-MM-dd')}"></td>
 							</tr>
-							<tr th:if="${declarationPage.empty}">
+							<tr th:if="${#lists.isEmpty(declarationList)}">
 							  <td colspan="3" style="text-align: center;">작성된 신고글이 없습니다.</td>
 							</tr>
 						  </tbody>
