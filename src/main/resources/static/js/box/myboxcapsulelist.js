@@ -33,11 +33,11 @@ readyBtn.addEventListener("click", () => {
   readyStatusImgs.forEach(img => {
     if (img.dataset.ready === "true") {
       // 준비 해제 → 기본 상태 이미지
-      img.src = "no_ready.png";
+      img.src = "/img/no_ready.png";
       img.dataset.ready = "false";
     } else {
       // 준비 완료 상태 이미지
-      img.src = "ready.png";
+      img.src = "/img/ready.png";
       img.dataset.ready = "true";
     }
   });
