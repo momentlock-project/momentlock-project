@@ -175,7 +175,7 @@ function displayCapsules(cityName) {
 			// 확인 대화상자
 			const confirmed = confirm(`${box.title} 상자 상세페이지로 이동하시겠습니까?`);
 			if (confirmed) {
-			    window.location.href = `/momentlock/boxdetail?boxid=${box.id}`;
+			    window.location.href = `/momentlock/opencapsulelist`;
 			}
         });
 
