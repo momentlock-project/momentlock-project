@@ -56,6 +56,7 @@ public class Afile implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CAPID")
+	@JsonIgnore
 	private Capsule capsule;
 
 	@PrePersist

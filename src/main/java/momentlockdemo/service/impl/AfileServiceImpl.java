@@ -21,7 +21,7 @@ import momentlockdemo.entity.Capsule;
 import momentlockdemo.repository.AfileRepository;
 import momentlockdemo.service.AfileService;
 
-@Service
+@Service("afileService")
 @RequiredArgsConstructor
 public class AfileServiceImpl implements AfileService {
 
@@ -148,6 +148,7 @@ public class AfileServiceImpl implements AfileService {
     // 파일 교체 (기존 파일 삭제 후 새 파일 업로드)
     @Transactional
     public Afile replaceFileToCapsule(MultipartFile newFile, Capsule capsule) throws IOException {
+    	
         // 기존 파일 목록 조회
         List<Afile> existingFiles = getAfilesByCapsule(capsule);
         
@@ -160,4 +161,5 @@ public class AfileServiceImpl implements AfileService {
         // 새 파일 업로드
         return saveFileToCapsule(newFile, capsule);
     }
+
 }
