@@ -157,6 +157,9 @@ function displayCapsules(cityName) {
         return;
     }
 
+	// 날짜 기준 오름차순 정렬 (빠른 날짜 순)
+	 box.sort((a, b) => new Date(a.date) - new Date(b.date));
+	
     box.forEach(box => {
         const capsuleItem = document.createElement('div');
         capsuleItem.className = 'capsule-item';

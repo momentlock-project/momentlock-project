@@ -1,6 +1,8 @@
 package momentlockdemo.controller.master;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
@@ -9,21 +11,37 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import momentlockdemo.entity.Declaration;
+import momentlockdemo.entity.Inquiry;
 import momentlockdemo.entity.Member;
+import momentlockdemo.entity.master.NoticeQa;
+import momentlockdemo.service.DeclarationService;
+import momentlockdemo.service.InquiryService;
 import momentlockdemo.service.MemberService;
+import momentlockdemo.service.NoticeQaService;
 
 @Controller("masterController")
 @RequestMapping("/momentlock")
 public class MasterController {
-	private final MemberService memberService;
+
 	
 	@Autowired
-    public MasterController(MemberService memberService) {
-        this.memberService = memberService;
-    }
+	private MemberService memberService;
+	
+	@Autowired
+	private InquiryService inquiryService;
+	
+	@Autowired
+	private DeclarationService declarationService;
+	
+	@Autowired
+	private NoticeQaService noticeQaService;
+	
 	
 	/*
 	  관리자
@@ -31,60 +49,65 @@ public class MasterController {
 	
 	// 문의게시판
 	 @GetMapping("/masterinquirylist")
-	    public String masterinquirylistPage(Model model) {
-	        
-	        // 2. "inquiryPage" 라는 이름으로, 조회한 데이터를 모델에 담습니다.
-	        model.addAttribute("inquiryPage", null);
-	        
-	        // 3. 템플릿 경로를 반환합니다.
-	        return "html/master/masterinquirylist";
-	    }
+	 public String masterinquirylistPage(Model model) {
+	      List<Inquiry> inquiryList = inquiryService.getAllInquiries();
+	      model.addAttribute("inquiryList", inquiryList);
+	      return "html/master/masterinquirylist";
+	 }
 	
 	// 신고게시판
 	@GetMapping("/masterdeclarlist")
-	public String masterdeclarlistPage() {
+	public String masterdeclarlistPage(Model model) {
+		List<Declaration> declarationList = declarationService.getAllDeclarations();
+		model.addAttribute("declarationList", declarationList);
 		return "html/master/masterdeclarlist";
 	}
 	
 	// 공지사항
 	@GetMapping("/masternoticelist")
-	public String masternoticelistPage() {
+	public String masternoticelistPage(Model model) {
+		List<NoticeQa> noticeQaList = noticeQaService.getAllNoticeQa();
+		model.addAttribute("noticeQaList", noticeQaList);
 		return "html/master/masternoticelist";
 	}
 	
 	// 공지사항/QnA 폼
 	@GetMapping("/masterinquiryinsert")
-	public String masterinquiryinsertPage() {
+	public String noticeQaForm(Model model) {
+		System.out.println(">>>>>>>>>> GET /masterinquiryinsert : noticeQaForm() 메서드 실행됨! <<<<<<<<<<");
+		model.addAttribute("noticeQa", new NoticeQa());
 		return "html/master/masterinquiryinsert";
 	}
+	
+	@PostMapping("/masterinquiryinsert")
+	public String createNoticeQa(@ModelAttribute("noticeQa") NoticeQa noticeQa) {
+		
+		 System.out.println(">>>>>>>>>> POST /masterinquiryinsert : createNoticeQa() 메서드 실행됨! <<<<<<<<<<");
+		    System.out.println("전달된 제목: " + noticeQa.getTitle());
+		    System.out.println("전달된 타입: " + noticeQa.getType());
+        noticeQaService.insertNoticeQa(noticeQa);
+        
+        return "redirect:/momentlock/masternoticelist";
+    }
 	
 	@GetMapping("/membermanagement")
 	public String membermanagementPage(Model model,
 	@RequestParam(value = "nickname", required = false) String nickname) {
 	    
-	    List<Member> memberList = null;
+		List<Member> memberList = new ArrayList<>();
 
-	    // [2. 분기] "nickname" 파라미터가 있는지 없는지에 따라 로직을 나눕니다.
 	    if (nickname != null && !nickname.isEmpty()) {
-	        // [시나리오 1: 검색하는 경우]
-	        // URL에 nickname 파라미터가 존재하고, 그 값이 비어있지 않으면 이 코드가 실행됩니다.
-	        // 즉, 사용자가 검색창에 무언가 입력하고 '검색' 버튼을 눌렀을 때입니다.
 	        
-	        System.out.println("검색어 '" + nickname + "'으로 회원을 검색합니다."); // 로그 추가
-	        memberList.add(memberService.getMemberByNickname(nickname).get());
+	    	Optional<Member> foundMember = memberService.getMemberByNickname(nickname);
+	        foundMember.ifPresent(memberList::add);
 	        
 	    } else {
-	        // [시나리오 2: 모든 유저를 보는 경우]
-	        // URL에 nickname 파라미터가 없으면 이 코드가 실행됩니다.
-	        // 즉, 사용자가 처음 '회원관리' 탭을 클릭했거나, 검색창을 비우고 검색했을 때입니다.
 	        
 	        System.out.println("모든 회원을 조회합니다."); // 로그 추가
 	        memberList = memberService.getAllMembers();
 	    }
-
-	    // [3. 결과 전달] 위 두 시나리오 중 하나의 결과(memberList)를 모델에 담아 HTML로 보냅니다.
 	    model.addAttribute("members", memberList);
-	    model.addAttribute("nickname", nickname); // 검색어를 화면에 유지하기 위해 전달
+	    model.addAttribute("nickname", nickname); 
 
 	    return "html/master/membermanagement";
 	}
