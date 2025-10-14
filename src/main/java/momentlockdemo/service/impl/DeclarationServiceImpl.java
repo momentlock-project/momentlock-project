@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +35,8 @@ public class DeclarationServiceImpl implements DeclarationService {
     }
     
     @Override
-    public List<Declaration> getAllDeclarations() {
-        return declarationRepository.findAll();
+    public Page<Declaration> getAllDeclarations(Pageable pageable) {
+        return declarationRepository.findAll(pageable);
     }
     
     @Override
