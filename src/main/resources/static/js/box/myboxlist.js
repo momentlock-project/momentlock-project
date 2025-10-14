@@ -40,3 +40,66 @@ if (sendCloseBtn) {
         if (sendForm) sendForm.style.display = "none";
     });
 }
+
+
+// 상자 오픈 이미지
+const boxCards = document.querySelectorAll(".box_card");
+
+function updateBoxes() {
+    const now = new Date();
+
+    boxCards.forEach(card => {
+        const dateElem = card.querySelector(".box-open-date");
+        const imgElem = card.querySelector(".box");
+
+        if (dateElem && imgElem) {
+            const openDateStr = dateElem.dataset.opendate;
+            if (!openDateStr) return;
+
+            const openDate = new Date(openDateStr);
+            const remainingMs = openDate - now;
+
+            if (remainingMs <= 0) {
+                imgElem.src = "/img/myboxlistopen.png"; // 열림 이미지
+                dateElem.textContent = "열림";
+            } else {
+                imgElem.src = "/img/myboxlist.png"; // 닫힘 이미지
+
+                // 남은 시간 계산
+                const days = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((remainingMs / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((remainingMs / (1000 * 60)) % 60);
+                const seconds = Math.floor((remainingMs / 1000) % 60);
+
+                dateElem.textContent = `${days}일 ${hours}시 ${minutes}분 ${seconds}초`;
+            }
+        }
+    });
+}
+
+setInterval(updateBoxes, 1000);
+updateBoxes();
+
+// 삭제 버튼 클릭 시 확인창
+document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
+    deleteBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        // 상자 카드 요소 찾기
+        const boxCard = deleteBtn.closest(".box_card");
+        const boxNameElem = boxCard.querySelector("h2");
+        const boxName = boxNameElem ? boxNameElem.textContent : "이 상자";
+
+        const confirmDelete = confirm(`정말 "${boxName}" 상자를 삭제하시겠습니까?`);
+        if (confirmDelete) {
+            // 확인하면 원래 링크로 이동
+            window.location.href = deleteBtn.href;
+        }
+    });
+});
+
+
+
+
+
+
