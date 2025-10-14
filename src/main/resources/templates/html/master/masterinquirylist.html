@@ -38,18 +38,17 @@
 						 <th>생성일</th>
 						</tr>
 					</thead>
-					<!-- [수정] <tbody> 안의 불필요한 <div> 제거 -->
+	
 					<tbody>
-						<!--
-						<tr th:each="inquiry, stat : ${inquiryPage.content}">
-							<td th:text="${inquiryPage.totalElements - (inquiryPage.number * inquiryPage.size ) - stat.index}"></td>
+						<tr th:each="inquiry, stat : ${inquiryList}">
+							<td th:text="${stat.count}"></td>
 							<td><a th:href="@{/momentlock/inquiries/{id}(id=${inquiry.inqid})}" th:text="${inquiry.inqtitle}"></a></td>
 							<td th:text="${inquiry.member.username}"></td>
 							<td th:text="${#temporals.format(inquiry.inqregdate, 'yyyy-MM-dd')}"></td>
 						</tr>
-						<tr th:if="${inquiryPage.empty}">
+						<tr th:if="${#lists.isEmpty(inquiryList)}">
 							<td colspan="4">표시할 게시글이 없습니다.</td>
-						</tr> -->
+						</tr> 
 					</tbody>
 				</table>
 			</div>
