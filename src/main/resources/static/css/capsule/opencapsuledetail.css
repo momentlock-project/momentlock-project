@@ -3,6 +3,9 @@
 	padding: 0;
 }
 
+
+
+
 .blurContainer {
 	background-image: url("/img/backgroundimg_blur.png");
 }
@@ -14,11 +17,29 @@
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-position: center top;
-	display: inline-block;
 	position: relative;
-	margin-bottom: 0;
+	margin: 0 auto;
+	/* 수평 중앙 정렬 */
+	justify-content: center;
+	display: block;
+
 }
 
+.closeBtn {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	background: none;
+	border: none;
+	font-size: 28px;
+	cursor: pointer;
+}
+
+.detail-container {
+	position: relative;
+	margin: 30px auto;
+	height: 110vh;
+}
 
 .sidebar-header .close-btn {
 	position: absolute;
@@ -59,17 +80,20 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	/* 중앙 정렬 */
-
 	/* 반응형 크기 설정 */
 	width: auto;
 	height: auto;
-	max-width: 2000px;
-	max-height: 130vh;
+	max-width: 100%;
+	max-height: 100%;
+	min-width: 900px;   /* 가로 최소 900px */
+	/*min-height: 600px;*/  /* 세로 최소 600px */
+	/* 화면 높이에 맞춤 */
+	overflow: hidden;
+	/* 전체 overflow 숨김 */
 
 	/* 시각적 스타일 */
 	background-color: rgba(199, 125, 65, 0.8);
 	border-radius: 8px;
-	margin: 10px 40px 0 40px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 	padding: 50px;
 	text-align: center;
@@ -85,20 +109,23 @@
 .uploaded_image_or_video {
 	width: 100%;
 	max-width: 1071px;
-	max-height: 788px;
+	max-height: 500px;
 	padding: 10px;
-	background-color: #f4f3f3;
+	background-color:none;
 	align-items: center;
 	justify-content: center;
 }
 
-.uploaded_image_or_video img {
-	max-width: 100%;
+.uploaded_image_or_video img, video {
+	top: 612.81px;
+	/*max-width: 100%;*/
 	max-height: 100%;
-	object-fit: contain;
 	/* 작은 이미지는 비율 유지하며 중앙 정렬 */
-	object-position: center center;
+	object-fit: contain;
 	/* 중앙에 배치 */
+	object-position: center center;
+	max-width: 100%;
+	height: 500px;
 }
 
 .uploaded_text {
@@ -107,13 +134,14 @@
 	max-height: 332px;
 	background-color: #f4f3f3;
 	padding: 10px;
-	overflow-y: auto;   /* 세로 스크롤만 자동 표시 */
-	overflow-x: hidden; /* 가로 스크롤 제거 */
+	overflow-y: auto;
+	/* 세로 스크롤만 자동 표시 */
+	overflow-x: hidden;
+	/* 가로 스크롤 제거 */
 }
 
 
 .movepage {
-	margin-top: 28px;
 	display: flex;
 	justify-content: center;
 	gap: 20px;
@@ -122,18 +150,12 @@
 
 .form-btn {
 	white-space: nowrap;
-	padding: 14px 28px;
-	/* ⬆️ 패딩 확대 (세로, 가로 여백 늘림) */
+	padding: 10px 20px;
 	font-size: 1.1rem;
-	/* ⬆️ 글자 크기 증가 */
 	font-weight: 600;
-	/* 글자 두껍게 */
 	border: 2px solid #888;
-	/* 테두리 살짝 두껍게 */
 	border-radius: 8px;
-	/* 모서리 부드럽게 */
 	background: linear-gradient(180deg, #f8f8f8, #e6e6e6);
-	/* 은은한 입체감 */
 	cursor: pointer;
 	margin-bottom: 20px;
 }
@@ -142,10 +164,33 @@
 	background: #e0e0e0;
 }
 
-.actions {
+.btnContainer {
 	display: flex;
 	justify-content: flex-end;
 	/* 요소를 오른쪽으로 정렬 */
+}
+
+.actions {
+	position: absolute;
+	right: 20px;
+	/* 오른쪽 여백 */
+	bottom: 20px;
+	/* 아래 여백 */
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	align-self: flex-end; /* 오른쪽 아래로 정렬 */
+
+}
+
+#likeBtn {
+	width: 40px;
+	height: 40px;
+}
+
+#reportBtn {
+	width: 40px;
+	height: 40px;
 }
 
 #likeBtn:hover {
