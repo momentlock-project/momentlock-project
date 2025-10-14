@@ -39,8 +39,6 @@ public class CapsuleDetailController {
 		Capsule capsule = capsuleService.getCapsuleById(capid).get();
 		List<Afile> fileList = afileService.getAfilesByCapsule(capsule);
 		
-		System.out.println("fileList=> "+fileList);
-
 	    model.addAttribute("afiles", fileList);
 		model.addAttribute("capsule", capsule);
 		
