@@ -144,33 +144,9 @@
   right: 20px;
 }
 
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  background-color: #f0f0f0;
-  border: 2px solid #555;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 0;
-}
 
-.close-btn::before,
-.close-btn::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;      
-  height: 24px;         background-color: #555;
-  transform: translate(-50%, -50%) rotate(45deg);
-}
 
-.close-btn::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
+
 
 /* 회원 로그인, 아이디찾기, 비밀번호 재설정 공통 모달 */
 .member-modal {
@@ -201,4 +177,34 @@
 .box-modal > a > img {
 	width: 30px;
 	height: 30px;
+}
+
+/* === 반응형 추가: 기본 modal 전용 === */
+@media (max-width: 1024px) {
+  .modal {
+    width: 70vw;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 85vw;
+    padding: 20px;
+  }
+
+  .modal > h2 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 90vw;
+    padding: 15px;
+  }
+
+  .modal > h2 {
+    font-size: 16px;
+  }
 }
