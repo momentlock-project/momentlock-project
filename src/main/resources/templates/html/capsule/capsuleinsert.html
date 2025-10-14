@@ -19,41 +19,33 @@
     <div class="modal">
       <h2 class="modal-title">나의 캡슐 등록</h2>
 
-      <!-- ✅ 파일 업로드 가능하도록 수정 -->
-      <form th:action="@{/momentlock/capsuleinsert}"
-            th:object="${capsule}"
-            method="post"
-            enctype="multipart/form-data">
+	  <form th:action="@{/momentlock/capsuleinsert}"
+	        th:object="${capsule}"
+	        method="post"
+	        enctype="multipart/form-data">
 
-        <!-- 제목 -->
-        <input type="text" class="input-title"
-               th:field="*{captitle}"
-               placeholder="제목을 입력해 주세요.">
+	    <!-- ✅ boxid 전달 -->
+	    <input type="hidden" name="boxid" th:value="${boxid}" />
 
-        <!-- 내용 -->
-        <textarea class="input-content"
-                  th:field="*{capcontent}"
-                  placeholder="내용을 입력하세요."></textarea>
+	    <input type="text" class="input-title"
+	           th:field="*{captitle}"
+	           placeholder="제목을 입력해 주세요.">
 
-				  <!-- 파일 업로드 -->
-				  <div class="file-area">
-				    <label for="fileUpload" class="file-label form-btn">📁 업로드</label>
-				    <input type="file"
-				           id="fileUpload"
-				           name="files"
-				           multiple
-				           style="display:none;"
-				           onchange="showFileName(this)" />
-				    <span id="fileName" class="file-box">첨부파일은 600MB 까지 가능합니다.</span>
-				  </div>
+	    <textarea class="input-content"
+	              th:field="*{capcontent}"
+	              placeholder="내용을 입력하세요."></textarea>
 
-        <!-- 버튼 -->
-        <div class="actions">
-          <button type="button" class="form-btn" onclick="history.back()">이전</button>
-          <button type="submit" class="form-btn">등록</button>
-        </div>
+	    <div class="file-area">
+	      <label for="fileUpload" class="file-label form-btn">📁 업로드</label>
+	      <input type="file" id="fileUpload" name="files" multiple style="display:none;" onchange="showFileName(this)" />
+	      <span id="fileName" class="file-box">첨부파일은 600MB 까지 가능합니다.</span>
+	    </div>
 
-      </form>
+	    <div class="actions">
+	      <button type="button" class="form-btn" onclick="history.back()">이전</button>
+	      <button type="submit" class="form-btn">등록</button>
+	    </div>
+	  </form>
     </div>
   </div>
 

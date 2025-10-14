@@ -44,3 +44,22 @@ readyBtn.addEventListener("click", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const addCapsuleBtn = document.querySelector(".btn-addCapsule");
+
+  if (addCapsuleBtn) {
+    // boxId는 타임리프에서 주입받음 (예: <input type="hidden" id="boxId" th:value="${box.boxid}" />)
+    const boxIdInput = document.getElementById("boxId");
+    const boxId = boxIdInput ? boxIdInput.value : null;
+
+    addCapsuleBtn.addEventListener("click", () => {
+      if (!boxId) {
+        alert("boxId를 불러올 수 없습니다.");
+        return;
+      }
+      location.href = `/momentlock/capsuleinsert?boxId=${boxId}`;
+    });
+  }
+});
+
+
