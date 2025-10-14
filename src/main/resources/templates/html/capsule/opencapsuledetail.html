@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -17,26 +17,7 @@
 	<div class="sidebar" th:replace="~{fragments/sidebar :: sidebar}"></div>
 
 	<div id="mainContainer" class="blurContainer">
-
-		<nav id="mainNavbar">
-			<div class="nav-left">
-				<button class="hamburger-menu">
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
-			</div>
-			<div class="nav-center">
-				<div class="logo">
-					<a href="/"><img class="nav-img" src="/img/momentLock_top.png" alt=""></a>
-				</div>
-			</div>
-			<div class="nav-right">
-				<!-- <button class="nav-btn">마이페이지</button>
-              <button class="nav-btn">로그아웃</button> -->
-				<button class="nav-btn">로그인</button>
-			</div>
-		</nav>
+		<div th:replace="~{fragments/nav :: nav}"></div>
 
 		<div class="detail-container">
 			<div class="my_capsule_detail" th:data-afiles="${afiles}">
@@ -47,13 +28,14 @@
 
 				<!-- 이미지, 동영상 보여주는 부분 -->
 				<div class="uploaded_image_or_video">
+					<button class="form-btn" id="pre">&LT;</button>
 
 					<img id="image" src="">
 
-					<video id="video" controls>
+					<video id="video" controls autoplay="autoplay" loop>
 						<source id="source" src="" type="">
 					</video>
-
+					<button class="form-btn" id="next">&GT;</button>
 				</div>
 
 				<script th:inline="javascript">
@@ -63,12 +45,22 @@
 
 					$(function () {
 
+						$(document).ready(function() {
+						    $('#reportBtn').on('click', function(e) {
+						        e.preventDefault();
+						        const confirmResult = confirm('이 게시물을 신고하시겠습니까?');
+						        if (confirmResult) {
+						            window.location.href = '/momentlock/declarinsert';
+						        }
+						    });
+						});
+						
 						// 파일이 없으면 숨기고 종료
 						if (afileList.length === 0) {
-							
+
 							$('.uploaded_image_or_video').hide();
 							$('.movepage').hide();
-							
+
 							$('.uploaded_text').css({
 								'height': '500px',
 								'text-align': 'left'
@@ -78,7 +70,7 @@
 
 						// 파일이 1개면 버튼만 숨김
 						if (afileList.length === 1) {
-							$('.movepage').hide();
+							$('.form-btn').hide();
 						}
 
 						// 첫 번째 파일 표시 (항상 실행)
@@ -168,49 +160,22 @@
 
 				<div class="uploaded_text" th:text="${capsule.capcontent}"></div>
 
-				<span class="movepage">
-
-					<button class="form-btn" id="pre">이전</button>
-
-					<button class="form-btn" id="next">다음</button>
-
-				</span>
+					<div class="actions">
+						<img src="/img/declarationbtn.png" id="reportBtn">
+							<img src="/img/likebutton.png" id="likeBtn">
+							<span id="likecount" th:text="${capsule.caplikecount}+' 개'"></span>
+					</div>
 
 				<input type="hidden" id="capid" th:value="${capsule.capid}">
-
-				<div class="actions">
-					<img src="/img/declarationbtn.png" id="reportBtn">
-					<div class="like">
-						<img src="/img/likebutton.png" id="likeBtn">
-						<span id="likecount" th:text="${capsule.caplikecount}"></span>
-					</div>
-				</div>
 
 			</div>
 		</div>
 
 	</div>
 
-	<footer>
-		<div class="footer-content">
-			<div class="footer-links">
-				<a href="./policy_page/personalInfo.html">개인정보 보호 및 쿠키</a>
-				<span class="divider">|</span>
-				<a href="./policy_page/usePolicy.html">사용 약관</a>
-				<span class="divider">|</span>
-				<a href="#">상표</a>
-				<span class="divider">|</span>
-				<a href="#">광고 정보</a>
-				<span class="divider">|</span>
-				<span class="copyright">©2025 MomentLock</span>
-			</div>
-			<div class="footer-logo">
-				<img src="/img/momentlockLogo.png" alt="Logo" class="logo-img" />
-			</div>
-		</div>
-	</footer>
-	<script src="/js/nav.js"></script>
-	<script src="/js/capsulelikebuttoncontroll.js"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script src="/js/capsulelikebuttoncontroll.js" defer></script>
 </body>
 
 </html>

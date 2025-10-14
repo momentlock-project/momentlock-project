@@ -3,8 +3,9 @@
 	padding: 0;
 }
 
-
-
+h1{
+	color: rgb(64, 0, 0);
+}
 
 .blurContainer {
 	background-image: url("/img/backgroundimg_blur.png");
@@ -72,8 +73,6 @@
 	transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-
-
 .my_capsule_detail {
 	position: absolute;
 	top: 50%;
@@ -105,34 +104,32 @@
 	padding: 20px;
 }
 
-
 .uploaded_image_or_video {
-	width: 100%;
-	max-width: 1071px;
-	max-height: 500px;
-	padding: 10px;
-	background-color:none;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;  /* 이미지와 버튼 사이 간격 */
+    width: 100%;
+    max-width: 1071px;
+    max-height: 500px;
+    padding: 10px;
 }
 
 .uploaded_image_or_video img, video {
-	top: 612.81px;
-	/*max-width: 100%;*/
-	max-height: 100%;
-	/* 작은 이미지는 비율 유지하며 중앙 정렬 */
-	object-fit: contain;
-	/* 중앙에 배치 */
-	object-position: center center;
-	max-width: 100%;
-	height: 500px;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    max-width: calc(100% - 150px);  /* 버튼 공간 확보 */
+    height: 500px;
 }
 
 .uploaded_text {
+	font-size: 18px;
 	width: 100%;
 	max-width: 1071px;
 	max-height: 332px;
-	background-color: #f4f3f3;
+	background-color: #fbeded;
+	border-radius: 5px;
 	padding: 10px;
 	overflow-y: auto;
 	/* 세로 스크롤만 자동 표시 */
@@ -140,24 +137,19 @@
 	/* 가로 스크롤 제거 */
 }
 
-
-.movepage {
-	display: flex;
-	justify-content: center;
-	gap: 20px;
-	text-align: center;
-}
-
 .form-btn {
-	white-space: nowrap;
-	padding: 10px 20px;
-	font-size: 1.1rem;
-	font-weight: 600;
-	border: 2px solid #888;
-	border-radius: 8px;
-	background: linear-gradient(180deg, #f8f8f8, #e6e6e6);
-	cursor: pointer;
-	margin-bottom: 20px;
+    padding: 5px 10px;  /* 패딩 줄임 */
+    font-size: 1.8rem;
+    font-weight: 600;
+	color: #6B3410;
+    border: 3px solid #fbeded;
+    border-radius: 8px;
+    background:  rgba(188, 138, 89, 0.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;  /* 버튼이 줄어들지 않도록 */
 }
 
 .form-btn:hover {
@@ -171,28 +163,59 @@
 }
 
 .actions {
-	position: absolute;
+	position: relative;
+	margin-top: 20px;
 	right: 20px;
 	/* 오른쪽 여백 */
 	bottom: 20px;
 	/* 아래 여백 */
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	align-self: flex-end; /* 오른쪽 아래로 정렬 */
-
+	gap: 20px;
 }
 
 #likeBtn {
 	width: 40px;
 	height: 40px;
+	background-color: red;
+	border-radius: 5px;
 }
 
 #reportBtn {
-	width: 40px;
-	height: 40px;
+	width: 48px;
+	height: 48px;
 }
 
 #likeBtn:hover {
 	transform: scale(1.05);
+	cursor: pointer;
+}
+
+#reportBtn:hover {
+	transform: scale(1.05);
+	cursor: pointer;
+}
+
+#likecount{
+	font-size: 1.3rem;
+	color: rgb(64, 0, 0);
+}
+
+/* 웹킷 브라우저용 스크롤바 스타일 */
+.uploaded_text::-webkit-scrollbar {
+	width: 10px;
+}
+
+.uploaded_text::-webkit-scrollbar-track {
+	background: #f0f0f0;
+	border-radius: 5px;
+}
+
+.uploaded_text::-webkit-scrollbar-thumb {
+	background: #8B4513;
+	border-radius: 5px;
+}
+
+.uploaded_text::-webkit-scrollbar-thumb:hover {
+	background: #6B3410;
 }
