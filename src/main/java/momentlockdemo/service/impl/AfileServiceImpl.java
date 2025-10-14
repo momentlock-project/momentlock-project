@@ -52,7 +52,6 @@ public class AfileServiceImpl implements AfileService {
     public Afile updateAfile(Afile afile) {
         return afileRepository.save(afile);
     }
-
     @Override
     @Transactional
     public void deleteAfile(Long afid) {

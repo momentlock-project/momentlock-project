@@ -9,6 +9,8 @@
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
+	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
+	<link rel="stylesheet" th:href="@{/css/search.css}" />
 </head>
 
 <body>
@@ -28,9 +30,41 @@
 			
 			<!-- 모달창 -->
 			<div class="modal_3">
-			    <h1>회원 관리</h1>
-				<div>이 div안에서 코드 구현</div>
-			 </div>
+			   <h1>회원 관리</h1>
+			   <div class="search-container">
+				  <form th:action="@{/momentlock/membermanagement}" method="get">
+					<input type="text"  name="username" placeholder="사용자 닉네임 검색" value="${member.username}" />
+					<button type="submit">검색</button>
+				  </form>
+			   </div>
+			   <table class="box-table">
+				<thead>
+					<tr>
+					  <th>번호</th>
+					  <th>이름</th>
+					  <th>닉네임</th>
+					  <th>삭제</th>
+					</tr>
+				 </thead>
+				  <tbody>
+					<div>
+					  <tr th:each="member, stat : ${members}">
+						<td th:text="${stat.count}">1</td>
+						<td th:text="${member.name}">이름</td>
+						<td th:text="${member.username}">닉네임</td>
+					    <td>
+						  <form th:action="@{/momentlock/members/delete/{username}(username=${member.username})}" method="post" onsubmit="return confirm('정말로 이 회원을 삭제하시겠습니까?');">
+							<button type="submit" class="delete-btn">삭제</button>
+						  </form>
+						</td>
+					  </tr>
+					  <tr th:if="${#lists.isEmpty(members)}">
+						<td colspan="4">표시할 회원 데이터가 없습니다.</td>
+					  </tr>
+					</div>
+				</tbody>
+			  </table>
+		    </div>
 			 
 		</div>	
 	</div>
