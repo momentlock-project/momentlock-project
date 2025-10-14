@@ -65,8 +65,14 @@
 
 						// 파일이 없으면 숨기고 종료
 						if (afileList.length === 0) {
+							
 							$('.uploaded_image_or_video').hide();
 							$('.movepage').hide();
+							
+							$('.uploaded_text').css({
+								'height': '500px',
+								'text-align': 'left'
+							});
 							return;
 						}
 
