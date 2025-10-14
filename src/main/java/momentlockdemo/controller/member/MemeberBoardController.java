@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import momentlockdemo.service.DeclarationService;
 import momentlockdemo.service.InquiryService;
+import momentlockdemo.service.NoticeQaService;
 
 @Controller("MemberBoardController")
 @RequestMapping("/momentlock")
@@ -21,6 +22,9 @@ public class MemeberBoardController {
 	
 	@Autowired
 	private DeclarationService declarationService;
+	
+	@Autowired
+	private NoticeQaService noticeQaService;
 	
 	// 문의게시판
 	@GetMapping("/memberinquirylist")
@@ -40,7 +44,9 @@ public class MemeberBoardController {
 	
 	// 공지사항
 	@GetMapping("/membernoticelist")
-	public String membernoticelistPage() {
+	public String membernoticelistPage(Model model,
+			@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+		model.addAttribute("noticelist", noticeQaService.getAllNoticeQa(pageable));
 		return "html/member/membernoticelist";
 	}	
 
