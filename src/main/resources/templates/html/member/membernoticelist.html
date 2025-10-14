@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -31,59 +32,44 @@
 			    <h1>공지사항 페이지</h1>
 				
 				<div id="table-container">
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
-					</div>
-					<div class="row">
-						<div class="col number">1</div>
-						<div class="col title">공지사항 제목</div>
-						<div class="col">2025/10/4</div>
+					<!-- 공지사항 반복 -->
+					<div class="row" th:each="notice : ${noticelist}">
+						<div class="col number" th:text="${notice.id}">1</div>
+						<div class="col title" th:text="${notice.title}">공지사항 제목</div>
+						<div class="col regdate" th:text="${notice.regDate}">2025/10/4</div>
 					</div>
 					
 				</div>
 				
-				<div>
-					<a>이전</a>
-					<!-- 페이지 번호 반복 -->
-				    <span>
-				        <a>1</a>
-				    </span>
-					<a>다음</a>
+				<!-- 페이지네이션 -->
+				<div th:if="${!noticelist.isEmpty()}" id="pagination-container">
+					<ul class="pagination">
+						
+						<!-- 이전 -->
+						<li class="arrow" th:if="${noticelist.hasPrevious()}">
+							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number - 1}, size=${noticelist.size})}">&lt;</a>
+						</li>
+
+						<!-- 페이지 번호 -->
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, noticelist.totalPages - 1)}"
+							th:classappend="${i == noticelist.number} ? 'active'">
+							<a th:href="@{/momentlock/membernoticelist(page=${i}, size=${noticelist.size})}" th:text="${i + 1}"></a>
+						</li>
+						
+						<!-- 다음 -->
+						<li class="arrow" th:if="${noticelist.hasNext()}">
+							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number + 1}, size=${noticelist.size})}">&gt;</a>
+						</li>
+						
+					</ul>
 				</div>
-			 </div>
 			 
 		</div>	
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 
 </html>
