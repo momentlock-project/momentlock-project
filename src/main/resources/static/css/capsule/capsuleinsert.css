@@ -60,3 +60,83 @@
 	gap: 20px;
 	text-align: center;
 }
+
+
+
+/* === 반응형 추가: capsuleinsert.html 전용 === */
+@media (max-width: 1024px) {
+  .modal {
+    width: 70vw;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 85vw;
+    padding: 20px;
+    top: 100px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .input-title,
+  .input-content {
+    font-size: 13px;
+  }
+
+  .input-content {
+    height: 320px;
+  }
+
+  .file-area {
+    flex-wrap: wrap;
+  }
+
+  .file-box {
+    font-size: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 90vw;
+    padding: 15px;
+    top: 80px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+  }
+
+  .input-title,
+  .input-content {
+    font-size: 12px;
+  }
+
+  .input-content {
+    height: 250px;
+  }
+
+  .file-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .file-box {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
