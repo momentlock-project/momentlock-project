@@ -53,8 +53,8 @@ h1 {
 
 /* 이미지 */
 .box-modal .box_card .box {
-    width: 200px;
-    height: 160px;
+    width: 58%;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     margin-bottom: 8px;
@@ -89,7 +89,7 @@ h1 {
     right: 8px;  /* 오른쪽 위치 */
     background: transparent;
     border: none;
-    font-size: 18px;
+    font-size: 30px;
     cursor: pointer;
     z-index: 101; /* 드롭다운 위에 표시되도록 */
 }
@@ -177,3 +177,4 @@ h1 {
     background: #d9d9d9;
     color: white;
 }
+
