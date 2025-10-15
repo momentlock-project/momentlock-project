@@ -1,0 +1,112 @@
+.main-intro {
+  position: absolute;     /* ✅ 문서를 벗어나서 위치 제어 */
+  top: 78vh;             /* 화면 높이의 160% 아래쪽으로 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18pt;
+  color: white;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 80%;
+  z-index: 10;            /* 배경 위에 표시 */
+}
+
+
+
+.modal6 {
+  position: relative ;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  max-width: 900px;
+  height: auto;
+  min-height: 45vh;
+  background: rgba(199, 125, 65, 0.85);
+  border: 2px solid rgba(199, 125, 65, 0.8);
+  border-radius: 4px;
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.4);
+  padding: 30px 25px;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1000;
+  margin-top : 60%;
+  margin-bottom: 10%;
+}
+
+/* 🔘 버튼 */
+.make-capsule {
+  background-color: #D92A56;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.make-capsule:hover {
+  background-color: #e9456d;
+}
+
+/* 🔘 이미지 3x2 정렬 */
+.img-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.img-container img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+.img-container img:hover {
+  transform: scale(1.05);
+}
+
+/* 🔘 반응형 처리 */
+@media (max-width: 1024px) {
+  .modal6 {
+    width: 90vw;
+    min-height: 50vh;
+  }
+  .img-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal6 {
+    width: 95vw;
+    min-height: 55vh;
+    padding: 20px;
+  }
+  .make-capsule {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .img-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  .img-container img {
+    max-width: 250px;
+  }
+}
