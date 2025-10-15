@@ -33,7 +33,7 @@
 				
 				<div id="table-container">
 					<!-- 공지사항 반복 -->
-					<div class="row" th:each="notice : ${noticelist}">
+					<div class="row notice" th:each="notice : ${noticelist}">
 						<div class="col number" th:text="${notice.id}">1</div>
 						<div class="col title" th:text="${notice.title}">공지사항 제목</div>
 						<div class="col regdate" th:text="${notice.regDate}">2025/10/4</div>
@@ -63,12 +63,29 @@
 						
 					</ul>
 				</div>
-			 
 		</div>	
 	</div>
+	
+	<!-- 상세정보 모달창 -->
+	<div class="modal-overlay">
+		<div class="box-modal">
+			 <a>
+			 	<img class="close-btn" src="/img/x.png" alt="창닫기" />
+			 </a>
+			 <div id="modal-inner">
+				<div class="modal-title-date-box">
+					<p class="modal-title">문의 제목</p>
+					<p class="modal-type">문의 제목</p>
+				</div>
+				<p class="modal-content">문의 내용내용내용</p>
+			 </div>
+	 	</div>
+	</div>
+	
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
 	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 

@@ -62,6 +62,19 @@ public class MemeberBoardController {
 		return "html/member/memberdeclarlist";
 	}
 	
+	// 신고게시판 상세
+	// map 생성해서 front에서 json으로 받음
+	@GetMapping("/memberdeclarlist/{decid}")
+	public ResponseEntity<Map<String, Object>> memberdeclarlistPage(@PathVariable Long decid) {
+		return declarationService.getDeclarationById(decid)
+				.map(dec -> {
+					Map<String, Object> data = new HashMap<String, Object>();
+					data.put("deccategory", dec.getDeccategory());
+					data.put("deccontent", dec.getDeccontent());
+					return ResponseEntity.ok(data);
+				}).orElse(ResponseEntity.notFound().build());
+	}
+	
 	// 공지사항
 	@GetMapping("/membernoticelist")
 	public String membernoticelistPage(Model model,
@@ -70,11 +83,20 @@ public class MemeberBoardController {
 		return "html/member/membernoticelist";
 	}	
 	
-	// 상세 페이지
-	@GetMapping("/memberboarddetail")
-	public String memberboarddetail() {
-		return "html/member/memberboarddetail";
+	// 신고게시판 상세
+	// map 생성해서 front에서 json으로 받음
+	@GetMapping("/membernoticelist/{id}")
+	public ResponseEntity<Map<String, Object>> membernoticelistPage(@PathVariable Long id) {
+		return noticeQaService.getNoticeQaById(id)
+				.map(notice -> {
+					Map<String, Object> data = new HashMap<String, Object>();
+					data.put("title", notice.getTitle());
+					data.put("content", notice.getContent());
+					data.put("type", notice.getType());
+					return ResponseEntity.ok(data);
+				}).orElse(ResponseEntity.notFound().build());
 	}
+	
 
 
 }
