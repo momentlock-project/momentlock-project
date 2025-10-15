@@ -27,7 +27,7 @@
 				</ul>
 			</div>
 			
-			<!-- 모달창 -->
+			<!-- inner -->
 			<div class="modal_3">
 				
 				<div id="title-box">
@@ -38,7 +38,7 @@
 		
 				<div id="table-container">
 					<!-- 문의사항 반복 -->
-					<div class="row" th:each="inquiry : ${inquirylist}">
+					<div class="row inquiry" th:each="inquiry : ${inquirylist}">
 						<div class="col number" th:text="${inquiry.inqid}">1</div>
 						<div class="col title" th:text="${inquiry.inqtitle}">문의 제목</div>
 						<div class="col regdate" th:text="${inquiry.inqregdate}">2025/10/4</div>
@@ -46,7 +46,7 @@
 				</div>
 				
 				<!-- 페이지네이션 -->
-				<div th:if="${!inquirylist.isEmpty()}" id="pagination-container">
+				<div th:if="${inquirylist != null}" id="pagination-container">
 					<ul class="pagination">
 						
 						<!-- 이전 -->
@@ -66,15 +66,32 @@
 						</li>
 						
 					</ul>
-				</div>
+				</div> <!--페이지네이션-->
 				
-			 </div>
+			 </div> <!--inner-->
 			 
-		</div>	
-	</div>
+		</div>	<!-- managerpagetoolex-modal-container -->
+		
+		<!-- 상세정보 모달창 -->
+		<div class="modal-overlay">
+			<div class="box-modal">
+				 <a>
+				 	<img class="close-btn" src="/img/x.png" alt="창닫기" />
+				 </a>
+				 <div id="modal-inner">
+					<div class="modal-title-date-box">
+						<p class="modal-title">문의 제목</p>
+					</div>
+					<p class="modal-content">문의 내용내용내용</p>
+				 </div>
+		 	</div>
+		</div>
+		
+	</div> <!-- mainContainer -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
 	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/css/noticebox.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -44,23 +45,48 @@
 			        </thead>
 			        <!-- tbody가 실제 데이터 목록을 담습니다. -->
 			        <tbody>
-			            <tr th:each="box : ${boxes}">
-			                <td th:text="${box.boxid}">1</td>
+			            <tr th:each="box, stat : ${boxPage.content}">
+			                <td th:text="${boxPage.totalElements - (boxPage.number * boxPage.size) - stat.index}">10</td>
 			                <td th:text="${box.boxname}">기본 상자</td>
 			                <td th:text="${box.boxreleasecode}">공개</td>
 			                <td th:text="${box.boxregdate}">2025-10-02</td>
 			                <td class="delete-cell">
-			                    <form th:action="@{/momentlock/boxes/delete/{id}(id=${box.boxId})}" method="post" onsubmit="return confirm('정말로 이 상자를 삭제하시겠습니까?');">
+			                    <form th:action="@{/momentlock/boxes/delete/{id}(id=${box.boxid})}" method="post" onsubmit="return confirm('정말로 이 상자를 삭제하시겠습니까?');">
 			                        <button type="submit" class="delete-btn">삭제</button>
 			                    </form>
 			                </td>
 			            </tr>
 			            <!-- 데이터가 없을 경우 -->
-			            <tr th:if="${#lists.isEmpty(boxes)}">
+			            <tr th:if="${boxPage.empty}">
 			                <td colspan="5" class="no-data">표시할 상자 데이터가 없습니다.</td>
 			            </tr>
 			        </tbody>
 			    </table>
+				<div th:if="${!boxPage.empty}" id="pagination-container">
+					<ul class="pagination">
+						<li class="arrow" th:classappend="${boxPage.first} ? 'disabled'">
+					        <a th:href="@{/momentlock/boxmanagement(page=0)}">«</a>
+						</li>
+						<!-- '이전' 페이지로 이동 버튼 -->
+						<li class="arrow" th:classappend="${!boxPage.hasPrevious()} ? 'disabled'">
+							<a th:href="@{/momentlock/boxmanagement(page=${boxPage.number - 1})}">‹</a>
+						</li>
+																   			                     
+						<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+						<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, boxPage.totalPages - 1)}" th:classappend="${pageNumber == boxPage.number} ? 'active'">
+							<a th:href="@{/momentlock/boxmanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+						</li>
+																   			                     
+						<!-- '다음' 페이지로 이동 버튼 -->
+						<li class="arrow" th:classappend="${!boxPage.hasNext()} ? 'disabled'">
+							<a th:href="@{/momentlock/boxmanagement(page=${boxPage.number + 1})}">›</a>
+						</li>
+						<!-- '마지막' 페이지로 이동 버튼 -->
+						<li class="arrow" th:classappend="${boxPage.last} ? 'disabled'">
+							<a th:href="@{/momentlock/boxmanagement(page=${boxPage.totalPages - 1})}">»</a>
+						</li>
+					</ul>										 
+				</div>	
 			</div>
 		</div>	
 	</div>
