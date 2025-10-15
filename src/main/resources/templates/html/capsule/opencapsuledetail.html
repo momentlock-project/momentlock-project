@@ -1,216 +1,181 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>capsule detail</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}">
-	<link rel="stylesheet" th:href="@{/css/capsule/opencapsuledetail.css}">
-	<link rel="stylesheet" th:href="@{/css/nav.css}">
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>capsule detail</title>
+   <link rel="stylesheet" th:href="@{/css/main.css}">
+   <link rel="stylesheet" th:href="@{/css/capsule/opencapsuledetail.css}">
+   <link rel="stylesheet" th:href="@{/css/nav.css}">
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
 
 
-	<div class="sidebar" th:replace="~{fragments/sidebar :: sidebar}"></div>
+   <div class="sidebar" th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-	<div id="mainContainer" class="blurContainer">
+   <div id="mainContainer" class="blurContainer">
+      <div th:replace="~{fragments/nav :: nav}"></div>
 
-		<nav id="mainNavbar">
-			<div class="nav-left">
-				<button class="hamburger-menu">
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
-			</div>
-			<div class="nav-center">
-				<div class="logo">
-					<a href="/"><img class="nav-img" src="/img/momentLock_top.png" alt=""></a>
-				</div>
-			</div>
-			<div class="nav-right">
-				<!-- <button class="nav-btn">마이페이지</button>
-              <button class="nav-btn">로그아웃</button> -->
-				<button class="nav-btn">로그인</button>
-			</div>
-		</nav>
+      <div class="detail-container">
+         <div class="my_capsule_detail" th:data-afiles="${afiles}">
 
-		<div class="detail-container">
-			<div class="my_capsule_detail" th:data-afiles="${afiles}">
+            <button class="closeBtn" th:onclick="location.href='@{/momentlock/mycapsulelist}'">×</button>
 
-				<button class="closeBtn" th:onclick="location.href='@{/momentlock/mycapsulelist}'">×</button>
+            <h1 th:text="${capsule.captitle}"></h1>
 
-				<h1 th:text="${capsule.captitle}"></h1>
+            <!-- 이미지, 동영상 보여주는 부분 -->
+            <div class="uploaded_image_or_video">
+               <button class="form-btn" id="pre">&LT;</button>
 
-				<!-- 이미지, 동영상 보여주는 부분 -->
-				<div class="uploaded_image_or_video">
+               <img id="image" src="">
 
-					<img id="image" src="">
+               <video id="video" controls autoplay="autoplay" loop>
+                  <source id="source" src="" type="">
+               </video>
+               <button class="form-btn" id="next">&GT;</button>
+            </div>
 
-					<video id="video" controls>
-						<source id="source" src="" type="">
-					</video>
+            <script th:inline="javascript">
+               /*<![CDATA[*/
+               const afileList = /*[[${afiles}]]*/[];
+               let currIdx = 0;
 
-				</div>
+               $(function () {
 
-				<script th:inline="javascript">
-					/*<![CDATA[*/
-					const afileList = /*[[${afiles}]]*/[];
-					let currIdx = 0;
+                  $(document).ready(function() {
+                      $('#reportBtn').on('click', function(e) {
+                          e.preventDefault();
+                          const confirmResult = confirm('이 게시물을 신고하시겠습니까?');
+                          if (confirmResult) {
+                              window.location.href = '/momentlock/declarinsert';
+                          }
+                      });
+                  });
+                  
+                  // 파일이 없으면 숨기고 종료
+                  if (afileList.length === 0) {
 
-					$(function () {
+                     $('.uploaded_image_or_video').hide();
+                     $('.movepage').hide();
 
-						// 파일이 없으면 숨기고 종료
-						if (afileList.length === 0) {
-							
-							$('.uploaded_image_or_video').hide();
-							$('.movepage').hide();
-							
-							$('.uploaded_text').css({
-								'height': '500px',
-								'text-align': 'left'
-							});
-							return;
-						}
+                     $('.uploaded_text').css({
+                        'height': '500px',
+                        'text-align': 'left'
+                     });
+                     return;
+                  }
 
-						// 파일이 1개면 버튼만 숨김
-						if (afileList.length === 1) {
-							$('.movepage').hide();
-						}
+                  // 파일이 1개면 버튼만 숨김
+                  if (afileList.length === 1) {
+                     $('.form-btn').hide();
+                  }
 
-						// 첫 번째 파일 표시 (항상 실행)
-						renderFile();
+                  // 첫 번째 파일 표시 (항상 실행)
+                  renderFile();
 
-						// 파일이 2개 이상일 때만 버튼 이벤트 등록
-						if (afileList.length > 1) {
-							const preBtn = $('#pre');
-							const nextBtn = $('#next');
+                  // 파일이 2개 이상일 때만 버튼 이벤트 등록
+                  if (afileList.length > 1) {
+                     const preBtn = $('#pre');
+                     const nextBtn = $('#next');
 
-							preBtn.on('click', () => {
-								if (currIdx > 0) {
-									currIdx--;
-									renderFile();
-								}
-							});
+                     preBtn.on('click', () => {
+                        if (currIdx > 0) {
+                           currIdx--;
+                           renderFile();
+                        }
+                     });
 
-							nextBtn.on('click', () => {
-								if (currIdx < afileList.length - 1) {
-									currIdx++;
-									renderFile();
-								}
-							});
-						}
-					});
+                     nextBtn.on('click', () => {
+                        if (currIdx < afileList.length - 1) {
+                           currIdx++;
+                           renderFile();
+                        }
+                     });
+                  }
+               });
 
-					function renderFile() {
+               function renderFile() {
 
-						const file = afileList[currIdx];
+                  const file = afileList[currIdx];
 
-						// 파일 타입에 따라 표시
-						if (file.afcontenttype.startsWith('image')) {
-							showImage(file.afcname, file.afcontenttype);
-						} else if (file.afcontenttype.startsWith('video')) {
-							showVideo(file.afcname, file.afcontenttype);
-						}
+                  // 파일 타입에 따라 표시
+                  if (file.afcontenttype.startsWith('image')) {
+                     showImage(file.afcname, file.afcontenttype);
+                  } else if (file.afcontenttype.startsWith('video')) {
+                     showVideo(file.afcname, file.afcontenttype);
+                  }
 
-						// 버튼 숨김/보임 처리
-						if (afileList.length > 1) {
-							const preBtn = $('#pre');
-							const nextBtn = $('#next');
+                  // 버튼 숨김/보임 처리
+                  if (afileList.length > 1) {
+                     const preBtn = $('#pre');
+                     const nextBtn = $('#next');
 
-							if (currIdx === 0) {
-								preBtn.hide();
-								nextBtn.show();
-							} else if (currIdx === afileList.length - 1) {
-								preBtn.show();
-								nextBtn.hide();
-							} else {
-								preBtn.show();
-								nextBtn.show();
-							}
-						}
-					}
+                     if (currIdx === 0) {
+                        preBtn.hide();
+                        nextBtn.show();
+                     } else if (currIdx === afileList.length - 1) {
+                        preBtn.show();
+                        nextBtn.hide();
+                     } else {
+                        preBtn.show();
+                        nextBtn.show();
+                     }
+                  }
+               }
 
-					function showVideo(filePath, contentType) {
+               function showVideo(filePath, contentType) {
 
-						const imgField = $('#image');
-						const videoField = $('#video');
-						const sourceField = $('#source');
+                  const imgField = $('#image');
+                  const videoField = $('#video');
+                  const sourceField = $('#source');
 
-						// 비디오 설정
-						sourceField.attr('src', filePath)
-							.attr('type', contentType);
+                  // 비디오 설정
+                  sourceField.attr('src', filePath)
+                     .attr('type', contentType);
 
-						// video 속성을 변경한 후 DOM의 load 메서드를 써줘야 변경한 것이 반영됨
-						videoField[0].load();
+                  // video 속성을 변경한 후 DOM의 load 메서드를 써줘야 변경한 것이 반영됨
+                  videoField[0].load();
 
-						// 비디오 보이고 이미지 숨김
-						videoField.show();
-						imgField.hide();
-					}
+                  // 비디오 보이고 이미지 숨김
+                  videoField.show();
+                  imgField.hide();
+               }
 
-					function showImage(filePath) {
-						const imgField = $('#image');
-						const videoField = $('#video');
+               function showImage(filePath) {
+                  const imgField = $('#image');
+                  const videoField = $('#video');
 
-						// 이미지 설정
-						imgField.attr('src', filePath);
+                  // 이미지 설정
+                  imgField.attr('src', filePath);
 
-						// 이미지 보이고 비디오 숨김
-						imgField.show();
-						videoField.hide();
-					}
-					/*]]>*/
-				</script>
+                  // 이미지 보이고 비디오 숨김
+                  imgField.show();
+                  videoField.hide();
+               }
+               /*]]>*/
+            </script>
 
-				<div class="uploaded_text" th:text="${capsule.capcontent}"></div>
+            <div class="uploaded_text" th:text="${capsule.capcontent}"></div>
 
-				<span class="movepage">
+               <div class="actions">
+                  <img src="/img/declarationbtn.png" id="reportBtn">
+                     <img src="/img/likebutton.png" id="likeBtn">
+                     <span id="likecount" th:text="${capsule.caplikecount}+' 개'"></span>
+               </div>
 
-					<button class="form-btn" id="pre">이전</button>
+            <input type="hidden" id="capid" th:value="${capsule.capid}">
 
-					<button class="form-btn" id="next">다음</button>
+         </div>
+      </div>
 
-				</span>
+   </div>
 
-				<input type="hidden" id="capid" th:value="${capsule.capid}">
-
-				<div class="actions">
-					<img src="/img/declarationbtn.png" id="reportBtn">
-					<div class="like">
-						<img src="/img/likebutton.png" id="likeBtn">
-						<span id="likecount" th:text="${capsule.caplikecount}"></span>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-
-	<footer>
-		<div class="footer-content">
-			<div class="footer-links">
-				<a href="./policy_page/personalInfo.html">개인정보 보호 및 쿠키</a>
-				<span class="divider">|</span>
-				<a href="./policy_page/usePolicy.html">사용 약관</a>
-				<span class="divider">|</span>
-				<a href="#">상표</a>
-				<span class="divider">|</span>
-				<a href="#">광고 정보</a>
-				<span class="divider">|</span>
-				<span class="copyright">©2025 MomentLock</span>
-			</div>
-			<div class="footer-logo">
-				<img src="/img/momentlockLogo.png" alt="Logo" class="logo-img" />
-			</div>
-		</div>
-	</footer>
-	<script src="/js/nav.js"></script>
-	<script src="/js/capsulelikebuttoncontroll.js"></script>
+   <div th:replace="~{fragments/footer :: footer}"></div>
+   <script th:src="@{/js/nav.js}" defer></script>
+   <script src="/js/capsulelikebuttoncontroll.js" defer></script>
 </body>
 
 </html>

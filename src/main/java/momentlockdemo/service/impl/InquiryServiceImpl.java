@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,11 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public List<Inquiry> getAllInquiries() {
         return inquiryRepository.findAll();
+    }
+    
+    @Override
+    public Page<Inquiry> getAllInquiries(Pageable pageable) {
+        return inquiryRepository.findAll(pageable);
     }
     
     @Override

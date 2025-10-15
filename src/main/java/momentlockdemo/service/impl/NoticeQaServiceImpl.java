@@ -48,4 +48,9 @@ public class NoticeQaServiceImpl implements NoticeQaService {
 	public void deleteNoticeQa(Long id) {
 		noticeQaRepository.deleteById(id);
 	}
+
+	@Override
+	public Page<NoticeQa> getAllNoticeQa(Pageable pageable) {
+		return noticeQaRepository.findAll(pageable);
+	}
 }

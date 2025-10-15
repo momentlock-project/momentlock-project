@@ -12,6 +12,8 @@ public interface NoticeQaService {
     
 	public abstract List<NoticeQa> getAllNoticeQa();
 	
+	public abstract Page<NoticeQa> getAllNoticeQa(Pageable pageable);
+	
 	public abstract Optional<NoticeQa> getNoticeQaById(Long id);
 	
 	public abstract NoticeQa insertNoticeQa(NoticeQa noticeQa);
