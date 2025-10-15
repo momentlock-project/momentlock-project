@@ -139,6 +139,11 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 		return memberBoxRepository.getMemberBoxByBox(box).get();
 	}
 	
+    // MCB를 먼저 정렬해서 가져오기
+    public List<MemberBox> getMembersByBoxSorted(Box box) {
+        return memberBoxRepository.findByBoxOrderByBoxmatercodeDesc(box);
+    }
+	
 }
 
 

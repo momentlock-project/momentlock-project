@@ -44,4 +44,7 @@ public interface MemberBoxService {
 	
 	public abstract MemberBox getMemberBoxByBox(Box box);
 
+	// 방장이 제일 위로 간뒤 정렬
+	public abstract List<MemberBox> getMembersByBoxSorted(Box box);
+	
 }
