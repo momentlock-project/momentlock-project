@@ -18,31 +18,32 @@
 <div id="mainContainer" class="blurContainer">
 	<div th:replace="~{fragments/nav :: nav}"></div>
 	  <div class="my_boxdetail_list">
-		<input type="hidden" id="boxId" th:value="${param.boxid}">
-	     <button class="close-btn"></button>
+		<input type="hidden" id="boxId" th:value="${box.boxid}" />
+	     <button class="close-btn" onclick="history.back();"></button>
 	    
 	    <!-- 상단 제목 -->
 	    <div class="list-header">
           <h3>나의 상자 리스트</h3>
-          <h1>우리의 프랑스 파리 여행</h1>
+          <h1 th:text="${box.boxname}">상자 이름</h1>
         </div>
 
         <div class="top-row">
           <!-- ✅ 참여인원 → MemberCount -->
           <div class="memberCount">
             <button class="box-btn">참여 인원</button>
-            <span>참여 인원 : 0</span>
+            <span th:text="'참여 인원 : ' + ${memberCount}"></span>
           </div>
 
           <div class="action-buttons">
-			<button class="btn-addCapsule"
-			        th:onclick="'location.href=\'/momentlock/capsuleinsert?boxid=' + ${box.boxid} + '\';'">
-			  캡슐 추가
-			</button>
+			<button class="btn-addCapsule">캡슐 추가</button>
             <button class="box-btn">초대 하기</button>
           </div>
         </div>
 
+		<div class="capsule-list"></div>
+
+		
+		
         <!-- 준비하기 버튼 -->
         <div class="footer-btn">
           <button class="box-btn">준비 하기</button>
@@ -75,6 +76,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script th:src="@{/js/nav.js}" defer></script>
 <script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
+<script th:src="@{/js/box/boxdetailcapsuleinsert.js}" defer></script>
 
 </body>
 </html>

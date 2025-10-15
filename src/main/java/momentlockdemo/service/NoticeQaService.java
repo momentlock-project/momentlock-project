@@ -18,5 +18,7 @@ public interface NoticeQaService {
 	
 	public abstract NoticeQa insertNoticeQa(NoticeQa noticeQa);
 	
+	public abstract Page<NoticeQa> getPageNoticeQa(Pageable pageable);
+	
 	public abstract void deleteNoticeQa(Long id);
 }

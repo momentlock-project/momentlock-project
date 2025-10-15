@@ -57,9 +57,21 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("boxId를 불러올 수 없습니다.");
         return;
       }
-      location.href = `/momentlock/capsuleinsert?boxId=${boxId}`;
+      location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
     });
   }
 });
 
-
+fetch(`/momentlock/capsuledelete?capid=${capid}`, {
+  method: "DELETE"
+})
+  .then(res => res.text())
+  .then(result => {
+    if (result === "success") {
+      alert("캡슐이 삭제되었습니다.");
+      btn.closest(".capsule-item").remove();
+    } else {
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  })
+  .catch(err => console.error("삭제 요청 실패:", err));
