@@ -4,12 +4,12 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>나의 상자 리스트</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -32,175 +32,66 @@
 					</div>
 
 					<div class="grid_container">
-						<div class="box_card">
+						<!-- 반복문으로 상자 렌더링 -->
+						<div class="box_card" th:each="box : ${myBoxes}">
 							<button class="menu-btn">⋮</button>
 							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
+								<a th:href="@{'/momentlock/boxedit/' + ${box.boxid}}">수정</a>
+								<a th:href="@{'/momentlock/boxdelete/' + ${box.boxid}}">삭제</a>
 								<a href="#">상자 보내기</a>
 							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 프랑스 파리 여행</h2>
-							<h3>01일 12시 30분 14초</h3>
-						</div>
+							<img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
+							<h2 th:text="${box.boxname}">상자 이름</h2>
+							<h3 class="box-open-date" th:attr="data-opendate=${box.boxopendate}">
+								00일 00시 00분 00초
+							</h3>
 
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 일본 오사카 여행</h2>
-							<h3>03일 05시 20분 10초</h3>
 						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 미국 뉴욕 여행</h2>
-							<h3>05일 08시 15분 40초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 스페인 바르셀로나 여행</h2>
-							<h3>02일 16시 45분 05초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 이탈리아 로마 여행</h2>
-							<h3>04일 10시 25분 50초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 독일 베를린 여행</h2>
-							<h3>06일 14시 10분 30초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 영국 런던 여행</h2>
-							<h3>07일 18시 05분 20초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 캐나다 토론토 여행</h2>
-							<h3>08일 09시 40분 15초</h3>
-						</div>
-
-						<div class="box_card">
-							<button class="menu-btn">⋮</button>
-							<div class="dropdown">
-								<a href="#">수정</a>
-								<a href="#">삭제</a>
-								<a href="#">상자 보내기</a>
-							</div>
-							<img class="box" src="/img/basic_box.png" alt="상자 이미지" />
-							<h2>우리의 호주 시드니 여행</h2>
-							<h3>09일 11시 55분 05초</h3>
-						</div>
+						<!-- 반복 끝 -->
 					</div>
+
+					<!-- 기존 grid_container 끝나는 곳 바로 아래에 페이지네이션 추가 -->
+				</div> <!-- grid_container 끝 -->
+
+				<!-- 페이지네이션 -->
+				<div th:if="${!myBoxes.isEmpty()}" id="pagination-container">
+					<ul class="pagination">
+						<li class="arrow" th:if="${myBoxes.hasPrevious()}">
+							<a
+								th:href="@{/momentlock/myboxlist(page=${myBoxes.number - 1}, size=${myBoxes.size})}">&lt;</a>
+						</li>
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, myBoxes.totalPages - 1)}"
+							th:classappend="${i == myBoxes.number} ? 'active'">
+							<a th:href="@{/momentlock/myboxlist(page=${i}, size=${myBoxes.size})}"
+								th:text="${i + 1}"></a>
+						</li>
+						<li class="arrow" th:if="${myBoxes.hasNext()}">
+							<a
+								th:href="@{/momentlock/myboxlist(page=${myBoxes.number + 1}, size=${myBoxes.size})}">&gt;</a>
+						</li>
+					</ul>
 				</div>
+
+
 			</div>
+		</div>
+	</div>
+	</div>
 
-			<div th:replace="~{fragments/footer :: footer}"></div>
-			<script th:src="@{/js/nav.js}" defer></script>
-			<script th:src="@{/js/box/myboxlist.js}" defer></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/box/myboxlist.js}" defer></script>
 
-			<div id="send-form" class="send-form">
-				<div class="send-form-content">
-					<button class="send-close">×</button>
-					<p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
-					<div class="send-input-row">
-						<form action="/momentlock/boxTransmit?boxid=${boxid}&nickname=${nickname}">
-						<input type="text" name="nickname" id="inputNickname" class="send-nickname" placeholder="닉네임 입력" />
-						<button class="send-submit">보내기</button>
-						</form>
-						<script th:inline="javascript">
-
-							$(function () {
-								const transmitBtn = $('.send-submit');
-
-
-								transmitBtn.on('click', () => {
-									let inputNickname = $('.send-nickname').val();
-									console.log('inputNickname=> ' + inputNickname);
-									transmit(41, inputNickname);
-								});
-
-								// function
-								async function transmit(boxid, nickname) {
-									// 해당 닉네임의 멤버 존재 여부를 컨트롤러에서 받음
-									const url = `/momentlock/boxTransmit?boxid=${boxid}&nickname=${nickname}`;
-									console.log("요청 url=> " +url);
-									const response = await fetch(url);
-									
-									const status = response.status;
-									
-									console.log(status);
-									if (status != 200) {
-										location.href=`/error/${status}.html`;
-										return;
-									}
-									
-									// status 체크 후 변수 할당
-									const memberExists = await response.json();
-
-									console.log('memberExists=> ' + memberExists);
-
-									if (!memberExists) {
-										alert('유저가 존재하지 않습니다.');
-									} else {
-										alert('상자를 보냈습니다!');
-									}
-								}
-
-							});
-						</script>
-
-					</div>
-				</div>
+	<div id="send-form" class="send-form">
+		<div class="send-form-content">
+			<button class="send-close">×</button>
+			<p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
+			<div class="send-input-row">
+				<input type="text" class="send-nickname" placeholder="닉네임 입력" />
+				<button class="send-submit">보내기</button>
 			</div>
+		</div>
+	</div>
 </body>
 
 </html>

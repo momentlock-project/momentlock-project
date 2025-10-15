@@ -99,10 +99,21 @@
 }
 
 .capsule-item .capsule-info {
-	margin-top: 10px;
-	font-size: 14px;
-	color: #8B4513;
-	font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #8B4513;
+    font-weight: bold;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 제목 텍스트 말줄임표 처리 */
+.capsule-item .capsule-info > div:first-child {
+    white-space: nowrap;      /* 한 줄로 표시 */
+    overflow: hidden;          /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis;   /* ...으로 표시 */
 }
 
 /* 반응형 디자인 */

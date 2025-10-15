@@ -1,107 +1,120 @@
 * {
-	margin: 0;
-	padding: 0;
+   margin: 0;
+   padding: 0;
 }
 
 h1{
-	color: rgb(64, 0, 0);
+   color: rgb(64, 0, 0);
+   margin-top: 10px;
+   margin-bottom: 20px;
 }
 
 .blurContainer {
-	background-image: url("/img/backgroundimg_blur.png");
+   background-image: url("/img/backgroundimg_blur.png");
+}
+
+#closeBtn{
+	position: absolute;
+	top: 5%;
+	right: 5%
+}
+
+#closeBtn > img{
+	width: 30px;
+	height: 30px;
 }
 
 #mainContainer {
-	background-image: url("/img/pixelbackground_2.png");
-	width: 70%;
-	height: 150vh;
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	background-position: center top;
-	position: relative;
-	margin: 0 auto;
-	/* 수평 중앙 정렬 */
-	justify-content: center;
-	display: block;
+   background-image: url("/img/pixelbackground_2.png");
+   width: 70%;
+   height: 150vh;
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
+   background-position: center top;
+   position: relative;
+   margin: 0 auto;
+   /* 수평 중앙 정렬 */
+   justify-content: center;
+   display: block;
 
 }
 
 .closeBtn {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	background: none;
-	border: none;
-	font-size: 28px;
-	cursor: pointer;
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   background: none;
+   border: none;
+   font-size: 28px;
+   cursor: pointer;
 }
 
 .detail-container {
-	position: relative;
-	margin: 30px auto;
-	height: 110vh;
+   position: relative;
+   margin: 30px auto;
+   height: 110vh;
 }
 
 .sidebar-header .close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 28px;
-	height: 28px;
-	background-color: #f0f0f0;
-	border: 2px solid #555;
-	border-radius: 50%;
-	cursor: pointer;
-	padding: 0;
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   width: 28px;
+   height: 28px;
+   background-color: #f0f0f0;
+   border: 2px solid #555;
+   border-radius: 50%;
+   cursor: pointer;
+   padding: 0;
 }
 
 .close-btn::before,
 .close-btn::after {
-	content: '';
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 2px;
-	/* X 선의 두께 */
-	height: 24px;
-	/* ✅ 선 길이를 원 크기에 맞게 늘림 */
-	background-color: #555;
-	transform: translate(-50%, -50%) rotate(45deg);
+   content: '';
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   width: 2px;
+   /* X 선의 두께 */
+   height: 24px;
+   /* ✅ 선 길이를 원 크기에 맞게 늘림 */
+   background-color: #555;
+   transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .close-btn::after {
-	transform: translate(-50%, -50%) rotate(-45deg);
+   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .my_capsule_detail {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	/* 중앙 정렬 */
-	/* 반응형 크기 설정 */
-	width: auto;
-	height: auto;
-	max-width: 100%;
-	max-height: 100%;
-	min-width: 900px;   /* 가로 최소 900px */
-	/*min-height: 600px;*/  /* 세로 최소 600px */
-	/* 화면 높이에 맞춤 */
-	overflow: hidden;
-	/* 전체 overflow 숨김 */
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   /* 중앙 정렬 */
+   /* 반응형 크기 설정 */
+   width: auto;
+   height: auto;
+   max-width: 100%;
+   max-height: 100%;
+   min-width: 900px;   /* 가로 최소 900px */
+   /*min-height: 600px;*/  /* 세로 최소 600px */
+   /* 화면 높이에 맞춤 */
+   overflow: hidden;
+   /* 전체 overflow 숨김 */
 
-	/* 시각적 스타일 */
-	background-color: rgba(199, 125, 65, 0.8);
-	border-radius: 8px;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-	padding: 50px;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
-	padding: 20px;
+   /* 시각적 스타일 */
+   background-color: rgba(199, 125, 65, 0.8);
+   border-radius: 8px;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+   padding: 50px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+   padding: 20px;
 }
 
 .uploaded_image_or_video {
@@ -124,24 +137,23 @@ h1{
 }
 
 .uploaded_text {
-	font-size: 18px;
-	width: 100%;
-	max-width: 1071px;
-	max-height: 332px;
-	background-color: #fbeded;
-	border-radius: 5px;
-	padding: 10px;
-	overflow-y: auto;
-	/* 세로 스크롤만 자동 표시 */
-	overflow-x: hidden;
-	/* 가로 스크롤 제거 */
+   font-size: 18px;
+   width: 90%;
+   max-height: 332px;
+   background-color: #fbeded;
+   border-radius: 5px;
+   padding: 10px;
+   overflow-y: auto;
+   /* 세로 스크롤만 자동 표시 */
+   overflow-x: hidden;
+   /* 가로 스크롤 제거 */
 }
 
 .form-btn {
     padding: 5px 10px;  /* 패딩 줄임 */
     font-size: 1.8rem;
     font-weight: 600;
-	color: #6B3410;
+   color: #6B3410;
     border: 3px solid #fbeded;
     border-radius: 8px;
     background:  rgba(188, 138, 89, 0.7);
@@ -153,69 +165,69 @@ h1{
 }
 
 .form-btn:hover {
-	background: #e0e0e0;
+   background: #e0e0e0;
 }
 
 .btnContainer {
-	display: flex;
-	justify-content: flex-end;
-	/* 요소를 오른쪽으로 정렬 */
+   display: flex;
+   justify-content: flex-end;
+   /* 요소를 오른쪽으로 정렬 */
 }
 
 .actions {
-	position: relative;
-	margin-top: 20px;
-	right: 20px;
-	/* 오른쪽 여백 */
-	bottom: 20px;
-	/* 아래 여백 */
-	display: flex;
-	align-items: center;
-	gap: 20px;
+   position: relative;
+   margin-top: 20px;
+   right: 20px;
+   /* 오른쪽 여백 */
+   bottom: 20px;
+   /* 아래 여백 */
+   display: flex;
+   align-items: center;
+   gap: 20px;
 }
 
 #likeBtn {
-	width: 40px;
-	height: 40px;
-	background-color: red;
-	border-radius: 5px;
+   width: 40px;
+   height: 40px;
+   background-color: red;
+   border-radius: 5px;
 }
 
 #reportBtn {
-	width: 48px;
-	height: 48px;
+   width: 48px;
+   height: 48px;
 }
 
 #likeBtn:hover {
-	transform: scale(1.05);
-	cursor: pointer;
+   transform: scale(1.05);
+   cursor: pointer;
 }
 
 #reportBtn:hover {
-	transform: scale(1.05);
-	cursor: pointer;
+   transform: scale(1.05);
+   cursor: pointer;
 }
 
 #likecount{
-	font-size: 1.3rem;
-	color: rgb(64, 0, 0);
+   font-size: 1.3rem;
+   color: rgb(64, 0, 0);
 }
 
 /* 웹킷 브라우저용 스크롤바 스타일 */
 .uploaded_text::-webkit-scrollbar {
-	width: 10px;
+   width: 10px;
 }
 
 .uploaded_text::-webkit-scrollbar-track {
-	background: #f0f0f0;
-	border-radius: 5px;
+   background: #f0f0f0;
+   border-radius: 5px;
 }
 
 .uploaded_text::-webkit-scrollbar-thumb {
-	background: #8B4513;
-	border-radius: 5px;
+   background: #8B4513;
+   border-radius: 5px;
 }
 
 .uploaded_text::-webkit-scrollbar-thumb:hover {
-	background: #6B3410;
+   background: #6B3410;
 }

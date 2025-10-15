@@ -36,6 +36,8 @@ public interface AfileService {
 
 	public abstract String uploadToS3(MultipartFile file) throws IOException;
 	
+	public abstract void deleteFromS3(String fileUrl);
+	
     public abstract Afile saveFileToCapsule(MultipartFile file, Capsule capsule) throws IOException;
 	
 }

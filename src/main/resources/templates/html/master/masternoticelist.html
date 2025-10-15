@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
+	<link rel="stylesheet" th:href="@{/css/form.css}" />
 </head>
 
 <body>
@@ -39,8 +40,8 @@
 				     </tr>
 				 </thead>
 			     <tbody>
-					<tr th:each="noticeQa, stat : ${noticeQaList}">
-					  <td th:text="${stat.count}">10</td>
+					<tr th:each="noticeQa, stat : ${noticeQaPage.content}">
+					  <td th:text="${noticeQaPage.totalElements - (noticeQaPage.number * noticeQaPage.size) - stat.index}">10</td>
 					  <td>
 					    <span th:switch="${noticeQa.type}">
 					    <span th:case="'NOTICE'" class="badge notice-badge">공지</span>
@@ -54,15 +55,40 @@
 					<td th:text="${#temporals.format(noticeQa.regDate, 'yyyy-MM-dd')}">2025-10-12</td>
 				  </tr>
 				  <!-- 조회된 게시글이 없을 경우 표시될 메시지 -->
-			      <tr th:if="${#lists.isEmpty(noticeQaList)}">   
+			      <tr th:if="${noticeQaPage.empty}">   
 				    <td colspan="4" style="text-align: center;">작성된 게시글이 없습니다.</td>
 				  </tr>
 				 </tbody>
 			   </table>
 			 </div>
 			 <div class="write-btn-container">
-			    <a th:href="@{/momentlock/masterinquiryinsert}" class="form-btn">새 글 작성</a>
+			     <a th:href="@{/momentlock/masterinquiryinsert}" class="form-btn">새 글 작성</a>
 			 </div>
+			 <div th:if="${!noticeQaPage.empty}" class="pagination-container">
+			       <ul class="pagination">
+			           <li th:classappend="${noticeQaPage.first} ? 'disabled'">
+			                      <a th:href="@{/momentlock/masternoticelist(page=0)}">«</a>
+			                     </li>
+			                     <!-- '이전' 페이지로 이동 버튼 -->
+			                     <li th:classappend="${!noticeQaPage.hasPrevious()} ? 'disabled'">
+			                         <a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.number - 1})}">‹</a>
+			                     </li>
+			                     
+			                     <!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+			                     <li th:each="pageNumber : ${#numbers.sequence(0, noticeQaPage.totalPages - 1)}" th:classappend="${pageNumber == noticeQaPage.number} ? 'active'">
+			                         <a th:href="@{/momentlock/masternoticelist(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+			                     </li>
+			                     
+			                     <!-- '다음' 페이지로 이동 버튼 -->
+			                     <li th:classappend="${!noticeQaPage.hasNext()} ? 'disabled'">
+			                         <a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.number + 1})}">›</a>
+			                     </li>
+			                     <!-- '마지막' 페이지로 이동 버튼 -->
+			                     <li th:classappend="${noticeQaPage.last} ? 'disabled'">
+			                         <a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.totalPages - 1})}">»</a>
+			                     </li>
+			                 </ul>
+			             </div>
 		</div>	
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
