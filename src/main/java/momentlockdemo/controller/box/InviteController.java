@@ -6,6 +6,7 @@ import momentlockdemo.entity.InviteToken;
 import momentlockdemo.entity.Member;
 import momentlockdemo.repository.InviteTokenRepository;
 import momentlockdemo.service.BoxService;
+import momentlockdemo.service.InvitationService;
 import momentlockdemo.service.MemberBoxService;
 import momentlockdemo.service.MemberService;
 
@@ -24,6 +25,7 @@ public class InviteController {
 	private final MemberService memberService;
 	private final BoxService boxService;
 	private final MemberBoxService memberBoxService;
+	private final InvitationService invitationService;
 
 	@GetMapping("/invite")
 	public String showForm(@RequestParam String token, Model model) {
@@ -52,10 +54,11 @@ public class InviteController {
 			throw new IllegalStateException("이미 사용된 초대 링크입니다.");
 		}
 
-	    // 피초대자 이메일 검증 [로그인 구현되면 이 부분 수정하기]
-	    // SecurityContext나 세션을 이용해 현재 로그인 사용자와 일치하는지 검사 가능
-	    // if (!currentUserEmail.equals(invite.getInviteeUserId())) throw new SecurityException("권한 없음");
-		
+		// 피초대자 이메일 검증 [로그인 구현되면 이 부분 수정하기]
+		// SecurityContext나 세션을 이용해 현재 로그인 사용자와 일치하는지 검사 가능
+		// if (!currentUserEmail.equals(invite.getInviteeUserId())) throw new
+		// SecurityException("권한 없음");
+
 		// 초대 수락 처리
 		Member invitee = memberService.getMemberByUsername(invite.getInviteeUserId())
 				.orElseThrow(() -> new IllegalStateException("초대받은 회원 정보를 찾을 수 없습니다."));
@@ -86,13 +89,27 @@ public class InviteController {
 		if ("Y".equalsIgnoreCase(invite.getUsedYn())) {
 			throw new IllegalStateException("이미 사용된 초대 링크입니다.");
 		}
-		
+
 		// 토큰 상태 업데이트 (1회용)
 		invite.setUsedYn("Y");
 		invite.setUsedAt(LocalDateTime.now());
 		tokenRepo.save(invite);
 
 		return "redirect:/momentlock";
+	}
+
+	@GetMapping("/invitemember")
+	public String sendInvite(@RequestParam("member") String inviterUsername,
+			@RequestParam("nickname") String inviteeNickname, @RequestParam("boxid") Long boxid, Model model) {
+		
+		Member member = memberService.getMemberByUsername(inviterUsername).get();
+		try {
+			invitationService.sendInvitation(member.getNickname(), inviteeNickname, boxid);
+			model.addAttribute("message", "초대 메일을 성공적으로 전송했습니다!");
+		} catch (Exception e) {
+			model.addAttribute("message", "초대 메일 전송 실패: " + e.getMessage());
+		}
+		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
 	}
 
 }

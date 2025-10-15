@@ -19,7 +19,12 @@
 		<div th:replace="~{fragments/nav :: nav}"></div>
 		<div class="my_boxdetail_list">
 			<input type="hidden" id="boxId" th:value="${box.boxid}" />
-			<button class="close-btn" onclick="history.back();"></button>
+			<input type="hidden" id="memberusername" th:value="${member.username}" />
+			<input type="hidden" id="memerboxReadyCode" th:value="${memberBoxOne.readycode}" />
+
+			<a href="#" id="closeBtn">
+				<img src="/img/x.png" alt="창닫기" />
+			</a>
 
 			<!-- 상단 제목 -->
 			<div class="list-header">
@@ -34,7 +39,7 @@
 				</div>
 				<div class="action-buttons">
 					<button class="btn-addCapsule" id="insert-capsule">캡슐 추가</button>
-					<button class="box-btn">초대 하기</button>
+					<button class="box-btn" id="invite-btn">초대 하기</button>
 				</div>
 			</div>
 			<div class="capsule-list">
@@ -45,10 +50,11 @@
 							<h3 th:text="${capsule.member?.username ?: '회원정보없음'}"></h3>
 						</div>
 					</div>
-					<div class="dropdown" th:if="${capsule.member != null and member.username == capsule.member.username}">
+					<div class="dropdown"
+						th:if="${capsule.member != null and member.username == capsule.member.username}">
 						<button class="dropdown-toggle">⋮</button>
 						<div class="dropdown-menu">
-							<button class="modify-btn" th:data-capid="${capsule.capid}">수정</button> 
+							<button class="modify-btn" th:data-capid="${capsule.capid}">수정</button>
 							<button class="delete-btn" th:data-capid="${capsule.capid}">삭제</button>
 						</div>
 					</div>
@@ -57,7 +63,11 @@
 
 			<!-- 준비하기 버튼 -->
 			<div class="footer-btn">
-				<button class="box-btn">준비 하기</button>
+				<button class="box-btn" id="ready-btn"
+					th:classappend="${memberBoxOne.readycode == 'MRN' ? 'noready' : 'ready'}"
+					th:text="${memberBoxOne.readycode == 'MRN' ? '준비 완료' : '준비 해제'}">
+					준비 하기
+				</button>
 			</div>
 
 			<!-- 참여인원 모달-->
@@ -66,18 +76,42 @@
 					<h2>참여인원</h2>
 
 					<div class="member-list">
-						<div class="member-item" th:each="memberBox, state : ${memberBox}">
+						<div class="member-item" th:each="memberBox, state : ${memberBoxList}">
 							<div class="left-info">
-								<img src="/img/no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+								<img th:src="@{${memberBox.readycode == 'MRY' ? '/img/ready.png' : '/img/no_ready.png'}}"
+									alt="준비 상태" class="ready-status" />
 								<span th:text="${memberBox.member.username}" class="nickname"></span>
 								<!-- MCB면 방장 표시 -->
 								<span th:if="${memberBox.boxmatercode == 'MCB'}" class="master-badge">방장</span>
 							</div>
-							<button th:if="${memberBox.boxmatercode!='MCB'}"class="kick-btn">내보내기</button>
+							<button th:if="${memberBox.boxmatercode != 'MCB' 
+							                 and memberBoxOne.boxmatercode == 'MCB'
+							                 and memberBox.member.username != memberBoxOne.member.username}" class="kick-btn"
+								th:data-username="${memberBox.member.username}">
+								내보내기
+							</button>
 						</div>
 					</div>
-					
+
 					<button class="modal-confirm" id="memberCountConfirm">확인</button>
+				</div>
+			</div>
+
+			<!-- 초대하기 모달 추가 -->
+			<div id="inviteModal" class="modal_4" style="height: 45%;">
+				<div class="modal-content">
+					<h2>멤버 초대하기</h2>
+
+					<div class="invite-form">
+						<label for="inviteNickname">초대할 닉네임</label>
+						<input type="text" id="inviteNickname" placeholder="닉네임을 입력하세요" class="invite-input" />
+						<p class="invite-hint">초대할 멤버의 닉네임을 정확히 입력해주세요.</p>
+					</div>
+
+					<div class="modal-buttons">
+						<button class="modal-confirm" id="inviteCancel">취소</button>
+						<button class="modal-confirm" id="inviteConfirm">초대하기</button>
+					</div>
 				</div>
 			</div>
 
