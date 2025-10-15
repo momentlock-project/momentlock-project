@@ -8,28 +8,25 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
 </head>
 
 <body>
-	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
-		
-		<div class="managerpagetoolex-modal-container">
-			
-			<!-- 모달창 -->
-			<div class="box-modal">
-				<a th:href="@{/momentlock/mypage}">
-					<img src="/img/x.png" alt="창닫기" />
-				</a>
-				
-				
-			 </div>
+	 <!-- row 한 행 클릭 시 상세 정보나오는 모달창 -->
+	 <div class="modal-overlay">
+		 <div class="box-modal">
+			<a>
+				<img class="close-btn" src="/img/x.png" alt="창닫기" />
+			</a>
+			<div id="modal-inner">
+				<p class="modal-title">문의 제목</p>
+				<p class="modal-date">날짜</p>
+				<p class="modal-content">문의 내용내용내용</p>
+			</div>
+		 </div>
+	 </div>
 			 
-		</div>	
-	</div>
-	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/member/memberbox.js}" defer></script>
 	<body>
 
 </html>
