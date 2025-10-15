@@ -102,5 +102,10 @@ public class BoxServiceImpl implements BoxService {
 		
 		
 	}
+	
+	@Override
+	public Page<Box> getAllBoxPage(Pageable pageable) {
+		return boxRepository.findAll(pageable);
+	}
 
 }

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" /> 
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -38,18 +39,43 @@
 						   </tr>
 						 </thead>
 						 <tbody>
-							<tr th:each="declaration, stat : ${declarationList}">
-							  <td th:text="${stat.count}"></td>
+							<tr th:each="declaration, stat : ${declarationPage.content}">
+							  <td th:text="${declarationPage.totalElements - (declarationPage.number * declarationPage.size) - stat.index}">10</td>
 							  <td class="col-title">
 								<a th:href="@{/momentlock/declarationlist/{id}(id=${declaration.decid})}" th:text="${declaration.deccategory}"></a>
 							  </td>
 							  <td th:text="${#temporals.format(declaration.decregdate, 'yyyy-MM-dd')}"></td>
 							</tr>
-							<tr th:if="${#lists.isEmpty(declarationList)}">
+							<tr th:if="${declarationPage.empty}">
 							  <td colspan="3" style="text-align: center;">작성된 신고글이 없습니다.</td>
 							</tr>
 						  </tbody>
-					</table>	
+					</table>
+					<div th:if="${!declarationPage.empty}" id="pagination-container">
+						<ul class="pagination">
+							<li class="arrow" th:classappend="${declarationPage.first} ? 'disabled'">
+								<a th:href="@{/momentlock/masterdeclarlist(page=0)}">«</a>
+							</li>
+							<!-- '이전' 페이지로 이동 버튼 -->
+							<li class="arrow" th:classappend="${!declarationPage.hasPrevious()} ? 'disabled'">
+								<a th:href="@{/momentlock/masterdeclarlist(page=${declarationPage.number - 1})}">‹</a>
+							</li>
+												   			                     
+							<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+							<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, declarationPage.totalPages - 1)}" th:classappend="${pageNumber == declarationPage.number} ? 'active'">
+								<a th:href="@{/momentlock/masterdeclarlist(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+							</li>
+												   			                     
+							<!-- '다음' 페이지로 이동 버튼 -->
+							<li class="arrow" th:classappend="${!declarationPage.hasNext()} ? 'disabled'">
+							    <a th:href="@{/momentlock/masterdeclarlist(page=${declarationPage.number + 1})}">›</a>
+							</li>
+						    <!-- '마지막' 페이지로 이동 버튼 -->
+							<li class="arrow" th:classappend="${declarationPage.last} ? 'disabled'">
+								<a th:href="@{/momentlock/masterdeclarlist(page=${declarationPage.totalPages - 1})}">»</a>
+							</li>
+						</ul>										 
+					</div>	
 				</div>
 		</div>	
 	</div>
