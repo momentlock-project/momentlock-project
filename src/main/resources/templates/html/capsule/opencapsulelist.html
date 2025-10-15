@@ -1,124 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/capsule/opencapsulelist.css}" />
-  </head>
+</head>
 
-  <body>
+<body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-		<div id="mainContainer" class="blurContainer">
-			<div th:replace="~{fragments/nav :: nav}"></div>
-			
-			<div class="modal_2">
-			  <button class="opencapsulelist-close-btn">×</button> <!-- 이부분도 나중에 db연동해서 좋아요 버튼 구현해야함 -->
-			  <h2 class="opencapsulelist-modal-title">군대전역</h2>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
 
-			  <!-- 안쪽 컨텐츠 박스 -->
-			  <div class="opencapsulelist-modal-inner">
-			    <div class="opencapsulelist-capsule-grid">
-			      <div class="opencapsulelist-capsule-item">
-			        <span class="opencapsulelist-like">❤️ 13</span>
-			        <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			        <p class="opencapsulelist-nickname">닉네임</p>
-			      </div>
-			      <div class="opencapsulelist-capsule-item">
-			        <span class="opencapsulelist-like">❤️ 13</span>
-			        <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			        <p class="opencapsulelist-nickname">닉네임</p>
-			      </div>
-			      <div class="opencapsulelist-capsule-item">
-			        <span class="opencapsulelist-like">❤️ 13</span>
-			        <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			        <p class="opencapsulelist-nickname">닉네임</p>
-			      </div>
-				  <div class="opencapsulelist-capsule-item">
-				    <span class="opencapsulelist-like">❤️ 13</span>
-				    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				    <p class="opencapsulelist-nickname">닉네임</p>
-				  </div>
-				  <div class="opencapsulelist-capsule-item">
-				    <span class="opencapsulelist-like">❤️ 13</span>
-				    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				    <p class="opencapsulelist-nickname">닉네임</p>
-				  </div>
-				  <div class="opencapsulelist-capsule-item">
-				    <span class="opencapsulelist-like">❤️ 13</span>
-				    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				    <p class="opencapsulelist-nickname">닉네임</p>
-				  </div>				<div class="opencapsulelist-capsule-item">
-				  <span class="opencapsulelist-like">❤️ 13</span>
-				  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				  <p class="opencapsulelist-nickname">닉네임</p>
+		<div class="modal_2">
+			<a href="#" id="closeBtn">
+				<img src="/img/x.png" alt="창닫기" />
+			</a>
+			<h2 th:text="${box.boxname}" class="opencapsulelist-modal-title"></h2>
+
+			<!-- 안쪽 컨텐츠 박스 -->
+			<div class="opencapsulelist-modal-inner">
+				<div class="opencapsulelist-capsule-grid">
+					<div th:each="capsule, state : ${capsulelist}" class="opencapsulelist-capsule-item"
+						th:data-capid="${capsule.capid}">
+						<!-- 수정 1: 문자열 결합 방법 수정 -->
+						<span th:text="|❤️ ${capsule.caplikecount}|" class="opencapsulelist-like"></span>
+						<!-- 코드 양 옆에 | | 이 기호는 자바스크립트 `` 템플릿 리터럴과 비슷하다 생각하면됨-->
+						<img th:src="@{|/img/capsule/${capsule.capImage ?: 'capsule1.png'}|}" alt="캡슐"
+							class="opencapsulelist-capsule-img">
+						<!-- 수정 2: $ 추가 -->
+						<p th:text="${capsule.captitle}" class="opencapsulelist-nickname">닉네임</p>
+					</div>
+					<!-- 캡슐 반복 -->
 				</div>
-				<div class="opencapsulelist-capsule-item">
-				  <span class="opencapsulelist-like">❤️ 13</span>
-				  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				  <p class="opencapsulelist-nickname">닉네임</p>
-				</div>
-				<div class="opencapsulelist-capsule-item">
-				  <span class="opencapsulelist-like">❤️ 13</span>
-				  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-				  <p class="opencapsulelist-nickname">닉네임</p>
-				</div>			  <div class="opencapsulelist-capsule-item">
-			    <span class="opencapsulelist-like">❤️ 13</span>
-			    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			    <p class="opencapsulelist-nickname">닉네임</p>
-			  </div>
-			  <div class="opencapsulelist-capsule-item">
-			    <span class="opencapsulelist-like">❤️ 13</span>
-			    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			    <p class="opencapsulelist-nickname">닉네임</p>
-			  </div>
-			  <div class="opencapsulelist-capsule-item">
-			    <span class="opencapsulelist-like">❤️ 13</span>
-			    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			    <p class="opencapsulelist-nickname">닉네임</p>
-			  </div>			<div class="opencapsulelist-capsule-item">
-			  <span class="opencapsulelist-like">❤️ 13</span>
-			  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			  <p class="opencapsulelist-nickname">닉네임</p>
 			</div>
-			<div class="opencapsulelist-capsule-item">
-			  <span class="opencapsulelist-like">❤️ 13</span>
-			  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			  <p class="opencapsulelist-nickname">닉네임</p>
-			</div>
-			<div class="opencapsulelist-capsule-item">
-			  <span class="opencapsulelist-like">❤️ 13</span>
-			  <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-			  <p class="opencapsulelist-nickname">닉네임</p>
-			</div>		  <div class="opencapsulelist-capsule-item">
-		    <span class="opencapsulelist-like">❤️ 13</span>
-		    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-		    <p class="opencapsulelist-nickname">닉네임</p>
-		  </div>
-		  <div class="opencapsulelist-capsule-item">
-		    <span class="opencapsulelist-like">❤️ 13</span>
-		    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-		    <p class="opencapsulelist-nickname">닉네임</p>
-		  </div>
-		  <div class="opencapsulelist-capsule-item">
-		    <span class="opencapsulelist-like">❤️ 13</span>
-		    <img th:src="@{/img/capsule/capsule1.png}" alt="캡슐" class="opencapsulelist-capsule-img">
-		    <p class="opencapsulelist-nickname">닉네임</p>
-		  </div>
-			      <!-- 캡슐 반복 -->
-			    </div>
-			  </div>
-			</div>
-			
-    </div>
-     
-  
+		</div>
+
+	</div>
+
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/capsule/opencapsulelist.js}" defer></script>
 </body>
 
-    <script src="nav.js"></script>
 </html>
