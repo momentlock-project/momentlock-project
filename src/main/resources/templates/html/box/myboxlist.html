@@ -39,6 +39,7 @@
 								<a th:href="@{'/momentlock/boxedit/' + ${box.boxid}}">수정</a>
 								<a th:href="@{'/momentlock/boxdelete/' + ${box.boxid}}">삭제</a>
 								<a href="#">상자 보내기</a>
+								<input type="hidden" class="boxid" th:value="${box.boxid}">
 							</div>
 							<img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
 							<h2 th:text="${box.boxname}">상자 이름</h2>
@@ -87,8 +88,10 @@
 			<button class="send-close">×</button>
 			<p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
 			<div class="send-input-row">
-				<input type="text" class="send-nickname" placeholder="닉네임 입력" />
-				<button class="send-submit">보내기</button>
+				<form action="/momentlock/boxTransmit?">
+					<input type="text" class="send-nickname" placeholder="닉네임 입력" />
+					<button class="send-submit">보내기</button>
+				</form>
 			</div>
 		</div>
 	</div>

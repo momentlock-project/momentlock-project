@@ -38,11 +38,12 @@ public class BoxTransmitController {
 
 	@GetMapping("/boxTransmit")
 	@ResponseBody
-	public boolean transmit(@RequestParam Long boxid, @RequestParam String nickname, Model model,
-			HttpServletResponse response) {
+	public boolean transmit(@RequestParam Long boxid, @RequestParam String inputNickname, Model model) {
 
+		System.out.println("boxid= " + boxid + "nickname = " + inputNickname);
+		
 //			입력한 닉네임이 존재하는지 여부
-		boolean status = memberService.existsByNickname(nickname);
+		boolean status = memberService.existsByNickname(inputNickname);
 
 //			보낼 박스
 		Box transmitedBox = boxService.getBoxById(boxid)
@@ -51,21 +52,11 @@ public class BoxTransmitController {
 
 		if (status) { // 수신자 닉네임이 db에 존재할 때
 
-//				수신자
-			Member transmitedMember = memberService.getMemberByNickname(nickname).get();
-
-//			MEMBER_BOX 테이블에서 박스 보낸 멤버 ROW 삭제 (기존에 존재하던 박스를 보낸 멤버와 박스의 관계성을 삭제)
-			MemberBox sendMemberBox = memberBoxService.getMemberBoxByBox(transmitedBox);
-			memberBoxService.deleteMemberBox(sendMemberBox.getId());
-
-//					전송 받은 회원(recipient)과 박스(transmitBox) MEMBER_BOX 추가(관계성을 추가)
-			memberBoxService.createMemberBox(MemberBox.builder()
-					.id(null).member(transmitedMember)
-					.box(transmitedBox)
-					.partydate(LocalDateTime.now())
-					.readycode("MRN")
-					.boxmatercode("MCB")
-					.build());
+//			받는 사람
+			Member transmitedMember = memberService.getMemberByNickname(inputNickname).get();
+			
+//			송신자-박스의 관계를 수신자-박스로 수정
+			memberBoxService.getMemberBoxByBox(transmitedBox).setMember(transmitedMember);
 
 			return true;
 		}

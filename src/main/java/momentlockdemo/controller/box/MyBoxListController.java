@@ -1,5 +1,7 @@
 package momentlockdemo.controller.box;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
+import momentlockdemo.entity.MemberBox;
 import momentlockdemo.service.BoxService;
 import momentlockdemo.service.MemberService;
 import momentlockdemo.service.MemberBoxService;
@@ -39,29 +42,23 @@ public class MyBoxListController {
             @PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
 
         // 1. 임시 회원 생성 (DB에 없으면 저장)
-        String username = "gmldnjs1616@gmail.com";
-        Optional<Member> optionalMember = memberService.getMemberByUsername(username);
-        Member member;
-        if (optionalMember.isPresent()) {
-            member = optionalMember.get();
-        } else {
-            member = Member.builder()
-                    .username(username)
-                    .name("홍길동")
-                    .password("1234")
-                    .nickname("희원굿")
-                    .phonenumber("01044487754")
-                    .memcapcount(10L)
-                    .build();
-            memberService.createMember(member);
-        }
+        
+        Member member = memberService.getMemberByUsername("username3").get();
 
+        List<MemberBox> memberBoxList = memberBoxService.getBoxesByMember(member);
+        List<Box> boxList = new ArrayList<>();
+        
+        for(MemberBox memberbox : memberBoxList) {
+        	boxList.add(boxService.getBoxById(memberbox.getBox().getBoxid()).get()); 
+        }
+        
         // 2. Page<Box>로 상자 리스트 조회 (페이지네이션 적용)
         Page<Box> myBoxes = boxService.getPagedBoxList(pageable.getPageNumber(), pageable.getPageSize());
 
         // 3. 모델에 담아서 Thymeleaf로 전달
         model.addAttribute("myBoxes", myBoxes);
-
+        model.addAttribute("boxList", boxList);
+        
         return "html/box/myboxlist";
     }
 
