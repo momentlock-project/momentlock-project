@@ -22,7 +22,9 @@
       <div class="detail-container">
          <div class="my_capsule_detail" th:data-afiles="${afiles}">
 
-            <button class="closeBtn" th:onclick="location.href='@{/momentlock/mycapsulelist}'">×</button>
+			<a href="#" id="closeBtn">
+				<img src="/img/x.png" alt="창닫기" />
+			</a>
 
             <h1 th:text="${capsule.captitle}"></h1>
 
@@ -42,9 +44,15 @@
                /*<![CDATA[*/
                const afileList = /*[[${afiles}]]*/[];
                let currIdx = 0;
+			   
+				document.getElementById('closeBtn').addEventListener('click', function(e) {
+				    e.preventDefault(); // 기본 동작 방지
+				    history.back(); // 이전 페이지로 이동
+				});
 
                $(function () {
 
+				
                   $(document).ready(function() {
                       $('#reportBtn').on('click', function(e) {
                           e.preventDefault();

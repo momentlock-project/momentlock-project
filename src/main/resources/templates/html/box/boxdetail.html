@@ -14,67 +14,81 @@
 </head>
 
 <body>
-<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-<div id="mainContainer" class="blurContainer">
-	<div th:replace="~{fragments/nav :: nav}"></div>
-	  <div class="my_boxdetail_list">
-		<input type="hidden" id="boxId" th:value="${param.boxid}">
-	     <button class="close-btn"></button>
-	    
-	    <!-- 상단 제목 -->
-	    <div class="list-header">
-          <h3>나의 상자 리스트</h3>
-          <h1>우리의 프랑스 파리 여행</h1>
-        </div>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="my_boxdetail_list">
+			<input type="hidden" id="boxId" th:value="${box.boxid}" />
+			<button class="close-btn" onclick="history.back();"></button>
 
-        <div class="top-row">
-          <!-- ✅ 참여인원 → MemberCount -->
-          <div class="memberCount">
-            <button class="box-btn">참여 인원</button>
-            <span>참여 인원 : 0</span>
-          </div>
+			<!-- 상단 제목 -->
+			<div class="list-header">
+				<h1 th:text="${box.boxname}">상자 이름</h1>
+			</div>
 
-          <div class="action-buttons">
-			<button class="btn-addCapsule"
-			        th:onclick="'location.href=\'/momentlock/capsuleinsert?boxid=' + ${box.boxid} + '\';'">
-			  캡슐 추가
-			</button>
-            <button class="box-btn">초대 하기</button>
-          </div>
-        </div>
+			<div class="top-row">
+				<!-- ✅ 참여인원 → MemberCount -->
+				<div class="memberCount">
+					<button class="box-btn" id="join-member-btn">참여 인원</button>
+					<span th:text="'박스에 참여 가능한 인원 : ' + ${box.boxmemcount}"></span>
+				</div>
+				<div class="action-buttons">
+					<button class="btn-addCapsule" id="insert-capsule">캡슐 추가</button>
+					<button class="box-btn">초대 하기</button>
+				</div>
+			</div>
+			<div class="capsule-list">
+				<div class="capsule-item" th:each="capsule, state : ${capsules}">
+					<div class="capsule-info">
+						<img th:src="@{|/img/capsule/${capsule.capImage ?: 'capsule1.png'}|}" alt="캡슐 썸네일" />
+						<div class="capsule-text">
+							<h3 th:text="${capsule.member?.username ?: '회원정보없음'}"></h3>
+						</div>
+					</div>
+					<div class="dropdown" th:if="${capsule.member != null and member.username == capsule.member.username}">
+						<button class="dropdown-toggle">⋮</button>
+						<div class="dropdown-menu">
+							<button class="modify-btn" th:data-capid="${capsule.capid}">수정</button> 
+							<button class="delete-btn" th:data-capid="${capsule.capid}">삭제</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <!-- 준비하기 버튼 -->
-        <div class="footer-btn">
-          <button class="box-btn">준비 하기</button>
-        </div>
+			<!-- 준비하기 버튼 -->
+			<div class="footer-btn">
+				<button class="box-btn">준비 하기</button>
+			</div>
 
-        <!-- 참여인원 모달-->
-        <div id="memberCountModal" class="modal_4">
-          <div class="modal-content">
-            <h2>참여인원</h2>
+			<!-- 참여인원 모달-->
+			<div id="memberCountModal" class="modal_4">
+				<div class="modal-content">
+					<h2>참여인원</h2>
 
-            <div class="member-list">
-              <div class="member-item">
-                <div class="left-info">
-                  <img src="/img/no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
-                  <span class="nickname">홍길동1</span>
-                </div>
-                <button class="kick-btn">내보내기</button>
-              </div>
-            </div>
+					<div class="member-list">
+						<div class="member-item" th:each="memberBox, state : ${memberBox}">
+							<div class="left-info">
+								<img src="/img/no_ready.png" alt="준비 상태" class="ready-status" data-ready="false" />
+								<span th:text="${memberBox.member.username}" class="nickname"></span>
+								<!-- MCB면 방장 표시 -->
+								<span th:if="${memberBox.boxmatercode == 'MCB'}" class="master-badge">방장</span>
+							</div>
+							<button th:if="${memberBox.boxmatercode!='MCB'}"class="kick-btn">내보내기</button>
+						</div>
+					</div>
+					
+					<button class="modal-confirm" id="memberCountConfirm">확인</button>
+				</div>
+			</div>
 
-            <button class="modal-confirm" id="memberCountConfirm">확인</button>
-          </div>
-        </div>
-        <!-- 참여인원 모달 끝 -->
-
-	  </div>
+		</div>
 	</div>
-</div>
+	</div>
 
-<div th:replace="~{fragments/footer :: footer}"></div>
-<script th:src="@{/js/nav.js}" defer></script>
-<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/box/myboxcapsulelist.js}" defer></script>
 
 </body>
+
 </html>

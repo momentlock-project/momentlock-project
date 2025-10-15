@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/nav.css}" />
     <link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
     <link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -45,10 +46,30 @@
 							    00일 00시 00분 00초
 							</h3>
 
-
                         </div>
                         <!-- 반복 끝 -->
                     </div>
+					
+					<!-- 기존 grid_container 끝나는 곳 바로 아래에 페이지네이션 추가 -->
+					</div> <!-- grid_container 끝 -->
+
+					<!-- 페이지네이션 -->
+					<div th:if="${!myBoxes.isEmpty()}" id="pagination-container">
+					    <ul class="pagination">
+					        <li class="arrow" th:if="${myBoxes.hasPrevious()}">
+					            <a th:href="@{/momentlock/myboxlist(page=${myBoxes.number - 1}, size=${myBoxes.size})}">&lt;</a>
+					        </li>
+					        <li class="pagenumber" th:each="i : ${#numbers.sequence(0, myBoxes.totalPages - 1)}"
+					            th:classappend="${i == myBoxes.number} ? 'active'">
+					            <a th:href="@{/momentlock/myboxlist(page=${i}, size=${myBoxes.size})}" th:text="${i + 1}"></a>
+					        </li>
+					        <li class="arrow" th:if="${myBoxes.hasNext()}">
+					            <a th:href="@{/momentlock/myboxlist(page=${myBoxes.number + 1}, size=${myBoxes.size})}">&gt;</a>
+					        </li>
+					    </ul>
+					</div>
+
+
                 </div>
             </div>
         </div>
