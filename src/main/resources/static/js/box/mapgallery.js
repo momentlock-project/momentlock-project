@@ -40,7 +40,7 @@ async function getBoxData() {
                     id: box.boxid,
                     title: box.boxname,
                     date: box.boxopendate ? box.boxopendate.split('T')[0] : '',
-                    image: isOpened ? '/img/opendBox_map.png' : '/img/basic_box.png',
+                    image: isOpened ? '/img/myboxlistopen.png' : '/img/myboxlist.png',
                     location: box.boxlocation
                 });
             }
@@ -167,7 +167,7 @@ function displayCapsules(cityName) {
             <img src="${box.image}" alt="${box.title}" onerror="this.src='/img/basic_box.png'">
             <div class="capsule-info">
                 <div>${box.title}</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">${box.date}</div>
+                <div style="font-size: 17px; color: #666; margin-top: 5px;">${box.date}</div>
             </div>
         `;
 
@@ -175,7 +175,7 @@ function displayCapsules(cityName) {
 			// 확인 대화상자
 			const confirmed = confirm(`${box.title} 상자 상세페이지로 이동하시겠습니까?`);
 			if (confirmed) {
-			    window.location.href = `/momentlock/opencapsulelist`;
+			    window.location.href = `/momentlock/opencapsulelist?boxid=${box.id}`;
 			}
         });
 
