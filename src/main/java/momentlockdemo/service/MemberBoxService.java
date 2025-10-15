@@ -42,4 +42,7 @@ public interface MemberBoxService {
 	// 회원이 박스에 가입할때 
 	public abstract Box joinBoxWithMember(Box box, Member member);
 
+	// 방장이 제일 위로 간뒤 정렬
+	public abstract List<MemberBox> getMembersByBoxSorted(Box box);
+	
 }
