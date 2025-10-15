@@ -1,3 +1,14 @@
+#closeBtn{
+	position: absolute;
+	top: 5%;
+	right: 5%
+}
+
+#closeBtn > img{
+	width: 30px;
+	height: 30px;
+}
+
 .opencapsulelist-modal-inner {
   background: #f9f9f9;  /* 흰색 계열 */
   margin-top: 70px;
@@ -28,9 +39,10 @@
 
 .opencapsulelist-modal-title {
   text-align: center;
-  font-size: 26px;
+  color: rgb(64, 0, 0);
+  font-size: 35px;
   font-weight: bold;
-  margin: 20px 0 30px;
+  margin: 20px 0 5px;
 }
 
 .opencapsulelist-capsule-grid {
@@ -43,6 +55,12 @@
 .opencapsulelist-capsule-item {
   text-align: center;
   position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.opencapsulelist-capsule-item:hover{
+	transform: translateY(-10px);
 }
 
 .opencapsulelist-like {
