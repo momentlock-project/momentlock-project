@@ -1,22 +1,23 @@
 package momentlockdemo.controller.box;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
-import momentlockdemo.entity.MemberBox;
 import momentlockdemo.service.BoxService;
-import momentlockdemo.service.MemberBoxService;
 import momentlockdemo.service.MemberService;
+import momentlockdemo.service.MemberBoxService;
 
 @Controller("myBoxListController")
 @RequestMapping("/momentlock")
@@ -31,9 +32,11 @@ public class MyBoxListController {
     @Autowired
     private MemberBoxService memberBoxService;
 
-    // 나의 상자 리스트
+    // 나의 상자 리스트 (페이지네이션 적용)
     @GetMapping("/myboxlist")
-    public String myboxlistPage(Model model) {
+    public String myboxlistPage(
+            Model model,
+            @PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
 
         // 1. 임시 회원 생성 (DB에 없으면 저장)
         String username = "gmldnjs1616@gmail.com";
@@ -53,17 +56,14 @@ public class MyBoxListController {
             memberService.createMember(member);
         }
 
-        // 2. 해당 회원이 만든 상자 리스트 조회
-        List<MemberBox> memberBoxes = memberBoxService.getBoxesByMember(memberService.getMemberByNickname("길동이").get());
-        List<Box> myBoxes = memberBoxes.stream()
-                .map(MemberBox::getBox)
-                .collect(Collectors.toList());
+        // 2. Page<Box>로 상자 리스트 조회 (페이지네이션 적용)
+        Page<Box> myBoxes = boxService.getPagedBoxList(pageable.getPageNumber(), pageable.getPageSize());
 
         // 3. 모델에 담아서 Thymeleaf로 전달
         model.addAttribute("myBoxes", myBoxes);
 
         return "html/box/myboxlist";
-    }   
+    }
 
     // 상자 삭제 및 나가기
     @GetMapping("/boxdelete/{boxid}")
@@ -81,10 +81,7 @@ public class MyBoxListController {
         Box box = boxOpt.get();
 
         // 2. MemberBox 조회
-        Optional<MemberBox> memberBoxOpt = memberBoxService.getMemberBox(member, box);
-        if (memberBoxOpt.isPresent()) {
-            MemberBox memberBox = memberBoxOpt.get();
-
+        memberBoxService.getMemberBox(member, box).ifPresent(memberBox -> {
             if ("MCB".equals(memberBox.getBoxmatercode())) {
                 // 상자 주인 → Box 삭제
                 boxService.deleteBox(boxid);
@@ -92,7 +89,7 @@ public class MyBoxListController {
                 // 초대받은 사용자 → MemberBoxId로 삭제 (상자 나가기)
                 memberBoxService.deleteMemberBox(memberBox.getId());
             }
-        }
+        });
 
         // 삭제 후 리스트 페이지로 이동
         return "redirect:/momentlock/myboxlist";

@@ -5,10 +5,23 @@
 
 h1{
    color: rgb(64, 0, 0);
+   margin-top: 10px;
+   margin-bottom: 20px;
 }
 
 .blurContainer {
    background-image: url("/img/backgroundimg_blur.png");
+}
+
+#closeBtn{
+	position: absolute;
+	top: 5%;
+	right: 5%
+}
+
+#closeBtn > img{
+	width: 30px;
+	height: 30px;
 }
 
 #mainContainer {
@@ -125,8 +138,7 @@ h1{
 
 .uploaded_text {
    font-size: 18px;
-   width: 100%;
-   max-width: 1071px;
+   width: 90%;
    max-height: 332px;
    background-color: #fbeded;
    border-radius: 5px;
