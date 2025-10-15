@@ -43,17 +43,55 @@ public class BoxDetailController {
 		// 해당 박스에 속한 캡슐 리스트
 		List<Capsule> capsules = capsuleService.getCapsulesByBox(box);
 
-		List<MemberBox> memberBox = memberBoxService.getMembersByBoxSorted(box);
+		List<MemberBox> memberBoxList = memberBoxService.getMembersByBoxSorted(box);
+		
+		// 로그인 한 유저가 참여한 상자의 정보를 담기위해서
+		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
 		
 		// 모델에 담아서 뷰로 전달
 		model.addAttribute("box", box);
 		model.addAttribute("capsules", capsules);
 		model.addAttribute("member", member);
-		model.addAttribute("memberBox", memberBox);
+		model.addAttribute("memberBoxList", memberBoxList);
+		model.addAttribute("memberBoxOne", memberBox);
 		
 		return "html/box/boxdetail";
 	}
+	
+	// 박스 묻기 준비 완료 처리 로직
+	@GetMapping("/boxready")
+	public String boxready(@RequestParam("boxid") Long boxid, @RequestParam("member") String username
+			, Model model) {
+
+		Member member = memberService.getMemberByUsername(username).get();
+		Box box = boxService.getBoxById(boxid).get();
+		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
+		
+		String readyCode = memberBox.getReadycode().equals("MRN") ? "MRY" : "MRN";
+		
+		memberBox.setReadycode(readyCode);
+		
+		memberBoxService.updateMemberBox(memberBox);
+		
+		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
+	}
+	
+	// 강퇴시키는 코드
+	@GetMapping("/kickmember")
+	public String kickmember(@RequestParam("boxid") Long boxid, @RequestParam("member") String username
+			, Model model) {
+
+		Member member = memberService.getMemberByUsername(username).get();
+		Box box = boxService.getBoxById(boxid).get();
+		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
+		
+		memberBoxService.deleteMemberBox(memberBox.getId());
+		
+		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
+	}
+	
 }
+
 
 
 
