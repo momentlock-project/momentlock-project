@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable; 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -65,9 +66,10 @@ public class MasterController {
 	
 	// 공지사항
 	@GetMapping("/masternoticelist")
-	public String masternoticelistPage(Model model) {
-		List<NoticeQa> noticeQaList = noticeQaService.getAllNoticeQa();
-		model.addAttribute("noticeQaList", noticeQaList);
+	public String masternoticelistPage(Model model,
+			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+		Page<NoticeQa> noticeQaPage = noticeQaService.getPageNoticeQa(pageable);
+		model.addAttribute("noticeQaPage", noticeQaPage);
 		return "html/master/masternoticelist";
 	}
 	
