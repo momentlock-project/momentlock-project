@@ -143,7 +143,27 @@ public class MemberBoxServiceImpl implements MemberBoxService {
     public List<MemberBox> getMembersByBoxSorted(Box box) {
         return memberBoxRepository.findByBoxOrderByBoxmatercodeDesc(box);
     }
-	
+
+    @Transactional
+	@Override
+	public void renewMemberBox(Box transmitedBox, Member recipient) {
+		
+		memberBoxRepository.deleteById(
+				memberBoxRepository.getMemberBoxByBox(transmitedBox).get().getId()
+			);
+		
+		MemberBoxId newId = new MemberBoxId(recipient.getUsername(), transmitedBox.getBoxid());
+		memberBoxRepository.save(MemberBox.builder()
+				.id(newId)
+				.member(recipient)
+				.box(transmitedBox)
+				.partydate(LocalDateTime.now())
+				.readycode("MRY")
+				.boxmatercode("MCB")
+				.build()
+			);
+	}
+
 }
 
 

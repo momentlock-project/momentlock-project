@@ -33,51 +33,48 @@ document.querySelectorAll(".dropdown a:nth-child(3)").forEach(sendBtn => {
 		if (sendForm) sendForm.style.display = "flex";
 
 		const boxCard = e.target.closest(".box_card");
-		
+
 		// 상대에게 보낼 상자의 아이디
 		boxId = boxCard.querySelector(".boxid").value;
-		console.log("boxid= " +boxId);
-		
-		transmit(boxId);
-		
+		console.log("boxid= " + boxId);
+
 	});
 });
 
-// 박스 보내기
-function transmit(boxId) {
-	console.log(boxId);
-	
-	const transmitBtn = document.querySelector(".send-submit");
-	
-	transmitBtn.addEventListener("click", async() => {
 
-		const inputNickname = document.querySelector('.send-nickname').value;
-		
-		const url = 
-			`/momentlock/boxTransmit?boxid=${boxId}&inputNickname=${inputNickname}`;
-			console.log('요청한 url=> ' + url);
-		
-		const response = await fetch(url);
-		console.log(response);
-		const status = response.status;
-		
-		console.log("status=> "+status);
-		if(status!=200) {
-			console.log(status);
-		} 
-		
-		const userExists = await response.text();
-		console.log('유저 존재 여부=> '+ userExists);
-		
-		if(!userExists) {
-			alert('해당 유저가 존재하지 않습니다.');
-		} else {
-			alert('상자를 보냈습니다!');
-		}
-		
-		
-	});
+document.querySelector(".send-submit").addEventListener('click', () => {
+	const inputNickname = document.querySelector('.send-nickname').value.trim();
+	transmit(boxId, inputNickname);
+})
+
+// 박스 보내기
+async function transmit(boxId, inputNickname) {
+
+	const url =
+		`/momentlock/boxTransmit?boxid=${boxId}&inputNickname=${inputNickname}`;
+	console.log('요청한 url=> ' + url);
+
+	const response = await fetch(url);
+	console.log(response);
+	const status = response.status;
+
+	if (status != 200) {
+		console.log("status=> " + status);
+		location.href=`/error/${status}.html`;
+	}
 	
+
+	const userExists = await response.text();
+	console.log('유저 존재 여부=> ' + userExists);
+
+	if (!userExists) {
+		alert('해당 유저가 존재하지 않습니다.');
+		return;
+	} else {
+		alert('상자를 보냈습니다!');
+		return;
+	}
+
 }
 
 // ✅ 닫기 버튼

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import jakarta.transaction.Transactional;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.entity.MemberBox;
@@ -37,7 +38,7 @@ public interface MemberBoxRepository extends JpaRepository<MemberBox, MemberBoxI
            "WHERE mb.box = :box " +
            "ORDER BY CASE WHEN mb.boxmatercode = 'MCB' THEN 0 ELSE 1 END, mb.member.username")
     List<MemberBox> findByBoxOrderByBoxmatercodeDesc(@Param("box") Box box);
-	
+    
 }
 
 

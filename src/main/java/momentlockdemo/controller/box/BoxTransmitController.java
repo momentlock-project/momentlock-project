@@ -40,12 +40,12 @@ public class BoxTransmitController {
 	@ResponseBody
 	public boolean transmit(@RequestParam Long boxid, @RequestParam String inputNickname, Model model) {
 
-		System.out.println("boxid= " + boxid + "nickname = " + inputNickname);
+		System.out.println("boxid= " + boxid + " nickname = " + inputNickname);
 		
-//			입력한 닉네임이 존재하는지 여부
+//		입력한 닉네임이 존재하는지 여부
 		boolean status = memberService.existsByNickname(inputNickname);
 
-//			보낼 박스
+//		보낼 박스
 		Box transmitedBox = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new RuntimeException("해당 박스를 찾을 수 없음! boxid=> " + boxid));
 		System.out.println("보낼 박스 이름=> " + transmitedBox.getBoxname());
@@ -54,9 +54,14 @@ public class BoxTransmitController {
 
 //			받는 사람
 			Member transmitedMember = memberService.getMemberByNickname(inputNickname).get();
+			System.out.println("송신자 닉네임==> " + transmitedMember.getNickname());
 			
 //			송신자-박스의 관계를 수신자-박스로 수정
-			memberBoxService.getMemberBoxByBox(transmitedBox).setMember(transmitedMember);
+			try {
+				memberBoxService.renewMemberBox(transmitedBox, transmitedMember);
+			} catch(Exception e) {
+				System.out.println("MEMBER_BOX 수정 중 에러 발생=> " + e.getMessage());
+			}
 
 			return true;
 		}
