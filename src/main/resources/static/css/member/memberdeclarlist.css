@@ -1,6 +1,6 @@
 /* 모달 컨테이너 - 높이 제한 */
 .modal_3 {
-   max-height: calc(100vh - 250px);
+   min-height: 100vh;
    /* 화면 높이에 맞춤 */
 }
 
@@ -16,7 +16,7 @@
 
 .row {
 	display: flex;
-	margin-bottom: 20px;
+	margin-bottom: 2%;
 	background-color: #d9d9d9;
 	padding: 10px 5px;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -36,7 +36,7 @@
 	display: flex;
 	justify-content: flex-end;
 	gap: 290px;
-	min-height: 50px;
+	max-height: 45px;
 }
 
 #title-box > h1 {
