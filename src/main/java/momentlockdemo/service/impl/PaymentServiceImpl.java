@@ -3,6 +3,8 @@ package momentlockdemo.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,5 +67,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Optional<Payment> getPaymentByPaycode(String paycode) {
         return paymentRepository.findByPaycode(paycode);
+    }
+    
+    @Override
+    public Page<Payment> getAllPaymentPage(Pageable pageable) {
+    	return paymentRepository.findAll(pageable);
     }
 }

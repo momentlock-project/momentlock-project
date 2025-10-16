@@ -50,6 +50,7 @@ public class MemeberBoardController {
 					data.put("inqtitle", inquiry.getInqtitle());
 					data.put("inqcontent", inquiry.getInqcontent());
 					data.put("inqregdate", inquiry.getInqregdate());				
+					data.put("inqcomplete", inquiry.getInqcomplete());				
 					return ResponseEntity.ok(data);
 				}).orElse(ResponseEntity.notFound().build());
 	}
@@ -77,13 +78,20 @@ public class MemeberBoardController {
 	
 	// 공지사항
 	@GetMapping("/membernoticelist")
-	public String membernoticelistPage(Model model,
+	public String membernoticelistPage(
+			Model model,
+			@RequestParam(required = false) String type,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
-		model.addAttribute("noticelist", noticeQaService.getAllNoticeQa(pageable));
+		if(type == null || type.isBlank()) {
+			model.addAttribute("noticelist", noticeQaService.getAllNoticeQa(pageable));
+		} else if (type != null) {
+			model.addAttribute("noticelist", noticeQaService.getPageNoticeQaByType(type, pageable));
+			model.addAttribute("type", type);
+		}
 		return "html/member/membernoticelist";
 	}	
 	
-	// 신고게시판 상세
+	// 공지사항, QnA 상세
 	// map 생성해서 front에서 json으로 받음
 	@GetMapping("/membernoticelist/{id}")
 	public ResponseEntity<Map<String, Object>> membernoticelistPage(@PathVariable Long id) {
@@ -97,6 +105,5 @@ public class MemeberBoardController {
 				}).orElse(ResponseEntity.notFound().build());
 	}
 	
-
 
 }

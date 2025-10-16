@@ -38,7 +38,7 @@
 							<img th:src="${'/img/timecapsule.png'}" alt="캡슐이미지" />
 							
 							<!-- 캡슐 제목 -->
-							<span th:text="${capsule.captitle}">캡슐 제목</span>
+							<span class="capsule-title" th:text="${capsule.captitle}">캡슐 제목</span>
 					</div>
 				</div>
 			</div>
@@ -47,5 +47,7 @@
 
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
+	<script th:src="@{/js/capsule/mycapsulelist.js}" defer></script>
 </body>
 </html>

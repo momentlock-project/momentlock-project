@@ -48,10 +48,10 @@
 						  <td th:text="${capsule.member.nickname}">닉네임</td>
 						  <td th:text="${capsule.capregdate}">2025-10-02</td>
 					      <td>
-							<form th:action="@{/momentlock/capsules/delete/{capid}(capid=${capsule.capid})}" method="post" onsubmit="return confirm('정말로 이 상자를 삭제하시겠습니까?');">
-							  <button type="submit" class="delete-btn">삭제</button>
-							  <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : ''}" 
-							         th:value="${_csrf != null ? _csrf.token : ''}" />
+							<form th:action="@{/momentlock/capsule/updateToTDY}" method="post" onsubmit="return confirm('정말로 이 캡슐를 삭제하시겠습니까?');">
+								<input type="hidden" name="capid" th:value="${capsule.capid}" />
+								<button type="submit" th:if="${capsule.capdelcode == 'TDN'}" class="delete-btn">삭제</button>
+							  
 							</form>
 						  </td>
 					   </tr>
