@@ -39,7 +39,7 @@ public class MyBoxListController {
             @PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
 
         // 1. 임시 회원 생성 (DB에 없으면 저장)
-        String username = "gmldnjs1616@gmail.com";
+        String username = "leesunsin555@bububu.com";
         Optional<Member> optionalMember = memberService.getMemberByUsername(username);
         Member member;
         if (optionalMember.isPresent()) {
