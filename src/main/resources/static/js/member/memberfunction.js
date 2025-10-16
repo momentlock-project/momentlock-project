@@ -36,7 +36,6 @@ function fetchToBoardDetailInfomodal(classname, url){
 				} else if(data.title != null){
 					document.querySelector(".modal-title").innerHTML = data.title;
 					document.querySelector(".modal-content").innerHTML = data.content;
-					document.querySelector(".modal-type").innerHTML = data.type;
 				}
 				
 				if(modal && overlay){
