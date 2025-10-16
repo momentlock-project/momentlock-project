@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,6 +97,26 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> getMembersByDecCountDesc() {
     	return memberRepository.findAllByOrderByMemdeccountDesc();
+    }
+    
+    @Override
+    public Page<Member> getAllMemberPage(Pageable pageable) {
+    	return memberRepository.findAll(pageable);
+    }
+    
+    @Override
+    public Page<Member> getMemberPage(String nickname, Pageable pageable) {
+    	return memberRepository.findByNicknameContainingIgnoreCase(nickname, pageable);
+    }
+    
+    @Override
+    @Transactional
+    public void updateMemberToMDY(String username) {
+    	Member member = memberRepository.findById(username)
+    	.orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다. username: " + username));
+
+        member.setMemcode("MDY");
+    	
     }
     
 }

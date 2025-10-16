@@ -3,6 +3,9 @@ package momentlockdemo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Member;
 
 public interface MemberService {
@@ -30,4 +33,10 @@ public interface MemberService {
 	public abstract Optional<Member> getMemberByMemcode(String memcode);
 	
 	public abstract List<Member> getMembersByDecCountDesc();
+	
+	public abstract Page<Member> getAllMemberPage(Pageable pageable);
+	
+	public abstract Page<Member> getMemberPage(String nickname, Pageable pageable);
+	
+	public abstract void updateMemberToMDY(String username);
 }
