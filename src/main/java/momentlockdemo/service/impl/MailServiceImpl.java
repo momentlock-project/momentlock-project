@@ -74,7 +74,7 @@ public class MailServiceImpl implements MailService {
 		
 		String html = templateEngine.process("main/boxTransmitAlertMail", context);
 		
-		MimeMessage message = mailSender
+//		MimeMessage message = mailSender
 		
 	}
 }

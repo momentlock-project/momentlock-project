@@ -41,4 +41,5 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 //	opensoonbox.html에서 사용할 Page 객체
 	Page<Box> findAll(Pageable pageable);
 	
+	
 }

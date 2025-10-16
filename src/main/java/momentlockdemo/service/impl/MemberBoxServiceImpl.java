@@ -133,12 +133,37 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 
 		return box;
 	}
+
+	@Override
+	public MemberBox getMemberBoxByBox(Box box) {
+		return memberBoxRepository.getMemberBoxByBox(box).get();
+	}
 	
     // MCB를 먼저 정렬해서 가져오기
     public List<MemberBox> getMembersByBoxSorted(Box box) {
         return memberBoxRepository.findByBoxOrderByBoxmatercodeDesc(box);
     }
-	
+
+    @Transactional
+	@Override
+	public void renewMemberBox(Box transmitedBox, Member recipient) {
+		
+		memberBoxRepository.deleteById(
+				memberBoxRepository.getMemberBoxByBox(transmitedBox).get().getId()
+			);
+		
+		MemberBoxId newId = new MemberBoxId(recipient.getUsername(), transmitedBox.getBoxid());
+		memberBoxRepository.save(MemberBox.builder()
+				.id(newId)
+				.member(recipient)
+				.box(transmitedBox)
+				.partydate(LocalDateTime.now())
+				.readycode("MRY")
+				.boxmatercode("MCB")
+				.build()
+			);
+	}
+
 }
 
 
