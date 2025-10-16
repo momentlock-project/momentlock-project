@@ -31,14 +31,29 @@
 			<div class="modal_3">
 			    <h1>공지사항 페이지</h1>
 				
-				<div id="table-container">
-					<!-- 공지사항 반복 -->
-					<div class="row notice" th:each="notice : ${noticelist}">
-						<div class="col number" th:text="${notice.id}">1</div>
-						<div class="col title" th:text="${notice.title}">공지사항 제목</div>
-						<div class="col regdate" th:text="${notice.regDate}">2025/10/4</div>
+				<!-- 공지, QnA 필터링 -->
+				<div id="notice-type-box">
+					<div>NOTICE</div>
+					<div>Q&A</div>
+				</div>
+				
+				<div>
+					<!-- 테이블 제목 -->
+					<div id="table-title-box">
+						<div id="table-no">번호</div>
+						<div id="table-title">제목</div>
+						<div id="table-regdate">날짜</div>
 					</div>
 					
+					<div id="table-container">
+						<!-- 공지사항 반복 -->
+						<div class="row notice" th:each="notice : ${noticelist}">
+							<div class="col number" th:text="${notice.id}">1</div>
+							<div class="col title" th:text="${notice.title}">공지사항 제목</div>
+							<div class="col regdate" th:text="${notice.regDate}">2025/10/4</div>
+						</div>
+						
+					</div>
 				</div>
 				
 				<!-- 페이지네이션 -->

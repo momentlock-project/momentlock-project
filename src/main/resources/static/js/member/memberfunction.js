@@ -55,10 +55,16 @@ function fetchToBoardDetailInfomodal(classname, url){
 	if(closebtn != null){
 		// x버튼 클릭 시 모달창 닫기
 		closebtn.addEventListener("click", () => {
-			
-			// 모달, 오버레이 display none으로 변경
-			modal.style.display = "none";
-			overlay.style.display = 'none';
+			if(modal && overlay){
+				// 모달, 오버레이 display none으로 변경
+				modal.style.display = "none";
+				overlay.style.display = 'none';
+			}
 		})
 	}
 }
+
+
+
+
+
