@@ -58,7 +58,8 @@
                           e.preventDefault();
                           const confirmResult = confirm('이 게시물을 신고하시겠습니까?');
                           if (confirmResult) {
-                              window.location.href = '/momentlock/declarinsert';
+							const capid = $('#capid').val(); // capid 가져오기
+							            window.location.href = '/momentlock/declarinsert?capid=' + capid; // capid 전달
                           }
                       });
                   });
@@ -184,6 +185,7 @@
    <div th:replace="~{fragments/footer :: footer}"></div>
    <script th:src="@{/js/nav.js}" defer></script>
    <script src="/js/capsulelikebuttoncontroll.js" defer></script>
+   <script src="/js/capsule/opencapsuledetaildeclar.js" defer></script>
 </body>
 
 </html>
