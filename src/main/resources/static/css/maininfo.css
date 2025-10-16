@@ -1,0 +1,118 @@
+/* ✅ 소개 문구 - 화면 하단 쪽에 자연스럽게 나타나도록 조정 */
+.main-intro {
+  position: relative;
+  margin: 65vh auto 6vh auto; /* ⬅ 화면 높이의 65% 아래부터 시작 */
+  width: 80%;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ✅ 모달도 함께 아래쪽에 오도록 설정 */
+.modal6 {
+  position: relative;
+  margin: 0 auto 15vh auto; /* ⬅ 전체 하단 여백 */
+  width: 80%;
+  max-width: 900px;
+  min-height: 45vh;
+  background: rgba(199, 125, 65, 0.85);
+  border: 2px solid rgba(199, 125, 65, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.4);
+  padding: 3vw;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 버튼 */
+.make-capsule {
+  background-color: #D92A56;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.make-capsule:hover {
+  background-color: #e9456d;
+}
+
+/* 이미지 그리드 */
+.img-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+.img-container img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+.img-container img:hover {
+  transform: scale(1.05);
+}
+
+/* --- 반응형 --- */
+@media (max-width: 1024px) {
+  .main-intro {
+    width: 85%;
+    font-size: 1.1rem;
+  }
+  .modal6 {
+    width: 90%;
+    padding: 4vw;
+    min-height: 50vh;
+  }
+  .img-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .img-container img {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-intro {
+    width: 90%;
+    font-size: 1rem;
+    margin-top: 3vh;
+  }
+  .modal6 {
+    width: 95%;
+    padding: 5vw;
+    min-height: 50vh;
+  }
+  .make-capsule {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .img-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .img-container img {
+    width: 80%;
+    max-width: 180px;
+  }
+}

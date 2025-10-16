@@ -36,7 +36,6 @@ function fetchToBoardDetailInfomodal(classname, url){
 				} else if(data.title != null){
 					document.querySelector(".modal-title").innerHTML = data.title;
 					document.querySelector(".modal-content").innerHTML = data.content;
-					document.querySelector(".modal-type").innerHTML = data.type;
 				}
 				
 				if(modal && overlay){
@@ -55,10 +54,49 @@ function fetchToBoardDetailInfomodal(classname, url){
 	if(closebtn != null){
 		// x버튼 클릭 시 모달창 닫기
 		closebtn.addEventListener("click", () => {
-			
-			// 모달, 오버레이 display none으로 변경
-			modal.style.display = "none";
-			overlay.style.display = 'none';
+			if(modal && overlay){
+				// 모달, 오버레이 display none으로 변경
+				modal.style.display = "none";
+				overlay.style.display = 'none';
+			}
 		})
 	}
 }
+
+
+// 공지사항, QnA 페이지 카테고리로 이동하는 함수
+
+function getNoticelistByType(name) {
+	const type = document.querySelector(name);
+	if(type != null){
+		type.addEventListener("click", () => {
+			try {
+	
+				window.location = `/momentlock/membernoticelist?type=`
+					+ type.textContent;
+				
+			} catch(error){
+				console.error(type.textContent + " type 호출 오류", error);
+			}
+		})
+	}
+}
+
+// 나의 캡슐 리스트 문자열 10자 초과하면 ...으로 표시하는 함수
+function truncateString(selectorName, maxLength){
+	const capsulelist = document.querySelectorAll(selectorName);
+	capsulelist.forEach(capsule => {
+		for(let i=0; i<capsule.children.length; i++){
+			let title = capsule.children[i].children[1].textContent;
+			if(capsule.children[i].children[1].textContent.length > maxLength){
+				capsule.children[i].children[1].textContent 
+					= title.slice(0, maxLength) + '...';
+			}
+		}
+	})
+}
+
+
+
+
+
