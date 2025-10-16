@@ -94,11 +94,8 @@ public class BoxServiceImpl implements BoxService {
     
     
 	@Override
-	public Page<Box> getPagedBoxList(int currPage, int size) {
-		
-		Pageable pageable = PageRequest.of(currPage, size);
-//		findAll<Object>: Object 타입 Page 객체를 리턴하는 JpaRepository 기본 메서드
-		return boxRepository.findAll(pageable);
+	public Page<Box> getOpenSoonBoxPage(Pageable pageable) {
+		return boxRepository.getOpenSoonBoxPage(pageable);
 		
 	}
 	

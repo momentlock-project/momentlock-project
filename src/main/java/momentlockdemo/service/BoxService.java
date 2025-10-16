@@ -38,7 +38,7 @@ public interface BoxService {
 	
 	public abstract Page<BoxLikeCountDto> getPagedPopularBox(int currPage, int size);
 	
-	public abstract Page<Box> getPagedBoxList(int currPage, int size);
+	public abstract Page<Box> getOpenSoonBoxPage(Pageable pageable);
 	
 	public abstract Page<Box> getAllBoxPage(Pageable pageable);
 
