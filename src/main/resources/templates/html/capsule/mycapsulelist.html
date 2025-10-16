@@ -33,18 +33,25 @@
 
 					<!-- 캡슐 리스트 반복 -->
 					<div id="my-capsule-list">
-						<div id="capsule-box" th:each="capsule : ${capsuleList}">
-							
-							<img th:src="${'/img/timecapsule.png'}" alt="캡슐이미지" />
-							
+						<div id="capsule-box" th:each="capsule : ${capsuleList}" th:if="${capsuleList != null}">
+							<a th:href="@{|/momentlock/opencapsuledetail/${capsule.capid}|}">
+								<img th:src="@{|/img/capsule/${capsule.capImage ?: 'capsule1.png'}|}" alt="캡슐이미지" />
+							</a>
 							<!-- 캡슐 제목 -->
 							<span class="capsule-title" th:text="${capsule.captitle}">캡슐 제목</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+						</div><!-- capsulebox -->
+						<div id="no-capsule-list" th:else="${capsuleList == null}">
+							<p>등록된 캡슐이 없습니다!</p>
+							<p>상자 만든 후 캡슐을 등록해 보세요!</p>
+							<div>
+								<input type="button" class="member-btn" onclick="location='/momentlock/boxinsert'" value="상자 만들러가기" />
+							</div>
+						</div>
+					</div><!-- my-capsule-list -->
+					
+				</div><!-- my-capsule-list-box -->
+			</div><!-- my-capsule-list-container -->
+		</div><!-- box-modal -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/member/memberfunction.js}" defer></script>

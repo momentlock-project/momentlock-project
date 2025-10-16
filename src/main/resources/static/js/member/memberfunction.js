@@ -89,7 +89,7 @@ function truncateString(selectorName, maxLength){
 	capsulelist.forEach(capsule => {
 		for(let i=0; i<capsule.children.length; i++){
 			let title = capsule.children[i].children[1].textContent;
-			if(capsule.children[i].children[1].textContent.length > maxLength){
+			if(title.length > maxLength && capsule.children[i].classList == 'capsule-title'){
 				capsule.children[i].children[1].textContent 
 					= title.slice(0, maxLength) + '...';
 			}

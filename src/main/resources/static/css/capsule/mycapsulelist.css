@@ -46,8 +46,8 @@ h1 {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 20px;
-	padding: 25px;
+	gap: 30px;
+	padding: 5px;
 }
 
 #capsule-box {
@@ -71,10 +71,21 @@ h1 {
 }
 
 
+/* 등록된 캡슐이 없을 경우 */
+#no-capsule-list {
+	width: 40vw;
+	height: auto; 
+	
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
 
-
-
-
+.member-btn {
+	padding: 6px 12px !important;
+	font-size: 15px;
+	cursor: pointer;
+}
 
 
 
