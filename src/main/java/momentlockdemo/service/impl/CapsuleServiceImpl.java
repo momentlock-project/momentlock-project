@@ -122,4 +122,12 @@ public class CapsuleServiceImpl implements CapsuleService {
 	public Page<Capsule> getAllCapsulePage(Pageable pageable) {
 		return capsuleRepository.findAllWithMember(pageable);
 	}
+	
+	@Override
+	public void updateCapsuleToTDY(Long capid) {
+		Capsule capsule = capsuleRepository.findById(capid)
+		.orElseThrow(() -> new IllegalArgumentException("캡슐을 찾을 수 없습니다. capid:" + capid));
+		
+		capsule.setCapdelcode("TDY");
+	}
 }

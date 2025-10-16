@@ -1,5 +1,6 @@
 package momentlockdemo.controller.master;
 
+import java.net.http.HttpClient.Redirect;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,9 @@ import momentlockdemo.service.InquiryService;
 import momentlockdemo.service.MemberService;
 import momentlockdemo.service.NoticeQaService;
 
+
+
+
 @Controller("masterController")
 @RequestMapping("/momentlock")
 public class MasterController {
@@ -58,6 +62,7 @@ public class MasterController {
 	
 	@Autowired
 	private CapsuleService capsuleService;
+	
 	
 	
 	/*
@@ -99,6 +104,7 @@ public class MasterController {
 		return "html/master/masterinquiryinsert";
 	}
 	
+	//noticeQa 입력폼
 	@PostMapping("/masterinquiryinsert")
 	public String createNoticeQa(@ModelAttribute("noticeQa") NoticeQa noticeQa) {
 		
@@ -110,55 +116,81 @@ public class MasterController {
         return "redirect:/momentlock/masternoticelist";
     }
 	
+	//회원 관리
 	@GetMapping("/membermanagement")
 	public String membermanagementPage(Model model,
-	@RequestParam(value = "nickname", required = false) String nickname) {
-	    
-		List<Member> memberList = new ArrayList<>();
-
-	    if (nickname != null && !nickname.isEmpty()) {
-	        
-	    	Optional<Member> foundMember = memberService.getMemberByNickname(nickname);
-	        foundMember.ifPresent(memberList::add);
-	        
-	    } else {
-	        
-	        System.out.println("모든 회원을 조회합니다."); // 로그 추가
-	        memberList = memberService.getAllMembers();
-	    }
-	    model.addAttribute("members", memberList);
-	    model.addAttribute("nickname", nickname); 
-
+			@PageableDefault(size = 7, sort = "memregdate", direction = Sort.Direction.DESC)Pageable pageable,
+			@RequestParam(value = "nickname", required = false)String nickname) {
+		Page<Member> memberPage;
+		
+		if (nickname !=null && !nickname.trim().isEmpty()) {
+			memberPage = memberService.getMemberPage(nickname, pageable);
+			model.addAttribute("searchKeyword", nickname);
+		} else {
+			memberPage = memberService.getAllMemberPage(pageable);
+		}
+        model.addAttribute("memberPage", memberPage);
 	    return "html/master/membermanagement";
 	}
+	
+	//회원 삭제
+	@PostMapping("/member/updateToMDY")
+	public String updateToMDY(@RequestParam("username")String username, RedirectAttributes rttr) {
+		try {
+			memberService.updateMemberToMDY(username);
+			
+			rttr.addFlashAttribute("message", username + "회원의 상태가 '탈퇴 요청(MDY)'으로 변경되었습니다." );
+		} catch (IllegalArgumentException e) {
+			rttr.addFlashAttribute("error", e.getMessage());
+		} catch (Exception e) {
+			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생했습니다.");
+		}
+		return "redirect:/momentlock/membermanagement";
+	}
+	
 	
 	// 상자관리
 	@GetMapping("/boxmanagement")
 	public String boxmanagementPage(Model model,
-			@PageableDefault(size = 5, sort = "boxid", direction = Sort.Direction.DESC)Pageable pageable) {
+			@PageableDefault(size = 7, sort = "boxid", direction = Sort.Direction.DESC)Pageable pageable) {
 		Page<Box> boxPage = boxService.getAllBoxPage(pageable);
 		model.addAttribute("boxPage", boxPage);
 		return "html/master/boxmanagement";
 	}
+	// 상자삭제
+	@PostMapping("/boxes/delete/{boxid}")
+	public String deleteBoxM(@PathVariable("boxid") Long boxid, RedirectAttributes redirectAttributes) {
+		try {
+			boxService.deleteBox(boxid);
+			redirectAttributes.addFlashAttribute("message", "상자가 삭제되었습니다.");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "삭제 실패:" + e.getMessage());
+		}
+		return "redirect:/momentlock/boxmanagement";
+	}
 	
-	@Query("SELECT c FROM Capsule c JOIN FETCH c.member ORDER BY c.capid DESC")
+	
+
 	// 타임캡슐 관리
 	@GetMapping("/capsulemanagement")
 	public String capsulemanagementPage(Model model,
-			@PageableDefault(size = 10, sort = "capid", direction = Sort.Direction.DESC)Pageable pageable) {
+			@PageableDefault(size = 7, sort = "capregdate", direction = Sort.Direction.DESC)Pageable pageable) {
 		Page<Capsule> capsulePage = capsuleService.getAllCapsulePage(pageable);
 		model.addAttribute("capsulePage", capsulePage);
 		return "html/master/capsulemanagement";
 	}
 	
-	
-	@PostMapping("/capsules/delete/{capid}")
-	public String deleteCapuleM(@PathVariable("capid") Long capid, RedirectAttributes redirectAttributes) {
+	//캡슐 삭제
+	@PostMapping("/capsule/updateToTDY")
+	public String updateToTDY(@RequestParam("capid")Long capid, RedirectAttributes rttr) {
 		try {
-			capsuleService.deleteCapsule(capid);
-			redirectAttributes.addFlashAttribute("message", "타임캡슐이 삭제되었습니다.");
+			capsuleService.updateCapsuleToTDY(capid);
+			
+			rttr.addFlashAttribute("message", capid + "상자가 '삭제 요청(TDY)'으로 변경되었습니다.");
+		} catch (IllegalArgumentException e) {
+			rttr.addFlashAttribute("error", e.getMessage());
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "삭제 실패:" + e.getMessage());
+			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생하였습니다.");
 		}
 		return "redirect:/momentlock/capsulemanagement";
 	}
@@ -166,7 +198,18 @@ public class MasterController {
 	
 	// 구독관리
 	@GetMapping("/subscriptionmanagement")
-	public String subscriptionmanagementPage() {
+	public String subscriptionmanagementPage(Model model,
+			@PageableDefault(size = 7, sort = "substartday", direction = Sort.Direction.DESC)Pageable pageable,
+			@RequestParam(value = "nickname", required = false)String nickname) {
+		Page<Member> subscriptionPage; 
+		
+		if (nickname !=null && !nickname.trim().isEmpty()) {
+			subscriptionPage = memberService.getMemberPage(nickname, pageable);
+			model.addAttribute("searchKeyword", nickname);
+		} else {
+			subscriptionPage = memberService.getAllMemberPage(pageable);
+		}
+		model.addAttribute("subscriptionPage", subscriptionPage);
 		return "html/master/subscriptionmanagement";
 	}
 	

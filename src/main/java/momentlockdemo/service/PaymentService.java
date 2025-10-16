@@ -3,6 +3,9 @@ package momentlockdemo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Member;
 import momentlockdemo.entity.Payment;
 
@@ -27,4 +30,6 @@ public interface PaymentService {
 	public abstract Optional<Payment> getPaymentByPaynumber(Long paynumber);
 
 	public abstract Optional<Payment> getPaymentByPaycode(String paycode);
+	
+	public abstract Page<Payment> getAllPaymentPage(Pageable pageable);
 }

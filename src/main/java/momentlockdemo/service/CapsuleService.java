@@ -50,4 +50,6 @@ public interface CapsuleService {
 	public abstract Integer capsuleLikeCountUpdate(Long capid, String action);
 	
 	public abstract Page<Capsule> getAllCapsulePage(Pageable pageable);
+	
+	public abstract void updateCapsuleToTDY(Long capid);
 }
