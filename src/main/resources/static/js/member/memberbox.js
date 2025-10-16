@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 })
 
+// 상태 코드에 따른 프론트 complete 표시 변경
 if(document.querySelector(".col.complete") != null) {
 	document.querySelectorAll(".row").forEach(row => {
 		let complete = row.children[3].textContent;
@@ -29,3 +30,20 @@ if(document.querySelector(".col.complete") != null) {
 		
 	})
 }
+
+// notice, Q&A 카테고리 클릭 시 이동하는 함수
+getNoticelistByType("#notice");
+getNoticelistByType("#qna");
+
+
+
+
+
+
+
+
+
+
+
+
+

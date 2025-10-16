@@ -65,6 +65,21 @@ function fetchToBoardDetailInfomodal(classname, url){
 }
 
 
+// 공지사항, QnA 페이지 카테고리로 이동하는 함수
+function getNoticelistByType(name) {
+	const type = document.querySelector(name);
+	type.addEventListener("click", () => {
+		try {
+
+			window.location = `/momentlock/membernoticelist?type=`
+				+ type.textContent;
+			
+		} catch(error){
+			console.error(type.textContent + " type 호출 오류", error);
+		}
+	})
+
+}
 
 
 

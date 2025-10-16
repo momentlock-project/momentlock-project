@@ -50,7 +50,11 @@
 	max-height: 45px;
 }
 
-#modal-title-box > h1 {
+#title-box > h1 {
+	color: whitesmoke;
+}
+
+#modal-title-box > h1, p {
 	color: whitesmoke;
 	min-height: 50px;
 }

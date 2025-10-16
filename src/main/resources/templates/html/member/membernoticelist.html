@@ -33,8 +33,8 @@
 				
 				<!-- 공지, QnA 필터링 -->
 				<div id="notice-type-box">
-					<div>NOTICE</div>
-					<div>Q&A</div>
+					<div id="notice">NOTICE</div>
+					<div id="qna">QNA</div>
 				</div>
 				
 				<div>
@@ -62,18 +62,18 @@
 						
 						<!-- 이전 -->
 						<li class="arrow" th:if="${noticelist.hasPrevious()}">
-							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number - 1}, size=${noticelist.size})}">&lt;</a>
+							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number - 1}, size=${noticelist.size}, type=${type})}">&lt;</a>
 						</li>
 
 						<!-- 페이지 번호 -->
 						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, noticelist.totalPages - 1)}"
 							th:classappend="${i == noticelist.number} ? 'active'">
-							<a th:href="@{/momentlock/membernoticelist(page=${i}, size=${noticelist.size})}" th:text="${i + 1}"></a>
+							<a th:href="@{/momentlock/membernoticelist(page=${i}, size=${noticelist.size}, type=${type})}" th:text="${i + 1}"></a>
 						</li>
 						
 						<!-- 다음 -->
 						<li class="arrow" th:if="${noticelist.hasNext()}">
-							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number + 1}, size=${noticelist.size})}">&gt;</a>
+							<a th:href="@{/momentlock/membernoticelist(page=${noticelist.number + 1}, size=${noticelist.size}, type=${type})}">&gt;</a>
 						</li>
 						
 					</ul>

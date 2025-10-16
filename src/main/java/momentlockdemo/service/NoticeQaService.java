@@ -21,4 +21,6 @@ public interface NoticeQaService {
 	public abstract Page<NoticeQa> getPageNoticeQa(Pageable pageable);
 	
 	public abstract void deleteNoticeQa(Long id);
+	
+	public abstract Page<NoticeQa> getPageNoticeQaByType(String id, Pageable pageable);
 }
