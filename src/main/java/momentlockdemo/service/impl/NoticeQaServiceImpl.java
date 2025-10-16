@@ -53,4 +53,9 @@ public class NoticeQaServiceImpl implements NoticeQaService {
 	public Page<NoticeQa> getAllNoticeQa(Pageable pageable) {
 		return noticeQaRepository.findAll(pageable);
 	}
+
+	@Override
+	public Page<NoticeQa> getPageNoticeQaByType(String type, Pageable pageable) {
+		return noticeQaRepository.findByType(type, pageable);
+	}
 }

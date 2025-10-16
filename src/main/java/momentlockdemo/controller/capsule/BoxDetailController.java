@@ -89,6 +89,7 @@ public class BoxDetailController {
 		
 		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
 	}
+
 	
 }
 

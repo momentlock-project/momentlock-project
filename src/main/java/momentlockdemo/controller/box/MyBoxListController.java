@@ -1,11 +1,11 @@
 package momentlockdemo.controller.box;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -42,7 +42,9 @@ public class MyBoxListController {
             @PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
 
         // 1. 임시 회원 생성 (DB에 없으면 저장)
-        String username = "leesunsin555@bububu.com";
+        // 로그인 기능 연동 시
+        // String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = "hong@hong.com";
         Optional<Member> optionalMember = memberService.getMemberByUsername(username);
         Member member;
         if (optionalMember.isPresent()) {
@@ -59,20 +61,21 @@ public class MyBoxListController {
             memberService.createMember(member);
         }
 
+        // 2. 현재 회원이 만든 상자 + 참여 중인 상자만 조회
+        List<MemberBox> memberBoxes = memberBoxService.getBoxesByMember(member);
+        List<Box> myBoxesList = memberBoxes.stream()
+                                           .map(MemberBox::getBox)
+                                           .toList();
 
-        List<MemberBox> memberBoxList = memberBoxService.getBoxesByMember(member);
-        List<Box> boxList = new ArrayList<>();
-        
-        for(MemberBox memberbox : memberBoxList) {
-        	boxList.add(boxService.getBoxById(memberbox.getBox().getBoxid()).get()); 
-        }
-        
-        // 2. Page<Box>로 상자 리스트 조회 (페이지네이션 적용)
-        Page<Box> myBoxes = boxService.getPagedBoxList(pageable.getPageNumber(), pageable.getPageSize());
+        // Pageable에 맞춰서 실제 페이지 단위로 자르기
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), myBoxesList.size());
+        List<Box> pageContent = myBoxesList.subList(start, end);
+
+        Page<Box> myBoxes = new PageImpl<>(pageContent, pageable, myBoxesList.size());
 
         // 3. 모델에 담아서 Thymeleaf로 전달
         model.addAttribute("myBoxes", myBoxes);
-        model.addAttribute("boxList", boxList);
         
         return "html/box/myboxlist";
     }
@@ -81,6 +84,8 @@ public class MyBoxListController {
     @GetMapping("/boxdelete/{boxid}")
     public String deleteBox(@PathVariable Long boxid) {
         // 현재 로그인한 회원 지정
+        // 로그인 기능 연동 시
+        // String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         String currentUsername = "hong@hong.com"; 
         Optional<Member> memberOpt = memberService.getMemberByUsername(currentUsername);
         if (memberOpt.isEmpty()) return "redirect:/momentlock/myboxlist";
