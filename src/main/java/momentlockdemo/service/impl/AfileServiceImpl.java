@@ -146,6 +146,7 @@ public class AfileServiceImpl implements AfileService {
     }
 
     // 파일 교체 (기존 파일 삭제 후 새 파일 업로드)
+    @Override
     @Transactional
     public Afile replaceFileToCapsule(MultipartFile newFile, Capsule capsule) throws IOException {
     	
@@ -158,10 +159,10 @@ public class AfileServiceImpl implements AfileService {
             afileRepository.delete(oldFile);
         }
 
+        capsule.setCapafilecount(capsule.getCapafilecount() - 1);
+        
         // 새 파일 업로드
         return saveFileToCapsule(newFile, capsule);
     }
-
-
     
 }
