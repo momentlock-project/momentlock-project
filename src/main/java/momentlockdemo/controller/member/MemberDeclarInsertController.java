@@ -24,14 +24,14 @@ public class MemberDeclarInsertController {
     @Autowired
     private CapsuleService capsuleService;
 
-    // 1️⃣ 신고 폼 열기
+    // 신고 폼 열기
     @GetMapping("/declarinsert")
     public String declarinsertPage(@RequestParam Long capid, Model model) {
         model.addAttribute("capid", capid);
         return "html/member/declarinsert"; // 신고 폼 페이지
     }
 
-    // 2️⃣ 신고 등록 처리
+    // 신고 등록 처리
     @PostMapping("/declarinsert")
     public String insertDeclaration(@RequestParam Long capid,
                                     @RequestParam String deccategory,
@@ -49,8 +49,8 @@ public class MemberDeclarInsertController {
                 .deccontent(deccontent)
                 .build();
 
-        // 신고 저장
-        declarationService.createDeclaration(dec);
+        // 신고 저장 MEMDECCOUNT +1 증가
+       // declarationService.createDeclaration(dec);
 
         // 신고 후 박스 ID 조회
         Long boxid = capsule.getBox().getBoxid();
