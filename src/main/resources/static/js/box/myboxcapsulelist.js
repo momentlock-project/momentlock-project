@@ -59,20 +59,26 @@ const inviteCancel = document.getElementById('inviteCancel');
 const inviteConfirm = document.getElementById('inviteConfirm');
 const inviteInput = document.getElementById('inviteNickname');
 
+// 오버 레이
+const inviteOverlay = document.getElementById('inviteOverlay');
+const memberCountOverlay = document.getElementById('memberCountOverlay');
+
 insertCapsule.addEventListener('click', () => {
 	const confirmed = confirm('해당 박스에 캡슐을 추가하러 이동하시겠습니까?');
 
 	if (confirmed) {
-		window.location.href = `http://localhost:8888/momentlock/capsuleinsert?boxid=${boxId}`;
+		window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
 	}
 });
 
 boxJoinMemberBtn.addEventListener('click', () => {
 	boxJoinMemberModal.style.display = 'block';
+	memberCountOverlay.style.display = 'flex';
 });
 
 memberCountConfirmBtn.addEventListener('click', () => {
 	boxJoinMemberModal.style.display = 'none';
+	memberCountOverlay.style.display = 'none';
 });
 
 readyBtn.addEventListener('click', () => {
@@ -84,7 +90,7 @@ readyBtn.addEventListener('click', () => {
 	}
 
 	if (confirmed) {
-		window.location.href = `http://localhost:8888/momentlock/boxready?boxid=${boxId}&member=${memberUsername}`;
+		window.location.href = `/momentlock/boxready?boxid=${boxId}&member=${memberUsername}`;
 	}
 
 });
@@ -113,12 +119,14 @@ document.getElementById('closeBtn').addEventListener('click', function(e) {
 // ===== 초대하기 모달 열기 =====
 inviteBtn.addEventListener('click', function() {
 	inviteModal.style.display = 'flex';
+	inviteOverlay.style.display = 'flex';
 	inviteInput.value = ''; // 입력창 초기화
 	inviteInput.focus(); // 자동 포커스
 });
 
 // ===== 초대하기 모달 닫기 (취소) =====
 inviteCancel.addEventListener('click', function() {
+	inviteOverlay.style.display = 'none';
 	inviteModal.style.display = 'none';
 });
 
@@ -150,8 +158,34 @@ inviteInput.addEventListener('keypress', function(e) {
 inviteModal.addEventListener('click', function(e) {
 	if (e.target === inviteModal) {
 		inviteModal.style.display = 'none';
+		inviteOverlay.style.display = 'none';
 	}
 });
 
+// 개인 캡슐 수정, 삭제 하기
+const modifyBtns = document.querySelectorAll('.modify-btn');
+const deleteBtns = document.querySelectorAll('.delete-btn');
 
+// 수정 버튼 선택
+modifyBtns.forEach(modifyBtn => {
+	modifyBtn.addEventListener('click', function() {
+		// data-capid 값 가져오기
+		const capsuleId = this.dataset.capid;
 
+		window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}&capsuleid=${capsuleId}`;
+	});
+});
+
+deleteBtns.forEach(deleteBtn => {
+	deleteBtn.addEventListener('click', function() {
+
+		// data-capid 값 가져오기
+		const capsuleId = this.dataset.capid;
+
+		const confirmed = confirm("해당 캡슐을 삭제 하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.");
+
+		if (confirmed) {
+			window.location.href = `/momentlock/capsuledelete?boxid=${boxId}&capsuleid=${capsuleId}`;
+		}
+	});
+});

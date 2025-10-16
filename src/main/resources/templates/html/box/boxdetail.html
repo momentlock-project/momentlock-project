@@ -69,12 +69,13 @@
 					준비 하기
 				</button>
 			</div>
+		</div>
 
-			<!-- 참여인원 모달-->
+		<!-- 참여인원 모달-->
+		<div class="modal-overlay" id="memberCountOverlay">
 			<div id="memberCountModal" class="modal_4">
 				<div class="modal-content">
 					<h2>참여인원</h2>
-
 					<div class="member-list">
 						<div class="member-item" th:each="memberBox, state : ${memberBoxList}">
 							<div class="left-info">
@@ -85,19 +86,20 @@
 								<span th:if="${memberBox.boxmatercode == 'MCB'}" class="master-badge">방장</span>
 							</div>
 							<button th:if="${memberBox.boxmatercode != 'MCB' 
-							                 and memberBoxOne.boxmatercode == 'MCB'
-							                 and memberBox.member.username != memberBoxOne.member.username}" class="kick-btn"
+						                 and memberBoxOne.boxmatercode == 'MCB'
+						                 and memberBox.member.username != memberBoxOne.member.username}" class="kick-btn"
 								th:data-username="${memberBox.member.username}">
 								내보내기
 							</button>
 						</div>
 					</div>
-
 					<button class="modal-confirm" id="memberCountConfirm">확인</button>
 				</div>
 			</div>
+		</div>
 
-			<!-- 초대하기 모달 추가 -->
+		<!-- 초대하기 모달 추가 -->
+		<div class="modal-overlay" id="inviteOverlay">
 			<div id="inviteModal" class="modal_4" style="height: 45%;">
 				<div class="modal-content">
 					<h2>멤버 초대하기</h2>
@@ -114,7 +116,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 	</div>
