@@ -37,11 +37,21 @@
 				</div>
 		
 				<div id="table-container">
+					
+					<!-- 테이블 제목 -->
+					<div id="table-title-box">
+						<div id="table-no">번호</div>
+						<div id="table-title">제목</div>
+						<div id="table-regdate">날짜</div>
+						<div id="table-complete">답변여부</div>						
+					</div>
+					
 					<!-- 문의사항 반복 -->
 					<div class="row inquiry" th:each="inquiry : ${inquirylist}">
 						<div class="col number" th:text="${inquiry.inqid}">1</div>
 						<div class="col title" th:text="${inquiry.inqtitle}">문의 제목</div>
 						<div class="col regdate" th:text="${inquiry.inqregdate}">2025/10/4</div>
+						<div class="col complete" th:text="${inquiry.inqcomplete}">QNAN</div>
 					</div>
 				</div>
 				
@@ -80,9 +90,9 @@
 				 </a>
 				 <div id="modal-inner">
 					<div class="modal-title-date-box">
-						<p class="modal-title">문의 제목</p>
+						<p class="modal-title"></p>
 					</div>
-					<p class="modal-content">문의 내용내용내용</p>
+					<p class="modal-content"></p>
 				 </div>
 		 	</div>
 		</div>

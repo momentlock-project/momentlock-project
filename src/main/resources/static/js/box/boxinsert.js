@@ -1,7 +1,13 @@
 // 날짜 입력 클릭 영역 확장
 document.addEventListener('DOMContentLoaded', function() {
-	const calendarIcon = document.getElementById('calendarIcon');
+	// 내일 날짜부터 선택 가능하도록 설정
 	const dateInput = document.getElementById('openDate');
+	const tomorrow = new Date();
+	tomorrow.setDate(tomorrow.getDate() + 1);
+	const tomorrowStr = tomorrow.toISOString().split('T')[0];
+	dateInput.setAttribute('min', tomorrowStr);
+	
+	const calendarIcon = document.getElementById('calendarIcon');
 
 	// 아이콘 클릭 시 date input 열기
 	if (calendarIcon) {
