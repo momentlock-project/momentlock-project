@@ -102,6 +102,7 @@ public class Member implements Serializable {
 		this.memcode = "MDN";
 		this.memdeccount = 0L;
 		this.subcode = "MNORMAL";
+		this.role = "ROLE_USER";
 	}
 
 }
