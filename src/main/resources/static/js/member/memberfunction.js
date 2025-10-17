@@ -36,6 +36,10 @@ function fetchToBoardDetailInfomodal(classname, url){
 				} else if(data.title != null){
 					document.querySelector(".modal-title").innerHTML = data.title;
 					document.querySelector(".modal-content").innerHTML = data.content;
+				} else if(data.deccategory != null){
+					document.querySelector(".modal-title").innerHTML = data.deccategory;
+					document.querySelector(".modal-content").innerHTML = data.deccontent;
+					document.querySelector(".modal-id").innerHTML = data.decid;
 				}
 				
 				if(modal && overlay){
@@ -96,7 +100,13 @@ function truncateString(selectorName, maxLength){
 	})
 }
 
-
+// 관리자 신고 게시판 상세모달창에서 신고처리하기 함수
+function masterDeclarPlusCnt(){
+	document.querySelector("#declarBtn").addEventListener("click", () => {
+		window.location = `/momentlock/masterDeclarPlusCnt?decid=${document.querySelector(".modal-id").textContent}`;
+		alert("신고 처리가 완료되었습니다!");
+	})
+}	
 
 
 
