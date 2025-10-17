@@ -51,5 +51,5 @@ public class EmailAuthCode implements Serializable {
         this.createdAt = LocalDateTime.now();
         this.used = false;
     }
-
+    
 }

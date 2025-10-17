@@ -76,7 +76,7 @@ public class MyBoxListController {
 
         // 3. 모델에 담아서 Thymeleaf로 전달
         model.addAttribute("myBoxes", myBoxes);
-
+        
         return "html/box/myboxlist";
     }
 
