@@ -3,7 +3,9 @@ package momentlockdemo.service.impl;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import momentlockdemo.entity.Member;
 import momentlockdemo.service.MailService;
+import momentlockdemo.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +21,9 @@ public class MailServiceImpl implements MailService {
 
 	private final JavaMailSender mailSender;
 	private final TemplateEngine templateEngine;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Override
 	@Async
@@ -65,16 +70,30 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public void sendBoxTransmitAlertMail(String to, String sender, String boxTitle, String boxListUrl) {
+	@Async
+	public void sendBoxTransmitAlertMail(String to, String senderNickname, String boxTitle, String recipientId) {
 		
 		Context context = new Context();
-		context.setVariable("sender", sender);
+		context.setVariable("senderNickname", senderNickname);
 		context.setVariable("boxTitle", boxTitle);
-		context.setVariable("username", to);
+		context.setVariable("username", recipientId);
 		
-		String html = templateEngine.process("main/boxTransmitAlertMail", context);
+		String html = templateEngine.process("mail/boxTransmitAlertMail", context);
 		
-//		MimeMessage message = mailSender
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		
+		try {
+			helper.setTo(to);
+			helper.setSubject(senderNickname+" 님이 타임캡슐을 보냈습니다!");
+			helper.setText(html, true);
+			
+			mailSender.send(message);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 }

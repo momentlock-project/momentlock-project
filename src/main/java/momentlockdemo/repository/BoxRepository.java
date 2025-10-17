@@ -39,7 +39,20 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 	// Pageable을 인자로 주면 Page 객체를 리턴해주는 기본 JpaRepository 메소드
 	
 //	opensoonbox.html에서 사용할 Page 객체
-	Page<Box> findAll(Pageable pageable);
+	@Query(value = "SELECT BOXID, BOXNAME, BOXLOCATION, LATITUDE,"
+		    + " LONGITUDE, BOXOPENDATE, BOXREGDATE, BOXINVITECODE, BOXBURYCODE,"
+		    + " BOXDELCODE, BOXRELEASECODE, BOXMEMCOUNT, BOXCAPCOUNT"
+		    + " FROM BOX "
+		    + " WHERE BOXOPENDATE IS NOT NULL"
+		    + " AND 0 <= TRUNC(CAST(BOXOPENDATE AS DATE) - SYSDATE)"
+		    + " AND TRUNC(CAST(BOXOPENDATE AS DATE) - SYSDATE) <= 2"
+		    + " AND BOXBURYCODE='BBY'"
+		    + " AND BOXDELCODE='BDN'"
+		    + " AND BOXRELEASECODE='B00'"
+		    + " AND BOXCAPCOUNT > 0"
+		    + " ORDER BY BOXOPENDATE ASC"
+			, nativeQuery=true)
+	Page<Box> getOpenSoonBoxPage(Pageable pageable);
 	
 	
 }
