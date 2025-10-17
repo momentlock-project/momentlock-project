@@ -146,7 +146,8 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 
     @Transactional
 	@Override
-	public void renewMemberBox(Box transmitedBox, Member recipient) {
+	public void renewMemberBox(Box transmitedBox, Member recipient) 
+    	throws Exception {
 		
 		memberBoxRepository.deleteById(
 				memberBoxRepository.getMemberBoxByBox(transmitedBox).get().getId()
