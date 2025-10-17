@@ -24,6 +24,8 @@ function fetchToBoardDetailInfomodal(classname, url){
 						method: "GET"
 					})
 					
+					console.log(url	+ row.children[0].textContent);
+					
 				if(!response.ok){
 					throw new Error("상세정보를 찾을 수 없습니다");
 				}
