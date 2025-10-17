@@ -100,7 +100,11 @@ public class BoxServiceImpl implements BoxService {
 //		findAll<Object>: Object 타입 Page 객체를 리턴하는 JpaRepository 기본 메서드
 		return boxRepository.findAll(pageable);
 		
-		
+	}
+	
+	@Override
+	public Page<Box> getAllBoxPage(Pageable pageable) {
+		return boxRepository.findAll(pageable);
 	}
 
 }

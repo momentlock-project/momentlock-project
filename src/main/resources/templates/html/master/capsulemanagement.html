@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -41,22 +42,49 @@
 					</tr>
 				</thead>
 				<tbody>
-					   <tr th:each="capsule : ${capsules}">
-						  <td th:text="${capsule.capid}">1</td>
+					   <tr th:each="capsule, stat : ${capsulePage.content}">
+						  <td th:text="${capsulePage.totalElements - (capsulePage.number * capsulePage.size) - stat.index}">10</td>
 						  <td th:text="${capsule.captitle}">캡슐제목</td>
-						  <td th:text="${member.username}">닉네임</td>
+						  <td th:text="${capsule.member.nickname}">닉네임</td>
 						  <td th:text="${capsule.capregdate}">2025-10-02</td>
 					      <td>
-							<form th:action="@{/momentlock/capsules/delete/{id}(id=${capsule.capid})}" method="post" onsubmit="return confirm('정말로 이 상자를 삭제하시겠습니까?');">
-							  <button type="submit" class="delete-btn">삭제</button>
+							<form th:action="@{/momentlock/capsule/updateToTDY}" method="post" onsubmit="return confirm('정말로 이 캡슐를 삭제하시겠습니까?');">
+								<input type="hidden" name="capid" th:value="${capsule.capid}" />
+								<button type="submit" th:if="${capsule.capdelcode == 'TDN'}" class="delete-btn">삭제</button>
+							  
 							</form>
 						  </td>
 					   </tr>
-					   <tr th:if="${#lists.isEmpty(capsules)}">
+					   <tr th:if="${capsulePage.empty}">
 						 <td colspan="5">표시할 캡슐 데이터가 없습니다.</td>
 					   </tr>
 			     </tbody>
 				 </table>
+				 <div th:if="${!capsulePage.empty}" id="pagination-container">
+				 	<ul class="pagination">
+				 		<li class="arrow" th:classappend="${capsulePage.first} ? 'disabled'">
+				 			<a th:href="@{/momentlock/capsulemanagement(page=0)}">«</a>
+				 		</li>
+				 		<!-- '이전' 페이지로 이동 버튼 -->
+				 		<li class="arrow" th:classappend="${!capsulePage.hasPrevious()} ? 'disabled'">
+				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.number - 1})}">‹</a>
+				 		</li>
+				 																   			                     
+				 		<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+				 		<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, capsulePage.totalPages - 1)}" th:classappend="${pageNumber == capsulePage.number} ? 'active'">
+				 			<a th:href="@{/momentlock/capsulemanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+				 		</li>
+				 																   			                     
+				 		<!-- '다음' 페이지로 이동 버튼 -->
+				 		<li class="arrow" th:classappend="${!capsulePage.hasNext()} ? 'disabled'">
+				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.number + 1})}">›</a>
+				 		</li>
+				 		<!-- '마지막' 페이지로 이동 버튼 -->
+				 		<li class="arrow" th:classappend="${capsulePage.last} ? 'disabled'">
+				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.totalPages - 1})}">»</a>
+				 		</li>
+				 	</ul>										 
+				 </div>
 			  </div>
 			 
 		</div>	

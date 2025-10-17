@@ -1,0 +1,133 @@
+/** 문의사항 공지사항 모달 css **/
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.6);
+	align-items: center;
+	justify-content: center;
+	z-index: 1999;
+}
+
+/* 메인 모달 박스 */
+.box-modal {
+	width: 40vw;
+	height: auto;
+	min-height: 40vh;
+	margin-top: 10vh;
+	background-color: rgba(188, 138, 89);
+	display: none;
+	padding: 30px;
+	border-radius: 8px;
+	z-index: 2000;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	transition: all 0.3s ease;
+}
+
+/* 내부 컨테이너 */
+#modal-inner {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+/* 제목 + 날짜 등 */
+.modal-title-date-box {
+	display: flex;
+	flex-direction: column;
+}
+
+/* 타이틀: 세로 고정, 가로 반응형 */
+.modal-title {
+	width: 40vw;
+	min-width: 30vw;
+	height: 5vh;
+	min-height: 5vh;
+	margin-top: 3vh;
+	background-color: rgba(100, 100, 100, 0.2);
+	border-radius: 8px;
+	line-height: 3;
+	text-align: left;
+	padding-left: 2vh;
+	font-weight: bold;
+	color: white;
+	transition: width 0.3s ease;
+}
+
+/* 컨텐츠: 세로 최소 30vh, 가로 반응형 */
+.modal-content {
+	width: 40vw;
+	min-width: 30vw;
+	min-height: 30vh;
+	background-color: rgba(100, 100, 100, 0.2);
+	border-radius: 8px;
+	text-align: left;
+	padding-left: 2vh;
+	padding-top: 1vh;
+	overflow: auto;
+	transition: all 0.3s ease;
+}
+
+/* 필터링 영역 */
+#notice-type-box {
+	display: flex;
+	justify-content: center;
+	gap: 60px;
+}
+
+#notice-type-box div {
+	color: whitesmoke;
+	cursor: pointer;
+}
+
+#notice-type-box div:hover {
+	border-bottom: 2px solid #d9d9d9;
+}
+
+/* 반응형 처리 */
+@media (max-width: 1024px) {
+	.box-modal {
+		width: 60vw;
+		min-height: 40vh;
+	}
+
+	.modal-title,
+	.modal-content {
+		width: 60vw;
+		min-width: 50vw;
+	}
+}
+
+@media (max-width: 768px) {
+	.box-modal {
+		width: 75vw;
+		min-height: 40vh;
+		padding: 20px;
+	}
+
+	.modal-title,
+	.modal-content {
+		width: 75vw;
+		min-width: 65vw;
+	}
+}
+
+@media (max-width: 480px) {
+	.box-modal {
+		width: 90vw;
+		min-height: 45vh;
+		padding: 15px;
+	}
+
+	.modal-title,
+	.modal-content {
+		width: 90vw;
+		min-width: 80vw;
+	}
+}

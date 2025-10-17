@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Capsule;
 import momentlockdemo.entity.Member;
@@ -45,4 +48,8 @@ public interface CapsuleService {
 	public abstract List<Capsule> getCapsulesTopLike();
 
 	public abstract Integer capsuleLikeCountUpdate(Long capid, String action);
+	
+	public abstract Page<Capsule> getAllCapsulePage(Pageable pageable);
+	
+	public abstract void updateCapsuleToTDY(Long capid);
 }

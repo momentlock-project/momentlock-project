@@ -2,13 +2,30 @@
 .modal_4 {
   display: none;
   position: absolute;
-  top: 0; 
+  top: 30%; 
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 60%;
   z-index: 10;
   background: none; 
+  z-index: 2000;
+}
+
+.master-badge{
+	color: rgb(64, 0, 0);
+	margin-left: 10px;
+}
+
+#closeBtn{
+	position: absolute;
+	top: 5%;
+	right: 5%
+}
+
+#closeBtn > img{
+	width: 30px;
+	height: 30px;
 }
 
 /* 모달 내용 (갈색 박스만 보이게) */
@@ -24,11 +41,9 @@
   color: #fff;
   text-align: center;
   position: relative;
-
   display: flex;
   flex-direction: column;
 }
-
 
 .modal-confirm {
   align-self: center;
@@ -56,7 +71,6 @@
   flex-direction: column;
   gap: 10px;
 }
-
 
 .member-item {
   display: flex;
@@ -99,3 +113,59 @@
   background: #c9302c;
 }
 
+/* 참여하기 초대보내기 모달 */
+/* 초대하기 모달 스타일 */
+.invite-form {
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.invite-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    font-size: 20px;
+}
+
+.invite-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.invite-input:focus {
+    outline: none;
+    border-color: #ac9898;
+}
+
+.invite-hint {
+    margin-top: 13px;
+    font-size: 17px;
+    color: black;
+}
+
+/* 모달 버튼들 */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-confirm {
+    padding: 10px 20px;
+    background: #ac9898;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.modal-confirm:hover {
+    background: #8d7878;
+}

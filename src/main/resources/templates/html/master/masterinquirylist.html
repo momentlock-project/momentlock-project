@@ -11,6 +11,9 @@
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<!-- [수정] CSS 경로 오타 수정 -->
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
+	<!-- 상세정보 모달창 -->
+	<link rel="stylesheet" th:href="@{/css/commons/detailModal.css}" />
 </head>
 
 <body>
@@ -40,21 +43,64 @@
 					</thead>
 	
 					<tbody>
-						<tr th:each="inquiry, stat : ${inquiryList}">
-							<td th:text="${stat.count}"></td>
-							<td><a th:href="@{/momentlock/inquiries/{id}(id=${inquiry.inqid})}" th:text="${inquiry.inqtitle}"></a></td>
+						<tr class="row inquiry" th:each="inquiry, stat : ${inquiryPage.content}">
+							<td th:text="${inquiry.inqid}"></td>
+							<td th:text="${inquiry.inqtitle}"></td>
 							<td th:text="${inquiry.member.username}"></td>
 							<td th:text="${#temporals.format(inquiry.inqregdate, 'yyyy-MM-dd')}"></td>
 						</tr>
-						<tr th:if="${#lists.isEmpty(inquiryList)}">
+						<tr th:if="${inquiryPage.empty}">
 							<td colspan="4">표시할 게시글이 없습니다.</td>
 						</tr> 
 					</tbody>
 				</table>
+				<div th:if="${!inquiryPage.empty}" id="pagination-container">
+					<ul class="pagination">
+					   <li class="arrow" th:classappend="${inquiryPage.first} ? 'disabled'">
+						  <a th:href="@{/momentlock/masterinquirylist(page=0)}">«</a>
+					   </li>
+					   <!-- '이전' 페이지로 이동 버튼 -->
+					   <li class="arrow" th:classappend="${!inquiryPage.hasPrevious()} ? 'disabled'">
+						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.number - 1}, size=${inquiryPage.size})}">‹</a>
+					   </li>
+							   			                     
+					   <!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+					   <li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, inquiryPage.totalPages - 1)}" th:classappend="${pageNumber == inquiryPage.number} ? 'active'">
+						  <a th:href="@{/momentlock/masterinquirylist(page=${pageNumber}, size=${inquiryPage.size})}" th:text="${pageNumber + 1}"></a>
+					   </li>
+							   			                     
+					   <!-- '다음' 페이지로 이동 버튼 -->
+					   <li class="arrow" th:classappend="${!inquiryPage.hasNext()} ? 'disabled'">
+						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.number + 1}, size=${inquiryPage.size})}">›</a>
+					   </li>
+					   <!-- '마지막' 페이지로 이동 버튼 -->
+					   <li class="arrow" th:classappend="${inquiryPage.last} ? 'disabled'">
+						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.totalPages - 1})}">»</a>
+					   </li>
+					</ul>										 
+				</div>
 			</div>
 		</div>	
+		
+		<!-- 상세정보 모달창 -->
+		<div class="modal-overlay">
+			<div class="box-modal">
+				 <a>
+				 	<img class="close-btn" src="/img/x.png" alt="창닫기" />
+				 </a>
+				 <div id="modal-inner">
+					<div class="modal-title-date-box">
+						<p class="modal-title"></p>
+					</div>
+					<p class="modal-content"></p>
+				 </div>
+		 	</div>
+		</div>
+		
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
+	<script th:src="@{/js/master/masterBoard.js}" defer></script>
 </html>

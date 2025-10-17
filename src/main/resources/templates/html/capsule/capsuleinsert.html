@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>캡슐 등록</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
-  <link rel="stylesheet" th:href="@{/css/nav.css}" />
-  <link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
-  <link rel="stylesheet" th:href="@{/css/capsule/capsuleinsert.css}" />
-  <link rel="stylesheet" th:href="@{/css/commons/form_btn.css}" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/capsule/capsuleinsert.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/form_btn.css}" />
 </head>
 
 <body>
-  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-  <div id="mainContainer" class="blurContainer">
-    <div th:replace="~{fragments/nav :: nav}"></div>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div class="modal">
+			<h2 class="modal-title" th:text="${capsule.capid != null ? '나의 캡슐 수정' : '나의 캡슐 등록'}"></h2>
 
-    <div class="modal">
-      <h2 class="modal-title">나의 캡슐 등록</h2>
+			<!-- 수정된 부분 -->
+			<form
+				th:action="${capsule.capid != null} ? @{/momentlock/capsuleupdate(capsuleid=${capsule.capid},boxid=${boxid})} : @{/momentlock/capsuleinsert(boxid=${boxid})}"
+				th:object="${capsule}" method="post" enctype="multipart/form-data">
 
-	  <form th:action="@{/momentlock/capsuleinsert}"
-	        th:object="${capsule}"
-	        method="post"
-	        enctype="multipart/form-data">
+				<!-- Hidden 필드 추가 -->
+				<input type="hidden" th:field="*{capid}" id="capid" />
+				<input type="hidden" th:value="${boxid}" id="boxid" name="boxid" />
 
-	    <!-- ✅ boxid 전달 -->
-	    <input type="hidden" name="boxid" th:value="${boxid}" />
+				<input type="text" class="input-title" th:field="*{captitle}" placeholder="제목을 입력해 주세요.">
 
-	    <input type="text" class="input-title"
-	           th:field="*{captitle}"
-	           placeholder="제목을 입력해 주세요.">
+				<textarea class="input-content" th:field="*{capcontent}" placeholder="내용을 입력하세요."></textarea>
 
-	    <textarea class="input-content"
-	              th:field="*{capcontent}"
-	              placeholder="내용을 입력하세요."></textarea>
+				<!-- 파일 업로드 영역 -->
+				<div class="file-area">
+					<label for="fileUpload" class="file-label form-btn">📁 업로드</label>
+					<input type="file" id="fileUpload" name="files" multiple style="display:none;"
+						onchange="showFileName(this)" />
+					<span id="fileName" class="file-box">첨부파일은 600MB 까지 가능합니다.</span>
+				</div>
 
-	    <div class="file-area">
-	      <label for="fileUpload" class="file-label form-btn">📁 업로드</label>
-	      <input type="file" id="fileUpload" name="files" multiple style="display:none;" onchange="showFileName(this)" />
-	      <span id="fileName" class="file-box">첨부파일은 600MB 까지 가능합니다.</span>
-	    </div>
+				<!-- 기존 첨부파일 목록 표시 -->
+				<div class="existing-files" th:if="${afileList != null and !afileList.isEmpty()}">
+					<h3 class="files-title">📎 첨부된 파일</h3>
+					<div class="file-list">
+						<div class="file-item" th:each="afile : ${afileList}">
+							<span class="file-icon">📄</span>
+							<span class="file-name" th:text="${afile.afsname}">파일명.txt</span>
+							<button type="button" class="file-delete-btn" th:data-afid="${afile.afid}"
+								onclick="deleteFile(this)">
+								🗑️
+							</button>
+						</div>
+					</div>
+				</div>
 
-	    <div class="actions">
-	      <button type="button" class="form-btn" onclick="history.back()">이전</button>
-	      <button type="submit" class="form-btn">등록</button>
-	    </div>
-	  </form>
-    </div>
-  </div>
-
-  <div th:replace="~{fragments/footer :: footer}"></div>
-  <script th:src="@{/js/nav.js}" defer></script>
-
-  <script>
-  function showFileName(input) {
-    const fileBox = document.getElementById('fileName');
-    if (input.files.length > 0) {
-      const names = Array.from(input.files).map(f => f.name).join(', ');
-      fileBox.textContent = names;
-    } else {
-      fileBox.textContent = '첨부파일은 600MB 까지 가능합니다.';
-    }
-  }
-  </script>
+				<div class="actions">
+					<button type="button" class="form-btn" onclick="history.back()">이전</button>
+					<button type="submit" class="form-btn" th:text="${capsule.capid == null ? '등록' : '수정'}">등록</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/capsule/capsuleinsert.js}" defer></script>
 </body>
+
 </html>

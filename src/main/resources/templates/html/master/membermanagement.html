@@ -11,6 +11,7 @@
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
 	<link rel="stylesheet" th:href="@{/css/search.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
@@ -33,7 +34,7 @@
 			   <h1>회원 관리</h1>
 			   <div class="search-container">
 				  <form th:action="@{/momentlock/membermanagement}" method="get">
-					<input type="text"  name="username" placeholder="사용자 닉네임 검색" value="${member.username}" />
+					<input type="text"  name="nickname" placeholder="사용자 닉네임 검색" th:value="${searchKeyword}" />
 					<button type="submit">검색</button>
 				  </form>
 			   </div>
@@ -48,22 +49,48 @@
 				 </thead>
 				  <tbody>
 					<div>
-					  <tr th:each="member, stat : ${members}">
-						<td th:text="${stat.count}">1</td>
+					  <tr th:each="member, stat : ${memberPage.content}">
+						<td th:text="${memberPage.totalElements - (memberPage.number * memberPage.size) - stat.index}">10</td>
 						<td th:text="${member.name}">이름</td>
-						<td th:text="${member.username}">닉네임</td>
+						<td th:text="${member.nickname}">닉네임</td>
 					    <td>
-						  <form th:action="@{/momentlock/members/delete/{username}(username=${member.username})}" method="post" onsubmit="return confirm('정말로 이 회원을 삭제하시겠습니까?');">
-							<button type="submit" class="delete-btn">삭제</button>
+						  <form th:action="@{/momentlock/member/updateToMDY}" method="post" onsubmit="return confirm('정말로 이 회원을 삭제하시겠습니까?');">
+							<input type="hidden" name="username" th:value="${member.username}" />
+							<button type="submit" th:if="${member.memcode == 'MDN'}" class="delete-btn">삭제</button>
 						  </form>
 						</td>
 					  </tr>
-					  <tr th:if="${#lists.isEmpty(members)}">
+					  <tr th:if="${memberPage.empty}">
 						<td colspan="4">표시할 회원 데이터가 없습니다.</td>
 					  </tr>
 					</div>
 				</tbody>
 			  </table>
+			  <div th:if="${!memberPage.empty}" id="pagination-container">
+			  	<ul class="pagination">
+			  		<li class="arrow" th:classappend="${memberPage.first} ? 'disabled'">
+			  			<a th:href="@{/momentlock/membermanagement(page=0)}">«</a>
+			  		</li>
+			  		<!-- '이전' 페이지로 이동 버튼 -->
+			  		<li class="arrow" th:classappend="${!memberPage.hasPrevious()} ? 'disabled'">
+			  			<a th:href="@{/momentlock/membermanagement(page=${memberPage.number - 1})}">‹</a>
+			  		</li>
+			  								 																   			                     
+			  		<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
+			  		<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, memberPage.totalPages - 1)}" th:classappend="${pageNumber == memberPage.number} ? 'active'">
+			  			<a th:href="@{/momentlock/membermanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+			  		</li>
+			  								 																   			                     
+			  		<!-- '다음' 페이지로 이동 버튼 -->
+			  		<li class="arrow" th:classappend="${!memberPage.hasNext()} ? 'disabled'">
+			  			<a th:href="@{/momentlock/membermanagement(page=${memberPage.number + 1})}">›</a>
+			  		</li>
+			  		<!-- '마지막' 페이지로 이동 버튼 -->
+			  		<li class="arrow" th:classappend="${memberPage.last} ? 'disabled'">
+			  			<a th:href="@{/momentlock/subscriptionmanagement(page=${memberPage.totalPages - 1})}">»</a>
+			  		</li>
+			  	</ul>										 
+			  </div>
 		    </div>
 			 
 		</div>	

@@ -3,6 +3,7 @@ package momentlockdemo.service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.entity.MemberBox;
@@ -41,5 +42,13 @@ public interface MemberBoxService {
 	
 	// 회원이 박스에 가입할때 
 	public abstract Box joinBoxWithMember(Box box, Member member);
+	
+	public abstract MemberBox getMemberBoxByBox(Box box);
 
+	// 방장이 제일 위로 간뒤 정렬
+	public abstract List<MemberBox> getMembersByBoxSorted(Box box);
+
+//	전송된 박스 소유자 갱신(전달된 박스의 기존 소유자 삭제 -> 박스 수신자를 새로운 소유자로 생성? 임명)
+	void renewMemberBox(Box transmitedBox, Member recipient);
+	
 }

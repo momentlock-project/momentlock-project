@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +57,9 @@ public class CapsuleServiceImpl implements CapsuleService {
     @Override
     @Transactional
     public void deleteCapsule(Long capid) {
+    	if (!capsuleRepository.existsById(capid)) {
+            throw new IllegalArgumentException("해당 ID의 타임캡슐을 찾을 수 없습니다: " + capid);
+    	}
         capsuleRepository.deleteById(capid);
     }
     
@@ -113,4 +118,16 @@ public class CapsuleServiceImpl implements CapsuleService {
 		return capsuleRepository.casuleLikeCountIncrease(capid, action);
 	}
     
+	@Override
+	public Page<Capsule> getAllCapsulePage(Pageable pageable) {
+		return capsuleRepository.findAllWithMember(pageable);
+	}
+	
+	@Override
+	public void updateCapsuleToTDY(Long capid) {
+		Capsule capsule = capsuleRepository.findById(capid)
+		.orElseThrow(() -> new IllegalArgumentException("캡슐을 찾을 수 없습니다. capid:" + capid));
+		
+		capsule.setCapdelcode("TDY");
+	}
 }

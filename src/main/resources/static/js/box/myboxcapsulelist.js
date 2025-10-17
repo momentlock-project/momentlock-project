@@ -1,77 +1,191 @@
-// MemberCount 모달 관련 요소
-const memberCountModal = document.getElementById("memberCountModal");
-const memberCountBtn = document.querySelector(".memberCount .box-btn");
-const memberCountConfirm = document.getElementById("memberCountConfirm"); // 확인 버튼
+// DOM 로드 완료 후 실행
+document.addEventListener('DOMContentLoaded', function() {
 
-// MemberCount 버튼 클릭 → 모달 열기
-memberCountBtn.addEventListener("click", () => {
-  memberCountModal.style.display = "block";
+	// 모든 dropdown-toggle 버튼 가져오기
+	const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+	// 각 버튼에 클릭 이벤트 추가
+	dropdownToggles.forEach(toggle => {
+		toggle.addEventListener('click', function(e) {
+			e.stopPropagation(); // 이벤트 버블링 방지
+
+			// 현재 버튼의 부모 dropdown 찾기
+			const dropdown = this.closest('.dropdown');
+			const menu = dropdown.querySelector('.dropdown-menu');
+
+			// 다른 열려있는 메뉴 모두 닫기
+			document.querySelectorAll('.dropdown-menu.show').forEach(openMenu => {
+				if (openMenu !== menu) {
+					openMenu.classList.remove('show');
+				}
+			});
+
+			// 현재 메뉴 토글
+			menu.classList.toggle('show');
+		});
+	});
+
+	// 문서 전체 클릭 시 모든 드롭다운 닫기
+	document.addEventListener('click', function() {
+		document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+			menu.classList.remove('show');
+		});
+	});
+
+	// 드롭다운 메뉴 내부 클릭 시 닫히지 않도록
+	document.querySelectorAll('.dropdown-menu').forEach(menu => {
+		menu.addEventListener('click', function(e) {
+			e.stopPropagation();
+		});
+	});
 });
 
-// 확인 버튼 클릭 → 모달 닫기
-memberCountConfirm.addEventListener("click", () => {
-  memberCountModal.style.display = "none";
+const insertCapsule = document.getElementById('insert-capsule')
+const boxId = document.getElementById('boxId').value;
+const boxJoinMemberBtn = document.getElementById('join-member-btn');
+const boxJoinMemberModal = document.getElementById('memberCountModal');
+const memberCountConfirmBtn = document.getElementById('memberCountConfirm');
+const readyBtn = document.getElementById('ready-btn');
+// 접속한 유저네임
+const memberUsername = document.getElementById('memberusername').value;
+const memerboxReadyCode = document.getElementById('memerboxReadyCode').value;
+// 모든 kick-btn 버튼 선택
+const kickBtns = document.querySelectorAll('.kick-btn');
+
+// ===== 모달 요소들 =====
+const inviteModal = document.getElementById('inviteModal');
+const inviteBtn = document.getElementById('invite-btn');
+const inviteCancel = document.getElementById('inviteCancel');
+const inviteConfirm = document.getElementById('inviteConfirm');
+const inviteInput = document.getElementById('inviteNickname');
+
+// 오버 레이
+const inviteOverlay = document.getElementById('inviteOverlay');
+const memberCountOverlay = document.getElementById('memberCountOverlay');
+
+insertCapsule.addEventListener('click', () => {
+	const confirmed = confirm('해당 박스에 캡슐을 추가하러 이동하시겠습니까?');
+
+	if (confirmed) {
+		window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
+	}
 });
 
-/*
-// 모달 바깥 클릭 시 닫기 (원하면 다시 활성화)
-window.addEventListener("click", (event) => {
-  if (event.target === memberCountModal) {
-    memberCountModal.style.display = "none";
-  }
-});
-*/
-
-// 준비하기 버튼
-const readyBtn = document.querySelector(".footer-btn button");
-
-// 모든 멤버의 준비 상태 이미지
-const readyStatusImgs = document.querySelectorAll(".ready-status");
-
-// 준비하기 버튼 클릭 시 상태 전환
-readyBtn.addEventListener("click", () => {
-  readyStatusImgs.forEach(img => {
-    if (img.dataset.ready === "true") {
-      // 준비 해제 → 기본 상태 이미지
-      img.src = "/img/no_ready.png";
-      img.dataset.ready = "false";
-    } else {
-      // 준비 완료 상태 이미지
-      img.src = "/img/ready.png";
-      img.dataset.ready = "true";
-    }
-  });
+boxJoinMemberBtn.addEventListener('click', () => {
+	boxJoinMemberModal.style.display = 'block';
+	memberCountOverlay.style.display = 'flex';
 });
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const addCapsuleBtn = document.querySelector(".btn-addCapsule");
-
-  if (addCapsuleBtn) {
-    // boxId는 타임리프에서 주입받음 (예: <input type="hidden" id="boxId" th:value="${box.boxid}" />)
-    const boxIdInput = document.getElementById("boxId");
-    const boxId = boxIdInput ? boxIdInput.value : null;
-
-    addCapsuleBtn.addEventListener("click", () => {
-      if (!boxId) {
-        alert("boxId를 불러올 수 없습니다.");
-        return;
-      }
-      location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
-    });
-  }
+memberCountConfirmBtn.addEventListener('click', () => {
+	boxJoinMemberModal.style.display = 'none';
+	memberCountOverlay.style.display = 'none';
 });
 
-fetch(`/momentlock/capsuledelete?capid=${capid}`, {
-  method: "DELETE"
-})
-  .then(res => res.text())
-  .then(result => {
-    if (result === "success") {
-      alert("캡슐이 삭제되었습니다.");
-      btn.closest(".capsule-item").remove();
-    } else {
-      alert("삭제 중 오류가 발생했습니다.");
-    }
-  })
-  .catch(err => console.error("삭제 요청 실패:", err));
+readyBtn.addEventListener('click', () => {
+	let confirmed;
+	if (memerboxReadyCode == 'MRN') {
+		confirmed = confirm('상자 묻기 준비 완료 하시겠습니까?');
+	} else {
+		confirmed = confirm('상자 묻기 준비를 해제 하시겠습니까?');
+	}
+
+	if (confirmed) {
+		window.location.href = `/momentlock/boxready?boxid=${boxId}&member=${memberUsername}`;
+	}
+
+});
+
+// 각 버튼에 이벤트 리스너 추가
+kickBtns.forEach(kickBtn => {
+	kickBtn.addEventListener('click', function() {
+		// data-username 값 가져오기
+		const memberUsername = this.dataset.username;
+
+		const confirmed = confirm(`${memberUsername}님을 상자에서 강퇴시키겠습니까?`);
+
+		if (confirmed) {
+			window.location.href = `/momentlock/kickmember?boxid=${boxId}&member=${memberUsername}`;
+		}
+	});
+});
+
+// 뒤로가기 버튼
+document.getElementById('closeBtn').addEventListener('click', function(e) {
+	e.preventDefault(); // 기본 동작 방지
+	history.back(); // 이전 페이지로 이동
+});
+
+
+// ===== 초대하기 모달 열기 =====
+inviteBtn.addEventListener('click', function() {
+	inviteModal.style.display = 'flex';
+	inviteOverlay.style.display = 'flex';
+	inviteInput.value = ''; // 입력창 초기화
+	inviteInput.focus(); // 자동 포커스
+});
+
+// ===== 초대하기 모달 닫기 (취소) =====
+inviteCancel.addEventListener('click', function() {
+	inviteOverlay.style.display = 'none';
+	inviteModal.style.display = 'none';
+});
+
+// ===== 초대하기 확인 =====
+inviteConfirm.addEventListener('click', function() {
+	const nickname = inviteInput.value.trim();
+	if (!nickname) {
+		alert('닉네임을 입력해주세요.');
+		inviteInput.focus();
+		return;
+	}
+	// 확인 대화상자
+	const confirmed = confirm(`${nickname}님을 초대하시겠습니까?`);
+	if (confirmed) {
+		// 서버로 데이터 전송
+		window.location.href = `/momentlock/invitemember?boxid=${boxId}&nickname=${encodeURIComponent(nickname)}
+		&member=${memberUsername}`;
+	}
+});
+
+// ===== Enter 키로 초대하기 =====
+inviteInput.addEventListener('keypress', function(e) {
+	if (e.key === 'Enter') {
+		inviteConfirm.click();
+	}
+});
+
+// ===== 모달 외부 클릭 시 닫기 =====
+inviteModal.addEventListener('click', function(e) {
+	if (e.target === inviteModal) {
+		inviteModal.style.display = 'none';
+		inviteOverlay.style.display = 'none';
+	}
+});
+
+// 개인 캡슐 수정, 삭제 하기
+const modifyBtns = document.querySelectorAll('.modify-btn');
+const deleteBtns = document.querySelectorAll('.delete-btn');
+
+// 수정 버튼 선택
+modifyBtns.forEach(modifyBtn => {
+	modifyBtn.addEventListener('click', function() {
+		// data-capid 값 가져오기
+		const capsuleId = this.dataset.capid;
+
+		window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}&capsuleid=${capsuleId}`;
+	});
+});
+
+deleteBtns.forEach(deleteBtn => {
+	deleteBtn.addEventListener('click', function() {
+
+		// data-capid 값 가져오기
+		const capsuleId = this.dataset.capid;
+
+		const confirmed = confirm("해당 캡슐을 삭제 하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.");
+
+		if (confirmed) {
+			window.location.href = `/momentlock/capsuledelete?boxid=${boxId}&capsuleid=${capsuleId}`;
+		}
+	});
+});

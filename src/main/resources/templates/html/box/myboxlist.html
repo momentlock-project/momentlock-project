@@ -2,93 +2,99 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>나의 상자 리스트</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
-    <link rel="stylesheet" th:href="@{/css/nav.css}" />
-    <link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
-    <link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>나의 상자 리스트</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/box/myboxlist.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
 </head>
 
 <body>
-    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-    <div id="mainContainer" class="blurContainer">
-        <div th:replace="~{fragments/nav :: nav}"></div>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
 
-        <div class="box-modal">
-            <a th:href="@{/momentlock/mypage}">
-                <img src="/img/x.png" alt="창닫기" />
-            </a>
+		<div class="box-modal">
+			<a th:href="@{/momentlock/mypage}">
+				<img src="/img/x.png" alt="창닫기" />
+			</a>
 
-            <div id="my-box-list-container">
-                <h1>나의 상자 리스트</h1>
-                <div id="my-box-list-box">
-                    <div id="my-box-list-title-box">
-                        <a th:href="@{/momentlock/boxinsert}" class="main-btn boxAdditional">
-                            상자 추가
-                        </a>
-                    </div>
-
-                    <div class="grid_container">
-                        <!-- 반복문으로 상자 렌더링 -->
-                        <div class="box_card" th:each="box : ${myBoxes}">
-                            <button class="menu-btn">⋮</button>
-                            <div class="dropdown">
-                                <a th:href="@{'/momentlock/boxedit/' + ${box.boxid}}">수정</a>
-                                <a th:href="@{'/momentlock/boxdelete/' + ${box.boxid}}">삭제</a>
-                                <a href="#">상자 보내기</a>
-                            </div>
-                            <img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
-                            <h2 th:text="${box.boxname}">상자 이름</h2>
-							<h3 class="box-open-date" th:attr="data-opendate=${box.boxopendate}">
-							    00일 00시 00분 00초
-							</h3>
-
-                        </div>
-                        <!-- 반복 끝 -->
-                    </div>
-					
-					<!-- 기존 grid_container 끝나는 곳 바로 아래에 페이지네이션 추가 -->
-					</div> <!-- grid_container 끝 -->
-
-					<!-- 페이지네이션 -->
-					<div th:if="${!myBoxes.isEmpty()}" id="pagination-container">
-					    <ul class="pagination">
-					        <li class="arrow" th:if="${myBoxes.hasPrevious()}">
-					            <a th:href="@{/momentlock/myboxlist(page=${myBoxes.number - 1}, size=${myBoxes.size})}">&lt;</a>
-					        </li>
-					        <li class="pagenumber" th:each="i : ${#numbers.sequence(0, myBoxes.totalPages - 1)}"
-					            th:classappend="${i == myBoxes.number} ? 'active'">
-					            <a th:href="@{/momentlock/myboxlist(page=${i}, size=${myBoxes.size})}" th:text="${i + 1}"></a>
-					        </li>
-					        <li class="arrow" th:if="${myBoxes.hasNext()}">
-					            <a th:href="@{/momentlock/myboxlist(page=${myBoxes.number + 1}, size=${myBoxes.size})}">&gt;</a>
-					        </li>
-					    </ul>
+			<div id="my-box-list-container">
+				<h1>나의 상자 리스트</h1>
+				<div id="my-box-list-box">
+					<div id="my-box-list-title-box">
+						<a th:href="@{/momentlock/boxinsert}" class="main-btn boxAdditional">
+							상자 추가
+						</a>
 					</div>
 
+					<div class="grid_container">
+						<!-- 반복문으로 상자 렌더링 -->
+						<div class="box_card" th:each="box : ${myBoxes}">
+							<button class="menu-btn">⋮</button>
+							<div class="dropdown">
+								<a th:href="@{'/momentlock/boxedit/' + ${box.boxid}}">수정</a>
+								<a th:href="@{'/momentlock/boxdelete/' + ${box.boxid}}">삭제</a>
+								<a href="#">상자 보내기</a>
+								<input type="hidden" class="boxid" th:value="${box.boxid}">
+							</div>
+							<img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
+							<h2 th:text="${box.boxname}">상자 이름</h2>
+							<h3 class="box-open-date" th:attr="data-opendate=${box.boxopendate}">
+								00일 00시 00분 00초
+							</h3>
 
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<!-- 반복 끝 -->
+					</div>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
-    <script th:src="@{/js/nav.js}" defer></script>
-    <script th:src="@{/js/box/myboxlist.js}" defer></script>
+					<!-- 기존 grid_container 끝나는 곳 바로 아래에 페이지네이션 추가 -->
+				</div> <!-- grid_container 끝 -->
 
-    <div id="send-form" class="send-form">
-        <div class="send-form-content">
-            <button class="send-close">×</button>
-            <p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
-            <div class="send-input-row">
-                <input type="text" class="send-nickname" placeholder="닉네임 입력" />
-                <button class="send-submit">보내기</button>
-            </div>
-        </div>
-    </div>
+				<!-- 페이지네이션 -->
+				<div th:if="${!myBoxes.isEmpty()}" id="pagination-container">
+					<ul class="pagination">
+						<li class="arrow" th:if="${myBoxes.hasPrevious()}">
+							<a
+								th:href="@{/momentlock/myboxlist(page=${myBoxes.number - 1}, size=${myBoxes.size})}">&lt;</a>
+						</li>
+						<li class="pagenumber" th:each="i : ${#numbers.sequence(0, myBoxes.totalPages - 1)}"
+							th:classappend="${i == myBoxes.number} ? 'active'">
+							<a th:href="@{/momentlock/myboxlist(page=${i}, size=${myBoxes.size})}"
+								th:text="${i + 1}"></a>
+						</li>
+						<li class="arrow" th:if="${myBoxes.hasNext()}">
+							<a
+								th:href="@{/momentlock/myboxlist(page=${myBoxes.number + 1}, size=${myBoxes.size})}">&gt;</a>
+						</li>
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/nav.js}" defer></script>
+	<script th:src="@{/js/box/myboxlist.js}" defer></script>
+
+	<div id="send-form" class="send-form">
+		<div class="send-form-content">
+			<button class="send-close">×</button>
+			<p>상자를 보내고 싶은 상대방의 닉네임을 입력해주세요!</p>
+			<div class="send-input-row">
+				<form action="/momentlock/boxTransmit?">
+					<input type="text" class="send-nickname" placeholder="닉네임 입력" />
+					<button type="button" class="send-submit">보내기</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
