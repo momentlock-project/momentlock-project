@@ -11,6 +11,8 @@
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" /> 
 	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
+	<!-- 상세정보 모달창 -->
+	<link rel="stylesheet" th:href="@{/css/commons/detailModal.css}" />
 </head>
 
 <body>
@@ -39,11 +41,9 @@
 						   </tr>
 						 </thead>
 						 <tbody>
-							<tr th:each="declaration, stat : ${declarationPage.content}">
-							  <td th:text="${declarationPage.totalElements - (declarationPage.number * declarationPage.size) - stat.index}">10</td>
-							  <td class="col-title">
-								<a th:href="@{/momentlock/declarationlist/{id}(id=${declaration.decid})}" th:text="${declaration.deccategory}"></a>
-							  </td>
+							<tr th:each="declaration, stat : ${declarationPage.content}" class="row declar">
+							  <td th:text="${declaration.decid}">10</td>
+							  <td class="col-title" th:text="${declaration.deccategory}"></td>
 							  <td th:text="${#temporals.format(declaration.decregdate, 'yyyy-MM-dd')}"></td>
 							</tr>
 							<tr th:if="${declarationPage.empty}">
@@ -78,10 +78,32 @@
 					</div>	
 				</div>
 		</div>	
+		
+		<!-- 상세정보 모달창 -->
+		<div class="modal-overlay">
+			<div class="box-modal">
+				 <a>
+				 	<img class="close-btn" src="/img/x.png" alt="창닫기" />
+				 </a>
+				 <div id="modal-inner">
+					<div class="modal-title-date-box">
+						<p class="modal-title"></p>
+						<input class="modal-id" type="hidden" />
+					</div>
+					<p class="modal-content"></p>
+				 </div>
+				 <div id="declarBtn">
+					<input class="member-btn" type="button" value="신고 처리하기" onclick="masterDeclarPlusCnt()" />
+				 </div>
+		 	</div>
+		</div>
+		
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
+	<script th:src="@{/js/master/masterBoard.js}" defer></script>
 	<body>
 
 </html>

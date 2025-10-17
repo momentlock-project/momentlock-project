@@ -35,7 +35,7 @@ public class MemeberBoardController {
 	// 문의게시판
 	@GetMapping("/memberinquirylist")
 	public String memberinquirylistPage(Model model,
-			@PageableDefault(page = 0, size = 10, sort = "inqid", direction = Sort.Direction.DESC)Pageable pageable) {
+			@PageableDefault(page = 0, size = 8, sort = "inqid", direction = Sort.Direction.DESC)Pageable pageable) {
 		model.addAttribute("inquirylist", inquiryService.getAllInquiries(pageable));
 		return "html/member/memberinquirylist";
 	}
@@ -58,7 +58,7 @@ public class MemeberBoardController {
 	// 신고게시판
 	@GetMapping("/memberdeclarlist")
 	public String memberdeclarlistPage(Model model,
-			@PageableDefault(page = 0, size = 10, sort = "decid", direction = Sort.Direction.DESC)Pageable pageable) {
+			@PageableDefault(page = 0, size = 8, sort = "decid", direction = Sort.Direction.DESC)Pageable pageable) {
 		model.addAttribute("declarlist", declarationService.getAllDeclarations(pageable));
 		return "html/member/memberdeclarlist";
 	}
@@ -81,7 +81,7 @@ public class MemeberBoardController {
 	public String membernoticelistPage(
 			Model model,
 			@RequestParam(required = false) String type,
-			@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+			@PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
 		if(type == null || type.isBlank()) {
 			model.addAttribute("noticelist", noticeQaService.getAllNoticeQa(pageable));
 		} else if (type != null) {
