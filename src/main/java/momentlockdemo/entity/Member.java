@@ -68,6 +68,12 @@ public class Member implements Serializable {
 
 	@Column(name = "SUBENDDAY")
 	private LocalDateTime subendday;
+	
+	@Column(name = "ROLE")
+	private String role;
+	
+	@Column(name = "LASTLOGINDATE")
+	private LocalDateTime lastlogindate;
 
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	@Builder.Default
@@ -96,6 +102,7 @@ public class Member implements Serializable {
 		this.memcode = "MDN";
 		this.memdeccount = 0L;
 		this.subcode = "MNORMAL";
+		this.role = "ROLE_USER";
 	}
 
 }

@@ -35,7 +35,8 @@ if(document.querySelector(".col.complete") != null) {
 getNoticelistByType("#notice");
 getNoticelistByType("#qna");
 
-
+// 신고 제목 6자이상 넘어가면 ..으로 표시하는 함수
+truncateString('.row.declar', 7);
 
 
 
