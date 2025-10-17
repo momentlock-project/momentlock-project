@@ -2,7 +2,8 @@ $(function() {
 	$('.dday').each(function() {
 		const opendate = $(this).data('target');
 		renewOneSecond(opendate, $(this));
-	})
+	});
+
 });
 
 // 백에서 보낸 오픈 예정일과 현재 날짜/시간의 차이를 기준으로
@@ -25,12 +26,13 @@ function updatePeriod(targetLocalDate, element) {
 	const second = Math.floor(diff % (1000 * 60) / 1000) // 몇 초 남았는지
 
 	let restDays = '';
-	if(days<=0) restDays += `${hours}시간 ${minutes}분 ${second}초`;
-	if(hours<=0) restDays += `${minutes}분 ${second}초`;
-	if(minutes<=0) restDays += `${second}초`;
-	
+	if (days > 0) restDays += `${days}일`;
+	if (hours>0 ) restDays += ` ${hours}시간`;
+	if (minutes>0 ) restDays += ` ${minutes}분`;
+	if (second > 0) restDays += ` ${second}초`;
+
 	element.text(restDays);
-	
+
 }
 
 function renewOneSecond(targetLocalDate, element) {
