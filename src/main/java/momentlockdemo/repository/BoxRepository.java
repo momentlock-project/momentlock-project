@@ -44,7 +44,7 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 		    + " BOXDELCODE, BOXRELEASECODE, BOXMEMCOUNT, BOXCAPCOUNT"
 		    + " FROM BOX "
 		    + " WHERE BOXOPENDATE IS NOT NULL"
-		    + " AND 0 < TRUNC(CAST(BOXOPENDATE AS DATE) - SYSDATE)"
+		    + " AND 0 <= TRUNC(CAST(BOXOPENDATE AS DATE) - SYSDATE)"
 		    + " AND TRUNC(CAST(BOXOPENDATE AS DATE) - SYSDATE) <= 2"
 		    + " AND BOXBURYCODE='BBY'"
 		    + " AND BOXDELCODE='BDN'"
