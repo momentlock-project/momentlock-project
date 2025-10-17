@@ -19,93 +19,69 @@ import momentlockdemo.service.MemberService;
 @RequestMapping("/momentlock")
 public class BoxInsertController {
 
-	@Autowired
-	private MemberBoxService memberBoxService;
+   @Autowired
+   private MemberBoxService memberBoxService;
 
-	@Autowired
-	private MemberService memberService;
+   @Autowired
+   private MemberService memberService;
 
-	// 상자 추가 폼
-	@GetMapping("/boxinsert")
-	public String boxinsertPage() {
-		return "html/box/boxinsert";
-	}
+   // 상자 추가 폼
+   @GetMapping("/boxinsert")
+   public String boxinsertPage() {
+      return "html/box/boxinsert";
+   }
 
-	@GetMapping("/member")
-	public String memberCreate() {
+   @GetMapping("/member")
+   public String memberCreate() {
 
-		Member member = Member.builder()
-				.username("gmldnjs1616@gmail.com")
-				.name("이희원")
-				.password("1234")
-				.nickname("희원굿")
-				.phonenumber("01044487754")
-				.memcapcount(10L)
-				.build();
+      Member member = Member.builder()
+            .username("gmldnjs1616@gmail.com")
+            .name("이희원")
+            .password("1234")
+            .nickname("희원굿")
+            .phonenumber("01044487754")
+            .memcapcount(10L)
+            .build();
 
-		memberService.createMember(member);
+      memberService.createMember(member);
 
-		return "html/main";
-	}
+      return "html/main";
+   }
 
-	@PostMapping("/boxadd")
-	public String addBox(@RequestParam String boxName,
-	                     @RequestParam Long memberCount,
-	                     @RequestParam(required = false) Boolean isPublic,
-	                     @RequestParam String openDate,
-	                     @RequestParam String boxlocation,
-	                     @RequestParam String latitude,
-<<<<<<< HEAD
-	                     @RequestParam String longitude) {
-	    
-	    // LocalDateTime 변환
-	    LocalDateTime openDateTime = LocalDate.parse(openDate)
-	                                          .atStartOfDay();
-	    
-	    String boxreleasecode = isPublic ? "B00" : "B01";
-	    
-	    Box box = Box.builder()
-	                 .boxname(boxName)
-	                 .boxlocation(boxlocation)
-	                 .latitude(latitude)
-	                 .longitude(longitude)
-	                 .boxopendate(openDateTime)
-	                 .boxreleasecode(boxreleasecode)
-	                 .boxmemcount(memberCount)
-	                 .build();
-	    
-	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("nickname3").get());
-	    
-	    return "redirect:/momentlock/myboxlist";
-=======
-	                     @RequestParam String longitude,
-	                     RedirectAttributes redirectAttributes) {
+   @PostMapping("/boxadd")
+   public String addBox(@RequestParam String boxName,
+                        @RequestParam Long memberCount,
+                        @RequestParam(required = false) Boolean isPublic,
+                        @RequestParam String openDate,
+                        @RequestParam String boxlocation,
+                        @RequestParam String latitude,
+                        @RequestParam String longitude,
+                        RedirectAttributes redirectAttributes) {
 
-		// 날짜 검증 (오늘 포함 이전 날짜 방지)
-		LocalDate openLocalDate = LocalDate.parse(openDate);
-		if (openLocalDate.isBefore(LocalDate.now().plusDays(1))) {
-			redirectAttributes.addFlashAttribute("error", "오픈 날짜는 내일 이후여야 합니다.");
-			return "redirect:/momentlock/boxinsert";
-		}
+      // 날짜 검증 (오늘 포함 이전 날짜 방지)
+      LocalDate openLocalDate = LocalDate.parse(openDate);
+      if (openLocalDate.isBefore(LocalDate.now().plusDays(1))) {
+         redirectAttributes.addFlashAttribute("error", "오픈 날짜는 내일 이후여야 합니다.");
+         return "redirect:/momentlock/boxinsert";
+      }
 
-		// LocalDateTime 변환
-		LocalDateTime openDateTime = openLocalDate.atStartOfDay();
+      // LocalDateTime 변환
+      LocalDateTime openDateTime = openLocalDate.atStartOfDay();
 
-		String boxreleasecode = isPublic ? "B00" : "B01";
+      String boxreleasecode = isPublic ? "B00" : "B01";
 
-		Box box = Box.builder()
-		             .boxname(boxName)
-		             .boxlocation(boxlocation)
-		             .latitude(latitude)
-		             .longitude(longitude)
-		             .boxopendate(openDateTime)
-		             .boxreleasecode(boxreleasecode)
-		             .boxmemcount(memberCount)
-		             .build();
+      Box box = Box.builder()
+                   .boxname(boxName)
+                   .boxlocation(boxlocation)
+                   .latitude(latitude)
+                   .longitude(longitude)
+                   .boxopendate(openDateTime)
+                   .boxreleasecode(boxreleasecode)
+                   .boxmemcount(memberCount)
+                   .build();
 
-		memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("길동이").get());
+      memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("길동이").get());
 
-		return "redirect:/momentlock/myboxlist";
->>>>>>> 675a32d8f125781fe0e676a04d6fc8d7f127f364
-	}
+      return "redirect:/momentlock/myboxlist";
+   }
 }
