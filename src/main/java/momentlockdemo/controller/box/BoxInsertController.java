@@ -55,6 +55,29 @@ public class BoxInsertController {
 	                     @RequestParam String openDate,
 	                     @RequestParam String boxlocation,
 	                     @RequestParam String latitude,
+<<<<<<< HEAD
+	                     @RequestParam String longitude) {
+	    
+	    // LocalDateTime 변환
+	    LocalDateTime openDateTime = LocalDate.parse(openDate)
+	                                          .atStartOfDay();
+	    
+	    String boxreleasecode = isPublic ? "B00" : "B01";
+	    
+	    Box box = Box.builder()
+	                 .boxname(boxName)
+	                 .boxlocation(boxlocation)
+	                 .latitude(latitude)
+	                 .longitude(longitude)
+	                 .boxopendate(openDateTime)
+	                 .boxreleasecode(boxreleasecode)
+	                 .boxmemcount(memberCount)
+	                 .build();
+	    
+	    memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("nickname3").get());
+	    
+	    return "redirect:/momentlock/myboxlist";
+=======
 	                     @RequestParam String longitude,
 	                     RedirectAttributes redirectAttributes) {
 
@@ -83,5 +106,6 @@ public class BoxInsertController {
 		memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("길동이").get());
 
 		return "redirect:/momentlock/myboxlist";
+>>>>>>> 675a32d8f125781fe0e676a04d6fc8d7f127f364
 	}
 }
