@@ -105,6 +105,42 @@ public class MasterController {
 		return "html/master/masterdeclarlist";
 	}
 	
+	// 신고게시판 상세
+	// map 생성해서 front에서 json으로 받음
+	@GetMapping("/masterdeclarlist/{decid}")
+	public ResponseEntity<Map<String, Object>> masterdeclarlistPage(@PathVariable Long decid) {
+		return declarationService.getDeclarationById(decid)
+				.map(dec -> {
+					Map<String, Object> data = new HashMap<String, Object>();
+					data.put("deccategory", dec.getDeccategory());
+					data.put("deccontent", dec.getDeccontent());
+					data.put("decid", dec.getDecid());
+					return ResponseEntity.ok(data);
+				}).orElse(ResponseEntity.notFound().build());
+	}
+	
+	// 신고처리하기 버튼 클릭 시 멤버 신고 카운트 증가
+	@GetMapping("/masterDeclarPlusCnt")
+	public String masterDeclarPlusCnt(@RequestParam Long decid, Model model) {
+		
+		try {
+			// 신고 id에 맞는 신고정보와 회원정보 가져옴
+			Declaration declaration = declarationService.getDeclarationById(decid).get();
+			Member mem = memberService.getMemberByUsername(declaration.getMember().getUsername()).get();
+			
+			// 해당하는 회원의 신고 카운트 증가
+			mem.setMemdeccount(mem.getMemdeccount() + 1);
+			memberService.updateMember(mem);
+			model.addAttribute("resultMsg", "신고 처리가 완료되었습니다!");
+			
+			return "redirect:/momentlock/masterdeclarlist";
+			
+		} catch(Exception e) {
+			model.addAttribute("resultMsg", e.getMessage());
+			return "redirect:/momentlock";
+		}
+	}
+	
 	// 공지사항
 	@GetMapping("/masternoticelist")
 	public String masternoticelistPage(Model model,

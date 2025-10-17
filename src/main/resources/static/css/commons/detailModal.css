@@ -147,3 +147,9 @@
 		min-width: 80vw;
 	}
 }
+
+/* 신고 처리하기 버튼 */
+.member-btn {
+	padding: 6px 12px !important;
+	cursor: pointer;
+}
