@@ -130,7 +130,10 @@ public class MasterController {
 			
 			// 해당하는 회원의 신고 카운트 증가
 			mem.setMemdeccount(mem.getMemdeccount() + 1);
+			declaration.setDeccomplete("DECY");
+			
 			memberService.updateMember(mem);
+			declarationService.updateDeclaration(declaration);
 			model.addAttribute("resultMsg", "신고 처리가 완료되었습니다!");
 			
 			return "redirect:/momentlock/masterdeclarlist";
