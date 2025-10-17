@@ -1,7 +1,17 @@
 /* 모달 컨테이너 - 높이 제한 */
 .modal_3 {
-   min-height: 100vh;
-   /* 화면 높이에 맞춤 */
+   max-width: 1200px;   
+   max-height: 90vh;
+   height: auto;
+}
+
+.modal_3.declar,
+.modal_3.notice {
+	gap: 0 !important;
+}
+
+.modal_3.inquiry {
+	gap: 15px !important;
 }
 
 #mainContainer {
@@ -9,19 +19,8 @@
 	background-color: rgba(0, 0, 0, 0.2);
 }
 
-#modal-title-box {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-}
-
-#table-title-box {
-	display: flex;
-	justify-content: space-around;
-}
-
 #table-container {
-	min-height: 75vh;
+	min-height: 30vh;
 }
 
 .row {
@@ -37,6 +36,22 @@
 .col {
 	flex: 1;
 	font-size: 20px;
+}
+
+
+
+
+
+
+#modal-title-box {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+#table-title-box {
+	display: flex;
+	justify-content: space-around;
 }
 
 .row:hover {

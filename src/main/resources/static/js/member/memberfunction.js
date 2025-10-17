@@ -69,7 +69,6 @@ function fetchToBoardDetailInfomodal(classname, url){
 
 
 // 공지사항, QnA 페이지 카테고리로 이동하는 함수
-
 function getNoticelistByType(name) {
 	const type = document.querySelector(name);
 	if(type != null){
@@ -91,14 +90,23 @@ function truncateString(selectorName, maxLength){
 	const capsulelist = document.querySelectorAll(selectorName);
 	capsulelist.forEach(capsule => {
 		for(let i=0; i<capsule.children.length; i++){
-			let title = capsule.children[i].children[1].textContent;
-			if(title.length > maxLength && capsule.children[i].classList == 'capsule-title'){
-				capsule.children[i].children[1].textContent 
-					= title.slice(0, maxLength) + '...';
+			if(capsule.children[i].children[1] != null){
+				let title = capsule.children[i].children[1].textContent;
+				if(title.length > maxLength && capsule.children[i].classList == 'capsule-title'){
+					capsule.children[i].children[1].textContent 
+						= title.slice(0, maxLength) + '...';
+				} 
+			} else if(capsule.children[1] != null){
+				let title = capsule.children[1].textContent;
+				if(title.length > maxLength && capsule.children[1].classList == 'col title'){
+					capsule.children[1].textContent = title.slice(0, maxLength) + "..";
+				}
 			}
 		}
 	})
 }
+
+
 
 // 관리자 신고 게시판 상세모달창에서 신고처리하기 함수
 function masterDeclarPlusCnt(){
