@@ -28,7 +28,7 @@
 			</div>
 			
 			<!-- 모달창 -->
-			<div class="modal_3">
+			<div class="modal_3 declar">
 				
 				<!-- 캡슐 신고 제목, 유의사항 -->
 				<div id="modal-title-box">
@@ -46,7 +46,7 @@
 					</div>
 					
 					<div id="table-container">
-						<div class="row" th:each="declar : ${declarlist}">
+						<div class="row declar" th:each="declar : ${declarlist}">
 							<div class="col number" th:text="${declar.decid}">1</div>
 							<div class="col title" th:text="${declar.deccategory}">신고 항목12345</div>
 							<div class="col regdate" th:text="${declar.decregdate}">2025/10/4</div>
