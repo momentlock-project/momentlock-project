@@ -12,6 +12,8 @@
 	<link rel="stylesheet" th:href="@{/css/noticebox.css}" />
 	<link rel="stylesheet" th:href="@{/css/form.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
+	<!-- 상세정보 모달창 -->
+	<link rel="stylesheet" th:href="@{/css/commons/detailModal.css}" />
 </head>
 
 <body>
@@ -44,8 +46,8 @@
 				     </tr>
 				 </thead>
 			     <tbody>
-					<tr th:each="noticeQa, stat : ${noticeQaPage.content}">
-					  <td th:text="${noticeQaPage.totalElements - (noticeQaPage.number * noticeQaPage.size) - stat.index}">10</td>
+					<tr class="row notice" th:each="noticeQa, stat : ${noticeQaPage.content}">
+					  <td th:text="${noticeQa.id}">10</td>
 					  <td>
 					    <span th:switch="${noticeQa.type}">
 					    <span th:case="'NOTICE'" class="badge notice-badge">공지</span>
@@ -53,9 +55,7 @@
 					    <span th:case="*">기타</span> <!-- 그 외의 경우 -->
 					  </span>
 					</td>
-					<td>
-					  <a th:href="@{/momentlock/noticeQa/{id}(id=${noticeQa.id})}" th:text="${noticeQa.title}">게시글 제목</a>
-					</td>
+					<td th:text="${noticeQa.title}">제목</td>
 					<td th:text="${#temporals.format(noticeQa.regDate, 'yyyy-MM-dd')}">2025-10-12</td>
 				  </tr>
 				  <!-- 조회된 게시글이 없을 경우 표시될 메시지 -->
@@ -91,10 +91,29 @@
 			   </div>									 
 			 </div>			 
 		</div>	
+		
+		<!-- 상세정보 모달창 -->
+		<div class="modal-overlay">
+			<div class="box-modal">
+				 <a>
+				 	<img class="close-btn" src="/img/x.png" alt="창닫기" />
+				 </a>
+				 <div id="modal-inner">
+					<div class="modal-title-date-box">
+						<p class="modal-title"></p>
+					</div>
+					<p class="modal-content"></p>
+				 </div>
+		 	</div>
+		</div>
+		
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/member/memberfunction.js}" defer></script>
+	<script th:src="@{/js/master/masterBoard.js}" defer></script>
+	
 	<body>
 
 </html>

@@ -114,6 +114,20 @@ public class MasterController {
 		return "html/master/masternoticelist";
 	}
 	
+	// 공지사항, QnA 상세
+	// map 생성해서 front에서 json으로 받음
+	@GetMapping("/masternoticelist/{id}")
+	public ResponseEntity<Map<String, Object>> masternoticelistPage(@PathVariable Long id) {
+		return noticeQaService.getNoticeQaById(id)
+				.map(notice -> {
+					Map<String, Object> data = new HashMap<String, Object>();
+					data.put("title", notice.getTitle());
+					data.put("content", notice.getContent());
+					data.put("type", notice.getType());
+					return ResponseEntity.ok(data);
+				}).orElse(ResponseEntity.notFound().build());
+	}
+	
 	// 공지사항/QnA 폼
 	@GetMapping("/masterinquiryinsert")
 	public String noticeQaForm(Model model) {

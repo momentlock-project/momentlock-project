@@ -3,3 +3,4 @@
 */
 
 fetchToBoardDetailInfomodal('.row.inquiry', '/momentlock/masterinquirylist/');
+fetchToBoardDetailInfomodal('.row.notice', '/momentlock/masternoticelist/');
