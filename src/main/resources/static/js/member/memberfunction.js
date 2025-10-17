@@ -24,6 +24,8 @@ function fetchToBoardDetailInfomodal(classname, url){
 						method: "GET"
 					})
 					
+					console.log(url	+ row.children[0].textContent);
+					
 				if(!response.ok){
 					throw new Error("상세정보를 찾을 수 없습니다");
 				}
@@ -88,7 +90,7 @@ function truncateString(selectorName, maxLength){
 	capsulelist.forEach(capsule => {
 		for(let i=0; i<capsule.children.length; i++){
 			let title = capsule.children[i].children[1].textContent;
-			if(capsule.children[i].children[1].textContent.length > maxLength){
+			if(title.length > maxLength && capsule.children[i].classList == 'capsule-title'){
 				capsule.children[i].children[1].textContent 
 					= title.slice(0, maxLength) + '...';
 			}

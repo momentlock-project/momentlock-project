@@ -3,7 +3,9 @@ package momentlockdemo.controller.master;
 import java.net.http.HttpClient.Redirect;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,11 +75,26 @@ public class MasterController {
 	// 문의게시판
 	 @GetMapping("/masterinquirylist")
 	 public String masterinquirylistPage(Model model,
-			 @PageableDefault(size = 10, sort = "inqid", direction = Sort.Direction.DESC) Pageable pageable) {
-	      Page<Inquiry> inquiryPage = inquiryService.getAllInquiries(pageable);
-	      model.addAttribute("inquiryPage", inquiryPage);
+			 @PageableDefault(page = 0, size = 10, sort = "inqid", direction = Sort.Direction.DESC) Pageable pageable) {
+	     // Page<Inquiry> inquiryPage = inquiryService.getAllInquiries(pageable);
+	      model.addAttribute("inquiryPage", inquiryService.getAllInquiries(pageable));
 	      return "html/master/masterinquirylist";
 	 }
+	 
+	// 문의게시판 상세
+	// map 생성해서 front에서 json으로 받음
+	@GetMapping("/masterinquirylist/{inqid}")
+	public ResponseEntity<Map<String, Object>> masterinquirylistPage(@PathVariable Long inqid) {
+		return inquiryService.getInquiryById(inqid)
+				.map(inquiry -> {
+					Map<String, Object> data = new HashMap<String, Object>();
+					data.put("inqtitle", inquiry.getInqtitle());
+					data.put("inqcontent", inquiry.getInqcontent());
+					data.put("inqregdate", inquiry.getInqregdate());				
+					data.put("inqcomplete", inquiry.getInqcomplete());				
+					return ResponseEntity.ok(data);
+				}).orElse(ResponseEntity.notFound().build());
+	}
 	
 	// 신고게시판
 	@GetMapping("/masterdeclarlist")

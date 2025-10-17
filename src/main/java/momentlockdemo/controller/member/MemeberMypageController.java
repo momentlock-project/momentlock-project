@@ -44,7 +44,8 @@ public class MemeberMypageController {
 		// 로그인 추가 시 로그인 유저찾아서 확인하는 로직 추가
 		
 		Member loginMember = memberService.getMemberByUsername("minkyong131@gmail.com").get();
-		List<Capsule> capsuleList = capsuleService.getCapsulesByMember(loginMember);
+		List<Capsule> capsuleList
+			= capsuleService.getCapsulesByMember(loginMember).stream().filter(cap -> cap.getCapdelcode().equals("TDN")).toList();
 		model.addAttribute("capsuleList", capsuleList);
 		
 		return "html/capsule/mycapsulelist";
