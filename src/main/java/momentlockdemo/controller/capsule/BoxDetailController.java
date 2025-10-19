@@ -38,14 +38,15 @@ public class BoxDetailController {
 				.orElseThrow(() -> new IllegalArgumentException("해당 박스를 찾을 수 없습니다. ID=" + boxid));
 
 		// 로그인 구현 전 멤버에 임시 멤버 담아서 구현해봄
-		Member member = memberService.getMemberByNickname("희원굿").get();
+		Member member = memberService.getMemberByNickname("민경").get();
 		
 		// 해당 박스에 속한 캡슐 리스트
 		List<Capsule> capsules = capsuleService.getCapsulesByBox(box);
-
+		
+		// 해당 박스에 참여한 사람들의 리스트
 		List<MemberBox> memberBoxList = memberBoxService.getMembersByBoxSorted(box);
 		
-		// 로그인 한 유저가 참여한 상자의 정보를 담기위해서
+		// 로그인 한 유저가 참여한 상자의 방장인가 정보를 담기위해서
 		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
 		
 		// 모델에 담아서 뷰로 전달
