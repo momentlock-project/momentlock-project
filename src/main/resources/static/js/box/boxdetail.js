@@ -1,6 +1,37 @@
 // DOM 로드 완료 후 실행
 document.addEventListener('DOMContentLoaded', function() {
 
+	// URL 파라미터 확인 초대하기 보냈을때 성공/에러 메세지를 담아 리다이렉트 왔을때 처리
+	const urlParams = new URLSearchParams(window.location.search);
+
+	if (urlParams.has('error')) {
+		const error = urlParams.get('error');
+		let message = '';
+
+		switch (error) {
+			case 'nomember':
+				message = '존재하지 않는 회원입니다.';
+				break;
+			case 'self':
+				message = '자기 자신을 초대할 수 없습니다.';
+				break;
+			case 'failed':
+				message = '초대에 실패했습니다.';
+				break;
+		}
+
+		if (message) {
+			alert(message);
+		}
+	}
+
+	if (urlParams.has('success')) {
+		const success = urlParams.get('success');
+		if (success === 'invited') {
+			alert('초대를 성공적으로 보냈습니다!');
+		}
+	}
+
 	// 모든 dropdown-toggle 버튼 가져오기
 	const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
@@ -41,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const insertCapsule = document.getElementById('insert-capsule')
+// boxid 가져오기
 const boxId = document.getElementById('boxId').value;
 const boxJoinMemberBtn = document.getElementById('join-member-btn');
 const boxJoinMemberModal = document.getElementById('memberCountModal');
