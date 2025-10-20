@@ -36,6 +36,7 @@ function fetchToBoardDetailInfomodal(classname, url){
 					document.querySelector(".modal-content").innerHTML = data.inqcontent;
 					document.querySelector(".modal-id").innerHTML = data.inqid;
 					document.querySelector(".modal-complete").innerHTML = data.inqcomplete;
+					document.querySelector(".modal-answer").innerHTML = data.inqanswer;
 				} else if(data.title != null){
 					document.querySelector(".modal-title").innerHTML = data.title;
 					document.querySelector(".modal-content").innerHTML = data.content;
@@ -45,8 +46,23 @@ function fetchToBoardDetailInfomodal(classname, url){
 					document.querySelector(".modal-id").innerHTML = data.decid;
 				}
 				
-				if(data.inqcomplete == 'QNAY'){
-					inquiryBtn.style.display = 'none';
+				// 관리자 문의사항 모달창에서 답변완료일 경우 답변하기 버튼 none으로 변경
+				let inquiryBtn = document.querySelector(".member-btn.inquiry");
+				if(inquiryBtn != null){
+					if(data.inqcomplete == 'QNAY'){
+						inquiryBtn.style.display = 'none';
+					}
+				}
+				
+				// 멤버 문의사항 모달창에서 문의답변이 있는 경우에만 아래 답변 나옴
+				// 답변없으면 none으로 변경
+				let answer = document.querySelector(".modal-answer");
+				if(answer != null){
+					if(answer.textContent != ''){
+						answer.style.display = 'block';					
+					} else{
+						answer.style.display = 'none';
+					}
 				}
 				
 				if(modal && overlay){
@@ -70,8 +86,13 @@ function fetchToBoardDetailInfomodal(classname, url){
 				// 답변하기 버튼 display block으로 변경
 				modal.style.display = "none";
 				overlay.style.display = 'none';
-				document.querySelector(".member-btn.inquiry").style.display = 'block';
-				document.querySelector("#inquiryForm").style.display = "none";
+				
+				// 답변하기
+				let inquiryBtn = document.querySelector(".member-btn.inquiry");
+				if(inquiryBtn != null){
+					document.querySelector(".member-btn.inquiry").style.display = 'block';
+					document.querySelector("#inquiryForm").style.display = "none";
+				}
 			}
 		})
 	}

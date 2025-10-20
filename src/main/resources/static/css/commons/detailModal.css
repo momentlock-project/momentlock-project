@@ -167,7 +167,8 @@
 }
 
 /* 답변하기 폼 */
-.inquiry-content {
+.inquiry-content,
+.modal-answer {
 	width: 40vw;
 	min-width: 30vw;
 	min-height: 30vh;
@@ -179,4 +180,5 @@
 	transition: all 0.3s ease;
 	font-size: 15px;
 	color: whitesmoke;
+	padding: 7px;
 }

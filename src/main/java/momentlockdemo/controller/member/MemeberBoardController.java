@@ -51,6 +51,8 @@ public class MemeberBoardController {
 					data.put("inqcontent", inquiry.getInqcontent());
 					data.put("inqregdate", inquiry.getInqregdate());				
 					data.put("inqcomplete", inquiry.getInqcomplete());				
+					data.put("inqid", inqid);
+					data.put("inqanswer", inquiry.getInqanswer());
 					return ResponseEntity.ok(data);
 				}).orElse(ResponseEntity.notFound().build());
 	}
