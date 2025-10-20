@@ -53,10 +53,13 @@
 						<div class="col regdate" th:text="${inquiry.inqregdate}">2025/10/4</div>
 						<div class="col complete" th:text="${inquiry.inqcomplete}">QNAN</div>
 					</div>
+					<div class="row inquiry" th:if="${inquirylist.empty}">
+						<div class="col">표시할 문의사항이 없습니다.</div>
+					</div>
 				</div>
 				
 				<!-- 페이지네이션 -->
-				<div th:if="${inquirylist != null}" id="pagination-container">
+				<div th:if="${not inquirylist.empty}" id="pagination-container">
 					<ul class="pagination">
 						
 						<!-- 이전 -->
