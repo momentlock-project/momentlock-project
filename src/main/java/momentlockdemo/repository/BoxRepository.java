@@ -31,8 +31,9 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 //	좋아요 내림차 순으로 한꺼번에 가져오는 select문입니다. 
 	@Query("SELECT b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
 			+ "b.latitude, b.longitude, b.boxlocation, b.boxname, SUM(c.caplikecount) "
-			+ "FROM Capsule c JOIN c.box b WHERE b.boxburycode = 'BBN' AND b.boxdelcode = 'BDN' "
+			+ "FROM Capsule c JOIN c.box b WHERE b.boxdelcode = 'BDN' "
 			+ "AND b.boxreleasecode = 'B00' AND b.boxcapcount >= 1 "
+			+ "AND b.boxopendate <= SYSDATE "
 			+ "GROUP BY b.boxid, b.boxcapcount, b.boxmemcount, b.boxopendate, b.boxregdate, "
 			+ "b.latitude, b.longitude, b.boxlocation, b.boxname ORDER BY SUM(c.caplikecount) DESC")
 	Page<BoxLikeCountDto> getPopularBoxPage(Pageable pageable);
