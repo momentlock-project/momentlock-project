@@ -42,7 +42,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					   <tr th:each="capsule, stat : ${capsulePage.content}">
+					   <tr th:each="capsule, stat : ${capsulePage.content}" class="capsule-row" th:data-capid="${capsule.capid}">
 						  <td th:text="${capsulePage.totalElements - (capsulePage.number * capsulePage.size) - stat.index}">10</td>
 						  <td th:text="${capsule.captitle}">캡슐제목</td>
 						  <td th:text="${capsule.member.nickname}">닉네임</td>
@@ -92,6 +92,20 @@
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+		    const rows = document.querySelectorAll('.capsule-row');
+
+		    rows.forEach(row => {
+		        row.addEventListener('click', function() {
+		            const capid = this.dataset.capid;
+		            if (capid) {
+		                window.location.href = `/momentlock/opencapsuledetail/${capid}`;
+		            }
+		        });
+		    });
+		});
+	</script>
 	<body>
 
 </html>
