@@ -52,6 +52,9 @@
 							<div class="col title" th:text="${notice.title}">공지사항 제목</div>
 							<div class="col regdate" th:text="${notice.regDate}">2025/10/4</div>
 						</div>
+						<div class="row notice" th:if="${noticelist.empty}">
+							<div class="col">표시할 공지사항이 없습니다.</div>
+						</div>
 						
 					</div>
 				</div>
@@ -91,7 +94,7 @@
 				<div class="modal-title-date-box">
 					<p class="modal-title"></p>
 				</div>
-				<p class="modal-content"></p>
+				<textarea class="modal-content" disabled></textarea>
 			 </div>
 	 	</div>
 	</div>

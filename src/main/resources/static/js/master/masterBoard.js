@@ -5,3 +5,15 @@
 fetchToBoardDetailInfomodal('.row.inquiry', '/momentlock/masterinquirylist/');
 fetchToBoardDetailInfomodal('.row.notice', '/momentlock/masternoticelist/');
 fetchToBoardDetailInfomodal('.row.declar', '/momentlock/masterdeclarlist/');
+
+/*
+	문의사항 게시판 모달창 클릭 후 답변하기 js
+*/
+let inquiryBtn = document.querySelector(".member-btn.inquiry");
+if(inquiryBtn != null){
+	inquiryBtn.addEventListener("click", () => {
+		inquiryBtn.style.display = 'none';
+		document.querySelector("#inquiryForm").style.display = "block";
+		document.querySelector("#inqid").value = document.querySelector(".modal-id").textContent;
+	})
+}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import momentlockdemo.dto.MemberDto;
 import momentlockdemo.entity.Member;
@@ -30,7 +31,8 @@ public class MemeberJoinController {
 	@PostMapping("/join")
 	public String memberjoin(
 		@ModelAttribute("memberDto") MemberDto memberDto,
-		Model model) {
+		Model model,
+		RedirectAttributes ra) {
 		
 		try {
 			
@@ -40,13 +42,13 @@ public class MemeberJoinController {
 				.password(memberDto.getPassword())
 				.nickname(memberDto.getNickname())
 				.phonenumber(memberDto.getPhonenumber())
-//				.role("ROLE_ADMIN")
 				.build();
 			
 			memberService.createMember(member);
+			ra.addFlashAttribute("resultMsg", "회원가입이 완료되었습니다.");
 			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
 			
-			return "html/main";
+			return "redirect:/momentlock/";
 			
 		} catch(RuntimeException re) {
 			model.addAttribute("resultMsg", re.getMessage());
