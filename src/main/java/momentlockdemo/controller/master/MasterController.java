@@ -253,13 +253,16 @@ public class MasterController {
 		return "html/master/boxmanagement";
 	}
 	// 상자삭제
-	@PostMapping("/boxes/delete/{boxid}")
-	public String deleteBoxM(@PathVariable("boxid") Long boxid, RedirectAttributes redirectAttributes) {
+	@PostMapping("/box/updateToBDY")
+	public String deleteBoxM(@RequestParam("boxid")Long boxid, RedirectAttributes rttr ) {
 		try {
-			boxService.deleteBox(boxid);
-			redirectAttributes.addFlashAttribute("message", "상자가 삭제되었습니다.");
+			boxService.updateBoxToBDY(boxid);
+			
+			rttr.addFlashAttribute("message", boxid + "상자가 '삭제 요청(BDY)'으로 변경되었습니다.");
+		} catch (IllegalArgumentException e) {
+			rttr.addFlashAttribute("error", e.getMessage());
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "삭제 실패:" + e.getMessage());
+			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생하였습니다.");
 		}
 		return "redirect:/momentlock/boxmanagement";
 	}
@@ -281,7 +284,7 @@ public class MasterController {
 		try {
 			capsuleService.updateCapsuleToTDY(capid);
 			
-			rttr.addFlashAttribute("message", capid + "상자가 '삭제 요청(TDY)'으로 변경되었습니다.");
+			rttr.addFlashAttribute("message", capid + "캡슐이 '삭제 요청(TDY)'으로 변경되었습니다.");
 		} catch (IllegalArgumentException e) {
 			rttr.addFlashAttribute("error", e.getMessage());
 		} catch (Exception e) {

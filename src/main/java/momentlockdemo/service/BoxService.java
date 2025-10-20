@@ -41,5 +41,7 @@ public interface BoxService {
 	public abstract Page<Box> getOpenSoonBoxPage(Pageable pageable);
 	
 	public abstract Page<Box> getAllBoxPage(Pageable pageable);
+	
+	public abstract void updateBoxToBDY(Long boxid);
 
 }
