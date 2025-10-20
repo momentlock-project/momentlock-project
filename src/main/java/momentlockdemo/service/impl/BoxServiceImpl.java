@@ -103,6 +103,7 @@ public class BoxServiceImpl implements BoxService {
 	}
 	
 	@Override
+	@Transactional
 	public void updateBoxToBDY(Long boxid) {
 		Box box = boxRepository.findById(boxid)
 		.orElseThrow(() -> new IllegalArgumentException("박스를 찾을 수 없습니다. boxid:" + boxid));
