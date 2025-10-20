@@ -19,69 +19,46 @@ import momentlockdemo.service.MemberService;
 @RequestMapping("/momentlock")
 public class BoxInsertController {
 
-   @Autowired
-   private MemberBoxService memberBoxService;
+	@Autowired
+	private MemberBoxService memberBoxService;
 
-   @Autowired
-   private MemberService memberService;
+	@Autowired
+	private MemberService memberService;
 
-   // 상자 추가 폼
-   @GetMapping("/boxinsert")
-   public String boxinsertPage() {
-      return "html/box/boxinsert";
-   }
+	// 상자 추가 폼
+	@GetMapping("/boxinsert")
+	public String boxinsertPage() {
+		return "html/box/boxinsert";
+	}
 
-   @GetMapping("/member")
-   public String memberCreate() {
+	@PostMapping("/boxadd")
+	public String addBox(
+			@RequestParam String boxName,
+			@RequestParam Long memberCount,
+			@RequestParam(required = false) Boolean isPublic,
+			@RequestParam String openDate,
+			@RequestParam String boxlocation,
+			@RequestParam String latitude,
+			@RequestParam String longitude,
+			RedirectAttributes redirectAttributes) {
 
-      Member member = Member.builder()
-            .username("gmldnjs1616@gmail.com")
-            .name("이희원")
-            .password("1234")
-            .nickname("희원굿")
-            .phonenumber("01044487754")
-            .memcapcount(10L)
-            .build();
+		// 날짜 검증 (오늘 포함 이전 날짜 방지)
+		LocalDate openLocalDate = LocalDate.parse(openDate);
+		if (openLocalDate.isBefore(LocalDate.now().plusDays(1))) {
+			redirectAttributes.addFlashAttribute("error", "오픈 날짜는 내일 이후여야 합니다.");
+			return "redirect:/momentlock/boxinsert";
+		}
 
-      memberService.createMember(member);
+		// LocalDateTime 변환
+		LocalDateTime openDateTime = openLocalDate.atStartOfDay();
 
-      return "html/main";
-   }
+		String boxreleasecode = isPublic ? "B00" : "B01";
 
-   @PostMapping("/boxadd")
-   public String addBox(@RequestParam String boxName,
-                        @RequestParam Long memberCount,
-                        @RequestParam(required = false) Boolean isPublic,
-                        @RequestParam String openDate,
-                        @RequestParam String boxlocation,
-                        @RequestParam String latitude,
-                        @RequestParam String longitude,
-                        RedirectAttributes redirectAttributes) {
+		Box box = Box.builder().boxname(boxName).boxlocation(boxlocation).latitude(latitude).longitude(longitude)
+				.boxopendate(openDateTime).boxreleasecode(boxreleasecode).boxmemcount(memberCount).build();
 
-      // 날짜 검증 (오늘 포함 이전 날짜 방지)
-      LocalDate openLocalDate = LocalDate.parse(openDate);
-      if (openLocalDate.isBefore(LocalDate.now().plusDays(1))) {
-         redirectAttributes.addFlashAttribute("error", "오픈 날짜는 내일 이후여야 합니다.");
-         return "redirect:/momentlock/boxinsert";
-      }
+		memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("민경").get());
 
-      // LocalDateTime 변환
-      LocalDateTime openDateTime = openLocalDate.atStartOfDay();
-
-      String boxreleasecode = isPublic ? "B00" : "B01";
-
-      Box box = Box.builder()
-                   .boxname(boxName)
-                   .boxlocation(boxlocation)
-                   .latitude(latitude)
-                   .longitude(longitude)
-                   .boxopendate(openDateTime)
-                   .boxreleasecode(boxreleasecode)
-                   .boxmemcount(memberCount)
-                   .build();
-
-      memberBoxService.createBoxWithMember(box, memberService.getMemberByNickname("민경").get());
-
-      return "redirect:/momentlock/myboxlist";
-   }
+		return "redirect:/momentlock/myboxlist";
+	}
 }
