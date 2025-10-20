@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>LOGIN</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons.css}" />
+</head>
+
+<body>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer" class="blurContainer">
+		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div id="loginModal" class="loginModal-overlay">
+			<div class="fail-login" th:if="${param.error}" style="color:red;">
+  				Invalid username or password
+			</div>
+			<div class="login-content">
+			<form action="/loginProc" method="post" name="loginForm">
+        		<input id="username" type="text" name="username" placeholder="id"/>
+        		<input id="password" type="password" name="password" placeholder="password"/>
+        		<p class="button-container">
+	    		<a th:href="@{/momentlock/memberjoin}">join</a>
+        		<input id="loginBtn" type="submit" value="login"/>
+        		</p>
+    		</form>
+    		<p>
+    		<a th:href="@{/user/idFind}">forgot ID</a>
+    		</p>
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script th:src="@{/js/main.js}" defer></script>
+	<script th:src="@{/js/nav.js}" defer></script>
+</body>
+
+</html>

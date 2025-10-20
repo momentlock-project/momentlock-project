@@ -1,0 +1,210 @@
+/* 캡슐 작성, 수정에 사용할 모달 */
+.modal {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 720px;
+	max-width: 900px;
+	height: auto;
+	min-height: 700px;
+	max-height: 100vh;
+	background: rgba(199, 125, 65, 0.8);
+	border: 2px solid rgba(199, 125, 65, 0.8);
+	border-radius: 4px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	/* 내부 입력창들 세로 배치 */
+	gap: 15px;
+	/* 요소 간격 */
+	position: absolute;
+	/* #mainContainer 기준으로 겹치게 */
+	top: 120px;
+	/* navbar 밑에서 조금 내려오게 */
+	left: 50%;
+	/* 가로 가운데 */
+	transform: translateX(-50%);
+	z-index: 10;
+	overflow-y: auto;
+	/* 세로 스크롤 자동 생성 */
+	overflow-x: hidden;
+	/* 가로 스크롤은 숨김 */
+}
+
+.modal_2 {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 780px;
+	max-width: 1080px;
+	height: auto;
+	min-height: 100vh;
+	background: rgba(199, 125, 65, 0.8);
+	border: 2px solid rgba(199, 125, 65, 0.8);
+	border-radius: 4px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	/* 내부 입력창들 세로 배치 */
+	gap: 15px;
+	/* 요소 간격 */
+	position: absolute;
+	/* #mainContainer 기준으로 겹치게 */
+	top: 120px;
+	/* navbar 밑에서 조금 내려오게 */
+	left: 50%;
+	/* 가로 가운데 */
+	transform: translateX(-50%);
+	z-index: 10;
+}
+
+.modal_3 {
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 50vw;
+  height: auto;
+  min-height: 90vh;
+  margin-top: 27px;
+  background: rgba(199, 125, 65, 0.8);
+  border: 2px solid rgba(199, 125, 65, 0.8);
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  padding: 30px;
+  display: flex;
+  flex-direction: column; /* 내부 입력창들 세로 배치 */
+  gap: 15px; /* 요소 간격 */
+  position: absolute;   /* #mainContainer 기준으로 겹치게 */
+  top: 20px;           /* navbar 밑에서 조금 내려오게 */
+  left: 50%;            /* 가로 가운데 */
+  transform: translateX(-50%);
+  z-index: 10;   
+}
+
+
+.modal_3 > h1 {
+	color: white;
+}
+
+/* 박스상세로 들어가면 캡슐들이 보여질 화면 */
+.my_boxdetail_list {
+  width: 80%;
+  min-height: 100vh;
+  background-color: #dcbaba;
+  border-radius: 8px;
+  margin: 30px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 30px;
+  position: relative;
+}
+
+/* 제목 영역 */
+.list-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.list-header h3 {
+  font-size: 18px;
+  color: #ffffff;   
+  margin: 0;
+}
+.list-header h1 {
+  font-size: 32px;
+  margin: 8px 0;
+  font-weight: bold;
+  color: #ffffff;   
+}
+
+/* 참여 인원 + 액션 버튼 한 줄 */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* 참여 인원 */
+.participants {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.participants span {
+  font-size: 25px;
+  color: #ffffff;
+}
+
+/* 우측 버튼 */
+.action-div {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* 준비하기 버튼 */
+.footer-div {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+
+
+
+
+/* 회원 로그인, 아이디찾기, 비밀번호 재설정 공통 모달 */
+.member-modal {
+	width: 50vw;
+	height: 80vh;
+	background-color: rgba(188, 138, 89, 0.7);
+	margin: 20px auto;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 나의 박스 리스트, 박스 추가 공통 모달 */
+.box-modal {
+	width: 50vw;
+	height: 100vh;
+	background-color: rgba(188, 138, 89, 0.7);
+	margin: 20px auto;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	position: relative;
+}
+
+/* 창닫기 */
+.box-modal > a {
+	position: absolute;
+	top: 5%;
+	right: 5%
+}
+
+.box-modal > a > img {
+	width: 30px;
+	height: 30px;
+}
+
+/* === 반응형 추가: 기본 modal 전용 === */
+@media (max-width: 1024px) {
+  .modal {
+    width: 70vw;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 85vw;
+    padding: 20px;
+  }
+
+  .modal > h2 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 90vw;
+    padding: 15px;
+  }
+
+  .modal > h2 {
+    font-size: 16px;
+  }
+}

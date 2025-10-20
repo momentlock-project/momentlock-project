@@ -40,10 +40,12 @@ public class MemeberJoinController {
 				.password(memberDto.getPassword())
 				.nickname(memberDto.getNickname())
 				.phonenumber(memberDto.getPhonenumber())
+//				.role("ROLE_ADMIN")
 				.build();
 			
 			memberService.createMember(member);
 			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
+			
 			return "html/main";
 			
 		} catch(RuntimeException re) {
