@@ -51,6 +51,7 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 		    + " AND BOXDELCODE='BDN'"
 		    + " AND BOXRELEASECODE='B00'"
 		    + " AND BOXCAPCOUNT > 0"
+		    + "	AND BOXOPENDATE >= SYSDATE"
 		    + " ORDER BY BOXOPENDATE ASC"
 			, nativeQuery=true)
 	Page<Box> getOpenSoonBoxPage(Pageable pageable);
