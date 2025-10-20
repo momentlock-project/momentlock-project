@@ -2,6 +2,9 @@ package momentlockdemo.controller.capsule;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +30,7 @@ public class BoxDetailController {
 	private final CapsuleService capsuleService;
 	private final MemberService memberService;
 	private final MemberBoxService memberBoxService;
-	
-	
+
 	// 박스 상세 + 캡슐 리스트 + 참여 인원 수
 	@GetMapping("/boxdetail")
 	public String boxdetailPage(@RequestParam("boxid") Long boxid, Model model) {
@@ -36,67 +38,63 @@ public class BoxDetailController {
 		// 박스 조회
 		Box box = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new IllegalArgumentException("해당 박스를 찾을 수 없습니다. ID=" + boxid));
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		// 로그인 구현
+		Member member = memberService.getMemberByUsername(username).get();
 
-		// 로그인 구현 전 멤버에 임시 멤버 담아서 구현해봄
-		Member member = memberService.getMemberByNickname("민경").get();
-		
 		// 해당 박스에 속한 캡슐 리스트
 		List<Capsule> capsules = capsuleService.getCapsulesByBox(box);
-		
+
 		// 해당 박스에 참여한 사람들의 리스트
 		List<MemberBox> memberBoxList = memberBoxService.getMembersByBoxSorted(box);
-		
+
 		// 로그인 한 유저가 참여한 상자의 방장인가 정보를 담기위해서
 		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
-		
+
 		// 모델에 담아서 뷰로 전달
 		model.addAttribute("box", box);
 		model.addAttribute("capsules", capsules);
 		model.addAttribute("member", member);
 		model.addAttribute("memberBoxList", memberBoxList);
 		model.addAttribute("memberBoxOne", memberBox);
-		
+
 		return "html/box/boxdetail";
 	}
-	
+
 	// 박스 묻기 준비 완료 처리 로직
 	@GetMapping("/boxready")
-	public String boxready(@RequestParam("boxid") Long boxid, @RequestParam("member") String username
-			, Model model) {
+	public String boxready(@RequestParam("boxid") Long boxid, Model model) {
 
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		// 로그인 구현
 		Member member = memberService.getMemberByUsername(username).get();
+		
 		Box box = boxService.getBoxById(boxid).get();
 		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
-		
+
 		String readyCode = memberBox.getReadycode().equals("MRN") ? "MRY" : "MRN";
-		
+
 		memberBox.setReadycode(readyCode);
-		
+
 		memberBoxService.updateMemberBox(memberBox);
-		
-		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
+
+		return "redirect:/momentlock/boxdetail?boxid=" + boxid;
 	}
-	
+
 	// 강퇴시키는 코드
 	@GetMapping("/kickmember")
-	public String kickmember(@RequestParam("boxid") Long boxid, @RequestParam("member") String username
-			, Model model) {
+	public String kickmember(@RequestParam("boxid") Long boxid, @RequestParam("member") String kickusername, Model model) {
 
-		Member member = memberService.getMemberByUsername(username).get();
+		// 강퇴당할 멤버 데이터 가져오기
+		Member member = memberService.getMemberByUsername(kickusername).get();
+		
 		Box box = boxService.getBoxById(boxid).get();
 		MemberBox memberBox = memberBoxService.getMemberBox(member, box).get();
-		
+
 		memberBoxService.deleteMemberBox(memberBox.getId());
-		
-		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
+
+		return "redirect:/momentlock/boxdetail?boxid=" + boxid;
 	}
 
-	
 }
-
-
-
-
-
-
-

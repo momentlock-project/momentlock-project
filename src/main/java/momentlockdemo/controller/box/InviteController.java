@@ -13,6 +13,9 @@ import momentlockdemo.service.MemberService;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -111,13 +114,13 @@ public class InviteController {
 	}
 
 	@GetMapping("/invitemember")
-	public String sendInvite(@RequestParam("member") String inviterUsername,
+	public String sendInvite(
 			@RequestParam("nickname") String inviteeNickname, @RequestParam("boxid") Long boxid) {
 
 		try {
-			// 초대하는 사람 조회
-			Member inviter = memberService.getMemberByUsername(inviterUsername)
-					.orElseThrow(() -> new IllegalArgumentException("초대하는 회원을 찾을 수 없습니다."));
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			// 초대하는 사람 조회 ( 로그인 한 사람으로 )
+			Member inviter = memberService.getMemberByUsername(username).get();
 
 			// 초대받는 사람 조회
 			Optional<Member> inviteeOptional = memberService.getMemberByNickname(inviteeNickname);

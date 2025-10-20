@@ -36,8 +36,8 @@
 						<div class="box_card" th:each="box : ${myBoxes}">
 							<button class="menu-btn">⋮</button>
 							<div class="dropdown">
-								<a th:href="@{'/momentlock/boxedit/' + ${box.boxid}}">수정</a>
-								<a th:href="@{'/momentlock/boxdelete/' + ${box.boxid}}">삭제</a>
+								<a th:href="@{/momentlock/boxinsert(boxid=${box.boxid})}">수정</a>
+								<a th:href="@{/momentlock/boxdelete/{id}(id=${box.boxid})}">삭제</a>
 								<a href="#">상자 보내기</a>
 								<input type="hidden" class="boxid" th:value="${box.boxid}">
 							</div>
@@ -46,7 +46,6 @@
 							<h3 class="box-open-date" th:attr="data-opendate=${box.boxopendate}">
 								00일 00시 00분 00초
 							</h3>
-
 						</div>
 						<!-- 반복 끝 -->
 					</div>

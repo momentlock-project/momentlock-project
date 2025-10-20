@@ -85,7 +85,6 @@ public class Box implements Serializable {
 	@PrePersist
 	protected void boxCreate() {
 		this.boxregdate = LocalDateTime.now();
-		this.boxinvitecode = "www.localhost:8888/invite?boxid=" + this.boxid;
 		this.boxburycode = "BBN";
 		this.boxdelcode = "BDN";
 		this.boxcapcount = 0L;
