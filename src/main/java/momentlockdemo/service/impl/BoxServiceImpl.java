@@ -1,9 +1,6 @@
 package momentlockdemo.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import momentlockdemo.dto.BoxLikeCountDto;
 import momentlockdemo.entity.Box;
+import momentlockdemo.entity.Capsule;
 import momentlockdemo.repository.BoxRepository;
 import momentlockdemo.service.BoxService;
 
@@ -102,6 +100,15 @@ public class BoxServiceImpl implements BoxService {
 	@Override
 	public Page<Box> getAllBoxPage(Pageable pageable) {
 		return boxRepository.findAll(pageable);
+	}
+	
+	@Override
+	@Transactional
+	public void updateBoxToBDY(Long boxid) {
+		Box box = boxRepository.findById(boxid)
+		.orElseThrow(() -> new IllegalArgumentException("박스를 찾을 수 없습니다. boxid:" + boxid));
+		
+		box.setBoxdelcode("BDY");
 	}
 
 }

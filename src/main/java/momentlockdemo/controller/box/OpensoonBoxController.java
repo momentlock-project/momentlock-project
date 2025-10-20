@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Pageable;
-
-
+import momentlockdemo.controller.capsule.BoxDetailController;
 import momentlockdemo.entity.Box;
 import momentlockdemo.service.BoxService;
 
@@ -29,12 +28,11 @@ public class OpensoonBoxController {
 		
 		Pageable pageable = PageRequest.of(currPage, size);
 		Page<Box> pagedBox = boxService.getOpenSoonBoxPage(pageable);
-
+		
 		model.addAttribute("opensoonboxlist", pagedBox.getContent());
 		model.addAttribute("page", pagedBox);
 
 		return "html/box/opensoonbox";
 	}
-	
 
 }

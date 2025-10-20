@@ -11,6 +11,7 @@ import momentlockdemo.service.MemberBoxService;
 import momentlockdemo.service.MemberService;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,17 +63,28 @@ public class InviteController {
 		// 초대 수락 처리
 		Member invitee = memberService.getMemberByUsername(invite.getInviteeUserId())
 				.orElseThrow(() -> new IllegalStateException("초대받은 회원 정보를 찾을 수 없습니다."));
+
 		Box box = boxService.getBoxById(invite.getBoxId())
 				.orElseThrow(() -> new IllegalStateException("박스 정보를 찾을 수 없습니다."));
 
-		memberBoxService.joinBoxWithMember(box, invitee);
+		// 해방 박스에 참여한 인원 수
+		Long memberBoxListSize = Long.valueOf(memberBoxService.getMembersByBox(box).size());
+		Long boxMemberCount = box.getBoxmemcount();
 
-		// 토큰 상태 업데이트 (1회용)
-		invite.setUsedYn("Y");
-		invite.setUsedAt(LocalDateTime.now());
-		tokenRepo.save(invite);
+		if (boxMemberCount > memberBoxListSize) {
+			memberBoxService.joinBoxWithMember(box, invitee);
 
-		return "redirect:/momentlock";
+			// 토큰 상태 업데이트 (1회용)
+			invite.setUsedYn("Y");
+			invite.setUsedAt(LocalDateTime.now());
+			tokenRepo.save(invite);
+			
+			return "redirect:/momentlock?success=invited";
+			
+		} else {
+			return "redirect:/momentlock?error=boxmemcountfull";
+		}
+
 	}
 
 	@PostMapping("/invite/reject")
@@ -100,16 +112,35 @@ public class InviteController {
 
 	@GetMapping("/invitemember")
 	public String sendInvite(@RequestParam("member") String inviterUsername,
-			@RequestParam("nickname") String inviteeNickname, @RequestParam("boxid") Long boxid, Model model) {
-		
-		Member member = memberService.getMemberByUsername(inviterUsername).get();
+			@RequestParam("nickname") String inviteeNickname, @RequestParam("boxid") Long boxid) {
+
 		try {
-			invitationService.sendInvitation(member.getNickname(), inviteeNickname, boxid);
-			model.addAttribute("message", "초대 메일을 성공적으로 전송했습니다!");
+			// 초대하는 사람 조회
+			Member inviter = memberService.getMemberByUsername(inviterUsername)
+					.orElseThrow(() -> new IllegalArgumentException("초대하는 회원을 찾을 수 없습니다."));
+
+			// 초대받는 사람 조회
+			Optional<Member> inviteeOptional = memberService.getMemberByNickname(inviteeNickname);
+
+			// 멤버가 없으면 에러와 함께 리다이렉트
+			if (inviteeOptional.isEmpty()) {
+				return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&error=nomember";
+			}
+
+			// 추가 검증: 자기 자신을 초대하는지 확인
+			if (inviter.getNickname().equals(inviteeNickname)) {
+				return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&error=self";
+			}
+
+			// 멤버가 있을 때만 초대 로직 실행
+			invitationService.sendInvitation(inviter.getNickname(), inviteeNickname, boxid);
+
+			return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&success=invited";
+
+			// 초대받는 멤버 이메일이 적절치 않아 초대 발송 에러가 발생하면 failed를 담아서 redirect
 		} catch (Exception e) {
-			model.addAttribute("message", "초대 메일 전송 실패: " + e.getMessage());
+			return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&error=failed";
 		}
-		return "redirect:/momentlock/boxdetail?boxid="+ boxid;
 	}
 
 }

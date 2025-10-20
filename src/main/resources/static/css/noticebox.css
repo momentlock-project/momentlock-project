@@ -1,4 +1,3 @@
-
 /* 모달창 제목 */
 .modal_3 h1 {
     color: #5A4A3A;
@@ -29,6 +28,13 @@
     background-color: #C8B4A0;
     box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px; /* 행 전체에 둥근 모서리 적용 */
+    cursor: pointer; /* 클릭 가능한 요소임을 나타내는 커서 */
+    transition: background-color 0.3s ease; /* 배경색 변경 시 부드러운 전환 효과 */
+}
+
+/* 테이블 본문(tbody)의 행(tr) 호버 스타일 */
+.box-table tbody tr:hover {
+    background-color: #B8A490; /* 마우스 오버 시 배경색 변경 */
 }
 
 /* 테이블 셀(td) 스타일 */

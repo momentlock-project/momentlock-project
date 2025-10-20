@@ -120,7 +120,7 @@ public class CapsuleInsertController {
 		Capsule existing = capsuleService.getCapsuleById(capsule.getCapid())
 				.orElseThrow(() -> new IllegalArgumentException("해당 캡슐을 찾을 수 없습니다."));
 
-		Member member = memberService.getMemberByUsername("gmldnjs1616@gmail.com")
+		Member member = memberService.getMemberByUsername("minkyong131@gmail.com")
 				.orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
 		existing.setMember(member);
 
