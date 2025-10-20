@@ -19,6 +19,7 @@ function fetchToBoardDetailInfomodal(classname, url){
 		
 		try {
 			row.addEventListener("click", async () => {
+				
 				const response = 
 					await fetch(url	+ row.children[0].textContent, {
 						method: "GET"
@@ -33,6 +34,8 @@ function fetchToBoardDetailInfomodal(classname, url){
 				if(data.inqtitle != null){
 					document.querySelector(".modal-title").innerHTML = data.inqtitle;
 					document.querySelector(".modal-content").innerHTML = data.inqcontent;
+					document.querySelector(".modal-id").innerHTML = data.inqid;
+					document.querySelector(".modal-complete").innerHTML = data.inqcomplete;
 				} else if(data.title != null){
 					document.querySelector(".modal-title").innerHTML = data.title;
 					document.querySelector(".modal-content").innerHTML = data.content;
@@ -40,6 +43,10 @@ function fetchToBoardDetailInfomodal(classname, url){
 					document.querySelector(".modal-title").innerHTML = data.deccategory;
 					document.querySelector(".modal-content").innerHTML = data.deccontent;
 					document.querySelector(".modal-id").innerHTML = data.decid;
+				}
+				
+				if(data.inqcomplete == 'QNAY'){
+					inquiryBtn.style.display = 'none';
 				}
 				
 				if(modal && overlay){
@@ -59,9 +66,12 @@ function fetchToBoardDetailInfomodal(classname, url){
 		// x버튼 클릭 시 모달창 닫기
 		closebtn.addEventListener("click", () => {
 			if(modal && overlay){
-				// 모달, 오버레이 display none으로 변경
+				// 모달, 오버레이, 답변하기 폼 display none으로 변경
+				// 답변하기 버튼 display block으로 변경
 				modal.style.display = "none";
 				overlay.style.display = 'none';
+				document.querySelector(".member-btn.inquiry").style.display = 'block';
+				document.querySelector("#inquiryForm").style.display = "none";
 			}
 		})
 	}
