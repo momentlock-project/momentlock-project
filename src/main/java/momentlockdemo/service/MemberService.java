@@ -11,7 +11,7 @@ import momentlockdemo.entity.Member;
 public interface MemberService {
 
 	// 기본 CRUD
-	public abstract Member createMember(Member member);
+	public abstract void createMember(Member member);
 
 	public abstract Optional<Member> getMemberByUsername(String username);
 

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>LOGIN</title>
+	<title>MOMENT LOCK</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons.css}" />
@@ -12,24 +12,22 @@
 
 <body>
 	<div th:replace="~{../fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer" class="blurContainer">
+	<div id="mainContainer">
 		<div th:replace="~{../fragments/nav :: nav}"></div>
-		<div id="loginModal" class="loginModal-overlay">
-			<div class="fail-login" th:if="${param.error}" style="color:red;">
-  				Invalid username or password
+		<div id="loginForm" class="loginModal-overlay">
+    		<div class="fail-find" th:if="${param.error}" style="color:red;">
+  				No user found
 			</div>
-			<div class="login-content">
-			<form action="/loginProc" method="post" name="loginForm">
-        		<input id="username" type="text" name="username" placeholder="id"/>
-        		<input id="password" type="password" name="password" placeholder="password"/>
+			<div class="forgotId-cotent">
+			<form action="/momentlock/idFindProc" method="post" name="idFindForm">
+        		<input id="name" type="text" name="name" placeholder="name"/>
+        		<input id="phonenumber" type="text" name="phonenumber" placeholder="phone number"/>
         		<p class="button-container">
-	    		<a th:href="@{/momentlock/memberjoin}">join</a>
-        		<input id="loginBtn" type="submit" value="login"/>
+	    		<a th:href="@{/login}">login</a>
+        		<a><input type="submit" value="find"/></a>
         		</p>
     		</form>
-    		<p>
-    		<a th:href="@{/momentlock/idFind}">forgot ID</a>
-    		</p>
+    		
 			</div>
 		</div>
 	</div>

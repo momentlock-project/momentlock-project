@@ -80,13 +80,13 @@ public class BoxTransmitController {
 
 	} // transmit
 
-	@GetMapping("/insertM")
-	public void insertMem() {
-		Member member = memberService
-				.createMember(Member.builder().username("kjm90110@naver.com").name("김주미").password("kim")
-						.nickname("kim").phonenumber("01099999999").memcapcount(null).memregdate(LocalDateTime.now())
-						.memcode(null).memdeldate(null).memdeccount(null).subcode(null).subendday(null).payments(null)
-						.capsules(null).declarations(null).inquiries(null).memberBoxes(null).build());
-	}
+//	@GetMapping("/insertM")
+//	public void insertMem() {
+//		Member member = memberService
+//				.createMember(Member.builder().username("kjm90110@naver.com").name("김주미").password("kim")
+//						.nickname("kim").phonenumber("01099999999").memcapcount(null).memregdate(LocalDateTime.now())
+//						.memcode(null).memdeldate(null).memdeccount(null).subcode(null).subendday(null).payments(null)
+//						.capsules(null).declarations(null).inquiries(null).memberBoxes(null).build());
+//	}
 
 }
