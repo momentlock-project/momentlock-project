@@ -60,9 +60,9 @@ async function transmit(boxId, inputNickname) {
 
 	if (status != 200) {
 		console.log("status=> " + status);
-		location.href=`/error/${status}.html`;
+		location.href = `/error/${status}.html`;
 	}
-	
+
 
 	const userExists = await response.text();
 	console.log('유저 존재 여부=> ' + userExists);
@@ -143,8 +143,15 @@ document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
 	});
 });
 
+// 상자 이미지 클릭 이벤트
+document.querySelectorAll('.box_card .box').forEach(img => {
+	img.addEventListener('click', function() {
+		const boxCard = this.closest('.box_card');
+		const boxName = boxCard.querySelector('h2').textContent;
+		const boxId = boxCard.querySelector('.boxid').value;
 
-
-
-
-
+		if (confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)) {
+			location.href = `/momentlock/boxdetail?boxid=${boxId}`;
+		}
+	});
+});

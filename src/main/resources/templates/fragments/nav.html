@@ -13,9 +13,14 @@
 		</div>
 	</div>
 	<div class="nav-right">
-		<button class="modal-loginBtn" id="modalLoginBtn">
-			<span th:if="${user == null}" th:text="로그인" onclick="gotoLogin()"></span>
-			<span th:if="${user != null}" th:text="로그아웃" onclick="logout()"></span>
+		<!-- 로그인 안 된 경우 -->
+		<button th:if="${user == null}" class="modal-loginBtn" onclick="gotoLogin()">
+			로그인
+		</button>
+
+		<!-- 로그인 된 경우 -->
+		<button th:if="${user != null}" class="modal-loginBtn" onclick="logout()">
+			로그아웃
 		</button>
 	</div>
 </nav>

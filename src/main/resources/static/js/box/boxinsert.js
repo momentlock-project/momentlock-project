@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	const tomorrowStr = tomorrow.toISOString().split('T')[0];
 	dateInput.setAttribute('min', tomorrowStr);
-	
+
 	const calendarIcon = document.getElementById('calendarIcon');
 
 	// 아이콘 클릭 시 date input 열기
@@ -224,4 +224,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
+});
+
+// 폼 제출 시 확인 창
+document.getElementById('form-box').addEventListener('submit', function(e) {
+	e.preventDefault(); // 기본 제출 동작 막기
+
+	// 버튼 텍스트로 수정/추가 판단
+	const submitBtn = this.querySelector('.submit-btn');
+	const action = submitBtn.textContent.includes('수정') ? '수정' : '추가';
+
+	if (confirm(`상자를 ${action}하시겠습니까?`)) {
+		this.submit(); // 확인 누르면 폼 제출
+	}
 });
