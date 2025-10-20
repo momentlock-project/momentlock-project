@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -80,13 +82,12 @@ public class CapsuleInsertController {
 	 */
 	@PostMapping("/capsuleinsert")
 	public String capsuleinsert(@ModelAttribute("capsule") Capsule capsule, @RequestParam("boxid") Long boxid,
-			@RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
+			@RequestParam(value = "files", required = false) MultipartFile[] files, @AuthenticationPrincipal User user)
+			throws IOException {
 
 		// (선택) 로그인 사용자 연결
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Member member = memberService.getMemberByUsername(username)
-//                .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
-//        capsule.setMember(member);
+		Member member = memberService.getMemberByUsername(user.getUsername()).get();
+		capsule.setMember(member);
 
 		// 캡슐 썸네일 랜덤 색상 지정
 		int randomNum = (int) (Math.random() * 6) + 1; // 1~10
@@ -116,12 +117,13 @@ public class CapsuleInsertController {
 	public String updateCapsule(@ModelAttribute("capsule") Capsule capsule, @RequestParam("boxid") Long boxid,
 			@RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
 
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
 		// 기존 캡슐 조회
 		Capsule existing = capsuleService.getCapsuleById(capsule.getCapid())
 				.orElseThrow(() -> new IllegalArgumentException("해당 캡슐을 찾을 수 없습니다."));
 
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com")
-				.orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
+		Member member = memberService.getMemberByUsername(username).get();
 		existing.setMember(member);
 
 		Box box = boxService.getBoxById(boxid).orElseThrow(() -> new IllegalArgumentException("박스 정보를 찾을 수 없습니다."));
