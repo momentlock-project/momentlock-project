@@ -44,6 +44,9 @@ public class Member implements Serializable {
 
 	@Column(name = "PHONENUMBER", length = 20)
 	private String phonenumber;
+	
+	@Column(name = "ROLE", length = 10)
+	private String role;
 
 	@Column(name = "MEMCAPCOUNT")
 	private Long memcapcount;
@@ -69,8 +72,6 @@ public class Member implements Serializable {
 	@Column(name = "SUBENDDAY")
 	private LocalDateTime subendday;
 	
-	@Column(name = "ROLE")
-	private String role;
 	
 	@Column(name = "LASTLOGINDATE")
 	private LocalDateTime lastlogindate;

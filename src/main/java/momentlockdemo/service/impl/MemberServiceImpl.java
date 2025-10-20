@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
     
     @Override
     @Transactional
-    public Member createMember(Member member) {
+    public void createMember(Member member) {
     	
     	if(memberRepository.existsByUsername(member.getUsername())
     		|| memberRepository.existsByNickname(member.getNickname())) {
@@ -38,7 +38,8 @@ public class MemberServiceImpl implements MemberService {
     	
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         
-       return memberRepository.save(member);
+        memberRepository.save(member);
+        
     }
     
     @Override

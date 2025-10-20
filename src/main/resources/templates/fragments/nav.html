@@ -13,6 +13,9 @@
 		</div>
 	</div>
 	<div class="nav-right">
-		<button class="nav-btn">로그인</button>
+		<button class="modal-loginBtn" id="modalLoginBtn">
+			<span th:if="${user == null}" th:text="로그인" onclick="gotoLogin()"></span>
+			<span th:if="${user != null}" th:text="로그아웃" onclick="logout()"></span>
+		</button>
 	</div>
 </nav>

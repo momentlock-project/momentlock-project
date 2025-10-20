@@ -124,6 +124,7 @@ public class CapsuleServiceImpl implements CapsuleService {
 	}
 	
 	@Override
+	@Transactional
 	public void updateCapsuleToTDY(Long capid) {
 		Capsule capsule = capsuleRepository.findById(capid)
 		.orElseThrow(() -> new IllegalArgumentException("캡슐을 찾을 수 없습니다. capid:" + capid));

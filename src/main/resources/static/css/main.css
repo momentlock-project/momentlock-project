@@ -25,6 +25,44 @@ body {
   background-image: url("/img/backgroundimg_blur.png") !important;
 }
 
+.loginModal-overlay {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	justify-content: center;
+	position: relative;
+	margin: auto;
+	width: 300px;
+	height: 200px;
+	background-color: rgba(199, 125, 65, 0.8);
+	border: 2px solid rgba(199, 125, 65, 0.8);
+}
+
+.loginModal-overlay.active {
+	opacity: 1;
+ 	visibility: visible;
+}
+
+.login-content {
+	width: 261px;
+	height: 160px;
+	align-items: center;
+}
+
+#loginBtn {
+	cursor: pointer;
+}
+
+.button-container {
+	margin: 1rem 0;
+}
+
+.fail-login {
+	position: absolute;
+    top: 0;
+    margin-top: 15px;
+}
+
 /* Footer Styles */
 footer {
   background-color: #666666;
