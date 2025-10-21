@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,9 +58,16 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Member updateMember(Member member) {
     	
-//    	if(memberRepository.existsByNickname(member.getNickname())) {
-//    		throw new RuntimeException("이미 존재하는 닉네임입니다.");
-//    	}
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Member updateMember = memberRepository.findByUsername(username).get();
+    	
+    	// 다른 사용자들의 닉네임으로 수정 불가능
+    	// 닉네임 중복 안됨
+    	if(updateMember.getNickname() != member.getNickname()) {
+    		if(memberRepository.existsByNickname(member.getNickname())) {
+    			throw new RuntimeException("이미 존재하는 닉네임입니다.");
+    		}
+    	}
     	
     	member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepository.save(member);

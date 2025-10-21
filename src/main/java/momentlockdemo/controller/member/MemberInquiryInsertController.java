@@ -1,6 +1,7 @@
 package momentlockdemo.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +38,8 @@ public class MemberInquiryInsertController {
             RedirectAttributes redirectAttributes) {
         
         try {
-            // 임시: 로그인 구현 전이므로 DB에 저장된 username 사용
-            String username = "hong@hong.com";
+
+        	String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Member member = memberService.getMemberByUsername(username)
                     .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
             
