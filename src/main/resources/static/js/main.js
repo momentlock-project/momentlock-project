@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			location.href = "/momentlock/startCapsule";
 		});
 	}
+});
 
+document.addEventListener("DOMContentLoaded", () => {
 	// URL 파라미터 확인 초대하기 보냈을때 성공/에러 메세지를 담아 리다이렉트 왔을때 처리
 	const urlParams = new URLSearchParams(window.location.search);
 

@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("memberLoginController")
 public class MemberLoginController {
-
-	@GetMapping("/html/login")
-	public String login() {
+	
+	@GetMapping("/html/member/login")
+	public String loginP() {
+		
 		return "html/member/login";
-	}
-
+		
+	};
+	
 }
