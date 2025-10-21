@@ -191,10 +191,7 @@ function displayCapsules(cityName) {
 		// ⭐ 개봉된 캡슐만 클릭 이벤트 추가
 		if (box.isOpened) {
 			capsuleItem.addEventListener('click', () => {
-				const confirmed = confirm(`${box.title} 상자 상세페이지로 이동하시겠습니까?`);
-				if (confirmed) {
-					window.location.href = `/momentlock/opencapsulelist?boxid=${box.id}`;
-				}
+				window.location.href = `/momentlock/opencapsulelist?boxid=${box.id}`;
 			});
 		} else {
 			// ⭐ 미개봉 캡슐 클릭 시 안내 메시지

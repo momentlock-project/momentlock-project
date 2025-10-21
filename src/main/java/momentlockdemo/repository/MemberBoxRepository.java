@@ -22,26 +22,22 @@ public interface MemberBoxRepository extends JpaRepository<MemberBox, MemberBoxI
 	boolean existsByMemberAndBox(Member member, Box box);
 
 	Optional<MemberBox> findByMemberAndBox(Member member, Box box);
-	
+
 	Optional<MemberBox> getMemberBoxByBox(Box box);
 
 	List<MemberBox> findByReadycode(String readycode);
 
 	long countByBox(Box box);
 
+	// 특정 박스에서 특정 readycode를 가진 멤버 수 세기
+	long countByBoxAndReadycode(Box box, String readycode);
+
 	@Query("SELECT mb FROM MemberBox mb WHERE mb.box = :box AND mb.boxmatercode = :matercode")
 	List<MemberBox> findBoxManagers(@Param("box") Box box, @Param("matercode") String matercode);
 
-    // MCB를 먼저 정렬하는 쿼리
-    @Query("SELECT mb FROM MemberBox mb " +
-           "LEFT JOIN FETCH mb.member " +
-           "WHERE mb.box = :box " +
-           "ORDER BY CASE WHEN mb.boxmatercode = 'MCB' THEN 0 ELSE 1 END, mb.member.username")
-    List<MemberBox> findByBoxOrderByBoxmatercodeDesc(@Param("box") Box box);
-    
+	// MCB를 먼저 정렬하는 쿼리
+	@Query("SELECT mb FROM MemberBox mb " + "LEFT JOIN FETCH mb.member " + "WHERE mb.box = :box "
+			+ "ORDER BY CASE WHEN mb.boxmatercode = 'MCB' THEN 0 ELSE 1 END, mb.member.username")
+	List<MemberBox> findByBoxOrderByBoxmatercodeDesc(@Param("box") Box box);
+
 }
-
-
-
-
-
