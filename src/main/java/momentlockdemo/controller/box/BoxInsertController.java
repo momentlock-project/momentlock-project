@@ -69,6 +69,7 @@ public class BoxInsertController {
         return "redirect:/momentlock/myboxlist";
     }
 
+
     // 상자 수정
     @PostMapping("/boxupdate")
     public String updateBox(

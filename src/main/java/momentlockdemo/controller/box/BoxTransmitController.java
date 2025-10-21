@@ -3,6 +3,7 @@ package momentlockdemo.controller.box;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,28 +38,23 @@ public class BoxTransmitController {
 	@ResponseBody
 	public boolean transmit(@RequestParam Long boxid, @RequestParam String inputNickname, Model model) {
 
-		System.out.println("boxid= " + boxid + " nickname = " + inputNickname);
-
-//		입력한 닉네임이 존재하는지 여부
+//		입력한 수신자 닉네임이 존재하는지 여부
 		boolean exists = memberService.existsByNickname(inputNickname);
 		if (!exists)
 			return false;
 
-//		Security 없어서 임시로 멤버 가져옴
-		Member sender = memberService.getMemberByNickname("nickname3")
-				.orElseThrow(() -> new RuntimeException("송신자를 찾을 수 없음"));
+//		박스를 보내는 유저
+		Member sender = memberService.getMemberByUsername(
+				SecurityContextHolder.getContext().getAuthentication().getName()
+				).orElseThrow(() -> new RuntimeException("송신자를 찾을 수 없음"));
 
 //		보낼 박스
 		Box transmitedBox = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new RuntimeException("해당 박스를 찾을 수 없음! boxid=> " + boxid));
 
 		if (exists) { // 수신자 닉네임이 db에 존재할 때
-
-//			받는 사람
-			Member transmitedMember = memberService.getMemberByNickname(inputNickname).orElseThrow(
-						() -> new RuntimeException("수신자를 찾을 수 없음 nickname=> " + inputNickname)
-					);
-
+//			박스를 받는 유저
+			Member transmitedMember = memberService.getMemberByNickname(inputNickname).get();
 			try {
 				
 //				db 작업(송신자-박스의 관계를 수신자-박스로 수정)
@@ -79,14 +75,5 @@ public class BoxTransmitController {
 		return exists;
 
 	} // transmit
-
-//	@GetMapping("/insertM")
-//	public void insertMem() {
-//		Member member = memberService
-//				.createMember(Member.builder().username("kjm90110@naver.com").name("김주미").password("kim")
-//						.nickname("kim").phonenumber("01099999999").memcapcount(null).memregdate(LocalDateTime.now())
-//						.memcode(null).memdeldate(null).memdeccount(null).subcode(null).subendday(null).payments(null)
-//						.capsules(null).declarations(null).inquiries(null).memberBoxes(null).build());
-//	}
 
 }

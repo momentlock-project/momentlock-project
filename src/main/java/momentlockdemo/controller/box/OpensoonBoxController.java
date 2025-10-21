@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import momentlockdemo.controller.capsule.BoxDetailController;
 import momentlockdemo.entity.Box;
 import momentlockdemo.service.BoxService;
