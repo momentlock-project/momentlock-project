@@ -49,8 +49,8 @@ public class MemberDeclarInsertController {
                 .deccontent(deccontent)
                 .build();
 
-        // 신고 저장 MEMDECCOUNT +1 증가
-       // declarationService.createDeclaration(dec);
+        // 신고 등록
+        declarationService.createDeclaration(dec);
 
         // 신고 후 박스 ID 조회
         Long boxid = capsule.getBox().getBoxid();
