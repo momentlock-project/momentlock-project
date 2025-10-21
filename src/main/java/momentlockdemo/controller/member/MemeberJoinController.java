@@ -48,7 +48,7 @@ public class MemeberJoinController {
 			ra.addFlashAttribute("resultMsg", "회원가입이 완료되었습니다.");
 			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
 
-			return "redirect:/momentlock/";
+			return "redirect:/html/member/login";
 			
 		} catch(RuntimeException re) {
 			model.addAttribute("resultMsg", re.getMessage());

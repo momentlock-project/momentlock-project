@@ -3,12 +3,14 @@ package momentlockdemo.controller.member;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import momentlockdemo.dto.MemberDto;
 import momentlockdemo.entity.Member;
@@ -25,9 +27,10 @@ public class MemeberInfoController {
 	@GetMapping("/memberinfo")
 	public String memberinfoPage(Model model) {
 		
-		// 로그인했을 경우에만 접근 허용 추가
-		// 로그인 시 로그인한 사용자 추가
-		model.addAttribute("memberDto", memberService.getMemberByUsername("minkyong131@gmail.com").get());
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		model.addAttribute("memberDto", memberService.getMemberByUsername(username).get());
 		return "html/member/memberinfo";
 	}	
 	
@@ -35,8 +38,10 @@ public class MemeberInfoController {
 	@PostMapping("/subdel")
 	public String subdel() {
 		
-		// 로그인 시 로그인한 사용자 추가
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		Member member = memberService.getMemberByUsername(username).get();
 		member.setSubcode("MNORMAL");
 		member.setMemdeldate(LocalDateTime.now());
 		
@@ -47,13 +52,13 @@ public class MemeberInfoController {
 	// 회원정보 수정
 	@PostMapping("/memberupdate")
 	public String memberupdate(
-		@ModelAttribute MemberDto memberDto,
-		Model model) {
+		@ModelAttribute MemberDto memberDto, Model model, RedirectAttributes ra) {
 		
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = memberService.getMemberByUsername(username).get();
 		
 		try {
-			// 로그인 시 로그인한 사용자 추가
 			
 			member.setName(memberDto.getName());
 			member.setNickname(memberDto.getNickname());
@@ -61,10 +66,12 @@ public class MemeberInfoController {
 			member.setPhonenumber(memberDto.getPhonenumber());
 			memberService.updateMember(member);
 			
+			ra.addFlashAttribute("resultMsg", "회원정보 수정이 완료되었습니다.");
+			
 			return "redirect:/momentlock/memberinfo";
 		} catch (RuntimeException re) {
 			
-			model.addAttribute("resultMsg", re.getMessage());
+			ra.addFlashAttribute("resultMsg", re.getMessage());
 			model.addAttribute("memberDto", member);
 			return "html/member/memberinfo";
 		}
