@@ -24,9 +24,9 @@
 		<div class="managerpagetoolex-modal-container">
 			<div class="managerpagetoolex-tab-nav">
 				<ul>
-					<li class="tabs active"><a th:href="@{/momentlock/masterinquirylist}">문의게시판</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/masterdeclarlist}">신고게시판</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/masternoticelist}">공지사항</a></li>
+					<li class="tabs active"><a th:href="@{/momentlock/master/masterinquirylist}">문의게시판</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/masterdeclarlist}">신고게시판</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/masternoticelist}">공지사항</a></li>
 				</ul>
 			</div>
 			
@@ -59,25 +59,25 @@
 				<div th:if="${!inquiryPage.empty}" id="pagination-container">
 					<ul class="pagination">
 					   <li class="arrow" th:classappend="${inquiryPage.first} ? 'disabled'">
-						  <a th:href="@{/momentlock/masterinquirylist(page=0)}">«</a>
+						  <a th:href="@{/momentlock/master/masterinquirylist(page=0)}">«</a>
 					   </li>
 					   <!-- '이전' 페이지로 이동 버튼 -->
 					   <li class="arrow" th:classappend="${!inquiryPage.hasPrevious()} ? 'disabled'">
-						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.number - 1}, size=${inquiryPage.size})}">‹</a>
+						  <a th:href="@{/momentlock/master/masterinquirylist(page=${inquiryPage.number - 1}, size=${inquiryPage.size})}">‹</a>
 					   </li>
 							   			                     
 					   <!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
 					   <li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, inquiryPage.totalPages - 1)}" th:classappend="${pageNumber == inquiryPage.number} ? 'active'">
-						  <a th:href="@{/momentlock/masterinquirylist(page=${pageNumber}, size=${inquiryPage.size})}" th:text="${pageNumber + 1}"></a>
+						  <a th:href="@{/momentlock/master/masterinquirylist(page=${pageNumber}, size=${inquiryPage.size})}" th:text="${pageNumber + 1}"></a>
 					   </li>
 							   			                     
 					   <!-- '다음' 페이지로 이동 버튼 -->
 					   <li class="arrow" th:classappend="${!inquiryPage.hasNext()} ? 'disabled'">
-						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.number + 1}, size=${inquiryPage.size})}">›</a>
+						  <a th:href="@{/momentlock/master/masterinquirylist(page=${inquiryPage.number + 1}, size=${inquiryPage.size})}">›</a>
 					   </li>
 					   <!-- '마지막' 페이지로 이동 버튼 -->
 					   <li class="arrow" th:classappend="${inquiryPage.last} ? 'disabled'">
-						  <a th:href="@{/momentlock/masterinquirylist(page=${inquiryPage.totalPages - 1})}">»</a>
+						  <a th:href="@{/momentlock/master/masterinquirylist(page=${inquiryPage.totalPages - 1})}">»</a>
 					   </li>
 					</ul>										 
 				</div>
@@ -101,7 +101,7 @@
 				 </div>
 				 <div id="modal-inquiry">
 				 	<input type="button" class="member-btn inquiry" value="답변하기" />
-					<form id="inquiryForm" th:action="@{/momentlock/masterinquiry}" method="post">
+					<form id="inquiryForm" th:action="@{/momentlock/master/masterinquiry}" method="post">
 						<textarea name="inqanswer" class="inquiry-content"></textarea>
 						<input class="modal-id" id="inqid" name="inqid" type="hidden" />
 						<button>답변완료</button>

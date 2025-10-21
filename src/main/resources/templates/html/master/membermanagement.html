@@ -22,10 +22,10 @@
 		<div class="managerpagetoolex-modal-container">
 			<div class="managerpagetoolex-tab-nav">
 				<ul>
-					<li class="tabs active"><a th:href="@{/momentlock/membermanagement}">회원관리</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/boxmanagement}">상자관리</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/capsulemanagement}">타임캡슐 관리</a></li>
-					<li class="tabs"><a th:href="@{/momentlock/subscriptionmanagement}">구독관리</a></li>
+					<li class="tabs active"><a th:href="@{/momentlock/master/membermanagement}">회원관리</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/boxmanagement}">상자관리</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/capsulemanagement}">타임캡슐 관리</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/master/subscriptionmanagement}">구독관리</a></li>
 				</ul>
 			</div>
 			
@@ -33,7 +33,7 @@
 			<div class="modal_3">
 			   <h1>회원 관리</h1>
 			   <div class="search-container">
-				  <form th:action="@{/momentlock/membermanagement}" method="get">
+				  <form th:action="@{/momentlock/master/membermanagement}" method="get">
 					<input type="text"  name="nickname" placeholder="사용자 닉네임 검색" th:value="${searchKeyword}" />
 					<button type="submit">검색</button>
 				  </form>
@@ -69,21 +69,21 @@
 			  <div th:if="${!memberPage.empty}" id="pagination-container">
 			  	<ul class="pagination">
 			  		<li class="arrow" th:classappend="${memberPage.first} ? 'disabled'">
-			  			<a th:href="@{/momentlock/membermanagement(page=0)}">«</a>
+			  			<a th:href="@{/momentlock/master/membermanagement(page=0)}">«</a>
 			  		</li>
 			  		<!-- '이전' 페이지로 이동 버튼 -->
 			  		<li class="arrow" th:classappend="${!memberPage.hasPrevious()} ? 'disabled'">
-			  			<a th:href="@{/momentlock/membermanagement(page=${memberPage.number - 1})}">‹</a>
+			  			<a th:href="@{/momentlock/master/membermanagement(page=${memberPage.number - 1})}">‹</a>
 			  		</li>
 			  								 																   			                     
 			  		<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
 			  		<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, memberPage.totalPages - 1)}" th:classappend="${pageNumber == memberPage.number} ? 'active'">
-			  			<a th:href="@{/momentlock/membermanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+			  			<a th:href="@{/momentlock/master/membermanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
 			  		</li>
 			  								 																   			                     
 			  		<!-- '다음' 페이지로 이동 버튼 -->
 			  		<li class="arrow" th:classappend="${!memberPage.hasNext()} ? 'disabled'">
-			  			<a th:href="@{/momentlock/membermanagement(page=${memberPage.number + 1})}">›</a>
+			  			<a th:href="@{/momentlock/master/membermanagement(page=${memberPage.number + 1})}">›</a>
 			  		</li>
 			  		<!-- '마지막' 페이지로 이동 버튼 -->
 			  		<li class="arrow" th:classappend="${memberPage.last} ? 'disabled'">

@@ -31,13 +31,9 @@ public class SecurityConfig {
                 				"/momentlock/passwordresetconfirm"
                 				).permitAll()
 //                		.requestMatchers("/html/main?continue").hasAnyRole("ADMIN", "USER")
-                		
-                		.requestMatchers("/momentlock").hasAnyRole("ADMIN", "USER")
-                		.requestMatchers(
-                				"momentlock/admin", "momentlock/admin/**"
-                				).hasRole("ADMIN") 
-                		.requestMatchers("/service/**").hasAnyRole("ADMIN", "USER")
-                		.requestMatchers("/momentlock/mypage/**").hasAnyRole("ADMIN", "USER")
+//                		.requestMatchers("/momentlock").hasAnyRole("ADMIN", "USER")
+                		.requestMatchers("/momentlock/master/**").hasRole("ADMIN")
+                		.requestMatchers("/momentlock/**").hasAnyRole("ADMIN", "USER")
                  		.anyRequest().authenticated()
         		);
     	
