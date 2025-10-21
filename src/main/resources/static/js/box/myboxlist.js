@@ -87,7 +87,7 @@ if (sendCloseBtn) {
 }
 
 
-// 상자 오픈 이미지
+// 상자 오픈 이미지 및 잠금 상태 관리
 const boxCards = document.querySelectorAll(".box_card");
 
 function updateBoxes() {
@@ -96,6 +96,7 @@ function updateBoxes() {
    boxCards.forEach(card => {
       const dateElem = card.querySelector(".box-open-date");
       const imgElem = card.querySelector(".box");
+      const burycode = card.dataset.burycode; // ✅ card에서 가져오기
 
       if (dateElem && imgElem) {
          const openDateStr = dateElem.dataset.opendate;
@@ -103,6 +104,15 @@ function updateBoxes() {
 
          const openDate = new Date(openDateStr);
          const remainingMs = openDate - now;
+
+         // ✅ 잠금 상태 확인 및 클래스 추가
+         const isLocked = burycode === 'BBY' && remainingMs > 0;
+         
+         if (isLocked) {
+            card.classList.add('locked');
+         } else {
+            card.classList.remove('locked');
+         }
 
          if (remainingMs <= 0) {
             // 🔹 이미지가 다를 때만 변경
@@ -132,8 +142,6 @@ setInterval(updateBoxes, 1000);
 updateBoxes();
 
 
-
-
 // 삭제 버튼 클릭 시 확인창
 document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
    deleteBtn.addEventListener("click", function(e) {
@@ -152,13 +160,30 @@ document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
    });
 });
 
-// 상자 이미지 클릭 이벤트
+// ✅ 상자 이미지 클릭 이벤트 (잠금 확인 추가)
 document.querySelectorAll('.box_card .box').forEach(img => {
-   img.addEventListener('click', function() {
+   img.addEventListener('click', function(e) {
       const boxCard = this.closest('.box_card');
       const boxName = boxCard.querySelector('h2').textContent;
       const boxId = boxCard.querySelector('.boxid').value;
+      const dateElem = boxCard.querySelector('.box-open-date');
+      const burycode = boxCard.dataset.burycode;
 
+      // ✅ 잠긴 상자인지 확인
+      if (dateElem) {
+         const openDateStr = dateElem.dataset.opendate;
+         const openDate = new Date(openDateStr);
+         const now = new Date();
+         const remainingMs = openDate - now;
+
+         // 잠긴 상자인 경우
+         if (burycode === 'BBY' && remainingMs > 0) {
+            alert('🔒 묻힌 상자는 개봉 후 확인 가능합니다.\n개봉까지 남은 시간: ' + dateElem.textContent);
+            return;
+         }
+      }
+
+      // 잠기지 않은 상자는 상세 페이지로 이동
       if (confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)) {
          location.href = `/momentlock/boxdetail?boxid=${boxId}`;
       }
