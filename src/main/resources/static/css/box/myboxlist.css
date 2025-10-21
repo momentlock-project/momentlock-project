@@ -221,3 +221,54 @@ h1 {
 	background: #d9d9d9;
 	color: white;
 }
+
+/* 미개봉 뱃지 */
+.locked-badge {
+	font-size: 14px;
+	color: #d9534f;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+/* ⭐ 잠긴 상자 스타일 */
+.box_card.locked {
+	opacity: 0.6;
+	cursor: not-allowed;
+	position: relative;
+}
+
+.box_card.locked:hover {
+	transform: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.box_card.locked img.box {
+	filter: grayscale(50%) brightness(0.8);
+}
+
+.box_card.locked h2,
+.box_card.locked h3 {
+	color: rgb(0, 0, 0);
+}
+
+/* 잠금 오버레이 (선택사항) */
+.box_card.locked::after {
+	content: '🔒';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 48px;
+	opacity: 0.3;
+	pointer-events: none;
+}
+
+/* 잠긴 상자의 메뉴 버튼 숨기기 */
+.box_card.locked .menu-btn {
+	display: none !important;
+}
+
+/* 잠긴 상자의 드롭다운도 숨기기 */
+.box_card.locked .dropdown {
+	display: none !important;
+}

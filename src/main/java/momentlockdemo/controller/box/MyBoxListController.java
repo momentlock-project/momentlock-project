@@ -71,8 +71,9 @@ public class MyBoxListController {
 			String boxname = box.getBoxname();
 			LocalDateTime boxopendate = box.getBoxopendate();
 			String code = memberBoxes.get(i).getBoxmatercode();
+			String burycode = box.getBoxburycode();
 			
-			MemberBoxDto memberBoxDto = new MemberBoxDto(boxid, boxname, boxopendate, code);
+			MemberBoxDto memberBoxDto = new MemberBoxDto(boxid, boxname, boxopendate, code, burycode);
 			memberBoxlist.add(memberBoxDto);
 		}
 		

@@ -18,5 +18,6 @@ public class MemberBoxDto {
 	private LocalDateTime boxopendate;
 	
 	private String code;
-
+	
+	private String burycode;
 }
