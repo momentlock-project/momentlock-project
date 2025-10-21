@@ -71,26 +71,23 @@
   gap: 10px;
 }
 
-.nav-btn {
+.modal-loginBtn {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 19px;
+  font-weight: 600;
   color: #333;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
 }
 
-.nav-btn:hover {
+.modal-loginBtn:hover {
   background-color: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.nav-btn:active {
-  transform: translateY(0);
 }
 
 /* 네비게이션바 반응형 */

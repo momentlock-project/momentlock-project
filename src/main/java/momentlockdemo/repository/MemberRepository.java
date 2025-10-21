@@ -11,6 +11,10 @@ import momentlockdemo.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
+	Optional<Member> findByNameAndPhonenumber(String name, String phonenumber);
+	
+	Optional<Member> findByUsername(String username);
+	
 	Optional<Member> findByNickname(String nickname);
 
 	Optional<Member> findByPhonenumber(String phonenumber);

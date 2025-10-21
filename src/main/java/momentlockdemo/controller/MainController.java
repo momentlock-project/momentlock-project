@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.MemberService;
@@ -24,8 +26,12 @@ public class MainController {
 	
 	// 메인
 	@GetMapping({ "", "/" })
-	public String mainPage() {
+	public String mainPage(Model model, HttpServletRequest request) {
+		
+		model.addAttribute("user", request.getRemoteUser());
+		
 		return "html/main";
+		
 	}
 
 	// 상점

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MOMENT LOCK</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons.css}" />
+</head>
+
+<body>
+	<div th:replace="~{../fragments/sidebar :: sidebar}"></div>
+	<div id="mainContainer">
+		<div th:replace="~{../fragments/nav :: nav}"></div>
+		<div id="loginForm" class="loginModal-overlay">
+    		<div class="fail-find" th:if="${param.error}" style="color:red;">
+  				No user found
+			</div>
+			<div class="forgotId-cotent">
+			<form action="/momentlock/idFindProc" method="post" name="idFindForm">
+        		<input id="name" type="text" name="name" placeholder="name"/>
+        		<input id="phonenumber" type="text" name="phonenumber" placeholder="phone number"/>
+        		<p class="button-container">
+	    		<a th:href="@{/login}">login</a>
+        		<a><input type="submit" value="find"/></a>
+        		</p>
+    		</form>
+    		
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{../fragments/footer :: footer}"></div>
+	<script th:src="@{/js/main.js}" defer></script>
+	<script th:src="@{/js/nav.js}" defer></script>
+</body>
+
+</html>

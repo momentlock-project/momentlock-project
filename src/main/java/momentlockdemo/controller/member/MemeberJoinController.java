@@ -42,11 +42,13 @@ public class MemeberJoinController {
 				.password(memberDto.getPassword())
 				.nickname(memberDto.getNickname())
 				.phonenumber(memberDto.getPhonenumber())
+//				.role("ROLE_ADMIN")
 				.build();
 			
 			memberService.createMember(member);
 			ra.addFlashAttribute("resultMsg", "회원가입이 완료되었습니다.");
 			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
+
 			return "redirect:/momentlock/";
 			
 		} catch(RuntimeException re) {

@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+	const startBtn = document.getElementById("startCapsuleBtn");
+	if (startBtn) {
+		startBtn.addEventListener("click", () => {
+			location.href = "/momentlock/startCapsule";
+		});
+	}
 
 	// URL 파라미터 확인 초대하기 보냈을때 성공/에러 메세지를 담아 리다이렉트 왔을때 처리
 	const urlParams = new URLSearchParams(window.location.search);
@@ -17,12 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	const startBtn = document.getElementById("startCapsuleBtn");
-	if (startBtn) {
-		startBtn.addEventListener("click", () => {
-			location.href = "/momentlock/startCapsule";
-		});
-	}
-
-
 });
+
+
+
