@@ -21,10 +21,10 @@
 		<div class="managerpagetoolex-modal-container">
 			<div class="managerpagetoolex-tab-nav">
 				<ul>
-					<li class="tabs"><a th:href="@{/momentlock/membermanagement}">회원관리</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/boxmanagement}">상자관리</a></li>
-			        <li class="tabs active"><a th:href="@{/momentlock/capsulemanagement}">타임캡슐 관리</a></li>
-					<li class="tabs"><a th:href="@{/momentlock/subscriptionmanagement}">구독관리</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/master/membermanagement}">회원관리</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/boxmanagement}">상자관리</a></li>
+			        <li class="tabs active"><a th:href="@{/momentlock/master/capsulemanagement}">타임캡슐 관리</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/master/subscriptionmanagement}">구독관리</a></li>
 				</ul>
 			</div>
 			
@@ -63,25 +63,25 @@
 				 <div th:if="${!capsulePage.empty}" id="pagination-container">
 				 	<ul class="pagination">
 				 		<li class="arrow" th:classappend="${capsulePage.first} ? 'disabled'">
-				 			<a th:href="@{/momentlock/capsulemanagement(page=0)}">«</a>
+				 			<a th:href="@{/momentlock/master/capsulemanagement(page=0)}">«</a>
 				 		</li>
 				 		<!-- '이전' 페이지로 이동 버튼 -->
 				 		<li class="arrow" th:classappend="${!capsulePage.hasPrevious()} ? 'disabled'">
-				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.number - 1})}">‹</a>
+				 			<a th:href="@{/momentlock/master/capsulemanagement(page=${capsulePage.number - 1})}">‹</a>
 				 		</li>
 				 																   			                     
 				 		<!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
 				 		<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, capsulePage.totalPages - 1)}" th:classappend="${pageNumber == capsulePage.number} ? 'active'">
-				 			<a th:href="@{/momentlock/capsulemanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+				 			<a th:href="@{/momentlock/master/capsulemanagement(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
 				 		</li>
 				 																   			                     
 				 		<!-- '다음' 페이지로 이동 버튼 -->
 				 		<li class="arrow" th:classappend="${!capsulePage.hasNext()} ? 'disabled'">
-				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.number + 1})}">›</a>
+				 			<a th:href="@{/momentlock/master/capsulemanagement(page=${capsulePage.number + 1})}">›</a>
 				 		</li>
 				 		<!-- '마지막' 페이지로 이동 버튼 -->
 				 		<li class="arrow" th:classappend="${capsulePage.last} ? 'disabled'">
-				 			<a th:href="@{/momentlock/capsulemanagement(page=${capsulePage.totalPages - 1})}">»</a>
+				 			<a th:href="@{/momentlock/master/capsulemanagement(page=${capsulePage.totalPages - 1})}">»</a>
 				 		</li>
 				 	</ul>										 
 				 </div>

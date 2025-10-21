@@ -44,7 +44,7 @@ import momentlockdemo.service.NoticeQaService;
 
 
 @Controller("masterController")
-@RequestMapping("/momentlock")
+@RequestMapping("/momentlock/master")
 public class MasterController {
 
 	

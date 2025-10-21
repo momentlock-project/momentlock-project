@@ -9,14 +9,11 @@ import momentlockdemo.service.MemberService;
 
 @Component
 public class AuthenticationEventListener {
-
-
-    private final MemberRepository memberRepository;
+	
     private final MemberService memberService;
     
     public AuthenticationEventListener(
     		MemberRepository memberRepository, MemberService memberService) {
-        this.memberRepository = memberRepository;
         this.memberService = memberService;
     };
 
