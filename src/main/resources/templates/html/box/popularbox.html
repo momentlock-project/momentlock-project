@@ -33,8 +33,7 @@
 				<div class="grid_container">
 
 					<div class="box_card" th:each="box, stat : ${popularBoxes}" th:if="${box!=null}"
-						th:onclick="|location.href='@{/momentlock/boxdetail(boxid=${box.boxid})}'|">
-
+						th:onclick="|location.href='@{/momentlock/opencapsulelist(boxid=${box.boxid})}'|">
 						<img class="rank" src="/img/1.png" th:if="${stat.index==0 && box!=null}">
 						<img class="rank" src="/img/2.png" th:if="${stat.index==1 && box!=null}">
 						<img class="rank" src="/img/3.png" th:if="${stat.index==2 && box!=null}">
