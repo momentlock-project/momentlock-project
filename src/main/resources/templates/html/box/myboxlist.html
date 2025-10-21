@@ -30,15 +30,16 @@
 							상자 추가
 						</a>
 					</div>
+					
 
 					<div class="grid_container">
 						<!-- 반복문으로 상자 렌더링 -->
-						<div class="box_card" th:each="box : ${myBoxes}">
+						<div class="box_card" th:each="box : ${memberBoxlist}">
 							<button class="menu-btn">⋮</button>
 							<div class="dropdown">
-								<a th:href="@{/momentlock/boxinsert(boxid=${box.boxid})}">수정</a>
+								<a th:if="${box.code == 'MCB'}" th:href="@{/momentlock/boxinsert(boxid=${box.boxid})}">수정</a>
 								<a th:href="@{/momentlock/boxdelete/{id}(id=${box.boxid})}">삭제</a>
-								<a href="#">상자 보내기</a>
+								<a th:if="${box.code == 'MCB'}" href="#">상자 보내기</a>
 								<input type="hidden" class="boxid" th:value="${box.boxid}">
 							</div>
 							<img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
