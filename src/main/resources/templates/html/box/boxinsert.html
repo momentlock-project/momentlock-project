@@ -21,42 +21,60 @@
 				<img src="/img/x.png" alt="창닫기" />
 			</a>
 			<div class="box-content">
-				<h1 class="box-title">상자 추가하기</h1>
-				<form th:action="@{/momentlock/boxadd}" method="post" class="box-form" id="form-box">
+				<!-- 조건부 제목 -->
+				<h1 class="box-title" th:text="${box != null ? '상자 수정하기' : '상자 추가하기'}">상자 추가하기</h1>
+
+				<!-- 조건부 action -->
+				<form th:action="${box != null ? '/momentlock/boxupdate' : '/momentlock/boxadd'}" method="post"
+					class="box-form" id="form-box">
+
+					<!-- 수정 시 boxid 전송 -->
+					<input type="hidden" name="boxid" th:value="${box != null ? box.boxid : ''}" />
+
 					<!-- 상자명 입력 -->
-					<input type="text" name="boxName" class="box-name-input" placeholder="상자명을 입력해주세요." required />
+					<input type="text" name="boxName" class="box-name-input" placeholder="상자명을 입력해주세요."
+						th:value="${box != null ? box.boxname : ''}" required />
+
 					<!-- 인원 수 -->
 					<div class="form-row">
 						<label class="form-label">인원 수</label>
-						<input type="number" name="memberCount" class="number-input" value="1" min="1" max="50"
-							required />
+						<input type="number" name="memberCount" class="number-input"
+							th:value="${box != null ? box.boxmemcount : 1}" min="1" max="50" required />
 					</div>
+
 					<!-- 공개 설정 -->
 					<div class="form-row">
 						<label class="form-label">공개 설정</label>
 						<label class="toggle-switch">
-							<input type="checkbox" name="isPublic" checked />
+							<input type="checkbox" name="isPublic"
+								th:checked="${box != null ? box.boxreleasecode == 'B00' : true}" />
 							<span class="toggle-slider"></span>
 						</label>
 					</div>
+
 					<!-- 오픈 날짜 -->
 					<div class="form-row">
 						<label class="form-label">오픈 날짜</label>
 						<div class="input-icon-wrapper" id="dateWrapper">
-							<input type="date" name="openDate" id="openDate" class="date-input" min="" required />
-							<!--아이콘 모양인데 글씨가 깨지네요!?-->
+							<input type="date" name="openDate" id="openDate" class="date-input"
+								th:value="${box != null ? #temporals.format(box.boxopendate, 'yyyy-MM-dd') : ''}" min=""
+								required />
 							<span class="icon calendar-icon" id="calendarIcon">📅</span>
 						</div>
 					</div>
+
 					<!-- 위치 -->
 					<div class="form-row">
 						<label class="form-label">위치</label>
 						<div class="input-icon-wrapper">
 							<input type="text" name="boxlocation" id="locationInput" class="location-input"
-								placeholder="찾기" readonly required />
-							<!-- 위도, 경도 hidden input 추가 -->
-							<input type="hidden" name="latitude" id="latitudeInput" />
-							<input type="hidden" name="longitude" id="longitudeInput" />
+								placeholder="찾기" th:value="${box != null ? box.boxlocation : ''}" readonly required />
+
+							<!-- 위도, 경도 hidden input -->
+							<input type="hidden" name="latitude" id="latitudeInput"
+								th:value="${box != null ? box.latitude : ''}" />
+							<input type="hidden" name="longitude" id="longitudeInput"
+								th:value="${box != null ? box.longitude : ''}" />
 
 							<button type="button" class="icon-btn search-icon" id="openMapBtn">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -67,6 +85,7 @@
 							</button>
 						</div>
 					</div>
+
 					<!-- 지도 모달 -->
 					<div id="mapModal" class="map-modal">
 						<div class="map-modal-content">
@@ -74,7 +93,6 @@
 								<h3>위치 선택</h3>
 								<button type="button" class="map-close-btn" id="closeMapBtn">&times;</button>
 							</div>
-							<!-- 검색창 추가 -->
 							<div class="map-search-wrapper">
 								<input type="text" id="mapSearchInput" class="map-search-input"
 									placeholder="장소명을 입력하세요 (예: 서울역, 강남역)" />
@@ -93,19 +111,20 @@
 							</div>
 						</div>
 					</div>
-					<!-- 제출 버튼 -->
-					<button type="submit" class="submit-btn">상자 만들기</button>
+
+					<!-- 조건부 제출 버튼 -->
+					<button type="submit" class="submit-btn" th:text="${box != null ? '상자 수정하기' : '상자 만들기'}">
+						상자 만들기
+					</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
-	<!-- Kakao Maps API -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe4f0e53a33978d3c032979f482e2365&libraries=services"></script>
 	<script th:src="@{/js/nav.js}"></script>
 	<script th:src="@{/js/box/boxinsert.js}"></script>
-
-	<body>
+</body>
 
 </html>

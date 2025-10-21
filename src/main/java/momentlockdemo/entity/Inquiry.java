@@ -50,6 +50,10 @@ public class Inquiry implements Serializable {
 
 	@Column(name = "INQCOMPLETE", length = 10)
 	private String inqcomplete;
+	
+	@Lob
+	@Column(name = "INQANSWER")
+	private String inqanswer;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USERNAME")

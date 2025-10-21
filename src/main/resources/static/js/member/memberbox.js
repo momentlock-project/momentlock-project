@@ -47,4 +47,3 @@ truncateString('.row.declar', 7);
 
 
 
-

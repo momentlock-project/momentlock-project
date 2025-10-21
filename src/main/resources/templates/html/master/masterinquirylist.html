@@ -39,6 +39,7 @@
 						 <th>제목</th>
 						 <th>닉네임</th>
 						 <th>생성일</th>
+						 <th>답변여부</th>
 						</tr>
 					</thead>
 	
@@ -48,6 +49,7 @@
 							<td th:text="${inquiry.inqtitle}"></td>
 							<td th:text="${inquiry.member.username}"></td>
 							<td th:text="${#temporals.format(inquiry.inqregdate, 'yyyy-MM-dd')}"></td>
+							<td id="inqComplete" th:text="${inquiry.inqcomplete == 'QNAN' ? '답변 전' : '답변완료'}"></td>
 						</tr>
 						<tr th:if="${inquiryPage.empty}">
 							<td colspan="4">표시할 게시글이 없습니다.</td>
@@ -91,8 +93,19 @@
 				 <div id="modal-inner">
 					<div class="modal-title-date-box">
 						<p class="modal-title"></p>
+						<input class="modal-id" name="inqid" type="hidden" />
+						<input class="modal-complete" name="inqcomplete" type="hidden" />
+						<input class="modal-answer" name="inqanswer" type="hidden" />
 					</div>
-					<p class="modal-content"></p>
+					<textarea class="modal-content" disabled></textarea>
+				 </div>
+				 <div id="modal-inquiry">
+				 	<input type="button" class="member-btn inquiry" value="답변하기" />
+					<form id="inquiryForm" th:action="@{/momentlock/masterinquiry}" method="post">
+						<textarea name="inqanswer" class="inquiry-content"></textarea>
+						<input class="modal-id" id="inqid" name="inqid" type="hidden" />
+						<button>답변완료</button>
+					</form>
 				 </div>
 		 	</div>
 		</div>

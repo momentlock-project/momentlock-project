@@ -11,6 +11,7 @@
 	<link rel="stylesheet" th:href="@{/css/managerpagetoolex.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberdeclarlist.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/pagination.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/detailModal.css}" />
 </head>
 
 <body>
@@ -53,10 +54,13 @@
 						<div class="col regdate" th:text="${inquiry.inqregdate}">2025/10/4</div>
 						<div class="col complete" th:text="${inquiry.inqcomplete}">QNAN</div>
 					</div>
+					<div class="row inquiry" th:if="${inquirylist.empty}">
+						<div class="col">표시할 문의사항이 없습니다.</div>
+					</div>
 				</div>
 				
 				<!-- 페이지네이션 -->
-				<div th:if="${inquirylist != null}" id="pagination-container">
+				<div th:if="${not inquirylist.empty}" id="pagination-container">
 					<ul class="pagination">
 						
 						<!-- 이전 -->
@@ -91,9 +95,12 @@
 				 <div id="modal-inner">
 					<div class="modal-title-date-box">
 						<p class="modal-title"></p>
+						<input class="modal-id" type="hidden" />
+						<input class="modal-complete" type="hidden" />
 					</div>
-					<p class="modal-content"></p>
+					<textarea class="modal-content" disabled></textarea>
 				 </div>
+				 <textarea class="modal-answer"></textarea>
 		 	</div>
 		</div>
 		
