@@ -27,9 +27,9 @@ public class SecurityConfig {
                 				"/.well-known/**",
                 				"/js/**", "/css/**", "/img/**", 
                 				"/momentlock", "/momentlock/", 
-                				"/html/login", "/public/**",  
+                				"/html/member/login", "/public/**", 
                 				"/momentlock/memberjoin", "/momentlock/join", 
-                				"/user/idFind", "/user/idFindProc", "/html/result",
+                				"/momentlock/idFind", "/momentlock/idFindProc", "/html/member/result",
                 				"/momentlock/passwordresetconfirm"
                 				).permitAll()
 //                		.requestMatchers("/html/main?continue").hasAnyRole("ADMIN", "USER")
@@ -47,7 +47,7 @@ public class SecurityConfig {
 	
 		http
         		.formLogin((auth) -> auth
-        				.loginPage("/html/login")
+        				.loginPage("/html/member/login")
         				.loginProcessingUrl("/loginProc")
         				.defaultSuccessUrl("/momentlock", true)
         				.permitAll()
