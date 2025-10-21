@@ -42,7 +42,6 @@ public class MemeberJoinController {
 				.password(memberDto.getPassword())
 				.nickname(memberDto.getNickname())
 				.phonenumber(memberDto.getPhonenumber())
-//				.role("ROLE_ADMIN")
 				.build();
 			
 			memberService.createMember(member);

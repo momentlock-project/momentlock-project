@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,9 @@ public class MemeberMypageController {
 	public String mypagePage(Model model) {
 		
 		// 로그인 추가 시 로그인 유저 찾아서 확인하는 로직 추가
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		Member member = memberService.getMemberByUsername(username).get();
 		
 		model.addAttribute("nickname", member.getNickname());
 		return "html/member/mypage_nav";
