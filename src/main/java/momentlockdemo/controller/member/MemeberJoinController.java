@@ -46,7 +46,6 @@ public class MemeberJoinController {
 			
 			memberService.createMember(member);
 			ra.addFlashAttribute("resultMsg", "회원가입이 완료되었습니다.");
-			model.addAttribute("resultMsg", "회원가입이 완료되었습니다.");
 
 			return "redirect:/html/member/login";
 			

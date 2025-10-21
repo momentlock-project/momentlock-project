@@ -36,7 +36,7 @@ public class MemeberInfoController {
 	
 	// 구독취소
 	@PostMapping("/subdel")
-	public String subdel() {
+	public String subdel(RedirectAttributes ra) {
 		
 		// 로그인 유저
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -46,6 +46,9 @@ public class MemeberInfoController {
 		member.setMemdeldate(LocalDateTime.now());
 		
 		memberService.updateMember(member);
+		
+		ra.addFlashAttribute("resultMsg", "구독이 취소되었습니다.");
+		
 		return "redirect:/momentlock/memberinfo";
 	}
 	
