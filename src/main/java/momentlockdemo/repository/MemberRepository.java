@@ -20,7 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	Optional<Member> findByPhonenumber(String phonenumber);
 
 	Optional<Member> findByMemcode(String memcode);
-	
+
 	boolean existsByUsername(String username);
 
 	boolean existsByNickname(String nickname);

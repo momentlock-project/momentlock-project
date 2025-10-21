@@ -1,5 +1,6 @@
 package momentlockdemo.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.Optional;
@@ -127,5 +128,18 @@ public class MemberServiceImpl implements MemberService {
         member.setMemcode("MDY");
     	
     }
+    
+    @Override
+    @Transactional
+    public Member updateLastlogindate(String username) {
+    	
+    	Member member = memberRepository.findById(username).orElse(null);
+    	member.setLastlogindate(LocalDateTime.now());
+//    	System.out.println("Username from ServiceImpl : " + member.getUsername());
+//    	System.out.println("Lastlogindate from ServiceImpl : " + member.getLastlogindate());
+    	
+    	return memberRepository.save(member);
+    	
+    };
     
 }
