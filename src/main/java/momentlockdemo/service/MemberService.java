@@ -39,4 +39,7 @@ public interface MemberService {
 	public abstract Page<Member> getMemberPage(String nickname, Pageable pageable);
 	
 	public abstract void updateMemberToMDY(String username);
+	
+	public abstract Member updateLastlogindate(String username);
+	
 }
