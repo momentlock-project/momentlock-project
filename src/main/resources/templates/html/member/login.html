@@ -11,9 +11,9 @@
 </head>
 
 <body>
-	<div th:replace="~{./fragments/sidebar :: sidebar}"></div>
+	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{./fragments/nav :: nav}"></div>
+		<div th:replace="~{fragments/nav :: nav}"></div>
 		<div id="loginModal" class="loginModal-overlay">
 			<div class="fail-login" th:if="${param.error}" style="color:red;">
   				Invalid username or password
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<div th:replace="~{./fragments/footer :: footer}"></div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/main.js}" defer></script>
 	<script th:src="@{/js/nav.js}" defer></script>
 </body>
