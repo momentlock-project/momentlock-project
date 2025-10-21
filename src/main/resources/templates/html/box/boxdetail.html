@@ -136,8 +136,16 @@
 			</div>
 		</div>
 	</div>
-	</div>
 
+	<!-- 상자 묻기 애니메이션 모달 -->
+	<div class="bury-animation-overlay" id="buryAnimationOverlay">
+		<div class="bury-animation-container">
+			<img src="/img/buryBox.gif" alt="상자 묻는 중..." class="bury-gif" />
+			<p class="bury-message">상자를 묻는 중입니다...</p>
+		</div>
+	</div>
+	
+	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/box/boxdetail.js}" defer></script>
