@@ -65,7 +65,7 @@ async function transmit(boxId, inputNickname) {
 
 
    const userExists = await response.text();
-   console.log('유저 존재 여부=> ' + userExists);
+   console.log('유저 존재 여부 확인 후 db, 알림 작업까지 끝났는지 여부=> ' + userExists);
 
    if (!userExists) {
       alert('해당 유저가 존재하지 않습니다.');

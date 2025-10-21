@@ -57,6 +57,10 @@ public class BoxTransmitController {
 		
 		System.out.println("송신자: " + sender.getNickname());
 		
+		if(sender.getNickname() == inputNickname) {
+			return false;
+		}
+		
 //		보낼 박스
 		Box transmitedBox = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new RuntimeException("해당 박스를 찾을 수 없음! boxid=> " + boxid));
@@ -87,5 +91,18 @@ public class BoxTransmitController {
 		return false;
 
 	} // transmit
+	
+	@GetMapping("/gotoboxlist")
+	public String gotoboxlist() {
+		System.out.println("요청 받음!!");
+		boolean logined = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+		
+		if(logined) {
+			return "redirect:/momentlock/myboxlist";
+		} else {
+			return "redirect:/html/member/login";
+		}
+		
+	}
 
 }
