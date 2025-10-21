@@ -165,6 +165,11 @@ public class MemberBoxServiceImpl implements MemberBoxService {
 			);
 	}
 
+    @Override
+    public Long countByBoxAndReadycode(Box box, String readycode) {
+    	return memberBoxRepository.countByBoxAndReadycode(box, readycode);
+    }
+    
 }
 
 
