@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +30,14 @@ public class MemeberMypageController {
 	@GetMapping("/mypage")
 	public String mypagePage(Model model) {
 		
-		// 로그인 추가 시 로그인 유저 찾아서 확인하는 로직 추가
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		if(username == null) {
+			return "redirect:/html/member/login";
+		}
+		
+		Member member = memberService.getMemberByUsername(username).get();
 		
 		model.addAttribute("nickname", member.getNickname());
 		return "html/member/mypage_nav";
@@ -41,9 +47,10 @@ public class MemeberMypageController {
 	@GetMapping("/mycapsulelist")
 	public String mycapsulelistPage(Model model) {
 		
-		// 로그인 추가 시 로그인 유저찾아서 확인하는 로직 추가
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		Member loginMember = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		Member loginMember = memberService.getMemberByUsername(username).get();
 		List<Capsule> capsuleList
 			= capsuleService.getCapsulesByMember(loginMember).stream().filter(cap -> cap.getCapdelcode().equals("TDN")).toList();
 		model.addAttribute("capsuleList", capsuleList);
@@ -54,14 +61,15 @@ public class MemeberMypageController {
 	@PostMapping("/memberremove")
 	public String memberremove() {
 		
-		// 로그인 추가 시 로그인 유저 찾아서 확인하는 로직 추가
-		
-		Member member = memberService.getMemberByUsername("minkyong131@gmail.com").get();
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+				
+		Member member = memberService.getMemberByUsername(username).get();
 		member.setMemcode("MDY");
 		member.setMemdeldate(LocalDateTime.now());
 		memberService.updateMember(member);
 		
-		return "html/main";
+		return "redirect:/momentlock";
 	}
 	
 

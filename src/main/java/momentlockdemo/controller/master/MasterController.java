@@ -91,9 +91,33 @@ public class MasterController {
 					data.put("inqtitle", inquiry.getInqtitle());
 					data.put("inqcontent", inquiry.getInqcontent());
 					data.put("inqregdate", inquiry.getInqregdate());				
-					data.put("inqcomplete", inquiry.getInqcomplete());				
+					data.put("inqcomplete", inquiry.getInqcomplete());
+					data.put("inqanswer", inquiry.getInqanswer());
+					data.put("inqid", inqid);
 					return ResponseEntity.ok(data);
 				}).orElse(ResponseEntity.notFound().build());
+	}
+	
+	// 문의사항 답변처리
+	@PostMapping("/masterinquiry")
+	public String masterInquiryAnswer(
+			@RequestParam("inqid") Long inqid,
+			@RequestParam("inqanswer") String inqanswer,
+			Model model,
+			@PageableDefault(page = 0, size = 10, sort = "inqid", direction = Sort.Direction.DESC) Pageable pageable) {
+		
+		try {
+			Inquiry inquiry = inquiryService.getInquiryById(inqid).get();
+			inquiry.setInqanswer(inqanswer);
+			inquiry.setInqcomplete("QNAY");
+			
+			inquiryService.updateInquiry(inquiry);
+			model.addAttribute("inquiryPage", inquiryService.getAllInquiries(pageable));
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return "redirect:/momentlock/masterinquirylist";
 	}
 	
 	// 신고게시판

@@ -148,13 +148,17 @@ document.getElementById('closeBtn').addEventListener('click', function(e) {
 });
 
 
-// ===== 초대하기 모달 열기 =====
-inviteBtn.addEventListener('click', function() {
-	inviteModal.style.display = 'flex';
-	inviteOverlay.style.display = 'flex';
-	inviteInput.value = ''; // 입력창 초기화
-	inviteInput.focus(); // 자동 포커스
-});
+// 상자를 만든 회원이 아닌 경우
+// 초대하기 버튼이 없음
+if(inviteBtn != null){
+	// ===== 초대하기 모달 열기 =====
+	inviteBtn.addEventListener('click', function() {
+		inviteModal.style.display = 'flex';
+		inviteOverlay.style.display = 'flex';
+		inviteInput.value = ''; // 입력창 초기화
+		inviteInput.focus(); // 자동 포커스
+	});
+}
 
 // ===== 초대하기 모달 닫기 (취소) =====
 inviteCancel.addEventListener('click', function() {

@@ -52,6 +52,9 @@
 							<div class="col regdate" th:text="${declar.decregdate}">2025/10/4</div>
 							<div class="col complete" th:text="${declar.deccomplete}">2025/10/4</div>
 						</div>
+						<div class="row declar" th:if="${declarlist.empty}">
+							<div class="col">표시할 신고사항이 없습니다.</div>
+						</div>
 					</div>
 				</div>
 				
