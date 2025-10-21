@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import momentlockdemo.controller.capsule.BoxDetailController;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.BoxService;
@@ -21,6 +21,8 @@ import momentlockdemo.service.MemberService;
 @Controller
 @RequestMapping("/momentlock")
 public class BoxTransmitController {
+
+    private final BoxDetailController boxDetailController;
 
 	@Autowired
 	private MemberService memberService;
@@ -34,6 +36,10 @@ public class BoxTransmitController {
 	@Autowired
 	private MailService mailService;
 
+    BoxTransmitController(BoxDetailController boxDetailController) {
+        this.boxDetailController = boxDetailController;
+    }
+
 	@GetMapping("/boxTransmit")
 	@ResponseBody
 	public boolean transmit(@RequestParam Long boxid, @RequestParam String inputNickname, Model model) {
@@ -42,19 +48,25 @@ public class BoxTransmitController {
 		boolean exists = memberService.existsByNickname(inputNickname);
 		if (!exists)
 			return false;
+		System.out.println("수신자 존재 여부: " + exists);
 
 //		박스를 보내는 유저
 		Member sender = memberService.getMemberByUsername(
 				SecurityContextHolder.getContext().getAuthentication().getName()
 				).orElseThrow(() -> new RuntimeException("송신자를 찾을 수 없음"));
-
+		
+		System.out.println("송신자: " + sender.getNickname());
+		
 //		보낼 박스
 		Box transmitedBox = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new RuntimeException("해당 박스를 찾을 수 없음! boxid=> " + boxid));
 
+		System.out.println("보낼 박스: " + transmitedBox.getBoxname());
+		
 		if (exists) { // 수신자 닉네임이 db에 존재할 때
 //			박스를 받는 유저
 			Member transmitedMember = memberService.getMemberByNickname(inputNickname).get();
+			System.out.println(transmitedMember.getNickname());
 			try {
 				
 //				db 작업(송신자-박스의 관계를 수신자-박스로 수정)
@@ -72,7 +84,7 @@ public class BoxTransmitController {
 			}
 
 		}
-		return exists;
+		return false;
 
 	} // transmit
 
