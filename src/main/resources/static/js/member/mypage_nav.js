@@ -7,7 +7,7 @@ memberremoveBtn.addEventListener("click", async () => {
 		})
 		
 		alert("회원 탈퇴가 완료되었습니다.");
-		window.location.href = `/momentlock`;
+		window.location.href = `/logout`;
 	} else {
 		alert("취소되었습니다.")
 	}
