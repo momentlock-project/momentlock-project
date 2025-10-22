@@ -87,11 +87,9 @@ public class MyBoxListController {
 	// 상자 삭제 및 나가기
 	@GetMapping("/boxdelete/{boxid}")
 	public String deleteBox(@PathVariable Long boxid) {
+		
 		// 현재 로그인한 회원 지정
-		// 로그인 기능 연동 시
-		// String currentUsername =
-		// SecurityContextHolder.getContext().getAuthentication().getName();
-		String currentUsername = "hong@hong.com";
+		 String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		Optional<Member> memberOpt = memberService.getMemberByUsername(currentUsername);
 		if (memberOpt.isEmpty())
 			return "redirect:/momentlock/myboxlist";

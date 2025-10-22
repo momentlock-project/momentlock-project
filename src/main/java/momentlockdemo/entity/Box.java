@@ -56,9 +56,6 @@ public class Box implements Serializable {
 	@Column(name = "BOXREGDATE")
 	private LocalDateTime boxregdate;
 
-	@Column(name = "BOXINVITECODE", length = 500)
-	private String boxinvitecode;
-
 	@Column(name = "BOXBURYCODE", length = 200)
 	private String boxburycode;
 
