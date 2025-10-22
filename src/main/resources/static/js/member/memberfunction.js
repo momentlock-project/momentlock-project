@@ -143,7 +143,7 @@ function truncateString(selectorName, maxLength){
 // 관리자 신고 게시판 상세모달창에서 신고처리하기 함수
 function masterDeclarPlusCnt(){
 	document.querySelector("#declarBtn").addEventListener("click", () => {
-		window.location = `/momentlock/masterDeclarPlusCnt?decid=${document.querySelector(".modal-id").textContent}`;
+		window.location = `/momentlock/master/masterDeclarPlusCnt?decid=${document.querySelector(".modal-id").textContent}`;
 		alert("신고 처리가 완료되었습니다!");
 	})
 }	

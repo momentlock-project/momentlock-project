@@ -48,7 +48,7 @@
 						  <td th:text="${capsule.member.nickname}">닉네임</td>
 						  <td th:text="${capsule.capregdate}">2025-10-02</td>
 					      <td>
-							<form th:action="@{/momentlock/capsule/updateToTDY}" method="post" onsubmit="return confirm('정말로 이 캡슐를 삭제하시겠습니까?');">
+							<form th:action="@{/momentlock/master/capsule/updateToTDY}" method="post" onsubmit="return confirm('정말로 이 캡슐를 삭제하시겠습니까?');">
 								<input type="hidden" name="capid" th:value="${capsule.capid}" />
 								<button type="submit" th:if="${capsule.capdelcode == 'TDN'}" class="delete-btn">삭제</button>
 							  
