@@ -29,6 +29,8 @@ public class MainController {
 	public String mainPage(Model model, HttpServletRequest request) {
 		
 		model.addAttribute("user", request.getRemoteUser());
+		// 로그인했을 경우 nav에 닉네임 출력
+		model.addAttribute("nickname", memberService.getMemberByUsername(request.getRemoteUser()).get().getNickname());
 		
 		return "html/main";
 		

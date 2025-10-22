@@ -225,3 +225,13 @@
     padding-left: 30px;
   }
 }
+
+/* nav 닉네임 */
+.nav-nickname {
+	display: flex;
+}
+
+.nav-nickname p {
+	font-size: 20px;
+	font-weight: bold;
+}

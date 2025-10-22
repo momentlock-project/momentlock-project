@@ -19,6 +19,10 @@
 		</button>
 
 		<!-- 로그인 된 경우 -->
+		<div class="nav-nickname">
+			<p th:if="${user != null}" th:text="${nickname}"></p>
+			<p>님</p>
+		</div>
 		<button th:if="${user != null}" class="modal-loginBtn" onclick="logout()">
 			로그아웃
 		</button>
