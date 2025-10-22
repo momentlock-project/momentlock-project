@@ -37,10 +37,17 @@
 						<div class="box_card" th:each="box : ${memberBoxlist}" th:attr="data-burycode=${box.burycode}">
 							<button class="menu-btn">⋮</button>
 							<div class="dropdown">
-								<a th:if="${box.code == 'MCB'}"
+								
+								<!-- 상자를 만든 회원, 상자가 묻히기 전에만 수정 버튼 활성화  -->
+								<a th:if="${box.code == 'MCB' && box.burycode == 'BBN'}"
 									th:href="@{/momentlock/boxinsert(boxid=${box.boxid})}">수정</a>
-								<a th:href="@{/momentlock/boxdelete/{id}(id=${box.boxid})}">삭제</a>
-								<a th:if="${box.code == 'MCB'}" href="#">상자 보내기</a>
+								<a th:href="@{/momentlock/boxdelete/{id}(id=${box.boxid})}"
+									class="delete-box">삭제</a>
+								
+								<!-- 상자를 만든 회원, 상자가 묻힌 상태인 경우에만 상자 보내기 버튼 활성화 -->
+								<a th:if="${box.code == 'MCB' && box.burycode == 'BBY'}"
+									class="send-box" href="#">상자 보내기</a>
+								
 								<input type="hidden" class="boxid" th:value="${box.boxid}">
 							</div>
 							<img class="box" src="/img/myboxlist.png" alt="상자 이미지" />
@@ -48,7 +55,7 @@
 							<h3 class="box-open-date" th:attr="data-opendate=${box.boxopendate}">
 								00일 00시 00분 00초
 							</h3>
-							<div th:if="${box.burycode == 'BBY'}" class="locked-badge">🔒 미개봉</div>
+							<div th:if="${box.burycode == 'BBY' and box.boxopendate.isAfter(T(java.time.LocalDateTime).now())}" class="locked-badge">🔒 미개봉</div>
 						</div>
 						<!-- 반복 끝 -->
 					</div>

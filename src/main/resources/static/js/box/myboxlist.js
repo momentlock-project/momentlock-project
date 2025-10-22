@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// ✅ "상자 보내기" 클릭 시 폼 열기 (드롭다운의 3번째 a 태그 기준)
-document.querySelectorAll(".dropdown a:nth-child(3)").forEach(sendBtn => {
+// "상자 보내기" 클릭 시 폼 열기
+document.querySelectorAll(".send-box").forEach(sendBtn => {
    sendBtn.addEventListener("click", function(e) {
       e.preventDefault();
       const sendForm = document.getElementById("send-form");
@@ -52,20 +52,20 @@ async function transmit(boxId, inputNickname) {
 
    const url =
       `/momentlock/boxTransmit?boxid=${boxId}&inputNickname=${inputNickname}`;
-   console.log('요청한 url=> ' + url);
+   //console.log('요청한 url=> ' + url);
 
    const response = await fetch(url);
-   console.log(response);
+  // console.log(response);
    const status = response.status;
 
    if (status != 200) {
-      console.log("status=> " + status);
+   //   console.log("status=> " + status);
       location.href = `/error/${status}.html`;
    }
 
 
    const userExists = await response.text();
-   console.log('유저 존재 여부=> ' + userExists);
+   //console.log('유저 존재 여부=> ' + userExists);
 
    if (!userExists) {
       alert('해당 유저가 존재하지 않습니다.');
@@ -77,7 +77,7 @@ async function transmit(boxId, inputNickname) {
 
 }
 
-// ✅ 닫기 버튼
+// 닫기 버튼
 const sendCloseBtn = document.querySelector(".send-close");
 if (sendCloseBtn) {
    sendCloseBtn.addEventListener("click", function() {
@@ -143,7 +143,7 @@ updateBoxes();
 
 
 // 삭제 버튼 클릭 시 확인창
-document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
+document.querySelectorAll(".delete-box").forEach(deleteBtn => {
    deleteBtn.addEventListener("click", function(e) {
       e.preventDefault();
 
