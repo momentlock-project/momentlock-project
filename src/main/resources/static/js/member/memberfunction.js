@@ -4,6 +4,7 @@ function validateInput(inputElement, messageElement, regex, message){
 	    messageElement.innerHTML = "";
 	    if (!regex.test(e.target.value)) {
 	      messageElement.innerHTML = message;
+		  event.preventDefault();
 	    }
 	 });
 }
