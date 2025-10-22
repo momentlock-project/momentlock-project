@@ -39,7 +39,7 @@ public interface BoxRepository extends JpaRepository<Box, Long> {
 	
 //	opensoonbox.html에서 사용할 Page 객체
 	@Query(value = "SELECT BOXID, BOXNAME, BOXLOCATION, LATITUDE,"
-		    + " LONGITUDE, BOXOPENDATE, BOXREGDATE, BOXINVITECODE, BOXBURYCODE,"
+		    + " LONGITUDE, BOXOPENDATE, BOXREGDATE, BOXBURYCODE,"
 		    + " BOXDELCODE, BOXRELEASECODE, BOXMEMCOUNT, BOXCAPCOUNT"
 		    + " FROM BOX "
 		    + " WHERE BOXOPENDATE IS NOT NULL"
