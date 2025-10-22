@@ -51,7 +51,7 @@
 			                <td th:text="${box.boxreleasecode}">공개</td>
 			                <td th:text="${box.boxregdate}">2025-10-02</td>
 			                <td class="delete-cell">
-								<form th:action="@{/momentlock/box/updateToBDY}" method="post" onsubmit="return confirm('정말로 이 박스를 삭제하시겠습니까?');">
+								<form th:action="@{/momentlock/master/box/updateToBDY}" method="post" onsubmit="return confirm('정말로 이 박스를 삭제하시겠습니까?');">
 									<input type="hidden" name="boxid" th:value="${box.boxid}" />
 									<button type="submit" th:if="${box.boxdelcode == 'BDN'}" class="delete-btn">삭제</button>
 			                    </form>

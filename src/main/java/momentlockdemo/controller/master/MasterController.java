@@ -117,7 +117,7 @@ public class MasterController {
 			System.out.println(e.getMessage());
 		}
 		
-		return "redirect:/momentlock/masterinquirylist";
+		return "redirect:/momentlock/master/masterinquirylist";
 	}
 	
 	// 신고게시판
@@ -160,7 +160,7 @@ public class MasterController {
 			declarationService.updateDeclaration(declaration);
 			model.addAttribute("resultMsg", "신고 처리가 완료되었습니다!");
 			
-			return "redirect:/momentlock/masterdeclarlist";
+			return "redirect:/momentlock/master/masterdeclarlist";
 			
 		} catch(Exception e) {
 			model.addAttribute("resultMsg", e.getMessage());
@@ -208,7 +208,7 @@ public class MasterController {
 		    System.out.println("전달된 타입: " + noticeQa.getType());
         noticeQaService.insertNoticeQa(noticeQa);
         
-        return "redirect:/momentlock/masternoticelist";
+        return "redirect:/momentlock/master/masternoticelist";
     }
 	
 	//회원 관리
@@ -240,7 +240,7 @@ public class MasterController {
 		} catch (Exception e) {
 			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생했습니다.");
 		}
-		return "redirect:/momentlock/membermanagement";
+		return "redirect:/momentlock/master/membermanagement";
 	}
 	
 	
@@ -252,6 +252,7 @@ public class MasterController {
 		model.addAttribute("boxPage", boxPage);
 		return "html/master/boxmanagement";
 	}
+	
 	// 상자삭제
 	@PostMapping("/box/updateToBDY")
 	public String deleteBoxM(@RequestParam("boxid")Long boxid, RedirectAttributes rttr ) {
@@ -264,7 +265,7 @@ public class MasterController {
 		} catch (Exception e) {
 			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생하였습니다.");
 		}
-		return "redirect:/momentlock/boxmanagement";
+		return "redirect:/momentlock/master/boxmanagement";
 	}
 	
 	
@@ -290,7 +291,7 @@ public class MasterController {
 		} catch (Exception e) {
 			rttr.addFlashAttribute("error", "상태 변경 중 알 수 없는 오류가 발생하였습니다.");
 		}
-		return "redirect:/momentlock/capsulemanagement";
+		return "redirect:/momentlock/master/capsulemanagement";
 	}
 	
 	
