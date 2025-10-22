@@ -1,6 +1,5 @@
 package momentlockdemo.controller.box;
 
-import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import momentlockdemo.controller.capsule.BoxDetailController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.BoxService;
@@ -21,8 +21,6 @@ import momentlockdemo.service.MemberService;
 @Controller
 @RequestMapping("/momentlock")
 public class BoxTransmitController {
-
-    private final BoxDetailController boxDetailController;
 
 	@Autowired
 	private MemberService memberService;
@@ -36,9 +34,6 @@ public class BoxTransmitController {
 	@Autowired
 	private MailService mailService;
 
-    BoxTransmitController(BoxDetailController boxDetailController) {
-        this.boxDetailController = boxDetailController;
-    }
 
 	@GetMapping("/boxTransmit")
 	@ResponseBody
@@ -75,10 +70,24 @@ public class BoxTransmitController {
 				
 //				db 작업(송신자-박스의 관계를 수신자-박스로 수정)
 				memberBoxService.renewMemberBox(transmitedBox, transmitedMember);
+				
+//				url setting
+				String moveToUrl = UriComponentsBuilder.fromHttpUrl("http://localhost:8888")
+						 .fromHttpUrl("http://localhost:8888".trim())
+						    .path("/momentlock/gotoboxlist")
+						    .build()
+						    .toString();
+				
+				System.out.println("a 링크에 올릴 url=> "+moveToUrl);
 
 //				박스 수신자한테 메일로 알림			
-				mailService.sendBoxTransmitAlertMail(transmitedMember.getUsername(), sender.getNickname(),
-						transmitedBox.getBoxname(), transmitedMember.getUsername());
+				mailService.sendBoxTransmitAlertMail(
+						transmitedMember.getUsername(),
+						sender.getNickname(),
+						transmitedBox.getBoxname(), 
+						transmitedMember.getUsername(),
+						moveToUrl
+				);
 				
 				return true;
 
@@ -96,6 +105,8 @@ public class BoxTransmitController {
 	public String gotoboxlist() {
 		System.out.println("요청 받음!!");
 		boolean logined = SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+		System.out.println(logined);
 		
 		if(logined) {
 			return "redirect:/momentlock/myboxlist";
