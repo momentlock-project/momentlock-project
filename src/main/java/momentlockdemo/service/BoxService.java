@@ -26,8 +26,6 @@ public interface BoxService {
 	// 추가 비즈니스 로직
 	public abstract List<Box> searchBoxByName(String boxname);
 
-	public abstract Optional<Box> getBoxByInviteCode(String boxinvitecode);
-
 	public abstract List<Box> searchBoxByLocation(String boxlocation);
 
 	public abstract List<Box> getBoxesOpenBefore(LocalDateTime date);

@@ -58,11 +58,6 @@ public class BoxServiceImpl implements BoxService {
     }
     
     @Override
-    public Optional<Box> getBoxByInviteCode(String boxinvitecode) {
-        return boxRepository.findByBoxinvitecode(boxinvitecode);
-    }
-    
-    @Override
     public List<Box> searchBoxByLocation(String boxlocation) {
         return boxRepository.findByBoxlocationContaining(boxlocation);
     }

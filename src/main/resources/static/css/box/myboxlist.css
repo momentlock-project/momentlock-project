@@ -262,13 +262,3 @@ h1 {
 	opacity: 0.3;
 	pointer-events: none;
 }
-
-/* 잠긴 상자의 메뉴 버튼 숨기기 */
-.box_card.locked .menu-btn {
-	display: none !important;
-}
-
-/* 잠긴 상자의 드롭다운도 숨기기 */
-.box_card.locked .dropdown {
-	display: none !important;
-}
