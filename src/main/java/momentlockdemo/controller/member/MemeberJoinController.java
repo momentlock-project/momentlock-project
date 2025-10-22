@@ -37,11 +37,11 @@ public class MemeberJoinController {
 		try {
 			
 			Member member = Member.builder()
-				.username(memberDto.getUsername())
-				.name(memberDto.getName())
-				.password(memberDto.getPassword())
-				.nickname(memberDto.getNickname())
-				.phonenumber(memberDto.getPhonenumber())
+				.username(memberDto.getUsername().trim())
+				.name(memberDto.getName().trim())
+				.password(memberDto.getPassword().trim())
+				.nickname(memberDto.getNickname().trim())
+				.phonenumber(memberDto.getPhonenumber().trim())
 				.build();
 			
 			memberService.createMember(member);
