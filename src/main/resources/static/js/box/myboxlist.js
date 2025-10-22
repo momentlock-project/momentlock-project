@@ -143,7 +143,7 @@ updateBoxes();
 
 
 // 삭제 버튼 클릭 시 확인창
-document.querySelectorAll(".dropdown a:nth-child(2)").forEach(deleteBtn => {
+document.querySelectorAll(".delete-box").forEach(deleteBtn => {
 	deleteBtn.addEventListener("click", function(e) {
 		e.preventDefault();
 
