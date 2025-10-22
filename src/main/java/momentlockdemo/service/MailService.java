@@ -6,6 +6,6 @@ public interface MailService {
 	
 	public abstract void sendPasswordResetMail(String to, String code);
 	
-	public abstract void sendBoxTransmitAlertMail(String to, String senderNickname, String boxTitle, String recipientId);
+	public abstract void sendBoxTransmitAlertMail(String to, String senderNickname, String boxTitle, String recipientId, String moveToUrl);
 
 }

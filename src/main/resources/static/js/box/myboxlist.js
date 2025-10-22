@@ -36,8 +36,6 @@ document.querySelectorAll(".send-box").forEach(sendBtn => {
 
       // 상대에게 보낼 상자의 아이디
       boxId = boxCard.querySelector(".boxid").value;
-      console.log("boxid= " + boxId);
-
    });
 });
 
@@ -52,22 +50,18 @@ async function transmit(boxId, inputNickname) {
 
    const url =
       `/momentlock/boxTransmit?boxid=${boxId}&inputNickname=${inputNickname}`;
-   //console.log('요청한 url=> ' + url);
 
    const response = await fetch(url);
-  // console.log(response);
    const status = response.status;
 
    if (status != 200) {
-   //   console.log("status=> " + status);
       location.href = `/error/${status}.html`;
    }
 
 
    const userExists = await response.text();
-   //console.log('유저 존재 여부=> ' + userExists);
-
-   if (!userExists) {
+   
+   if (userExists == 'false') {
       alert('해당 유저가 존재하지 않습니다.');
       return;
    } else {

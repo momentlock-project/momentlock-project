@@ -71,12 +71,14 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	@Async
-	public void sendBoxTransmitAlertMail(String to, String senderNickname, String boxTitle, String recipientId) {
+	public void sendBoxTransmitAlertMail(String to, String senderNickname,
+			String boxTitle, String recipientId, String moveToUrl) {
 		
 		Context context = new Context();
 		context.setVariable("senderNickname", senderNickname);
 		context.setVariable("boxTitle", boxTitle);
 		context.setVariable("username", recipientId);
+		context.setVariable("moveToUrl", moveToUrl);
 		
 		String html = templateEngine.process("mail/boxTransmitAlertMail", context);
 		
