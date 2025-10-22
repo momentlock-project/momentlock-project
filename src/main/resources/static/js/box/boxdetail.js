@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	if (urlParams.has('success')) {
 		const success = urlParams.get('success');
-		if (success === 'invited') {
+		if (success === 'inviting') {
 			alert('초대를 성공적으로 보냈습니다!');
 		}
 	}

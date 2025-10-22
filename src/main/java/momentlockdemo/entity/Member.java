@@ -98,7 +98,7 @@ public class Member implements Serializable {
 
 	@PrePersist
 	protected void memberCreate() {
-		this.memcapcount = 0L;
+		this.memcapcount = 5L;
 		this.memregdate = LocalDateTime.now();
 		this.memcode = "MDN";
 		this.memdeccount = 0L;
