@@ -64,7 +64,9 @@ public class MemeberInfoController {
 		try {
 			
 			member.setName(memberDto.getName());
-			member.setNickname(memberDto.getNickname());
+			if(!memberService.existsByNickname(memberDto.getNickname())) {
+				member.setNickname(memberDto.getNickname());
+			}
 			member.setPassword(memberDto.getPassword());
 			member.setPhonenumber(memberDto.getPhonenumber());
 			memberService.updateMember(member);

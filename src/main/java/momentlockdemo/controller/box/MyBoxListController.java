@@ -1,6 +1,10 @@
 package momentlockdemo.controller.box;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import momentlockdemo.dto.MemberBoxDto;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.entity.MemberBox;
@@ -58,9 +63,23 @@ public class MyBoxListController {
 		List<Box> pageContent = myBoxesList.subList(start, end);
 
 		Page<Box> myBoxes = new PageImpl<>(pageContent, pageable, myBoxesList.size());
-
+		
+		List<MemberBoxDto> memberBoxlist = new ArrayList<MemberBoxDto>();
+		for(int i=0; i<memberBoxes.size(); i++) {
+			Box box = memberBoxes.get(i).getBox();
+			Long boxid = box.getBoxid();
+			String boxname = box.getBoxname();
+			LocalDateTime boxopendate = box.getBoxopendate();
+			String code = memberBoxes.get(i).getBoxmatercode();
+			String burycode = box.getBoxburycode();
+			
+			MemberBoxDto memberBoxDto = new MemberBoxDto(boxid, boxname, boxopendate, code, burycode);
+			memberBoxlist.add(memberBoxDto);
+		}
+		
 		// 3. 모델에 담아서 Thymeleaf로 전달
 		model.addAttribute("myBoxes", myBoxes);
+		model.addAttribute("memberBoxlist", memberBoxlist);
 
 		return "html/box/myboxlist";
 	}

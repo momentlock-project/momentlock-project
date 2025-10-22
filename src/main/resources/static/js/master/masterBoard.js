@@ -2,9 +2,9 @@
 	관리자 문의, 신고, 공지사항 모달창 js
 */
 
-fetchToBoardDetailInfomodal('.row.inquiry', '/momentlock/masterinquirylist/');
-fetchToBoardDetailInfomodal('.row.notice', '/momentlock/masternoticelist/');
-fetchToBoardDetailInfomodal('.row.declar', '/momentlock/masterdeclarlist/');
+fetchToBoardDetailInfomodal('.row.inquiry', '/momentlock/master/masterinquirylist/');
+fetchToBoardDetailInfomodal('.row.notice', '/momentlock/maseter/masternoticelist/');
+fetchToBoardDetailInfomodal('.row.declar', '/momentlock/master/masterdeclarlist/');
 
 /*
 	문의사항 게시판 모달창 클릭 후 답변하기 js

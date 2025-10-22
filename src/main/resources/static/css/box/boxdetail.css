@@ -218,3 +218,86 @@
 	line-height: 1.6;
 	margin-bottom: 30px;
 }
+
+/* 상자 묻기 애니메이션 오버레이 */
+.bury-animation-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 9999;
+	justify-content: center;
+	align-items: center;
+}
+
+.bury-gif {
+	border: 5px solid #fff;
+	box-shadow: 0 0 30px rgba(255, 215, 0, 0.5),
+		0 0 60px rgba(255, 215, 0, 0.3);
+}
+
+.bury-animation-overlay.show {
+	display: flex;
+}
+
+/* 애니메이션 컨테이너 */
+.bury-animation-container {
+	text-align: center;
+	background: rgba(255, 255, 255, 0.1);
+	padding: 40px;
+	border-radius: 20px;
+	backdrop-filter: blur(10px);
+}
+
+/* GIF 이미지 */
+.bury-gif {
+	width: 400px;
+	height: 400px;
+	object-fit: contain;
+	border-radius: 10px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* 메시지 텍스트 */
+.bury-message {
+	margin-top: 20px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 텍스트 애니메이션 */
+@keyframes pulse {
+
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.7;
+		transform: scale(1.05);
+	}
+}
+
+/* 반응형 - 작은 화면 */
+@media (max-width: 768px) {
+	.bury-gif {
+		width: 300px;
+		height: 300px;
+	}
+
+	.bury-message {
+		font-size: 18px;
+	}
+
+	.bury-animation-container {
+		padding: 20px;
+	}
+}

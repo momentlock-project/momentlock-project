@@ -33,6 +33,7 @@ public class MemeberMypageController {
 		// 로그인 유저
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
+		// 로그인 안 했을 때 로그인페이지로 리다이렉션
 		if(username == null) {
 			return "redirect:/html/member/login";
 		}
@@ -58,6 +59,7 @@ public class MemeberMypageController {
 		return "html/capsule/mycapsulelist";
 	}
 	
+	// 회원탈퇴
 	@PostMapping("/memberremove")
 	public String memberremove() {
 		
@@ -69,7 +71,7 @@ public class MemeberMypageController {
 		member.setMemdeldate(LocalDateTime.now());
 		memberService.updateMember(member);
 		
-		return "redirect:/momentlock";
+		return "redirect:/html/member/login";
 	}
 	
 

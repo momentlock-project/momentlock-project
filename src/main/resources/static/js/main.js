@@ -22,10 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		const success = urlParams.get('success');
 		if (success === 'invited') {
 			alert('초대받은 상자에 가입되었습니다.!');
+		}else if(success === 'boxbury'){
+			alert('상자가 성공적으로 묻혔습니다.! 오픈날을 기다려주세요');
 		}
 	}
-
+	
 });
-
-
-

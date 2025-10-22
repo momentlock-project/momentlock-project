@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			case 'failed':
 				message = '초대에 실패했습니다.';
 				break;
+			case 'capsulezero':
+				message = '상자에 캡슐을 1개 이상은 추가하고 묻어야 합니다.';
+				break;
 		}
 
 		if (message) {
@@ -96,11 +99,8 @@ const inviteOverlay = document.getElementById('inviteOverlay');
 const memberCountOverlay = document.getElementById('memberCountOverlay');
 
 insertCapsule.addEventListener('click', () => {
-	const confirmed = confirm('해당 박스에 캡슐을 추가하러 이동하시겠습니까?');
 
-	if (confirmed) {
-		window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
-	}
+	window.location.href = `/momentlock/capsuleinsert?boxid=${boxId}`;
 });
 
 boxJoinMemberBtn.addEventListener('click', () => {
@@ -113,18 +113,37 @@ memberCountConfirmBtn.addEventListener('click', () => {
 	memberCountOverlay.style.display = 'none';
 });
 
+// 기존 readyBtn 이벤트 리스너를 다음과 같이 수정
+
+const buryAnimationOverlay = document.getElementById('buryAnimationOverlay');
+
 readyBtn.addEventListener('click', () => {
 	let confirmed;
+	let isReady = false;
+
 	if (memerboxReadyCode == 'MRN') {
 		confirmed = confirm('상자 묻기 준비 완료 하시겠습니까?');
+		isReady = true;
 	} else {
 		confirmed = confirm('상자 묻기 준비를 해제 하시겠습니까?');
+		isReady = false;
 	}
 
 	if (confirmed) {
-		window.location.href = `/momentlock/boxready?boxid=${boxId}&member=${memberUsername}`;
-	}
+		// 준비 완료일 때만 애니메이션 표시
+		if (isReady) {
+			// 애니메이션 표시
+			buryAnimationOverlay.classList.add('show');
 
+			// 4초 후 페이지 이동
+			setTimeout(() => {
+				window.location.href = `/momentlock/boxready?boxid=${boxId}`;
+			}, 4500);
+		} else {
+			// 준비 해제는 바로 이동
+			window.location.href = `/momentlock/boxready?boxid=${boxId}`;
+		}
+	}
 });
 
 // 각 버튼에 이벤트 리스너 추가
@@ -150,7 +169,7 @@ document.getElementById('closeBtn').addEventListener('click', function(e) {
 
 // 상자를 만든 회원이 아닌 경우
 // 초대하기 버튼이 없음
-if(inviteBtn != null){
+if (inviteBtn != null) {
 	// ===== 초대하기 모달 열기 =====
 	inviteBtn.addEventListener('click', function() {
 		inviteModal.style.display = 'flex';
@@ -167,7 +186,7 @@ inviteCancel.addEventListener('click', function() {
 });
 
 // ===== 초대하기 확인 =====
-inviteConfirm.addEventListener('click', function() {
+inviteConfirm?.addEventListener('click', function() {
 	const nickname = inviteInput.value.trim();
 	if (!nickname) {
 		alert('닉네임을 입력해주세요.');
@@ -184,7 +203,7 @@ inviteConfirm.addEventListener('click', function() {
 });
 
 // ===== Enter 키로 초대하기 =====
-inviteInput.addEventListener('keypress', function(e) {
+inviteInput?.addEventListener('keypress', function(e) {
 	if (e.key === 'Enter') {
 		inviteConfirm.click();
 	}
