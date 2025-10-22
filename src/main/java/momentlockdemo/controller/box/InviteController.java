@@ -138,7 +138,7 @@ public class InviteController {
 			// 멤버가 있을 때만 초대 로직 실행
 			invitationService.sendInvitation(inviter.getNickname(), inviteeNickname, boxid);
 
-			return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&success=invited";
+			return "redirect:/momentlock/boxdetail?boxid=" + boxid + "&success=inviting";
 
 			// 초대받는 멤버 이메일이 적절치 않아 초대 발송 에러가 발생하면 failed를 담아서 redirect
 		} catch (Exception e) {
