@@ -94,6 +94,20 @@
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script>
+			document.addEventListener('DOMContentLoaded', function() {
+			    const rows = document.querySelectorAll('.box-row');
+
+			    rows.forEach(row => {
+			        row.addEventListener('click', function() {
+			            const boxid = this.dataset.boxid;
+			            if (boxid) {
+			                window.location.href = `/momentlock/boxdetail?boxid=${boxid}`;
+			            }
+			        });
+			    });
+			});
+		</script>
 </body>
 
 </html>
