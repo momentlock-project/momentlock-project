@@ -182,20 +182,13 @@ document.querySelectorAll('.box_card .box').forEach(img => {
 				return;
 			}
 		}
-
 		// 잠기지 않은 상자는 상세 페이지로 이동
 		if (burycode === 'BBN') {
 			location.href = `/momentlock/boxdetail?boxid=${boxId}`;
 		}
 
-		// 잠기지 않은 상자는 상세 페이지로 이동
-		if (confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)) {
-			location.href = `/momentlock/boxdetail?boxid=${boxId}`;
-		}
-
-		// 잠기지 않은 상자는 상세 페이지로 이동
-		if (confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)) {
-			location.href = `/momentlock/boxdetail?boxid=${boxId}`;
+		if (burycode === 'BBO') {
+			location.href = `/momentlock/opencapsulelist?boxid=${boxId}`;
 		}
 	});
 });
