@@ -25,8 +25,6 @@ async function getBoxData() {
 	try {
 		const response = await fetch('/momentlock/api/boxdata');
 		const data = await response.json();
-		console.log('받아온 데이터:', data);
-
 		const now = new Date(); // 현재 시간 기준
 
 		data.forEach(box => {
@@ -46,8 +44,6 @@ async function getBoxData() {
 				});
 			}
 		});
-
-		console.log('지역별로 분류된 cityData:', cityData);
 
 	} catch (error) {
 		console.error('캡슐 데이터 로드 실패:', error);
