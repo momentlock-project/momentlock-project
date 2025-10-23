@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // ✅ "상자 보내기" 클릭 시 폼 열기 (드롭다운의 3번째 a 태그 기준)
-document.querySelectorAll(".dropdown a:nth-child(3)").forEach(sendBtn => {
+document.querySelectorAll(".send-box").forEach(sendBtn => {
 	sendBtn.addEventListener("click", function(e) {
 		e.preventDefault();
 		const sendForm = document.getElementById("send-form");
