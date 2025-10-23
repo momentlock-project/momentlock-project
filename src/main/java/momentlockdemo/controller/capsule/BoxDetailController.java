@@ -38,8 +38,9 @@ public class BoxDetailController {
 		// 박스 조회
 		Box box = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new IllegalArgumentException("해당 박스를 찾을 수 없습니다. ID=" + boxid));
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
 		// 로그인 구현
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Member member = memberService.getMemberByUsername(username).get();
 
 		// 해당 박스에 속한 캡슐 리스트
@@ -53,6 +54,7 @@ public class BoxDetailController {
 
 		Long countByReady = memberBoxService.countByBoxAndReadycode(box, "MRY");
 
+		// 모두다 ready 완료를 누르면 박스 묻힘 처리
 		if (countByReady == box.getBoxmemcount()) {
 			box.setBoxburycode("BBY");
 			boxService.updateBox(box);
