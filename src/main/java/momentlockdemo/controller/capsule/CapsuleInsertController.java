@@ -89,12 +89,16 @@ public class CapsuleInsertController {
 		Member member = memberService.getMemberByUsername(user.getUsername()).get();
 		capsule.setMember(member);
 
+		Box box = boxService.getBoxById(boxid).orElseThrow(() -> new IllegalArgumentException("박스 정보를 찾을 수 없습니다."));
+		capsule.setBox(box);
+
+		if (member.getMemcapcount() < 1) {
+			return "redirect:/momentlock/store?error=capcountzero";
+		}
+
 		// 캡슐 썸네일 랜덤 색상 지정
 		int randomNum = (int) (Math.random() * 6) + 1; // 1~10
 		capsule.setCapImage("capsule" + randomNum + ".png");
-
-		Box box = boxService.getBoxById(boxid).orElseThrow(() -> new IllegalArgumentException("박스 정보를 찾을 수 없습니다."));
-		capsule.setBox(box);
 
 		// 캡슐 DB 저장
 		Capsule savedCapsule = capsuleService.insertCapsule(capsule);
@@ -107,7 +111,9 @@ public class CapsuleInsertController {
 				}
 			}
 		}
-
+		// 캡슐을 insert 하면 memcapcount 감소하기
+		member.setMemcapcount(member.getMemcapcount() - 1);
+		memberService.updateMember(member);
 		// 등록 후 리다이렉트
 		return "redirect:/momentlock/boxdetail?boxid=" + savedCapsule.getBox().getBoxid();
 	}
@@ -168,6 +174,11 @@ public class CapsuleInsertController {
 	@GetMapping("/capsuledelete")
 	@Transactional
 	public String deleteCapsule(@RequestParam("boxid") Long boxid, @RequestParam("capsuleid") Long capid) {
+
+		// 유저 정보 가져오기
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = memberService.getMemberByUsername(username).get();
+
 		// 캡슐 조회
 		Capsule capsule = capsuleService.getCapsuleById(capid)
 				.orElseThrow(() -> new IllegalArgumentException("캡슐을 찾을 수 없습니다."));
@@ -183,6 +194,10 @@ public class CapsuleInsertController {
 
 		// 캡슐 삭제
 		capsuleService.deleteCapsule(capid);
+
+		// 캡슐을 insert 하면 memcapcount 감소하기
+		member.setMemcapcount(member.getMemcapcount() + 1);
+		memberService.updateMember(member);
 
 		return "redirect:/momentlock/boxdetail?boxid=" + boxid;
 	}
