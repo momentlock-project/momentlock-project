@@ -145,25 +145,24 @@ public class MasterController {
 	
 	// 신고처리하기 버튼 클릭 시 멤버 신고 카운트 증가
 	@GetMapping("/masterDeclarPlusCnt")
-	public String masterDeclarPlusCnt(@RequestParam Long decid, Model model) {
+	public String masterDeclarPlusCnt(@RequestParam Long decid, Model model, RedirectAttributes ra) {
 		
 		try {
 			// 신고 id에 맞는 신고정보와 회원정보 가져옴
 			Declaration declaration = declarationService.getDeclarationById(decid).get();
 			Member mem = memberService.getMemberByUsername(declaration.getMember().getUsername()).get();
 			
-			// 해당하는 회원의 신고 카운트 증가
-			mem.setMemdeccount(mem.getMemdeccount() + 1);
+			// 신고하는 게시글의 상태코드를 DECY(완료)로 변경
 			declaration.setDeccomplete("DECY");
 			
-			memberService.updateMember(mem);
+			memberService.declarCountIncrease(mem);
 			declarationService.updateDeclaration(declaration);
-			model.addAttribute("resultMsg", "신고 처리가 완료되었습니다!");
+			ra.addFlashAttribute("resultMsg", "신고처리가 완료되었습니다.");
 			
 			return "redirect:/momentlock/master/masterdeclarlist";
 			
 		} catch(Exception e) {
-			model.addAttribute("resultMsg", e.getMessage());
+			ra.addFlashAttribute("resultMsg", e.getMessage());
 			return "redirect:/momentlock";
 		}
 	}

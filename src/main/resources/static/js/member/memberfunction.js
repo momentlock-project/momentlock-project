@@ -144,7 +144,6 @@ function truncateString(selectorName, maxLength){
 function masterDeclarPlusCnt(){
 	document.querySelector("#declarBtn").addEventListener("click", () => {
 		window.location = `/momentlock/master/masterDeclarPlusCnt?decid=${document.querySelector(".modal-id").textContent}`;
-		alert("신고 처리가 완료되었습니다!");
 	})
 }	
 
