@@ -55,6 +55,7 @@ public class MemeberMypageController {
 		List<Capsule> capsuleList
 			= capsuleService.getCapsulesByMember(loginMember).stream().filter(cap -> cap.getCapdelcode().equals("TDN")).toList();
 		model.addAttribute("capsuleList", capsuleList);
+		model.addAttribute("member", loginMember);
 		
 		return "html/capsule/mycapsulelist";
 	}
