@@ -100,10 +100,7 @@ public class BoxTransmitController {
 
 	@GetMapping("/gotoboxlist")
 	public String gotoboxlist() {
-		
-//		로그인창으로 바로 이동
 		return "redirect:/momentlock/myboxlist";
-
 	}
 
 }
