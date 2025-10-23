@@ -77,31 +77,16 @@
 
 						</ul>
 					</nav>
-					<script th:inline="javascript">
-						
-						// 현재 페이지가 0일 때 이전 페이지 a 링크 숨김
-						if($('#pre').closest('.page-item').hasClass('disabled')) {
-							$('#pre').hide();
-							
-						} else if($('#next').closest('.page-item').hasClass('disabled')) {
-							// 현재 페이지가 마지막 페이지일 경우
-							$('#next').hide();
-						} else {
-							$('.page-item').show();
-						}
-						
-					</script>
 				</th:block>
 
 			</div>
 		</div>
 	</div>
 
-
-
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
+	<script th:src="@{/js/box/popularbox.js}" defer></script>
 
 	<body>
 

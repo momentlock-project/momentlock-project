@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,23 +10,29 @@
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/capsule/mycapsulelist.css}" />
 </head>
+
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav :: nav}"></div>
-		
+
 		<div class="box-modal">
 			<a th:href="@{/momentlock/mypage}">
 				<img src="/img/x.png" alt="창닫기" />
 			</a>
-			
+
 			<div id="my-capsule-list-container">
 				<h1>나의 캡슐 리스트</h1>
 				<div id="my-capsule-list-box">
 					<div id="my-capsule-list-title-box">
-						<p>나의 캡슐 보유 : 
-							<span th:text="${#lists.size(capsuleList)}"></span>개
-						</p>
+						<div id="my-capsule-list-info">
+							<p>내가 등록한 캡슐 갯수 :
+								<span th:text="${#lists.size(capsuleList)}"></span>개
+							</p>
+							<p>내가 보유한 캡슐 갯수 :
+								<span th:text="${member.memcapcount}"></span>개
+							</p>
+						</div>
 						<button class="main-btn capsule">
 							<a th:href="@{/momentlock/store}">캡슐 구매</a>
 						</button>
@@ -34,7 +41,7 @@
 					<!-- 캡슐 리스트 반복 -->
 					<div id="my-capsule-list">
 						<th:block th:if="${capsuleList != null and #lists.size(capsuleList) > 0}">
-							<div id="capsule-box" th:each="capsule : ${capsuleList}" >
+							<div id="capsule-box" th:each="capsule : ${capsuleList}">
 								<a th:href="@{|/momentlock/opencapsuledetail/${capsule.capid}|}">
 									<img th:src="@{|/img/capsule/${capsule.capImage ?: 'capsule1.png'}|}" alt="캡슐이미지" />
 								</a>
@@ -47,18 +54,20 @@
 								<p>등록된 캡슐이 없습니다!</p>
 								<p>상자 만든 후 캡슐을 등록해 보세요!</p>
 								<div>
-									<input type="button" class="member-btn" onclick="location='/momentlock/boxinsert'" value="상자 만들러가기" />
+									<input type="button" class="member-btn" onclick="location='/momentlock/boxinsert'"
+										value="상자 만들러가기" />
 								</div>
 							</div>
 						</th:block>
 					</div><!-- my-capsule-list -->
-					
+
 				</div><!-- my-capsule-list-box -->
 			</div><!-- my-capsule-list-container -->
 		</div><!-- box-modal -->
-	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
-	<script th:src="@{/js/member/memberfunction.js}" defer></script>
-	<script th:src="@{/js/capsule/mycapsulelist.js}" defer></script>
+		<div th:replace="~{fragments/footer :: footer}"></div>
+		<script th:src="@{/js/nav.js}" defer></script>
+		<script th:src="@{/js/member/memberfunction.js}" defer></script>
+		<script th:src="@{/js/capsule/mycapsulelist.js}" defer></script>
 </body>
+
 </html>
