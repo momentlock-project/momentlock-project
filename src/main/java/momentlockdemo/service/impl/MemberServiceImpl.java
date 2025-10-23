@@ -139,6 +139,22 @@ public class MemberServiceImpl implements MemberService {
     	
     	return memberRepository.save(member);
     	
-    };
+    }
+
+    // 비밀번호 재설정
+	@Override
+	@Transactional
+	public Member passwordResetMember(Member member) {
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
+        return memberRepository.save(member);
+	}
+
+	// 멤버 신고 카운트 증가
+	@Override
+	@Transactional
+	public Member declarCountIncrease(Member member) {
+		member.setMemdeccount(member.getMemdeccount() + 1);
+		return memberRepository.save(member);
+	};
     
 }

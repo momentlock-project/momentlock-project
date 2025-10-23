@@ -4,7 +4,6 @@ function validateInput(inputElement, messageElement, regex, message){
 	    messageElement.innerHTML = "";
 	    if (!regex.test(e.target.value)) {
 	      messageElement.innerHTML = message;
-		  event.preventDefault();
 	    }
 	 });
 }
@@ -23,7 +22,10 @@ function fetchToBoardDetailInfomodal(classname, url){
 				
 				const response = 
 					await fetch(url	+ row.children[0].textContent, {
-						method: "GET"
+						method: "GET",
+						headers: {
+							'Content-Type':'application/json'
+						}
 					})
 					
 				if(!response.ok){
@@ -144,7 +146,6 @@ function truncateString(selectorName, maxLength){
 function masterDeclarPlusCnt(){
 	document.querySelector("#declarBtn").addEventListener("click", () => {
 		window.location = `/momentlock/master/masterDeclarPlusCnt?decid=${document.querySelector(".modal-id").textContent}`;
-		alert("신고 처리가 완료되었습니다!");
 	})
 }	
 

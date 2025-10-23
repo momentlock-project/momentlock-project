@@ -23,9 +23,9 @@
 		<div class="managerpagetoolex-modal-container">
 			<div class="managerpagetoolex-tab-nav">
 				<ul>
-					<li class="tabs"><a th:href="@{/momentlock/masterinquirylist}">문의게시판</a></li>
-			        <li class="tabs active"><a th:href="@{/momentlock/masterdeclarlist}">신고게시판</a></li>
-			        <li class="tabs"><a th:href="@{/momentlock/masternoticelist}">공지사항</a></li>
+					<li class="tabs"><a th:href="@{/momentlock/master/masterinquirylist}">문의게시판</a></li>
+			        <li class="tabs active"><a th:href="@{/momentlock/master/masterdeclarlist}">신고게시판</a></li>
+			        <li class="tabs"><a th:href="@{/momentlock/master/masternoticelist}">공지사항</a></li>
 				</ul>
 			</div>
 			
@@ -39,6 +39,7 @@
 							 <th class="col-title">신고항목</th>
 							 <th class="col-username">이메일</th>
 							 <th class="col-date">작성일</th>
+							 <th class="col-date">처리여부</th>
 						   </tr>
 						 </thead>
 						 <tbody>
@@ -47,6 +48,7 @@
 							  <td class="col-title" th:text="${declaration.deccategory}"></td>
 							  <td class="col-title" th:text="${declaration.member.username}"></td>
 							  <td th:text="${#temporals.format(declaration.decregdate, 'yyyy-MM-dd')}"></td>
+							  <td class="col-title" th:text="${declaration.deccomplete == 'DECY' ? '처리완료' : '처리 전'}"></td>
 							</tr>
 							<tr th:if="${declarationPage.empty}">
 							  <td colspan="3" style="text-align: center;">작성된 신고글이 없습니다.</td>
@@ -106,6 +108,13 @@
 	<script th:src="@{/js/managerpagetoolex.js}" defer></script>
 	<script th:src="@{/js/member/memberfunction.js}" defer></script>
 	<script th:src="@{/js/master/masterBoard.js}" defer></script>
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    if ([[${resultMsg}]] != null) {
+	        alert([[${resultMsg}]]);
+	    }
+	    /*]]>*/
+	</script>
 	<body>
 
 </html>

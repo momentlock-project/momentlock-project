@@ -3,7 +3,7 @@
 */
 
 fetchToBoardDetailInfomodal('.row.inquiry', '/momentlock/master/masterinquirylist/');
-fetchToBoardDetailInfomodal('.row.notice', '/momentlock/maseter/masternoticelist/');
+fetchToBoardDetailInfomodal('.row.notice', '/momentlock/master/masternoticelist/');
 fetchToBoardDetailInfomodal('.row.declar', '/momentlock/master/masterdeclarlist/');
 
 /*
