@@ -4,7 +4,6 @@ function validateInput(inputElement, messageElement, regex, message){
 	    messageElement.innerHTML = "";
 	    if (!regex.test(e.target.value)) {
 	      messageElement.innerHTML = message;
-		  event.preventDefault();
 	    }
 	 });
 }
@@ -23,7 +22,10 @@ function fetchToBoardDetailInfomodal(classname, url){
 				
 				const response = 
 					await fetch(url	+ row.children[0].textContent, {
-						method: "GET"
+						method: "GET",
+						headers: {
+							'Content-Type':'application/json'
+						}
 					})
 					
 				if(!response.ok){

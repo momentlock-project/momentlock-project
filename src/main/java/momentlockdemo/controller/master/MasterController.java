@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import momentlockdemo.conf.SecurityConfig;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Capsule;
 import momentlockdemo.entity.Declaration;
@@ -41,11 +42,11 @@ import momentlockdemo.service.MemberService;
 import momentlockdemo.service.NoticeQaService;
 
 
-
-
 @Controller("masterController")
 @RequestMapping("/momentlock/master")
 public class MasterController {
+
+    private final SecurityConfig securityConfig;
 
 	
 	@Autowired
@@ -65,6 +66,11 @@ public class MasterController {
 	
 	@Autowired
 	private CapsuleService capsuleService;
+
+
+    MasterController(SecurityConfig securityConfig) {
+        this.securityConfig = securityConfig;
+    }
 	
 	
 	
@@ -193,7 +199,7 @@ public class MasterController {
 	// 공지사항/QnA 폼
 	@GetMapping("/masterinquiryinsert")
 	public String noticeQaForm(Model model) {
-		System.out.println(">>>>>>>>>> GET /masterinquiryinsert : noticeQaForm() 메서드 실행됨! <<<<<<<<<<");
+		//System.out.println(">>>>>>>>>> GET /masterinquiryinsert : noticeQaForm() 메서드 실행됨! <<<<<<<<<<");
 		model.addAttribute("noticeQa", new NoticeQa());
 		return "html/master/masterinquiryinsert";
 	}
@@ -202,9 +208,9 @@ public class MasterController {
 	@PostMapping("/masterinquiryinsert")
 	public String createNoticeQa(@ModelAttribute("noticeQa") NoticeQa noticeQa) {
 		
-		 System.out.println(">>>>>>>>>> POST /masterinquiryinsert : createNoticeQa() 메서드 실행됨! <<<<<<<<<<");
-		    System.out.println("전달된 제목: " + noticeQa.getTitle());
-		    System.out.println("전달된 타입: " + noticeQa.getType());
+		 //System.out.println(">>>>>>>>>> POST /masterinquiryinsert : createNoticeQa() 메서드 실행됨! <<<<<<<<<<");
+		 //   System.out.println("전달된 제목: " + noticeQa.getTitle());
+		  //  System.out.println("전달된 타입: " + noticeQa.getType());
         noticeQaService.insertNoticeQa(noticeQa);
         
         return "redirect:/momentlock/master/masternoticelist";
