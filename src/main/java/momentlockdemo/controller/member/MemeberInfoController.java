@@ -77,7 +77,6 @@ public class MemeberInfoController {
 		} catch (RuntimeException re) {
 			
 			ra.addFlashAttribute("resultMsg", re.getMessage());
-			model.addAttribute("memberDto", member);
 			return "html/member/memberinfo";
 		}
 		

@@ -28,7 +28,9 @@ public class SecurityConfig {
                 				"/html/member/login", "/public/**", 
                 				"/momentlock/memberjoin", "/momentlock/join", 
                 				"/momentlock/idFind", "/momentlock/idFindProc", "/html/member/result",
-                				"/momentlock/passwordresetconfirm"
+                				"/momentlock/passwordresetconfirm", 
+                				"/momentlock/send-code", "/momentlock/verify-code",
+                				"/momentlock/passwordreset"
                 				).permitAll()
 //                		.requestMatchers("/html/main?continue").hasAnyRole("ADMIN", "USER")
 //                		.requestMatchers("/momentlock").hasAnyRole("ADMIN", "USER")

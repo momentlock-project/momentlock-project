@@ -21,7 +21,7 @@
         
         <div class="modal">
             <!-- form 시작 -->
-            <form th:action="@{/momentlock/masterinquiryinsert}" th:object="${noticeQa}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/momentlock/master/masterinquiryinsert}" th:object="${noticeQa}" method="post" enctype="multipart/form-data">
                 
                 <h2 class="modal-title">공지사항 / QnA 작성</h2>
 
@@ -43,7 +43,7 @@
 				
                 <!-- 버튼 -->
                 <div class="actions">
-                    <button type="button" class="form-btn" th:onclick="|location.href='@{/momentlock/masternoticelist}'|">목록</button>
+                    <button type="button" class="form-btn" th:onclick="|location.href='@{/momentlock/master/masternoticelist}'|">목록</button>
                     <button type="submit" class="form-btn">등록</button>
                 </div>
                 

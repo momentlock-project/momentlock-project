@@ -42,7 +42,7 @@ public class MemberPasswordResetController {
 		
 		if (result) {
 			model.addAttribute("username", username);
-            return ResponseEntity.ok("인증 성공!");
+            return ResponseEntity.ok("인증이 성공되었습니다.");
         } else {
             return ResponseEntity.badRequest().body("인증번호가 올바르지 않거나 만료되었습니다.");
         }
@@ -60,8 +60,8 @@ public class MemberPasswordResetController {
 	public String passwordrest(@RequestParam String username, @RequestParam String password) {
 		Member member = memberService.getMemberByUsername(username).get();
 		member.setPassword(password);
-		memberService.updateMember(member);
-		return "redirect:/momentlock/login";
+		memberService.passwordResetMember(member);
+		return "redirect:/html/member/login";
 	}
 
 }
