@@ -65,7 +65,7 @@ public class MailServiceImpl implements MailService {
 
 			mailSender.send(message);
 		} catch (MessagingException me) {
-			throw new IllegalStateException("비밀번호 재설정 인증번호 발송 실패", me);
+			me.getStackTrace();
 		}
 	}
 

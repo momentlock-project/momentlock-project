@@ -20,6 +20,8 @@ public interface MemberService {
 	public abstract Member updateMember(Member member);
 
 	public abstract void deleteMember(String username);
+	
+	public abstract Member passwordResetMember(Member member);
 
 	// 추가 비즈니스 로직
 	public abstract Optional<Member> getMemberByNickname(String nickname);
