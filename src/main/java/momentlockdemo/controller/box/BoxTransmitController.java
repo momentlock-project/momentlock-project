@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import momentlockdemo.controller.capsule.BoxDetailController;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.BoxService;
@@ -22,6 +22,8 @@ import momentlockdemo.service.MemberService;
 @Controller
 @RequestMapping("/momentlock")
 public class BoxTransmitController {
+
+    private final BoxDetailController boxDetailController;
 
 	@Autowired
 	private MemberService memberService;
@@ -34,6 +36,10 @@ public class BoxTransmitController {
 
 	@Autowired
 	private MailService mailService;
+
+    BoxTransmitController(BoxDetailController boxDetailController) {
+        this.boxDetailController = boxDetailController;
+    }
 
 	@GetMapping("/boxTransmit")
 	@ResponseBody
@@ -72,8 +78,9 @@ public class BoxTransmitController {
 //				url setting
 				String moveToUrl = UriComponentsBuilder
 						.fromHttpUrl("http://localhost:8888".trim())
-						.path("/momentlock/gotoboxlist").build()
-						.toString();
+						.path("/momentlock/gotoboxlist").build(true).toUriString();
+						
+					
 
 //				박스 수신자한테 메일로 알림			
 				mailService.sendBoxTransmitAlertMail(transmitedMember.getUsername(), sender.getNickname(),
@@ -93,12 +100,9 @@ public class BoxTransmitController {
 
 	@GetMapping("/gotoboxlist")
 	public String gotoboxlist() {
-
-//		이전 요청 security context 삭제
-		SecurityContextHolder.clearContext();
-
+		
 //		로그인창으로 바로 이동
-		return "redirect:/html/member/login";
+		return "redirect:/momentlock/myboxlist";
 
 	}
 
