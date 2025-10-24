@@ -115,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			alert('보유 캡슐 수가 부족합니다. 캡슐을 구매 후 이용해 주세요!');
 		} else if (error === 'boxmemcountfull') {
 			alert('초대 받은 상자의 인원이 가득찼습니다.!');
+		} else if (error === 'boxburied'){
+			alert('캡슐이 상자에 묻혀있습니다.! 오픈 후 확인하세요~');			
 		}
 	}
 
