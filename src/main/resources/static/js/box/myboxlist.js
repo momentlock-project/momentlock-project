@@ -163,6 +163,8 @@ document.querySelectorAll('.box_card .box').forEach(img => {
 		const dateElem = boxCard.querySelector('.box-open-date');
 		const burycode = boxCard.dataset.burycode;
 
+		console.log(burycode)
+		
 		// ✅ 잠긴 상자인지 확인
 		if (dateElem) {
 			const openDateStr = dateElem.dataset.opendate;
@@ -178,8 +180,19 @@ document.querySelectorAll('.box_card .box').forEach(img => {
 		}
 
 		// 잠기지 않은 상자는 상세 페이지로 이동
-		if (confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)) {
-			location.href = `/momentlock/boxdetail?boxid=${boxId}`;
+		if (burycode === 'BBN') {
+			const confirmed = confirm(`${boxName}의 상세 페이지로 이동하시겠습니까?`)
+			if (confirmed) {
+				location.href = `/momentlock/boxdetail?boxid=${boxId}`;
+			}
 		}
+
+		if (burycode === 'BBO') {
+			const confirmed = confirm(`오픈된 ${boxName}상자로 이동하시겠습니까?`)
+			if (confirmed) {
+				location.href = `/momentlock/opencapsulelist?boxid=${boxId}`;
+			}
+		}
+
 	});
 });
