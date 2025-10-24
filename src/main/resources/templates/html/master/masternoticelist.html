@@ -67,25 +67,25 @@
 			   <div th:if="${!noticeQaPage.empty}" id="pagination-container">
 			   	  <ul class="pagination">
 			   	    <li class="arrow" th:classappend="${noticeQaPage.first} ? 'disabled'">
-			   			<a th:href="@{/momentlock/masternoticelist(page=0)}">«</a>
+			   			<a th:href="@{/momentlock/master/masternoticelist(page=0)}">«</a>
 			   	    </li>
 			   	    <!-- '이전' 페이지로 이동 버튼 -->
 			   	    <li class="arrow" th:classappend="${!noticeQaPage.hasPrevious()} ? 'disabled'">
-			   			<a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.number - 1})}">‹</a>
+			   			<a th:href="@{/momentlock/master/masternoticelist(page=${noticeQaPage.number - 1})}">‹</a>
 			   	    </li>
 			   			                     
 			   	    <!-- 페이지 번호 목록 (예: 1 2 3 4 5) -->
 			   		<li class="pagenumber" th:each="pageNumber : ${#numbers.sequence(0, noticeQaPage.totalPages - 1)}" th:classappend="${pageNumber == noticeQaPage.number} ? 'active'">
-			   			<a th:href="@{/momentlock/masternoticelist(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+			   			<a th:href="@{/momentlock/master/masternoticelist(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
 			   		</li>
 			   			                     
 			   		<!-- '다음' 페이지로 이동 버튼 -->
 			   	    <li class="arrow" th:classappend="${!noticeQaPage.hasNext()} ? 'disabled'">
-			   			<a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.number + 1})}">›</a>
+			   			<a th:href="@{/momentlock/master/masternoticelist(page=${noticeQaPage.number + 1})}">›</a>
 			   		</li>
 			   	    <!-- '마지막' 페이지로 이동 버튼 -->
 			   	    <li class="arrow" th:classappend="${noticeQaPage.last} ? 'disabled'">
-			   			<a th:href="@{/momentlock/masternoticelist(page=${noticeQaPage.totalPages - 1})}">»</a>
+			   			<a th:href="@{/momentlock/master/masternoticelist(page=${noticeQaPage.totalPages - 1})}">»</a>
 			   		</li>
 			   	 </ul>										 
 			   </div>									 

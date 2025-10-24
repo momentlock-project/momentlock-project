@@ -1,7 +1,7 @@
 /* 모달 컨테이너 - 높이 제한 */
 .modal_3 {
    max-width: 1200px;   
-   max-height: 90vh;
+   max-height: 95vh;
    height: auto;
 }
 

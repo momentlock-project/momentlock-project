@@ -160,7 +160,7 @@
 /* 나의 박스 리스트, 박스 추가 공통 모달 */
 .box-modal {
 	width: 50vw;
-	height: 100vh;
+	height: 110vh;
 	background-color: rgba(188, 138, 89, 0.7);
 	margin: 20px auto;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
