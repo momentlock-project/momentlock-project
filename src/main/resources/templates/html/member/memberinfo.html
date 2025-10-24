@@ -83,7 +83,7 @@
 						</div>
 					</th:block>
 					
-					<th:block th:else="${memberDto.subcode == 'MNORMAL'}">
+					<th:block th:if="${memberDto.subcode == 'MNORMAL'}">
 						<div>
 							<div class="input-box-name phonenumber">
 								<span>구독 현황</span>

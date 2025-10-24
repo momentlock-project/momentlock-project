@@ -88,7 +88,17 @@ public class MemeberMypageController {
 		// 해당 캡슐이 저장된 박스 정보 가져오기
 		Box box = capsuleService.getCapsuleById(capsuleid).get().getBox();
 
-		return "redirect:/momentlock/boxdetail?boxid=" + box.getBoxid();
+		String boxBurryCode = box.getBoxburycode();
+
+		System.out.println("boxBurryCode ===========>" + boxBurryCode);
+
+		if (boxBurryCode.equals("BBY")) {
+			return "redirect:/momentlock?error=boxburied";
+		} else if (boxBurryCode.equals("BBO")) {
+			return "redirect:/momentlock/opencapsulelist?boxid=" + box.getBoxid();
+		} else {
+			return "redirect:/momentlock/boxdetail?boxid=" + box.getBoxid();
+		}
 	}
 
 }
