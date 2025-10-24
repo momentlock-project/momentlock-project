@@ -42,7 +42,7 @@
 					<div id="my-capsule-list">
 						<th:block th:if="${capsuleList != null and #lists.size(capsuleList) > 0}">
 							<div id="capsule-box" th:each="capsule : ${capsuleList}">
-								<a th:href="@{|/momentlock/opencapsuledetail/${capsule.capid}|}">
+								<a th:href="@{|/momentlock/opencapsuleboxdetail?capsuleid=${capsule.capid}|}">
 									<img th:src="@{|/img/capsule/${capsule.capImage ?: 'capsule1.png'}|}" alt="캡슐이미지" />
 								</a>
 								<!-- 캡슐 제목 -->

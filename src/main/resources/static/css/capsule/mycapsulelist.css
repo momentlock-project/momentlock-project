@@ -42,7 +42,7 @@ h1 {
 	overflow-y: auto;
 	background-color: #d9d9d9;
 	/*margin: 0 auto;*/
-	
+
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -74,8 +74,8 @@ h1 {
 /* 등록된 캡슐이 없을 경우 */
 #no-capsule-list {
 	width: 40vw;
-	height: auto; 
-	
+	height: auto;
+
 	display: flex;
 	flex-direction: column;
 	gap: 3px;
@@ -88,23 +88,21 @@ h1 {
 }
 
 
+/* 웹킷 브라우저용 스크롤바 스타일 */
+#my-capsule-list::-webkit-scrollbar {
+	width: 10px;
+}
 
+#my-capsule-list::-webkit-scrollbar-track {
+	background: #f0f0f0;
+	border-radius: 5px;
+}
 
+#my-capsule-list::-webkit-scrollbar-thumb {
+	background: #8B4513;
+	border-radius: 5px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#my-capsule-list::-webkit-scrollbar-thumb:hover {
+	background: #6B3410;
+}
