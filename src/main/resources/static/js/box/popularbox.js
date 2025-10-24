@@ -1,6 +1,6 @@
 // '#pre' 요소의 부모 중 'page-item' 클래스를 가진 가장 가까운 요소 찾기
-const prePageItem = document.querySelector('#pre').closest('.page-item');
-const nextPageItem = document.querySelector('#next').closest('.page-item');
+const prePageItem = document.querySelector('#pre')?.closest('.page-item');
+const nextPageItem = document.querySelector('#next')?.closest('.page-item');
 const pageItems = document.querySelectorAll('.page-item');
 
 if (prePageItem && prePageItem.classList.contains('disabled')) {
