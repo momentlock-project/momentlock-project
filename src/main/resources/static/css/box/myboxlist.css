@@ -61,6 +61,7 @@ h1 {
 /* box-modal 안의 카드 그리드 */
 .box-modal .grid_container {
 	display: grid;
+	max-height: 80vh;
 	grid-template-columns: repeat(3, 1fr);
 	/* 3열 */
 	gap: 20px;

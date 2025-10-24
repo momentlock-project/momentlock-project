@@ -43,17 +43,14 @@ public class MyBoxListController {
 	@Autowired
 	private MemberBoxService memberBoxService;
 
-	// 나의 상자 리스트 (페이지네이션 적용)
 	@GetMapping("/myboxlist")
 	public String myboxlistPage(Model model,
-			@PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable
-			) {
-		
+			@PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
+
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		
 		Member member = memberService.getMemberByUsername(username).get();
 
-		// 2. 현재 회원이 만든 상자 + 참여 중인 상자만 조회
+		// 현재 회원이 만든 상자 + 참여 중인 상자만 조회
 		List<MemberBox> memberBoxes = memberBoxService.getBoxesByMember(member);
 		List<Box> myBoxesList = memberBoxes.stream().map(MemberBox::getBox).toList();
 
@@ -63,21 +60,30 @@ public class MyBoxListController {
 		List<Box> pageContent = myBoxesList.subList(start, end);
 
 		Page<Box> myBoxes = new PageImpl<>(pageContent, pageable, myBoxesList.size());
-		
+
+		// ✅ 수정: 페이징된 Box들에 해당하는 MemberBox만 DTO로 변환
 		List<MemberBoxDto> memberBoxlist = new ArrayList<MemberBoxDto>();
-		for(int i=0; i<memberBoxes.size(); i++) {
-			Box box = memberBoxes.get(i).getBox();
-			Long boxid = box.getBoxid();
-			String boxname = box.getBoxname();
-			LocalDateTime boxopendate = box.getBoxopendate();
-			String code = memberBoxes.get(i).getBoxmatercode();
-			String burycode = box.getBoxburycode();
-			
-			MemberBoxDto memberBoxDto = new MemberBoxDto(boxid, boxname, boxopendate, code, burycode);
-			memberBoxlist.add(memberBoxDto);
+
+		// pageContent에 있는 Box들만 처리
+		for (Box box : pageContent) {
+			// 해당 Box의 MemberBox 찾기
+			Optional<MemberBox> memberBoxOpt = memberBoxes.stream()
+					.filter(mb -> mb.getBox().getBoxid().equals(box.getBoxid())).findFirst();
+
+			if (memberBoxOpt.isPresent()) {
+				MemberBox memberBox = memberBoxOpt.get();
+				Long boxid = box.getBoxid();
+				String boxname = box.getBoxname();
+				LocalDateTime boxopendate = box.getBoxopendate();
+				String code = memberBox.getBoxmatercode();
+				String burycode = box.getBoxburycode();
+
+				MemberBoxDto memberBoxDto = new MemberBoxDto(boxid, boxname, boxopendate, code, burycode);
+				memberBoxlist.add(memberBoxDto);
+			}
 		}
-		
-		// 3. 모델에 담아서 Thymeleaf로 전달
+
+		// 모델에 담아서 Thymeleaf로 전달
 		model.addAttribute("myBoxes", myBoxes);
 		model.addAttribute("memberBoxlist", memberBoxlist);
 
@@ -87,9 +93,9 @@ public class MyBoxListController {
 	// 상자 삭제 및 나가기
 	@GetMapping("/boxdelete/{boxid}")
 	public String deleteBox(@PathVariable Long boxid) {
-		
+
 		// 현재 로그인한 회원 지정
-		 String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 		Optional<Member> memberOpt = memberService.getMemberByUsername(currentUsername);
 		if (memberOpt.isEmpty())
 			return "redirect:/momentlock/myboxlist";
