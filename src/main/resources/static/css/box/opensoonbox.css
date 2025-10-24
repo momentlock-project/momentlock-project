@@ -1,5 +1,8 @@
 .modal_3 {
-	max-height: 100%;
+	max-height: calc(100vh - 250px);
+	/* 화면 높이에 맞춤 */
+	overflow: hidden;
+	/* 전체 overflow 숨김 */
 }
 
 .grid_container {
@@ -9,12 +12,12 @@
 	justify-items: center;
 	align-items: start;
 	padding: 20px;
-	gap: 25px;
 	margin-right: 5px;
 	width: 100%;
 	max-height: 100%;
 	box-sizing: border-box;
 	color: #ffffff;
+	overflow-y: auto;
 }
 
 .box-card {

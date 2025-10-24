@@ -36,6 +36,10 @@
 	transform: scale(1.05);
 }
 
+h3 {
+	font-weight: 400;
+}
+
 .rank {
 	width: 100px;
 	height: 100px;
@@ -44,8 +48,4 @@
 .box {
 	width: 228px;
 	height: 194px;	
-}
-
-h3 {
-	font-weight: 400;
 }
