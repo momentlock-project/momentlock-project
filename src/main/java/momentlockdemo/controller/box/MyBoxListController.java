@@ -2,13 +2,7 @@ package momentlockdemo.controller.box;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-=======
-import java.util.List;
->>>>>>> 8db9c49 (add social login)
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +11,20 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-<<<<<<< HEAD
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-=======
-import org.springframework.security.core.context.SecurityContextHolder;
->>>>>>> 8db9c49 (add social login)
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
->>>>>>> 8db9c49 (add social login)
 import momentlockdemo.dto.MemberBoxDto;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
 import momentlockdemo.entity.MemberBox;
 import momentlockdemo.service.BoxService;
 import momentlockdemo.service.MemberService;
-<<<<<<< HEAD
-=======
 import momentlockdemo.service.impl.PrincipalOAuth2UserService;
->>>>>>> 8db9c49 (add social login)
 import momentlockdemo.service.MemberBoxService;
 
 @Controller("myBoxListController")
@@ -58,15 +39,6 @@ public class MyBoxListController {
 
 	@Autowired
 	private MemberBoxService memberBoxService;
-<<<<<<< HEAD
-
-	@GetMapping("/myboxlist")
-	public String myboxlistPage(Model model,
-			@PageableDefault(page = 0, size = 9, sort = "boxid", direction = Sort.Direction.DESC) Pageable pageable) {
-
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Member member = memberService.getMemberByUsername(username).get();
-=======
 	
 	// 나의 상자 리스트 (페이지네이션 적용)
 	@GetMapping("/myboxlist")
@@ -75,7 +47,6 @@ public class MyBoxListController {
 			) {
 		
 		Member member = memberService.getMemberByUsername(session.getAttribute("username").toString()).get();
->>>>>>> 8db9c49 (add social login)
 
 		// 현재 회원이 만든 상자 + 참여 중인 상자만 조회
 		List<MemberBox> memberBoxes = memberBoxService.getBoxesByMember(member);
@@ -119,19 +90,12 @@ public class MyBoxListController {
 
 	// 상자 삭제 및 나가기
 	@GetMapping("/boxdelete/{boxid}")
-<<<<<<< HEAD
-	public String deleteBox(@PathVariable Long boxid) {
-
-		// 현재 로그인한 회원 지정
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-		Optional<Member> memberOpt = memberService.getMemberByUsername(currentUsername);
-=======
 	public String deleteBox(HttpSession session, @PathVariable Long boxid) {
 		
 		// 현재 로그인한 회원 지정
 		Optional<Member> memberOpt = memberService.getMemberByUsername(
 							session.getAttribute("username").toString());
->>>>>>> 8db9c49 (add social login)
+		
 		if (memberOpt.isEmpty())
 			return "redirect:/momentlock/myboxlist";
 
@@ -157,4 +121,5 @@ public class MyBoxListController {
 		// 삭제 후 리스트 페이지로 이동
 		return "redirect:/momentlock/myboxlist";
 	}
+	
 }
