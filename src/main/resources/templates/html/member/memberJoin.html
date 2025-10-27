@@ -15,7 +15,7 @@
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div th:replace="~{fragments/nav_login :: nav}"></div>
 		<div id="join-container">
 			<h1>회원가입</h1>
 			<form  id="memberjoin" th:action="@{/momentlock/join}" th:object="${memberDto}" method="post">
@@ -144,7 +144,6 @@
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
 	<script th:src="@{/js/member/memberfunction.js}" defer></script>
 	<script th:src="@{/js/member/memberjoin.js}" defer></script>
 	<script th:inline="javascript">

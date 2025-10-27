@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import momentlockdemo.dto.MemberDto;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.MemberService;
@@ -25,23 +26,22 @@ public class MemeberInfoController {
 	
 	// 회원정보
 	@GetMapping("/memberinfo")
-	public String memberinfoPage(Model model) {
-		
-		// 로그인 유저
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	public String memberinfoPage(HttpSession session, Model model) {
 
-		model.addAttribute("memberDto", memberService.getMemberByUsername(username).get());
+		model.addAttribute("memberDto", memberService.getMemberByUsername(
+					session.getAttribute("username").toString()).get());
+		
 		return "html/member/memberinfo";
-	}	
+		
+	};
 	
 	// 구독취소
 	@PostMapping("/subdel")
-	public String subdel(RedirectAttributes ra) {
+	public String subdel(HttpSession session, RedirectAttributes ra) {
 		
-		// 로그인 유저
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString()).get();
 		
-		Member member = memberService.getMemberByUsername(username).get();
 		member.setSubcode("MNORMAL");
 		member.setMemdeldate(LocalDateTime.now());
 		
@@ -50,26 +50,37 @@ public class MemeberInfoController {
 		ra.addFlashAttribute("resultMsg", "구독이 취소되었습니다.");
 		
 		return "redirect:/momentlock/memberinfo";
-	}
+		
+	};
 	
 	// 회원정보 수정
 	@PostMapping("/memberupdate")
 	public String memberupdate(
-		@ModelAttribute MemberDto memberDto, Model model, RedirectAttributes ra) {
+			HttpSession session, @ModelAttribute MemberDto memberDto, RedirectAttributes ra) {
 		
-		// 로그인 유저
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Member member = memberService.getMemberByUsername(username).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString()).get();
 		
 		try {
 			
-			member.setName(memberDto.getName());
-			if(!memberService.existsByNickname(memberDto.getNickname())) {
-				member.setNickname(memberDto.getNickname());
-			}
-			member.setPassword(memberDto.getPassword());
-			member.setPhonenumber(memberDto.getPhonenumber());
-			memberService.updateMember(member);
+			if (
+			SecurityContextHolder.getContext().getAuthentication().getName().contains("@")
+			) {
+				
+				member.setName(memberDto.getName());
+				if(!memberService.existsByNickname(memberDto.getNickname())) {
+					member.setNickname(memberDto.getNickname());
+				}
+				member.setPassword(memberDto.getPassword());
+				member.setPhonenumber(memberDto.getPhonenumber());
+				memberService.updateMember(member);
+				
+			}else {
+				
+				member.setName(memberDto.getName());
+				member.setPhonenumber(memberDto.getPhonenumber());
+				
+			};
 			
 			ra.addFlashAttribute("resultMsg", "회원정보 수정이 완료되었습니다.");
 			
@@ -80,7 +91,6 @@ public class MemeberInfoController {
 			return "html/member/memberinfo";
 		}
 		
-	}
-	
+	};
 
 }

@@ -1,0 +1,98 @@
+.member-modal.login {
+	display: flex;
+	justify-content: center;
+  align-items: center;
+	flex-direction: column;
+	gap: 50px;
+}
+
+h1 {
+	padding-top: 50px !important;
+	color: whitesmoke;
+}
+
+#input-box {
+	gap: 40px !important;
+}
+
+.login-container {
+  display: flex;
+  
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#input-group label {
+  width: 80px; /* fixed width ensures inputs align */
+  text-align: right;
+  color: white;
+}
+
+#input-group input {
+  width: 180px; /* same width for both input boxes */
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+#move-login-box {
+	display: flex;
+	justify-content: center;
+	gap: 60px;
+	margin-top: 20px;
+}
+
+#move-login-box a {
+	display: flex;
+	flex-direction: column;
+	text-decoration-line: none;
+	color: whitesmoke;
+	font-size: 13px;
+}
+
+#move-login-box p {
+	color: whitesmoke;
+}
+
+.find-btn {
+  	appearance: none;
+  	-webkit-appearance: none; /* For WebKit browsers */
+  	-moz-appearance: none;
+
+  	background: none;
+  	border: none;
+
+  	font: inherit;
+  
+  	color: white;
+
+  	cursor: pointer;
+
+  	padding: 0;
+
+  	display: inline;
+}
+
+.social-login-box div {
+	color: white
+}
+
+.social-login-box img {
+	width: 60px;
+	border-radius: 50%;
+	padding: 10px;
+	text-decoration-line: none;
+}

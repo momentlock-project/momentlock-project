@@ -8,34 +8,58 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/member_btn.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/login.css}" />
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div id="loginModal" class="loginModal-overlay">
+		<div th:replace="~{fragments/nav_login :: nav}"></div>
+		<div class="member-modal login">
+			<h1>로그인 또는 회원가입</h1>
 			<div class="fail-login" th:if="${param.error}" style="color:red;">
   				Invalid username or password
 			</div>
-			<div class="login-content">
 			<form action="/loginProc" method="post" name="loginForm">
-        		<input id="username" type="text" name="username" placeholder="id"/>
-        		<input id="password" type="password" name="password" placeholder="password"/>
-        		<p class="button-container">
-	    		<a th:href="@{/momentlock/memberjoin}">join</a>
-        		<input id="loginBtn" type="submit" value="login"/>
-        		</p>
+				<div class="input-box">
+					<div id="input-group">
+					<span>아이디</span>
+        			<input id="username" type="text" name="username" placeholder="id"/>
+        			</div>
+        			<div id="input-group">
+        			<span>비밀번호</span>
+        			<input id="password" type="password" name="password" placeholder="password"/>
+        			</div>
+        			<input id="loginBtn" type="submit" value="login"/>
+        			<div id="move-login-box">
+	    				<a th:href="@{/momentlock/member/idFind}">아이디 찾기</a>
+		    			<p></p>
+		    			<a th:href="@{/momentlock/memberjoin}">가입</a>
+        			</div>
+					<div id="move-login-box">
+        				<a th:href="@{/momentlock/passwordResetConfirm}">비밀번호 찾기</a>
+        				<p></p><p></p>
+        			</div>
+        		</div>
     		</form>
-    		<p>
-    		<a th:href="@{/momentlock/idFind}">forgot ID</a>
-    		</p>
-			</div>
+    		
+			<div class="social-login-box">
+			<div>간편 로그인</div>
+    		<a href="/oauth2/authorization/naver">
+			<img class="naver-img" th:src="@{/img/naver.png}">
+			</a>
+    		<a href="/oauth2/authorization/google">
+    		<img class="google-img" th:src="@{/img/google.png}">
+    		</a>
+    		<a href="/oauth2/authorization/kakao">
+    		<img class="kakao-img" th:src="@{/img/kakao.jpg}">
+    		</a>
+    		</div>
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/main.js}" defer></script>
-	<script th:src="@{/js/nav.js}" defer></script>
 </body>
 
 </html>
