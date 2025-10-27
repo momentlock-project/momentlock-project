@@ -4,15 +4,26 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
 	<title>MOMENTLOCK</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons.css}" />
+=======
+	<title>MOMENT LOCK</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	<link rel="stylesheet" th:href="@{/css/nav.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
+	<link rel="stylesheet" th:href="@{/css/commons/member_btn.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/idFind.css}" />
+	<link rel="stylesheet" th:href="@{/css/member/memberjoin.css}" />
+>>>>>>> 8db9c49 (add social login)
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer">
+<<<<<<< HEAD
 		<div th:replace="~{fragments/nav :: nav}"></div>
 		<div id="loginForm" class="loginModal-overlay">
     		<div class="fail-find" th:if="${param.error}" style="color:red;">
@@ -29,11 +40,40 @@
     		</form>
     		
 			</div>
+=======
+		<div th:replace="~{fragments/nav_login :: nav}"></div>
+		<div class="member-modal idfind">
+			<h1>아이디 찾기</h1>
+    		<div class="fail-find" th:if="${param.error}" style="color:red;">
+  				No user found
+			</div>
+			<form action="/momentlock/idFindProc" method="post" name="idFindForm">
+				<div id="input-box">
+					<div id="input-box-name name">
+					<span>이름</span>
+        			<input id="name" type="text" name="name" placeholder="name"/>
+        			</div>
+        			<div class="input-box-name phonenumber">
+        			<span>휴대폰번호</span>
+        			<input id="phonenumber" type="text" name="phonenumber" placeholder="phone number"/>
+        			</div>
+        			<input class="member-btn" type="submit" value="확인"/>
+        			<div id="move-login-box">
+	    				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 찾기</a>
+	    				<p></p>
+	    				<a th:href="@{/momentlock/member/login}">로그인</a>
+        			</div>
+        		</div>
+    		</form>
+>>>>>>> 8db9c49 (add social login)
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/main.js}" defer></script>
+<<<<<<< HEAD
 	<script th:src="@{/js/nav.js}" defer></script>
+=======
+>>>>>>> 8db9c49 (add social login)
 </body>
 
 </html>

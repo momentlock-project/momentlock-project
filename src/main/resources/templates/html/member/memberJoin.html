@@ -4,7 +4,11 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
 	<title>MOMENTLOCK</title>
+=======
+	<title>Document</title>
+>>>>>>> 8db9c49 (add social login)
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
@@ -15,7 +19,11 @@
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
+<<<<<<< HEAD
 		<div th:replace="~{fragments/nav :: nav}"></div>
+=======
+		<div th:replace="~{fragments/nav_login :: nav}"></div>
+>>>>>>> 8db9c49 (add social login)
 		<div id="join-container">
 			<h1>회원가입</h1>
 			<form  id="memberjoin" th:action="@{/momentlock/join}" th:object="${memberDto}" method="post">
@@ -144,7 +152,10 @@
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
+<<<<<<< HEAD
 	<script th:src="@{/js/nav.js}" defer></script>
+=======
+>>>>>>> 8db9c49 (add social login)
 	<script th:src="@{/js/member/memberfunction.js}" defer></script>
 	<script th:src="@{/js/member/memberjoin.js}" defer></script>
 	<script th:inline="javascript">

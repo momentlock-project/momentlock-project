@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpSession;
+>>>>>>> 8db9c49 (add social login)
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Capsule;
 import momentlockdemo.entity.Member;
@@ -35,6 +39,7 @@ public class MemeberMypageController {
 	// 마이페이지 메뉴
 	@GetMapping("/mypage")
 	public String mypagePage(Model model) {
+<<<<<<< HEAD
 
 		// 로그인 유저
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -58,10 +63,41 @@ public class MemeberMypageController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		Member loginMember = memberService.getMemberByUsername(username).get();
+=======
+		
+		// 로그인 유저
+		String username = SecurityContextHolder.getContext()
+											.getAuthentication()
+											.getName();
+		
+		if (username.contains("@")) {
+			
+			Member member = memberService.getMemberByUsername(username).orElse(null);
+			
+			model.addAttribute("nickname", member.getNickname());
+			
+		}else {
+			
+			model.addAttribute("nickname", username);
+			
+		};
+		
+		return "html/member/mypage_nav";
+		
+	};
+
+	// 나의 캡슐 리스트
+	@GetMapping("/mycapsulelist")
+	public String mycapsulelistPage(HttpSession session, Model model) {
+
+		Member loginMember = memberService.getMemberByUsername(
+					session.getAttribute("username").toString()).get();
+>>>>>>> 8db9c49 (add social login)
 		List<Capsule> capsuleList = capsuleService.getCapsulesByMember(loginMember).stream()
 				.filter(cap -> cap.getCapdelcode().equals("TDN")).toList();
 		model.addAttribute("capsuleList", capsuleList);
 		model.addAttribute("member", loginMember);
+<<<<<<< HEAD
 
 		return "html/capsule/mycapsulelist";
 	}
@@ -80,6 +116,26 @@ public class MemeberMypageController {
 
 		return "redirect:/html/member/login";
 	}
+=======
+		
+		return "html/capsule/mycapsulelist";
+		
+	};
+
+	// 회원탈퇴
+	@PostMapping("/memberremove")
+	public String memberremove(HttpSession session) {
+
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString()).get();
+		member.setMemcode("MDY");
+		member.setMemdeldate(LocalDateTime.now());
+		memberService.updateMember(member);
+		
+		return "redirect:/html/member/login";
+		
+	};
+>>>>>>> 8db9c49 (add social login)
 
 	// 캡슐 id에 해당하는 boxdetail로 이동시키는 로직
 	@GetMapping("/opencapsuleboxdetail")
@@ -89,9 +145,14 @@ public class MemeberMypageController {
 		Box box = capsuleService.getCapsuleById(capsuleid).get().getBox();
 
 		String boxBurryCode = box.getBoxburycode();
+<<<<<<< HEAD
 
 		System.out.println("boxBurryCode ===========>" + boxBurryCode);
 
+=======
+		System.out.println("boxBurryCode ===========>" + boxBurryCode);
+		
+>>>>>>> 8db9c49 (add social login)
 		if (boxBurryCode.equals("BBY")) {
 			return "redirect:/momentlock?error=boxburied";
 		} else if (boxBurryCode.equals("BBO")) {
@@ -99,6 +160,10 @@ public class MemeberMypageController {
 		} else {
 			return "redirect:/momentlock/boxdetail?boxid=" + box.getBoxid();
 		}
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 8db9c49 (add social login)
 	}
 
 }

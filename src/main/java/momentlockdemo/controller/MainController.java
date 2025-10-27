@@ -13,8 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.MemberService;
+=======
+import jakarta.servlet.http.HttpSession;
+import momentlockdemo.entity.Member;
+import momentlockdemo.service.MemberService;
+import momentlockdemo.service.impl.PrincipalOAuth2UserService;
+>>>>>>> 8db9c49 (add social login)
 
 @Controller("mainController")
 @RequestMapping("/momentlock")
@@ -26,6 +33,7 @@ public class MainController {
 	
 	// 메인
 	@GetMapping({ "", "/" })
+<<<<<<< HEAD
 	public String mainPage(Model model, HttpServletRequest request) {
 		
 		model.addAttribute("user", request.getRemoteUser());
@@ -35,6 +43,29 @@ public class MainController {
 		return "html/main";
 		
 	}
+=======
+	public String mainPage(HttpSession session, HttpServletRequest request, Model model) {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		if (username.contains("@")) {
+			
+			session.setAttribute("username", username);
+			model.addAttribute(
+					"nickname", 
+					memberService.getMemberByUsername(request.getRemoteUser()).get().getNickname()
+					);
+			
+		}else {
+			
+			session.setAttribute("username", PrincipalOAuth2UserService.getUsername());
+			model.addAttribute("nickname", username);
+			
+		};
+		
+		return "html/main";
+		
+	};
+>>>>>>> 8db9c49 (add social login)
 
 	// 상점
 	@GetMapping("/store")
@@ -91,4 +122,23 @@ public class MainController {
         return "html/test-login";
     }
 	
+<<<<<<< HEAD
+=======
+    public static void alert(HttpServletResponse response, String msg) {
+    	
+        try {
+        	
+    		response.setContentType("text/html; charset=utf-8");
+    		PrintWriter w = response.getWriter();
+    		w.write("<script>alert('"+msg+"');</script>");
+    		w.flush();
+    		w.close();
+    		
+        }catch(Exception e) {
+    		e.printStackTrace();
+        }
+        
+    };
+    
+>>>>>>> 8db9c49 (add social login)
 }

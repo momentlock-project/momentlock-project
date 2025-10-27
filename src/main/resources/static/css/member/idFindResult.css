@@ -1,0 +1,35 @@
+.member-modal.idfindResult {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+h1 {
+	padding-top: 50px !important;
+}
+
+#input-box {
+	gap: 20px !important;
+}
+
+.input-box-name.result> span {
+	position: absolute;
+	left: 19%;
+}
+
+#move-login-box {
+	display: flex;
+	justify-content: center;
+	gap: 60px;
+	margin-top: 50px;
+}
+
+#move-login-box a {
+	text-decoration-line: none;
+	color: whitesmoke;
+	font-size: 20px;
+}
+
+#move-login-box p {
+	color: whitesmoke;
+}
