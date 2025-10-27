@@ -11,15 +11,6 @@ h1 {
 	color: whitesmoke;
 }
 
-<<<<<<< HEAD
-#input-box {
-	gap: 40px;
-	display: flex;
-	flex-direction: column;
-}
-=======
->>>>>>> e1ab6bc (update login.css)
-
 form {
 	width: 100%;
   	display: flex;
@@ -35,38 +26,21 @@ form {
 #input-group {
 	margin: 1vh;
 }
-<<<<<<< HEAD
 
-#input-group span {
-  width: 80px; /* fixed width ensures inputs align */
-=======
 .input-group span {
   width: 100px; /* fixed width ensures inputs align */
->>>>>>> e1ab6bc (update login.css)
   text-align: right;
   font-size: 2vw;
   color: white;
   margin-top: 22px;
 }
 
-<<<<<<< HEAD
-#input-group input {
-  /*width: 180px;*/ /* same width for both input boxes */
-  padding: 5px;
-  border-radius: 3px;
-  border: none;
-  width: 20vw;
-  height: 2.5vw;
-  background-color: rgba(217, 217, 217, 1);
-  padding-left: 10px;
-=======
 .input-group input {
   	width: 60%;
   	padding: 5px;
   	border-radius: 3px;
   	border: 1px solid #ccc;
   	margin: 10px;
->>>>>>> e1ab6bc (update login.css)
 }
 
 .input-group.username {
@@ -87,15 +61,9 @@ form {
 
 
 #move-login-box {
-<<<<<<< HEAD
-	display: flex;
-	justify-content: center;
-	gap: 60px;
-=======
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	margin-top: 2vh;
->>>>>>> e1ab6bc (update login.css)
 }
 
 #move-login-box a {
@@ -103,10 +71,6 @@ form {
 	flex-direction: column;
 	text-decoration-line: none;
 	color: whitesmoke;
-<<<<<<< HEAD
-	font-size: 15px;
-=======
->>>>>>> e1ab6bc (update login.css)
 }
 
 .anchor-id-find a {
