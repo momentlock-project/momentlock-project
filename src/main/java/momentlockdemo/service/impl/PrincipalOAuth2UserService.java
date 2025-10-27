@@ -8,12 +8,12 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import momentlockdemo.repository.MemberRepository;
-import momentlockdemo.controller.MainController;
 import momentlockdemo.dto.CustomOAuth2User;
 import momentlockdemo.dto.GoogleUserInfo;
 import momentlockdemo.dto.KakaoUserInfo;
@@ -77,12 +77,11 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         	
         	if (existData.getMemcode().equals("MDY")) {
         		
-        		System.out.println("printed from Service");
         		if (
-        		LocalDateTime.now().until(existData.getMemdeldate(), ChronoUnit.DAYS) > 90
+        		existData.getMemdeldate().until(LocalDateTime.now(), ChronoUnit.DAYS) > 90
         		) {
         			
-//        			MainController.alert(response, "탈퇴 처리된 계정입니다");
+        			return null;
         			
         		}else {
         			
