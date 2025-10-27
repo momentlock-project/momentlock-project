@@ -82,7 +82,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         		LocalDateTime.now().until(existData.getMemdeldate(), ChronoUnit.DAYS) > 90
         		) {
         			
-        			MainController.alert(response, "탈퇴 처리된 계정입니다");
+//        			MainController.alert(response, "탈퇴 처리된 계정입니다");
         			
         		}else {
         			
