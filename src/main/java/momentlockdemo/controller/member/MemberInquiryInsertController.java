@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
->>>>>>> 8db9c49 (add social login)
 import momentlockdemo.entity.Inquiry;
 import momentlockdemo.entity.Member;
 import momentlockdemo.service.InquiryService;

@@ -1,7 +1,6 @@
 package momentlockdemo.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,15 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-import momentlockdemo.entity.Member;
-import momentlockdemo.service.MemberService;
-=======
 import jakarta.servlet.http.HttpSession;
-import momentlockdemo.entity.Member;
 import momentlockdemo.service.MemberService;
 import momentlockdemo.service.impl.PrincipalOAuth2UserService;
->>>>>>> 8db9c49 (add social login)
 
 @Controller("mainController")
 @RequestMapping("/momentlock")
