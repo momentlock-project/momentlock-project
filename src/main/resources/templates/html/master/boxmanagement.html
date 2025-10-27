@@ -48,8 +48,8 @@
 			            <tr th:each="box, stat : ${boxPage.content}" class="box-row" th:data-boxid="${box.boxid}">
 			                <td th:text="${boxPage.totalElements - (boxPage.number * boxPage.size) - stat.index}">10</td>
 			                <td th:text="${box.boxname}">기본 상자</td>
-			                <td th:text="${box.boxreleasecode}">공개</td>
-			                <td th:text="${box.boxregdate}">2025-10-02</td>
+			                <td th:text="${box.boxreleasecode == 'B00' ? '공개' : '비공개'}">공개</td>
+			                <td th:text="${#temporals.format(box.boxregdate, 'yyy-MM-dd')}">2025-10-02</td>
 			                <td class="delete-cell">
 								<form th:action="@{/momentlock/master/box/updateToBDY}" method="post" onsubmit="return confirm('정말로 이 박스를 삭제하시겠습니까?');">
 									<input type="hidden" name="boxid" th:value="${box.boxid}" />
