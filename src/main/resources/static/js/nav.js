@@ -80,8 +80,8 @@ function closeSidebar() {
 }
 
 function gotoLogin() {
-
-	window.location.href = '/momentlock/login';
+	
+	window.location.href = '/momentlock/member/login';
 
 };
 

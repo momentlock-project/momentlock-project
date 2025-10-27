@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("memberLoginController")
+@RequestMapping("/momentlock")
 public class MemberLoginController {
 	
-	@GetMapping("/html/member/login")
+	@GetMapping("/member/login")
 	public String loginP() {
 		
 		return "html/member/login";

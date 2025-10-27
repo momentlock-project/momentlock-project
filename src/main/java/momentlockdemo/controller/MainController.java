@@ -1,7 +1,6 @@
 package momentlockdemo.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import momentlockdemo.entity.Member;
+import jakarta.servlet.http.HttpSession;
 import momentlockdemo.service.MemberService;
+import momentlockdemo.service.impl.PrincipalOAuth2UserService;
 
 @Controller("mainController")
 @RequestMapping("/momentlock")
@@ -26,15 +26,27 @@ public class MainController {
 	
 	// 메인
 	@GetMapping({ "", "/" })
-	public String mainPage(Model model, HttpServletRequest request) {
+	public String mainPage(HttpSession session, HttpServletRequest request, Model model) {
 		
-		model.addAttribute("user", request.getRemoteUser());
-		// 로그인했을 경우 nav에 닉네임 출력
-		//model.addAttribute("nickname", memberService.getMemberByUsername(request.getRemoteUser()).get().getNickname());
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		if (username.contains("@")) {
+			
+			session.setAttribute("username", username);
+			model.addAttribute(
+					"nickname", 
+					memberService.getMemberByUsername(request.getRemoteUser()).get().getNickname()
+					);
+			
+		}else {
+			
+			session.setAttribute("username", PrincipalOAuth2UserService.getUsername());
+			model.addAttribute("nickname", username);
+			
+		};
 		
 		return "html/main";
 		
-	}
+	};
 
 	// 상점
 	@GetMapping("/store")
@@ -90,5 +102,5 @@ public class MainController {
     public String testLoginPage() {
         return "html/test-login";
     }
-	
+    
 }

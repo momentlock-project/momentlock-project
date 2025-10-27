@@ -72,7 +72,6 @@ public class Member implements Serializable {
 	@Column(name = "SUBENDDAY")
 	private LocalDateTime subendday;
 	
-	
 	@Column(name = "LASTLOGINDATE")
 	private LocalDateTime lastlogindate;
 

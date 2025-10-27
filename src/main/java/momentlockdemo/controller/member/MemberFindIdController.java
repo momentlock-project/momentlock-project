@@ -20,7 +20,7 @@ public class MemberFindIdController {
 	@Autowired
 	private IdFindService idFindService;
 	
-	@GetMapping("/idFind")
+	@GetMapping("/member/idFind")
 	public String idFindP() {
 		
 		return "html/member/idFind";
@@ -31,11 +31,11 @@ public class MemberFindIdController {
 	public String idFindProcess(Model model, IdFindDTO idFindDTO) {
 		
 		Optional<Member> member = idFindService.idFindProcess(idFindDTO);
-		if (member != null) {
+		if (member.isPresent() != false) {
 			
 			model.addAttribute("username", member.get().getUsername());
 			
-			return "html/member/result";
+			return "html/member/idFindResult";
 			
 		}else {
 			
