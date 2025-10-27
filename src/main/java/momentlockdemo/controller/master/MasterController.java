@@ -145,6 +145,8 @@ public class MasterController {
 					data.put("deccategory", dec.getDeccategory());
 					data.put("deccontent", dec.getDeccontent());
 					data.put("decid", dec.getDecid());
+					data.put("capTitle", dec.getCapsule().getCaptitle());
+					data.put("capContent", dec.getCapsule().getCapcontent());
 					return ResponseEntity.ok(data);
 				}).orElse(ResponseEntity.notFound().build());
 	}

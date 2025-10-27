@@ -47,6 +47,8 @@ function fetchToBoardDetailInfomodal(classname, url){
 					document.querySelector(".modal-title").innerHTML = data.deccategory;
 					document.querySelector(".modal-content").innerHTML = data.deccontent;
 					document.querySelector(".modal-id").innerHTML = data.decid;
+					document.querySelector(".modal-cap-title").innerHTML = data.capTitle;
+					document.querySelector(".modal-cap-content").innerHTML = data.capContent;
 				}
 				
 				// 관리자 문의사항 모달창에서 답변완료일 경우 답변하기 버튼 none으로 변경
