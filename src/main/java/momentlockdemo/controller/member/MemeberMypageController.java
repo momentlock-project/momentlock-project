@@ -90,7 +90,7 @@ public class MemeberMypageController {
 
 	// 캡슐 id에 해당하는 boxdetail로 이동시키는 로직
 	@GetMapping("/opencapsuleboxdetail")
-	public String boxdetailPage(Model model, @RequestParam(required = false, name = "capsuleid") Long capsuleid) {
+	public String boxdetailPage(@RequestParam(required = false, name = "capsuleid") Long capsuleid) {
 
 		// 해당 캡슐이 저장된 박스 정보 가져오기
 		Box box = capsuleService.getCapsuleById(capsuleid).get().getBox();

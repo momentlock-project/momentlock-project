@@ -14,7 +14,7 @@
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer" class="blurContainer">
-		<div th:replace="~{fragments/nav :: nav}"></div>
+		<div th:replace="~{fragments/nav_login :: nav}"></div>
 		<img src="/img/Error-Cat.png" alt="고양이 에러 이미지입니다." style="width: 50%; height: auto;"/>
 		<div class="modal" style="width: 40%;">
 			<h1 th:text="${statusCode}">Error</h1>
@@ -23,7 +23,6 @@
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
-	<script th:src="@{/js/nav.js}" defer></script>
 
 	<body>
 

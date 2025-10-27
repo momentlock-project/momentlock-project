@@ -23,6 +23,7 @@
 			</div>
 			<form action="/loginProc" method="post" name="loginForm">
 				<div id="input-box">
+<<<<<<< HEAD
 					
 					<div id="input-group">
 						<span>아이디</span>
@@ -46,6 +47,29 @@
 					<div id="move-login-box">
         				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 재설정</a>
         				<p></p><p></p>
+=======
+					<div id="input-group">
+					<div class="input-group username">
+					<span>아이디</span>
+        			<input id="username" type="text" name="username" placeholder="id"/>
+        			</div>
+        			<div class="input-group password">
+        			<span>비밀번호</span>
+        			<input id="password" type="password" name="password" placeholder="password"/>
+        			</div>
+        			</div>
+        			<input class="member-btn" type="submit" value="로그인"/>
+        			<div id="move-login-box">
+        				<div class="anchor-id-find">
+	    				<a th:href="@{/momentlock/member/idFind}">아이디 찾기</a>
+	    				</div>
+		    			<div class="anchor-join">
+		    			<a th:href="@{/momentlock/memberjoin}">가입</a>
+        				</div>
+        				<div class="anchor-password-reset">
+        				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 찾기</a>
+        				</div>
+>>>>>>> e1ab6bc (update login.css)
         			</div>
         		</div>
     		</form>

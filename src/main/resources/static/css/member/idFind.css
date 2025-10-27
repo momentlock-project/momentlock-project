@@ -12,23 +12,6 @@ h1 {
 	gap: 40px !important;
 }
 
-.input-box-name.name {
-	margin-left: 65px;
-}
-
-.input-box-name.name > span {
-	position: absolute;
-	left: 19%;
-}
-.input-box-name.phonenumber {
-	margin-left: 40px;
-}
-
-.input-box-name.phonenumber > span {
-	position: absolute;
-	left: 19%;
-}
-
 #move-login-box {
 	display: flex;
 	justify-content: center;

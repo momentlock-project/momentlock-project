@@ -3,55 +3,67 @@
 	justify-content: center;
   align-items: center;
 	flex-direction: column;
-	gap: 50px;
+	gap: 7vh;
 }
 
 h1 {
-	padding-top: 50px !important;
+	padding-top: 5vh !important;
 	color: whitesmoke;
 }
 
-#input-box {
-	gap: 40px;
-	display: flex;
-	flex-direction: column;
+form {
+	width: 100%;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	gap: 10px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+#input-box {
+	width: 80%;
 }
 
 #input-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+	margin: 1vh;
 }
 
-#input-group span {
-  width: 80px; /* fixed width ensures inputs align */
+.input-group span {
+  width: 100px; /* fixed width ensures inputs align */
   text-align: right;
+  font-size: 2vw;
   color: white;
+  margin-top: 22px;
 }
 
-#input-group input {
-  /*width: 180px;*/ /* same width for both input boxes */
-  padding: 5px;
-  border-radius: 3px;
-  border: none;
-  width: 20vw;
-  height: 2.5vw;
-  background-color: rgba(217, 217, 217, 1);
-  padding-left: 10px;
+.input-group input {
+  	width: 60%;
+  	padding: 5px;
+  	border-radius: 3px;
+  	border: 1px solid #ccc;
+  	margin: 10px;
 }
+
+.input-group.username {
+  display: flex;
+}
+
+.input-group.username input {
+	height: 4vh;
+}
+
+.input-group.password {
+	display: flex;
+}
+
+.input-group.password input {
+	height: 4vh;
+}
+
 
 #move-login-box {
-	display: flex;
-	justify-content: center;
-	gap: 60px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin-top: 2vh;
 }
 
 #move-login-box a {
@@ -59,11 +71,18 @@ form {
 	flex-direction: column;
 	text-decoration-line: none;
 	color: whitesmoke;
-	font-size: 15px;
 }
 
-#move-login-box p {
-	color: whitesmoke;
+.anchor-id-find a {
+	font-size: 1.2vw;
+}
+
+.anchor-join a {
+	font-size: 1.4vw;
+}
+
+.anchor-password-reset a {
+	font-size: 1.2vw;
 }
 
 .find-btn {
@@ -100,9 +119,12 @@ form {
 	color: white
 }
 
+.social-login-box a {
+	text-decoration: none;
+}
+
 .social-login-box img {
 	width: 60px;
 	border-radius: 50%;
 	padding: 10px;
-	text-decoration-line: none;
 }
