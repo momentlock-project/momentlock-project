@@ -42,6 +42,7 @@
 				<thead>
 					<tr>
 					  <th>번호</th>
+					  <th>이메일</th>
 					  <th>이름</th>
 					  <th>닉네임</th>
 					  <th>삭제</th>
@@ -51,6 +52,7 @@
 					<div>
 					  <tr th:each="member, stat : ${memberPage.content}">
 						<td th:text="${memberPage.totalElements - (memberPage.number * memberPage.size) - stat.index}">10</td>
+						<td th:text="${member.username}">이메일</td>
 						<td th:text="${member.name}">이름</td>
 						<td th:text="${member.nickname}">닉네임</td>
 					    <td>
