@@ -56,7 +56,7 @@
 						<td th:text="${member.name}">이름</td>
 						<td th:text="${member.nickname}">닉네임</td>
 					    <td>
-						  <form th:action="@{/momentlock/member/updateToMDY}" method="post" onsubmit="return confirm('정말로 이 회원을 삭제하시겠습니까?');">
+						  <form th:action="@{/momentlock/master/member/updateToMDY}" method="post" onsubmit="return confirm('정말로 이 회원을 삭제하시겠습니까?');">
 							<input type="hidden" name="username" th:value="${member.username}" />
 							<button type="submit" th:if="${member.memcode == 'MDN'}" class="delete-btn">삭제</button>
 						  </form>
