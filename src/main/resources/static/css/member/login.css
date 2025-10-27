@@ -12,13 +12,9 @@ h1 {
 }
 
 #input-box {
-	gap: 40px !important;
-}
-
-.login-container {
-  display: flex;
-  
-  flex-direction: column;
+	gap: 40px;
+	display: flex;
+	flex-direction: column;
 }
 
 form {
@@ -35,24 +31,27 @@ form {
   gap: 10px;
 }
 
-#input-group label {
+#input-group span {
   width: 80px; /* fixed width ensures inputs align */
   text-align: right;
   color: white;
 }
 
 #input-group input {
-  width: 180px; /* same width for both input boxes */
+  /*width: 180px;*/ /* same width for both input boxes */
   padding: 5px;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: none;
+  width: 20vw;
+  height: 2.5vw;
+  background-color: rgba(217, 217, 217, 1);
+  padding-left: 10px;
 }
 
 #move-login-box {
 	display: flex;
 	justify-content: center;
 	gap: 60px;
-	margin-top: 20px;
 }
 
 #move-login-box a {
@@ -60,7 +59,7 @@ form {
 	flex-direction: column;
 	text-decoration-line: none;
 	color: whitesmoke;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 #move-login-box p {
@@ -84,6 +83,17 @@ form {
   	padding: 0;
 
   	display: inline;
+}
+
+.social-login-box {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#social-login-img-box {
+	display: flex;
+	gap: 40px;
 }
 
 .social-login-box div {

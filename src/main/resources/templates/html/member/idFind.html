@@ -15,7 +15,7 @@
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
-	<div id="mainContainer">
+	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav_login :: nav}"></div>
 		<div class="member-modal idfind">
 			<h1>아이디 찾기</h1>
@@ -24,18 +24,18 @@
 			</div>
 			<form action="/momentlock/idFindProc" method="post" name="idFindForm">
 				<div id="input-box">
-					<div id="input-box-name name">
-					<span>이름</span>
-        			<input id="name" type="text" name="name" placeholder="name"/>
+					<div class="input-box-name name">
+						<span>이름</span>
+        				<input id="name" type="text" name="name" placeholder="이름을 입력하세요"/>
         			</div>
         			<div class="input-box-name phonenumber">
-        			<span>휴대폰번호</span>
-        			<input id="phonenumber" type="text" name="phonenumber" placeholder="phone number"/>
+        				<span>휴대폰번호</span>
+        				<input id="phonenumber" type="text" name="phonenumber" placeholder="전화번호를 입력하세요"/>
         			</div>
         			<input class="member-btn" type="submit" value="확인"/>
         			<div id="move-login-box">
-	    				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 찾기</a>
-	    				<p></p>
+	    				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 재설정</a>
+	    				<p>|</p>
 	    				<a th:href="@{/momentlock/member/login}">로그인</a>
         			</div>
         		</div>
