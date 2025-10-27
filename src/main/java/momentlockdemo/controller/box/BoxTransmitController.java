@@ -1,8 +1,6 @@
 package momentlockdemo.controller.box;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,17 +45,9 @@ public class BoxTransmitController {
 
 //		입력한 수신자 닉네임이 존재하는지 여부
 		boolean exists = memberService.existsByNickname(inputNickname);
-<<<<<<< HEAD
-		System.out.println(exists);
 		if (!exists) {
 			return false;
 		}
-			
-=======
-		if (!exists) {
-			return false;
-		}
->>>>>>> 8db9c49 (add social login)
 
 //		박스를 보내는 유저
 		Member sender = memberService
@@ -106,13 +96,9 @@ public class BoxTransmitController {
 
 	@GetMapping("/gotoboxlist")
 	public String gotoboxlist() {
-<<<<<<< HEAD
-		return "redirect:/momentlock/myboxlist";
-=======
 		
 		return "redirect:/momentlock/myboxlist";
 		
->>>>>>> 8db9c49 (add social login)
 	}
 
 }

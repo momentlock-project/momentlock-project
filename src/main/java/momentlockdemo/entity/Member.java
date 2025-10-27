@@ -72,10 +72,6 @@ public class Member implements Serializable {
 	@Column(name = "SUBENDDAY")
 	private LocalDateTime subendday;
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 8db9c49 (add social login)
 	@Column(name = "LASTLOGINDATE")
 	private LocalDateTime lastlogindate;
 
@@ -109,8 +105,4 @@ public class Member implements Serializable {
 		this.role = "ROLE_USER";
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8db9c49 (add social login)

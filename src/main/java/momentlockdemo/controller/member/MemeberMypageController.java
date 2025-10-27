@@ -97,26 +97,6 @@ public class MemeberMypageController {
 				.filter(cap -> cap.getCapdelcode().equals("TDN")).toList();
 		model.addAttribute("capsuleList", capsuleList);
 		model.addAttribute("member", loginMember);
-<<<<<<< HEAD
-
-		return "html/capsule/mycapsulelist";
-	}
-
-	// 회원탈퇴
-	@PostMapping("/memberremove")
-	public String memberremove() {
-
-		// 로그인 유저
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-		Member member = memberService.getMemberByUsername(username).get();
-		member.setMemcode("MDY");
-		member.setMemdeldate(LocalDateTime.now());
-		memberService.updateMember(member);
-
-		return "redirect:/html/member/login";
-	}
-=======
 		
 		return "html/capsule/mycapsulelist";
 		
@@ -135,7 +115,6 @@ public class MemeberMypageController {
 		return "redirect:/html/member/login";
 		
 	};
->>>>>>> 8db9c49 (add social login)
 
 	// 캡슐 id에 해당하는 boxdetail로 이동시키는 로직
 	@GetMapping("/opencapsuleboxdetail")
@@ -145,14 +124,6 @@ public class MemeberMypageController {
 		Box box = capsuleService.getCapsuleById(capsuleid).get().getBox();
 
 		String boxBurryCode = box.getBoxburycode();
-<<<<<<< HEAD
-
-		System.out.println("boxBurryCode ===========>" + boxBurryCode);
-
-=======
-		System.out.println("boxBurryCode ===========>" + boxBurryCode);
-		
->>>>>>> 8db9c49 (add social login)
 		if (boxBurryCode.equals("BBY")) {
 			return "redirect:/momentlock?error=boxburied";
 		} else if (boxBurryCode.equals("BBO")) {
@@ -160,10 +131,7 @@ public class MemeberMypageController {
 		} else {
 			return "redirect:/momentlock/boxdetail?boxid=" + box.getBoxid();
 		}
-<<<<<<< HEAD
-=======
-		
->>>>>>> 8db9c49 (add social login)
+
 	}
 
 }

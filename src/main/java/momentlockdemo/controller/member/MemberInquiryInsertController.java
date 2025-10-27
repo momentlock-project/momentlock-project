@@ -39,14 +39,6 @@ public class MemberInquiryInsertController {
     public String inquiryinsert(
             @RequestParam String inqtitle,
             @RequestParam String inqcontent,
-<<<<<<< HEAD
-            RedirectAttributes redirectAttributes) {
-        
-        try {
-
-        	String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            Member member = memberService.getMemberByUsername(username)
-=======
             RedirectAttributes redirectAttributes,
             HttpSession session) {
         
@@ -54,7 +46,6 @@ public class MemberInquiryInsertController {
 
             Member member = memberService.getMemberByUsername(
             		session.getAttribute("username").toString())
->>>>>>> 8db9c49 (add social login)
                     .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
             
             // Inquiry 엔터티 생성 (inqid는 시퀀스 자동 생성, inqregdate와 inqcomplete는 @PrePersist에서 자동 설정)

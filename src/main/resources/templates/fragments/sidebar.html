@@ -11,11 +11,7 @@
 			<div class="sidebar-item">타임캡슐 갤러리</div>
 			<div class="sidebar-item">타임캡슐 상점</div>
 			<!-- 로그인 안 된 경우 마이페이지 숨김 -->
-<<<<<<< HEAD
-			<div th:if="${user != null}" class="sidebar-item">마이페이지</div>
-=======
 			<div th:if="${user} != anonymousUser" class="sidebar-item">마이페이지</div>
->>>>>>> 8db9c49 (add social login)
 			<div class="sidebar-item">문의게시판</div>
 		</div>
 	</div>

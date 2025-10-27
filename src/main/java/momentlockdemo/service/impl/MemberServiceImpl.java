@@ -4,10 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.Optional;
-<<<<<<< HEAD
-import java.util.regex.Pattern;
-=======
->>>>>>> 8db9c49 (add social login)
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -137,16 +133,10 @@ public class MemberServiceImpl implements MemberService {
     	
     	Member member = memberRepository.findById(username).orElse(null);
     	member.setLastlogindate(LocalDateTime.now());
-<<<<<<< HEAD
-=======
-    	
->>>>>>> 8db9c49 (add social login)
-//    	System.out.println("Username from ServiceImpl : " + member.getUsername());
-//    	System.out.println("Lastlogindate from ServiceImpl : " + member.getLastlogindate());
     	
     	return memberRepository.save(member);
     	
-    }
+    };
 
     // 비밀번호 재설정
 	@Override

@@ -4,43 +4,18 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
 	<title>MOMENTLOCK</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" />
-	<link rel="stylesheet" th:href="@{/css/nav.css}" />
-	<link rel="stylesheet" th:href="@{/css/commons.css}" />
-=======
-	<title>MOMENT LOCK</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	<link rel="stylesheet" th:href="@{/css/nav.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/commons.css}" />
 	<link rel="stylesheet" th:href="@{/css/commons/member_btn.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/idFind.css}" />
 	<link rel="stylesheet" th:href="@{/css/member/memberjoin.css}" />
->>>>>>> 8db9c49 (add social login)
 </head>
 
 <body>
 	<div th:replace="~{fragments/sidebar :: sidebar}"></div>
 	<div id="mainContainer">
-<<<<<<< HEAD
-		<div th:replace="~{fragments/nav :: nav}"></div>
-		<div id="loginForm" class="loginModal-overlay">
-    		<div class="fail-find" th:if="${param.error}" style="color:red;">
-  				No user found
-			</div>
-			<div class="forgotId-cotent">
-			<form action="/momentlock/idFindProc" method="post" name="idFindForm">
-        		<input id="name" type="text" name="name" placeholder="name"/>
-        		<input id="phonenumber" type="text" name="phonenumber" placeholder="phone number"/>
-        		<p class="button-container">
-	    		<a th:href="@{/login}">login</a>
-        		<a><input type="submit" value="find"/></a>
-        		</p>
-    		</form>
-    		
-			</div>
-=======
 		<div th:replace="~{fragments/nav_login :: nav}"></div>
 		<div class="member-modal idfind">
 			<h1>아이디 찾기</h1>
@@ -65,15 +40,10 @@
         			</div>
         		</div>
     		</form>
->>>>>>> 8db9c49 (add social login)
 		</div>
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/main.js}" defer></script>
-<<<<<<< HEAD
-	<script th:src="@{/js/nav.js}" defer></script>
-=======
->>>>>>> 8db9c49 (add social login)
 </body>
 
 </html>

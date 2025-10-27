@@ -80,13 +80,8 @@ function closeSidebar() {
 }
 
 function gotoLogin() {
-<<<<<<< HEAD
-
-	window.location.href = '/momentlock/login';
-=======
 	
 	window.location.href = '/momentlock/member/login';
->>>>>>> 8db9c49 (add social login)
 
 };
 

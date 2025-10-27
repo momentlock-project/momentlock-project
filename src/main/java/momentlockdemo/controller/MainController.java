@@ -33,17 +33,6 @@ public class MainController {
 	
 	// 메인
 	@GetMapping({ "", "/" })
-<<<<<<< HEAD
-	public String mainPage(Model model, HttpServletRequest request) {
-		
-		model.addAttribute("user", request.getRemoteUser());
-		// 로그인했을 경우 nav에 닉네임 출력
-		//model.addAttribute("nickname", memberService.getMemberByUsername(request.getRemoteUser()).get().getNickname());
-		
-		return "html/main";
-		
-	}
-=======
 	public String mainPage(HttpSession session, HttpServletRequest request, Model model) {
 		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -65,7 +54,6 @@ public class MainController {
 		return "html/main";
 		
 	};
->>>>>>> 8db9c49 (add social login)
 
 	// 상점
 	@GetMapping("/store")
@@ -121,24 +109,5 @@ public class MainController {
     public String testLoginPage() {
         return "html/test-login";
     }
-	
-<<<<<<< HEAD
-=======
-    public static void alert(HttpServletResponse response, String msg) {
-    	
-        try {
-        	
-    		response.setContentType("text/html; charset=utf-8");
-    		PrintWriter w = response.getWriter();
-    		w.write("<script>alert('"+msg+"');</script>");
-    		w.flush();
-    		w.close();
-    		
-        }catch(Exception e) {
-    		e.printStackTrace();
-        }
-        
-    };
     
->>>>>>> 8db9c49 (add social login)
 }
