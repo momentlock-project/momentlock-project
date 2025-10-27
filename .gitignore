@@ -35,5 +35,9 @@ src/main/resources/application.properties
 src/main/resources/application-mail.properties
 src/main/resources/application.yml
 
+### oauth2 ###
+src/main/java/momentlockdemo/oauth2/SocialClientRegistration.java
+
+
 ### Help file ###
 HELP.md

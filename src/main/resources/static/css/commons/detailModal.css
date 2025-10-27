@@ -90,6 +90,10 @@
 	color: whitesmoke;
 }
 
+.modal-content.modal-cap-content {
+	min-height: 15vh !important;
+}
+
 /* 필터링 영역 */
 #notice-type-box {
 	display: flex;

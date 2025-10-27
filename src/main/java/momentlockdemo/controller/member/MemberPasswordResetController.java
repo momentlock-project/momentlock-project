@@ -61,7 +61,7 @@ public class MemberPasswordResetController {
 		Member member = memberService.getMemberByUsername(username).get();
 		member.setPassword(password);
 		memberService.passwordResetMember(member);
-		return "redirect:/html/member/login";
+		return "redirect:/momentlock/member/login";
 	}
 
 }
