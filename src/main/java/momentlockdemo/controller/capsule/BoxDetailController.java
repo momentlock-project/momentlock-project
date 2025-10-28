@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Capsule;
@@ -33,15 +34,16 @@ public class BoxDetailController {
 
 	// 박스 상세 + 캡슐 리스트 + 참여 인원 수
 	@GetMapping("/boxdetail")
-	public String boxdetailPage(@RequestParam("boxid") Long boxid, Model model) {
+	public String boxdetailPage(@RequestParam("boxid") Long boxid, Model model, HttpSession session) {
 
 		// 박스 조회
 		Box box = boxService.getBoxById(boxid)
 				.orElseThrow(() -> new IllegalArgumentException("해당 박스를 찾을 수 없습니다. ID=" + boxid));
 
 		// 로그인 구현
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Member member = memberService.getMemberByUsername(username).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString())
+				.get();
 
 		// 해당 박스에 속한 캡슐 리스트
 		List<Capsule> capsules = capsuleService.getCapsulesByBox(box);
@@ -73,12 +75,12 @@ public class BoxDetailController {
 
 	// 박스 묻기 준비 완료 처리 로직
 	@GetMapping("/boxready")
-	public String boxready(@RequestParam("boxid") Long boxid, Model model) {
-
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	public String boxready(@RequestParam("boxid") Long boxid, Model model, HttpSession session) {
 
 		// 로그인 구현
-		Member member = memberService.getMemberByUsername(username).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString())
+				.get();
 
 		Box box = boxService.getBoxById(boxid).get();
 

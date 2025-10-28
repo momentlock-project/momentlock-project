@@ -56,8 +56,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Member updateMember(Member member) {
     	
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    	Member updateMember = memberRepository.findByUsername(username).get();
+    	Member updateMember = memberRepository.findByUsername(member.getUsername()).get();
     	
     	// 다른 사용자들의 닉네임으로 수정 불가능
     	// 닉네임 중복 안됨

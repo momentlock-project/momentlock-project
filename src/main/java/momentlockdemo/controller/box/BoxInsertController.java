@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import momentlockdemo.dto.BoxCreateDto;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
@@ -48,9 +49,9 @@ public class BoxInsertController {
     // 상자 추가
     @PostMapping("/boxadd")
     public String addBox(
-            @ModelAttribute BoxCreateDto dto) {
+            @ModelAttribute BoxCreateDto dto, HttpSession session) {
         
-    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	String username = session.getAttribute("username").toString();
         String boxreleasecode = dto.getIsPublic() != null && dto.getIsPublic() ? "B00" : "B01";
         
         Box box = Box.builder()

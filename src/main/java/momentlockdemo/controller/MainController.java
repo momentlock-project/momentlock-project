@@ -24,9 +24,12 @@ public class MainController {
 	@Autowired
 	private MemberService memberService; 
 	
+	@Autowired
+	private PrincipalOAuth2UserService principalOAuth2UserService;
+	
 	// 메인
 	@GetMapping({ "", "/" })
-	public String mainPage(HttpSession session, HttpServletRequest request, Model model) {
+	public String mainPage(HttpSession session, HttpServletRequest request, Model model) {	
 		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		if (username.contains("@")) {
@@ -39,7 +42,7 @@ public class MainController {
 			
 		}else {
 			
-			session.setAttribute("username", PrincipalOAuth2UserService.getUsername());
+			session.setAttribute("username", principalOAuth2UserService.getUsername());
 			model.addAttribute("nickname", username);
 			
 		};
