@@ -2,13 +2,13 @@ package momentlockdemo.service.impl;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
@@ -59,9 +59,9 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         
         String username = oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId();
 
-        Member existData = memberRepository.findByNickname(username).get();
+        Optional<Member> existData = memberRepository.findByNickname(username);
         String role = "ROLE_USER";
-        if (existData == null) {
+        if (!existData.isPresent()) {
         	
         	Member member = new Member();
             member.setUsername(oAuth2UserInfo.getEmail());
@@ -71,37 +71,38 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
             member.setPhonenumber(oAuth2UserInfo.getPhonenumber());
             member.setLastlogindate(LocalDateTime.now());
             
+            PrincipalOAuth2UserService.username = oAuth2UserInfo.getEmail();
             memberRepository.save(member);
             
         }else {
         	
-        	if (existData.getMemcode().equals("MDY")) {
+        	Member member = memberRepository.findByNickname(username).get();
+        	if (member.getMemcode().equals("MDY")) {
         		
         		if (
-        		existData.getMemdeldate().until(LocalDateTime.now(), ChronoUnit.DAYS) > 90
+        		member.getMemdeldate().until(LocalDateTime.now(), ChronoUnit.DAYS) > 90
         		) {
         			
         			return null;
         			
         		}else {
         			
-        			existData.setMemcode("MDN");
-        			existData.setMemdeldate(null);
+        			member.setMemcode("MDN");
+        			member.setMemdeldate(null);
         			
         		};
         		
         	};
         	
-        	existData.setUsername(oAuth2UserInfo.getEmail());
-        	existData.setLastlogindate(LocalDateTime.now());
+        	member.setUsername(oAuth2UserInfo.getEmail());
+        	member.setLastlogindate(LocalDateTime.now());
 
-            role = existData.getRole();
+            role = member.getRole();
+            PrincipalOAuth2UserService.username = member.getUsername();
 
-            memberRepository.save(existData);
+            memberRepository.save(member);
             
         }
-
-        this.username = existData.getUsername();
         
         return new CustomOAuth2User(oAuth2UserInfo, role);
         

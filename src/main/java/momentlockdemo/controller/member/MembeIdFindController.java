@@ -15,7 +15,7 @@ import momentlockdemo.service.IdFindService;
 
 @Controller("memberFindIdController")
 @RequestMapping("/momentlock")
-public class MemberFindIdController {
+public class MembeIdFindController {
 
 	@Autowired
 	private IdFindService idFindService;
@@ -41,7 +41,7 @@ public class MemberFindIdController {
 			
 			System.out.println("null member. idFindProcess() return with no member");
 			
-			return "redirect:html/main";
+			return "html/member/idFind";
 			
 		}
 		
