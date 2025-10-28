@@ -19,35 +19,10 @@
 		<div class="member-modal login">
 			<h1>로그인 또는 회원가입</h1>
 			<div class="fail-login" th:if="${param.error}" style="color:red;">
-  				Invalid username or password
+  				아이디 또는 패스워드를 잘못 입력하였습니다
 			</div>
 			<form action="/loginProc" method="post" name="loginForm">
 				<div id="input-box">
-<<<<<<< HEAD
-					
-					<div id="input-group">
-						<span>아이디</span>
-        				<input id="username" type="text" name="username" placeholder="아이디를 입력하세요"/>
-        			</div>
-					
-        			<div id="input-group">
-        				<span>비밀번호</span>
-        				<input id="password" type="password" name="password" placeholder="비밀번호를 입력하세요"/>
-        			</div>
-					
-					<div>
-        				<input id="loginBtn" class="member-btn" type="submit" value="로그인"/>
-					</div>
-					
-        			<div id="move-login-box">
-	    				<a th:href="@{/momentlock/member/idFind}">아이디 찾기</a>
-		    			<p></p>
-		    			<a th:href="@{/momentlock/memberjoin}">회원가입</a>
-        			</div>
-					<div id="move-login-box">
-        				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 재설정</a>
-        				<p></p><p></p>
-=======
 					<div id="input-group">
 					<div class="input-group username">
 					<span>아이디</span>
@@ -69,11 +44,9 @@
         				<div class="anchor-password-reset">
         				<a th:href="@{/momentlock/passwordresetconfirm}">비밀번호 찾기</a>
         				</div>
->>>>>>> e1ab6bc (update login.css)
         			</div>
         		</div>
     		</form>
-    		
 			<div class="social-login-box">
 				<div>간편 로그인</div>
 					<div id="social-login-img-box">
@@ -92,6 +65,11 @@
 	</div>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 	<script th:src="@{/js/main.js}" defer></script>
+	<script>
+		setTimeout(function() {
+			document.querySelector('.fail-login').style.display = 'none';
+		}, 3000);
+	</script>
 </body>
 
 </html>

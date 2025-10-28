@@ -62,9 +62,9 @@ public class SecurityConfig {
 	
 		http
         		.formLogin((auth) -> auth
-        				.loginPage("/html/member/login")
+        				.loginPage("/momentlock/member/login")
         				.loginProcessingUrl("/loginProc")
-        				.defaultSuccessUrl("/momentlock", true)
+        				.defaultSuccessUrl("/momentlock")
         				.permitAll()
         		);
 

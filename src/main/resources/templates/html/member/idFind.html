@@ -18,7 +18,7 @@
 	<div id="mainContainer" class="blurContainer">
 		<div th:replace="~{fragments/nav_login :: nav}"></div>
 		<div class="member-modal idfind">
-			<h1>아이디 찾기</h1>
+			<h1 th:unless="${param.error}">아이디 찾기</h1>
     		<div class="fail-find" th:if="${param.error}" style="color:red;">
   				No user found
 			</div>
