@@ -11,7 +11,7 @@ public class MemberLoginController {
 	@GetMapping("/member/login")
 	public String loginP() {
 		
-		return "html/member/login";
+		return "/momentlock/member/login";
 		
 	};
 	
