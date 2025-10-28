@@ -30,7 +30,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 	
 	private final MemberRepository memberRepository;
 	
-	private static String username;
+	private String username;
 	
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -71,7 +71,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
             member.setPhonenumber(oAuth2UserInfo.getPhonenumber());
             member.setLastlogindate(LocalDateTime.now());
             
-            PrincipalOAuth2UserService.username = oAuth2UserInfo.getEmail();
+            this.username = oAuth2UserInfo.getEmail();
             memberRepository.save(member);
             
         }else {
@@ -98,7 +98,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         	member.setLastlogindate(LocalDateTime.now());
 
             role = member.getRole();
-            PrincipalOAuth2UserService.username = member.getUsername();
+            this.username = member.getUsername();
 
             memberRepository.save(member);
             
@@ -108,9 +108,9 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
         
     };
     
-    public static String getUsername() {
+    public String getUsername() {
     	
-    	return PrincipalOAuth2UserService.username;
+    	return this.username;
     	
     };
 

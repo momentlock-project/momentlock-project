@@ -22,11 +22,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import momentlockdemo.entity.Capsule;
 import momentlockdemo.entity.Member;
+import momentlockdemo.repository.MemberRepository;
 import momentlockdemo.service.AfileService;
 import momentlockdemo.service.BoxService;
 import momentlockdemo.service.CapsuleService;
 import momentlockdemo.service.MemberService;
 import com.amazonaws.services.s3.AmazonS3;
+
+import jakarta.servlet.http.HttpSession;
+import momentlockdemo.controller.AuthenticationEventListener;
 import momentlockdemo.entity.Afile;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Capsule;
@@ -37,6 +41,8 @@ import momentlockdemo.service.CapsuleService;
 @RequestMapping("/momentlock")
 public class CapsuleInsertController {
 
+    private final AuthenticationEventListener authenticationEventListener;
+
 	private final AmazonS3 amazonS3;
 
 	@Autowired
@@ -44,6 +50,9 @@ public class CapsuleInsertController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MemberRepository memberRepository;
 
 	@Autowired
 	private BoxService boxService;
@@ -51,8 +60,9 @@ public class CapsuleInsertController {
 	@Autowired
 	private AfileService afileService;
 
-	CapsuleInsertController(AmazonS3 amazonS3) {
+	CapsuleInsertController(AmazonS3 amazonS3, AuthenticationEventListener authenticationEventListener) {
 		this.amazonS3 = amazonS3;
+		this.authenticationEventListener = authenticationEventListener;
 	}
 
 	@GetMapping("/capsuleinsert")
@@ -82,11 +92,14 @@ public class CapsuleInsertController {
 	 */
 	@PostMapping("/capsuleinsert")
 	public String capsuleinsert(@ModelAttribute("capsule") Capsule capsule, @RequestParam("boxid") Long boxid,
-			@RequestParam(value = "files", required = false) MultipartFile[] files, @AuthenticationPrincipal User user)
+			@RequestParam(value = "files", required = false) MultipartFile[] files, 
+			HttpSession session, 
+			@AuthenticationPrincipal User user)
 			throws IOException {
 
 		// (선택) 로그인 사용자 연결
-		Member member = memberService.getMemberByUsername(user.getUsername()).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString()).get();
 		capsule.setMember(member);
 
 		Box box = boxService.getBoxById(boxid).orElseThrow(() -> new IllegalArgumentException("박스 정보를 찾을 수 없습니다."));
@@ -111,25 +124,30 @@ public class CapsuleInsertController {
 				}
 			}
 		}
+		
+		box.setBoxcapcount(box.getBoxcapcount() + 1);
+		
 		// 캡슐을 insert 하면 memcapcount 감소하기
 		member.setMemcapcount(member.getMemcapcount() - 1);
-		memberService.updateMember(member);
+		memberRepository.save(member);
 		// 등록 후 리다이렉트
 		return "redirect:/momentlock/boxdetail?boxid=" + savedCapsule.getBox().getBoxid();
 	}
 
 	// 캡슐 수정 처리
 	@PostMapping("/capsuleupdate")
-	public String updateCapsule(@ModelAttribute("capsule") Capsule capsule, @RequestParam("boxid") Long boxid,
-			@RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
-
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	public String updateCapsule(
+			@ModelAttribute("capsule") Capsule capsule, @RequestParam("boxid") Long boxid,
+			@RequestParam(value = "files", required = false) MultipartFile[] files, 
+			HttpSession session) throws IOException {
 
 		// 기존 캡슐 조회
 		Capsule existing = capsuleService.getCapsuleById(capsule.getCapid())
 				.orElseThrow(() -> new IllegalArgumentException("해당 캡슐을 찾을 수 없습니다."));
 
-		Member member = memberService.getMemberByUsername(username).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString())
+				.get();
 		existing.setMember(member);
 
 		Box box = boxService.getBoxById(boxid).orElseThrow(() -> new IllegalArgumentException("박스 정보를 찾을 수 없습니다."));
@@ -173,11 +191,15 @@ public class CapsuleInsertController {
 
 	@GetMapping("/capsuledelete")
 	@Transactional
-	public String deleteCapsule(@RequestParam("boxid") Long boxid, @RequestParam("capsuleid") Long capid) {
+	public String deleteCapsule(
+			@RequestParam("boxid") Long boxid, 
+			@RequestParam("capsuleid") Long capid, 
+			HttpSession session) {
 
 		// 유저 정보 가져오기
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Member member = memberService.getMemberByUsername(username).get();
+		Member member = memberService.getMemberByUsername(
+				session.getAttribute("username").toString())
+				.get();
 
 		// 캡슐 조회
 		Capsule capsule = capsuleService.getCapsuleById(capid)
@@ -197,7 +219,7 @@ public class CapsuleInsertController {
 
 		// 캡슐을 insert 하면 memcapcount 감소하기
 		member.setMemcapcount(member.getMemcapcount() + 1);
-		memberService.updateMember(member);
+		memberRepository.save(member);
 
 		return "redirect:/momentlock/boxdetail?boxid=" + boxid;
 	}

@@ -20,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/momentlock")
@@ -115,10 +117,12 @@ public class InviteController {
 
 	@GetMapping("/invitemember")
 	public String sendInvite(
-			@RequestParam("nickname") String inviteeNickname, @RequestParam("boxid") Long boxid) {
+			@RequestParam("nickname") String inviteeNickname, 
+			@RequestParam("boxid") Long boxid,
+			HttpSession session) {
 
 		try {
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			String username = session.getAttribute("username").toString();
 			// 초대하는 사람 조회 ( 로그인 한 사람으로 )
 			Member inviter = memberService.getMemberByUsername(username).get();
 

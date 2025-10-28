@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import jakarta.servlet.http.HttpSession;
 import momentlockdemo.controller.capsule.BoxDetailController;
 import momentlockdemo.entity.Box;
 import momentlockdemo.entity.Member;
@@ -41,7 +43,8 @@ public class BoxTransmitController {
 
 	@GetMapping("/boxTransmit")
 	@ResponseBody
-	public boolean transmit(@RequestParam Long boxid, @RequestParam String inputNickname, Model model) {
+	public boolean transmit(
+			@RequestParam Long boxid, @RequestParam String inputNickname, Model model, HttpSession session) {
 
 //		입력한 수신자 닉네임이 존재하는지 여부
 		boolean exists = memberService.existsByNickname(inputNickname);
@@ -51,7 +54,7 @@ public class BoxTransmitController {
 
 //		박스를 보내는 유저
 		Member sender = memberService
-				.getMemberByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+				.getMemberByUsername(session.getAttribute("username").toString())
 				.orElseThrow(() -> new RuntimeException("송신자를 찾을 수 없음"));
 
 		if (sender.getNickname() == inputNickname) {
