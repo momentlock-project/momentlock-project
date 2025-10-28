@@ -125,8 +125,6 @@ public class CapsuleInsertController {
 			}
 		}
 		
-		box.setBoxcapcount(box.getBoxcapcount() + 1);
-		
 		// 캡슐을 insert 하면 memcapcount 감소하기
 		member.setMemcapcount(member.getMemcapcount() - 1);
 		memberRepository.save(member);
